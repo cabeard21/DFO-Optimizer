@@ -1,6 +1,6 @@
 # DFO Optimizer
 
-Offline native class construction and search for Daggerfall Online's 2026-11-02 public source snapshot. Project specification and milestone gates are in [the handoff](DFO_Spellcasting_Optimizer_Codex_Handoff.md).
+Offline native class construction, single-effect spell evaluation, and joint gear/spell optimization for Daggerfall Online's 2026-11-02 public source snapshot. [Project specification](DFO_Spellcasting_Optimizer_Codex_Handoff.md)
 
 ## Install
 
@@ -38,13 +38,40 @@ The CLI writes JSON. `class import` accepts parseable drafts and reports skipped
 
 During an active class search, Ctrl+C requests cancellation. The CLI writes the validated incumbents and termination reason to the requested JSON destination and exits with status 130.
 
+### Compare spells and complete loadouts
+
+```sh
+dfo evaluate --request examples/spell-fixed.json
+dfo spell optimize --request examples/spell-auto.json --output build/spells.json
+dfo gear optimize --request examples/gear-owned.json --output build/owned.json
+dfo gear optimize --request examples/gear-budget.json --output build/upgrades.json
+dfo gear optimize --request examples/gear-catalog.json --output build/catalog.json
+dfo gear optimize --request examples/gear-bis.json --output build/theory.json
+dfo benchmark --suite combat --workers 1 --output build/combat.json
+```
+
+Each point pairs a complete recipe with expected target HP loss per recast second and per actual SP. The scenario assumes one ordinary, stationary PvE foe and one confirmed hit per cast. Read the returned search status, domain, acquisition evidence, and exclusions before comparing points. The theoretical gear example searches a declared roll catalog. Damage over time, recovery, conditional powers and training routes are later milestones.
+
+### Use a character save
+
+In the game's enhanced Load menu choose **Move saves → Export all saves**. List the slots, select one, then supply it directly to an evaluation or save the portable character JSON for reuse. The commands below replay a synthetic two-slot ZIP produced by the pinned game's normal exporter.
+
+```sh
+dfo character slots --input tests/fixtures/character/export.zip
+dfo character import --input tests/fixtures/character/export.zip --slot 0 --output build/character.json
+dfo evaluate --character build/character.json --request examples/spell-fixed-from-save.json
+dfo gear optimize --character tests/fixtures/character/export.zip --slot 0 --request examples/gear-auto-from-save.json
+```
+
+Saved SP can omit online bonuses. For automatic searches the example records a separately attributed observation of current SP. Replace that observation with your own value, source and timestamp when using your save. Plain v1 `SaveData.txt`, slot directories, and portable character JSON also work. [Save fixture and schema examples](tests/fixtures/character/README.md)
+
 ## Rebuild and verify
 
 Normal search runs offline from the packaged ruleset. For extraction and oracle replay, install Git and Node 22.18, then obtain the pinned reference in the ignored vendor directory.
 
 ```sh
 git clone --filter=blob:none --no-checkout https://github.com/Lattymoy/daggerfall-js-source.git vendor/dfo-source
-git -C vendor/dfo-source sparse-checkout set --no-cone '/src/' '/locales/' '/test/systems/' '/package.json' '/vendor/**/*.json' '/vendor/**/*.js' '/LICENSE' '/README.md'
+git -C vendor/dfo-source sparse-checkout set --no-cone '/src/' '/locales/' '/test/systems/' '/test/modsOff.js' '/test/fixtures/mw/' '/tools/nifWrite.mjs' '/tools/lib/isMain.mjs' '/app/lib/fileStorage.cjs' '/package.json' '/vendor/**/*.json' '/vendor/**/*.js' '/LICENSE' '/README.md'
 git -C vendor/dfo-source checkout --detach a3eb1605ea1dc391b691fe314377458a7e63e483
 dfo ruleset build --source vendor/dfo-source --commit a3eb1605ea1dc391b691fe314377458a7e63e483 --out build/ruleset
 dfo ruleset validate --ruleset build/ruleset
@@ -53,6 +80,6 @@ python -m build
 python tools/verify_wheel.py
 ```
 
-Wheel acceptance creates a new environment, invokes the independent Node oracle, runs the tests against the installed package from outside the checkout, and records a smoke benchmark. Set `DFO_SOURCE` to use another local checkout. The 14 original Dhargo downloads can also be replayed separately. [Fixture verification](tests/fixtures/dhargo/README.md)
+Wheel acceptance creates a new environment, regenerates four source fixtures, runs the tests against the installed package from outside the checkout, and records the class and combat benchmarks. Set `DFO_SOURCE` to use another local checkout. The 14 original Dhargo downloads can also be replayed separately. [Fixture verification](tests/fixtures/dhargo/README.md)
 
-[M0–M1 acceptance and results](docs/M0-M1-ACCEPTANCE.md) · [Architecture](docs/ARCHITECTURE.md) · [Mechanics and open questions](docs/MECHANICS.md) · [Search guarantees](docs/OPTIMIZATION.md) · [Performance measurements](docs/PERFORMANCE.md)
+[M0–M1 acceptance](docs/M0-M1-ACCEPTANCE.md) · [M2–M3 acceptance](docs/M2-M3-ACCEPTANCE.md) · [Architecture](docs/ARCHITECTURE.md) · [Mechanics and open questions](docs/MECHANICS.md) · [Search guarantees](docs/OPTIMIZATION.md) · [Performance measurements](docs/PERFORMANCE.md)

@@ -29,6 +29,11 @@ jobs:
             /src/
             /locales/
             /test/systems/
+            /test/modsOff.js
+            /test/fixtures/mw/
+            /tools/nifWrite.mjs
+            /tools/lib/isMain.mjs
+            /app/lib/fileStorage.cjs
             /package.json
             /vendor/**/*.json
             /vendor/**/*.js
@@ -36,7 +41,12 @@ jobs:
             /README.md
       - run: python -m pip install -r requirements-dev.txt
       - run: python -m build
-      - run: node --test test/systems/customclass.test.js test/systems/specialadvantages.test.js
+      - run: >-
+          node --test test/systems/customclass.test.js test/systems/specialadvantages.test.js
+          test/systems/spellcast.test.js test/systems/fb1012c_spellcost.test.js
+          test/systems/bal9_destruction.test.js test/systems/castspeed.test.js
+          test/systems/equiprestrictions.test.js test/systems/spell/audit26_spellmaker.test.js
+          test/systems/save/savetransfer.test.js
         working-directory: vendor/dfo-source
       - run: python tools/verify_wheel.py
       - if: runner.os == 'Linux'

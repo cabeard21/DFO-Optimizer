@@ -15,3 +15,7 @@
 ## Current acceptance commands
 
 Build a platform wheel with `python -m build` and run `python tools/verify_wheel.py`. Use the pinned source checkout in `vendor/dfo-source` or set `DFO_SOURCE` to an existing checkout containing the reviewed Git objects. Run `dfo benchmark --suite smoke --workers 1` for a comparable serial workload. Record host, build, work counters and result identity when updating timing baselines.
+
+Spell and equipment releases also require `dfo benchmark --suite combat --workers 1`. Compare bounded and exact Pareto points on the same reduced request. Run the class, character-export, spell and equipment oracle regeneration checks against the pinned tree. Test the imported-save CLI and both new extensions in installed Windows and Linux wheels. On Linux run `python tools/verify_native_coverage.py` for compiler-instrumented coverage.
+
+Keep earned and live Destruction separate, and track the timestamp and source of resource observations absent from a save. For gear, carry physical copy IDs, occupied positions, class restrictions, purchase evidence by currency and the spell selected at that loadout. State the actual roll universe and encounter assumptions with every frontier.

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "caster": {
+    "level": 10, "speed": 65,
+    "destruction_live": 75, "destruction_trained": 75, "destruction_mastered": false,
+    "current_sp": 80, "max_sp": 100, "gold": 500, "has_spellbook": true
+  },
+  "target": {"id": "synthetic_fire_resistant_foe", "hp": 60, "willpower": 50, "resistant": 8},
+  "price_factor": 1,
+  "domain": {
+    "effect_id": "4,0", "element": [0, 1, 4], "range_type": [1, 2],
+    "base_low": [1, 3, 5], "base_high": [2, 4, 6], "plus_low": [1, 3, 5],
+    "plus_high": [2, 4, 6], "per_level": [1, 2, 5]
+  },
+  "search": {"objective": "pareto", "max_nodes": 0, "workers": 1}
+}

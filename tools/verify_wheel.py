@@ -5,6 +5,7 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+import tomllib
 import venv
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -18,7 +19,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--wheel", type=Path)
     args = parser.parse_args()
-    wheels = sorted((ROOT / "dist").glob("*.whl"))
+    version = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf8"))["project"]["version"]
+    wheels = sorted((ROOT / "dist").glob(f"dfo_optimizer-{version}-*.whl"))
     if args.wheel is None and len(wheels) != 1:
         parser.error("specify --wheel when dist does not contain exactly one wheel")
     wheel = (args.wheel or wheels[0]).resolve(strict=True)
@@ -36,12 +38,13 @@ def main():
         env["PATH"] = str(bindir) + os.pathsep + env.get("PATH", "")
         run([python, "-m", "pip", "install", "-r", ROOT / "requirements-dev.txt", wheel], work, env)
         run([python, "-m", "pip", "check"], work, env)
-        run([python, ROOT / "tools" / "ruleset" / "generate_oracle.py",
-             "--source", env["DFO_SOURCE"], "--check"], work, env)
+        for script in ("generate_oracle.py", "generate_character.py", "spell_oracle.py", "equipment.py"):
+            run([python, ROOT / "tools" / "ruleset" / script, "--source", env["DFO_SOURCE"], "--check"], work, env)
         run([python, "-m", "pytest", ROOT / "tests", "--cov=dfo_optimizer",
              "--cov-config", ROOT / "pyproject.toml", "--cov-report=term-missing"], work, env)
-        run([bindir / ("dfo.exe" if os.name == "nt" else "dfo"), "benchmark",
-             "--suite", "smoke", "--workers", "1", "--output", output / "smoke.json"], work, env)
+        for suite in ("smoke", "combat"):
+            run([bindir / ("dfo.exe" if os.name == "nt" else "dfo"), "benchmark",
+                 "--suite", suite, "--workers", "1", "--output", output / f"{suite}.json"], work, env)
 
 
 if __name__ == "__main__":

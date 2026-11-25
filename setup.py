@@ -1,5 +1,6 @@
 """PEP 517 extension configuration for a mandatory platform wheel."""
 import os
+from pathlib import Path
 
 from Cython.Build import cythonize
 from setuptools import Extension, setup
@@ -18,17 +19,19 @@ class NativeBuild(build_ext):
         super().build_extensions()
 
 
-extension = Extension(
-    "dfo_optimizer._native",
-    ["src/dfo_optimizer/_native.pyx"],
-    language="c++",
-    include_dirs=["src/dfo_optimizer"],
-    depends=["src/dfo_optimizer/native_build.hpp", "src/dfo_optimizer/class_search.hpp"],
-)
+package = Path("src/dfo_optimizer")
+headers = sorted(str(path) for pattern in ("*.hpp", "*.pxi") for path in package.glob(pattern))
+extensions = [
+    Extension(
+        f"dfo_optimizer.{name}", [str(package / f"{name}.pyx")], language="c++",
+        include_dirs=[str(package)], depends=headers,
+    )
+    for name in ("_native", "_spells", "_gear")
+]
 setup(
     cmdclass={"build_ext": NativeBuild},
     ext_modules=cythonize(
-        [extension],
+        extensions,
         build_dir="build/cython",
         annotate=bool(os.environ.get("DFO_ANNOTATE")),
         compiler_directives={"language_level": 3},

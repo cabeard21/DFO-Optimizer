@@ -9,7 +9,8 @@ import tempfile
 SOURCE_SHA = "a3eb1605ea1dc391b691fe314377458a7e63e483"
 SOURCE_URL = "https://github.com/Lattymoy/daggerfall-js-source"
 DATA = Path(__file__).with_name("data")
-BUNDLE_HASH = "293f927a36e9bdbc9504e8ed3f16582e326c9bcc5f7a8b84a241a81ae069a27d"
+BUNDLE_HASH = "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183"
+CLASS_BUNDLE_HASH = "293f927a36e9bdbc9504e8ed3f16582e326c9bcc5f7a8b84a241a81ae069a27d"
 MAX_BUNDLE_BYTES = 2_000_000
 
 
@@ -25,8 +26,16 @@ def validate_ruleset(bundle: dict) -> dict:
     """Only the exact reviewed schema and contents may become a native search input."""
     if not isinstance(bundle, dict) or bundle.get("source_sha") != SOURCE_SHA or bundle.get("schema_version") != 1:
         raise ValueError("Unsupported ruleset schema or source revision")
-    if bundle.get("content_hash") != BUNDLE_HASH or _digest(bundle) != BUNDLE_HASH:
+    identity = bundle.get("content_hash")
+    if identity not in (BUNDLE_HASH, CLASS_BUNDLE_HASH) or _digest(bundle) != identity:
         raise ValueError("Ruleset does not match the reviewed content hash")
+    return bundle
+
+
+def validate_combat_ruleset(bundle):
+    validate_ruleset(bundle)
+    if bundle["content_hash"] == CLASS_BUNDLE_HASH:
+        raise ValueError("Spell and gear evaluation require a ruleset with combat mechanics.")
     return bundle
 
 
@@ -107,11 +116,22 @@ def run_adapter(source, lock_file: Path, adapter: Path, args=()):
 
 def _extract(source):
     catalog = run_adapter(source, DATA / "source-lock.json", DATA / "extract.mjs")
+    def data(name):
+        return json.loads((DATA / name).read_text(encoding="utf-8"))
+
+    registry = {row["mechanic_id"]: row for row in data("mechanics.json")}
+    for name in ("spell-mechanics.json", "equipment-mechanics.json"):
+        registry.update((row["mechanic_id"], row) for row in data(name))
+    spell_rules = run_adapter(source, DATA / "spell-lock.json", DATA / "spell-rules.mjs")
+    equipment = {"source_sha": SOURCE_SHA, **run_adapter(source, DATA / "equipment-lock.json", DATA / "equipment.mjs")}
+    if spell_rules != data("spell-rules.json") or equipment != data("equipment.json"):
+        raise ValueError("Extracted combat catalogs differ from the reviewed data shipped in this package.")
     bundle = {
-        **catalog, "schema_version": 1, "extraction_version": 1, "engine_version": "class-v1",
+        **catalog, "schema_version": 1, "extraction_version": 2, "engine_version": "combat-v1",
         "mode": "online_snapshot", "source_url": SOURCE_URL, "source_sha": SOURCE_SHA,
         "snapshot_date": "2026-11-02", "supported_live_version": None,
-        "mechanics": json.loads((DATA / "mechanics.json").read_text(encoding="utf-8")),
+        "mechanics": list(registry.values()), "spell_rules": spell_rules,
+        "equipment_hash": hashlib.sha256(_json_bytes(equipment)).hexdigest(),
     }
     return {**bundle, "content_hash": _digest(bundle)}
 

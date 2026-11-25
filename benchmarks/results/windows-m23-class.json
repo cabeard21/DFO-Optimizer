@@ -1,0 +1,240 @@
+{
+  "schema_version": 1,
+  "workload_version": 1,
+  "suite": "smoke",
+  "workers": 1,
+  "host": {
+    "os": "Windows-10-10.0.19045-SP0",
+    "architecture": "AMD64",
+    "cpu": "AMD Ryzen 5 5600X 6-Core Processor",
+    "logical_cpus": 12,
+    "python": "3.12.10",
+    "python_compiler": "MSC v.1943 64 bit (AMD64)"
+  },
+  "engine": {
+    "compiler": "MSVC 195035721",
+    "flags": "/std:c++17 /O2 /fp:strict",
+    "native": true,
+    "extension": "_native.cp312-win_amd64.pyd",
+    "binary_sha256": "a8264065deff1ea9266dd5870f264f0ad1f920ca2daf98e89b90c953ae8ccaa3",
+    "version": "0.2.0"
+  },
+  "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+  "ruleset_hash": "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183",
+  "catalog": {
+    "traits": 90,
+    "races": 8,
+    "skills": 35
+  },
+  "repeats": 7,
+  "seed": null,
+  "workloads": {
+    "mechanics_batch": {
+      "rows": 65536,
+      "verified": true,
+      "input_patterns": [
+        [
+          4,
+          2,
+          -6,
+          -12
+        ],
+        [
+          8,
+          6,
+          -4,
+          2
+        ],
+        [
+          30,
+          10,
+          -44,
+          -12
+        ],
+        [
+          26,
+          22,
+          0,
+          40
+        ]
+      ],
+      "copies": 16384,
+      "cold": {
+        "wall_seconds": 0.00043989999994664686,
+        "cpu_seconds": 0.015625
+      },
+      "cold_scope": "first batch call in this process",
+      "warm": {
+        "samples": [
+          {
+            "wall_seconds": 0.0004346000005170936,
+            "cpu_seconds": 0.0
+          },
+          {
+            "wall_seconds": 0.00042329999996582046,
+            "cpu_seconds": 0.0
+          },
+          {
+            "wall_seconds": 0.0004152999999860185,
+            "cpu_seconds": 0.0
+          },
+          {
+            "wall_seconds": 0.0004222999996272847,
+            "cpu_seconds": 0.0
+          },
+          {
+            "wall_seconds": 0.0002967000000353437,
+            "cpu_seconds": 0.0
+          },
+          {
+            "wall_seconds": 0.00029349999931582715,
+            "cpu_seconds": 0.0
+          },
+          {
+            "wall_seconds": 0.0002834999995684484,
+            "cpu_seconds": 0.015625
+          }
+        ],
+        "p50_seconds": 0.0004152999999860185,
+        "p95_seconds": 0.0004346000005170936
+      },
+      "evaluations_per_second": 157803997.11583513,
+      "result_sha256": "cbea3ee92b3bfbd9c4010532ebf4a5af83109e74ea8c31baccfbc38de5270875"
+    },
+    "class_exact": {
+      "nodes": 78,
+      "leaves": 4,
+      "pruned": 9,
+      "work_bytes": 24236,
+      "request": {
+        "race_ids": [
+          1,
+          2
+        ],
+        "hp_values": [
+          30
+        ],
+        "trait_ids": [
+          23,
+          65,
+          60,
+          58,
+          62,
+          64,
+          56,
+          59,
+          61
+        ],
+        "exact": true,
+        "objective": "examples",
+        "top_k": 10
+      },
+      "request_hash": "5c94a56ce0a685523a6d60ec1f18ea69695302a456268ccab09c8677df5e601f",
+      "result_sha256": "2c50c9be772ff57c0c52c7c2c8df1be323047879710c447a6f7136d11881e150",
+      "eligible_trait_count": 9,
+      "status": "optimal_proven",
+      "termination": "exhausted",
+      "returned": 4,
+      "verified": true,
+      "quality": "All four expected classes",
+      "first_feasible_seconds": 8.9e-06,
+      "cold_scope": "fresh installed CLI process including startup and JSON output",
+      "cold": {
+        "wall_seconds": 0.1280679000001328
+      },
+      "warm": {
+        "samples": [
+          {
+            "wall_seconds": 0.0033991999998761457,
+            "cpu_seconds": 0.015625
+          },
+          {
+            "wall_seconds": 0.0022543999994013575,
+            "cpu_seconds": 0.0
+          },
+          {
+            "wall_seconds": 0.0020244999996066326,
+            "cpu_seconds": 0.0
+          },
+          {
+            "wall_seconds": 0.0021334000002752873,
+            "cpu_seconds": 0.0
+          },
+          {
+            "wall_seconds": 0.0019441000004007947,
+            "cpu_seconds": 0.0
+          },
+          {
+            "wall_seconds": 0.001965800000107265,
+            "cpu_seconds": 0.0
+          },
+          {
+            "wall_seconds": 0.0019806999998763786,
+            "cpu_seconds": 0.0
+          }
+        ],
+        "p50_seconds": 0.0020244999996066326,
+        "p95_seconds": 0.0033991999998761457
+      }
+    },
+    "class_bounded": {
+      "nodes": 252,
+      "leaves": 20,
+      "pruned": 66,
+      "work_bytes": 155316,
+      "request": {
+        "top_k": 20,
+        "max_nodes": 100000
+      },
+      "request_hash": "7d7ab9b17d0a3655ce01e8139956fa3c685d105642f0b3cf7fdb3e7a144dec45",
+      "result_sha256": "7164b68d95f22949c61275c5ba0163d245516040e8db81a2ad824f6bf219cfbd",
+      "eligible_trait_count": 71,
+      "status": "best_found_bounded",
+      "termination": "top_k",
+      "returned": 20,
+      "verified": true,
+      "quality": "Feasible examples at the locked floor",
+      "first_feasible_seconds": 8.17e-05,
+      "cold_scope": "fresh installed CLI process including startup and JSON output",
+      "cold": {
+        "wall_seconds": 0.12692079999942507
+      },
+      "warm": {
+        "samples": [
+          {
+            "wall_seconds": 0.00447000000076514,
+            "cpu_seconds": 0.0
+          },
+          {
+            "wall_seconds": 0.004438999999365478,
+            "cpu_seconds": 0.0
+          },
+          {
+            "wall_seconds": 0.004824100000405451,
+            "cpu_seconds": 0.015625
+          },
+          {
+            "wall_seconds": 0.0043030999995608,
+            "cpu_seconds": 0.0
+          },
+          {
+            "wall_seconds": 0.005049300000791845,
+            "cpu_seconds": 0.0
+          },
+          {
+            "wall_seconds": 0.005194299999857321,
+            "cpu_seconds": 0.0
+          },
+          {
+            "wall_seconds": 0.004372000000330445,
+            "cpu_seconds": 0.015625
+          }
+        ],
+        "p50_seconds": 0.00447000000076514,
+        "p95_seconds": 0.005194299999857321
+      }
+    }
+  },
+  "peak_rss_bytes": 28106752,
+  "rss_scope": "peak resident bytes of the benchmark process over all workloads"
+}

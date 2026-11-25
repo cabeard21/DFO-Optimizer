@@ -13,9 +13,10 @@
     "unknown1": 0,
     "weaponArmorShieldsBitfield": 0
   },
-  "content_hash": "293f927a36e9bdbc9504e8ed3f16582e326c9bcc5f7a8b84a241a81ae069a27d",
-  "engine_version": "class-v1",
-  "extraction_version": 1,
+  "content_hash": "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183",
+  "engine_version": "combat-v1",
+  "equipment_hash": "2d8d9a7e5b631682880df93cbdb40c6587927af9123ac8b1646867e5407f0a85",
+  "extraction_version": 2,
   "limits": {
     "difficulty_max": 40,
     "difficulty_min": -12,
@@ -28,6 +29,18 @@
     "stat_total": 400
   },
   "mechanics": [
+    {
+      "assumptions": [],
+      "implementation_status": "snapshot_import",
+      "limits": "Portable JSON and version 1 local saves. Stock spell indexes can be unresolved. Saved vitals may omit online bonuses. Item availability depends on the observed container.",
+      "live_verified": false,
+      "mechanic_id": "character.save_import",
+      "mode": "online_snapshot",
+      "path": "src/systems/save/save.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "snapshotPlayer; saveSlots.saveSlot; saveTransfer.exportSavesZip",
+      "verification_status": "source_verified"
+    },
     {
       "assumptions": [],
       "implementation_status": "class_construction",
@@ -185,16 +198,18 @@
       "verification_status": "source_verified"
     },
     {
-      "assumptions": [],
-      "implementation_status": "unimplemented",
-      "limits": "Direct damage, saving throws, resistance and immunity outcomes await M2.",
+      "assumptions": [
+        "Ordinary unshielded foe. No reflection, absorption, special foe damage modifiers or refunds."
+      ],
+      "implementation_status": "single_direct_spell",
+      "limits": "Instant Damage Health (4,0). Report pre-HP-cap landed damage, capped HP loss and lethal probability separately.",
       "live_verified": false,
       "mechanic_id": "pve.spell_damage",
       "mode": "online_snapshot",
-      "path": "src/systems/spellcast.js",
+      "path": "src/systems/effects.js",
       "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
-      "symbol": "effect application",
-      "verification_status": "unsupported"
+      "symbol": "applySpell, effectMagnitude, casterDamageScaled",
+      "verification_status": "source_verified"
     },
     {
       "assumptions": [],
@@ -234,14 +249,186 @@
     },
     {
       "assumptions": [],
-      "implementation_status": "unimplemented",
-      "limits": "Career flags are preserved. Actual owned or obtainable equipment is unknown.",
+      "implementation_status": "equipment_window",
+      "limits": "Reviewed classic wearable template groups, including retained restricted equipment. The caller supplies the bow-switching setting.",
       "live_verified": false,
       "mechanic_id": "gear.eligibility",
       "mode": "online_snapshot",
       "path": "src/systems/equip.js",
       "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
-      "symbol": "equipment restrictions",
+      "symbol": "getEquipSlot, isForbiddenEquip, isBrokenItem",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "single_direct_spell",
+      "limits": "One player-created instant Damage Health (4,0) with an ordered base pair, ordered level pair and divisor.",
+      "live_verified": false,
+      "mechanic_id": "spell.maker",
+      "mode": "online_snapshot",
+      "path": "src/systems/spell/spellMaker.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "updateAllowedButtons, SPINNER_RANGES, applyPairRules",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "single_direct_spell",
+      "limits": "One ordinary player cast. Live school skill pricing, target multiplier, integer truncation, five-SP baseline and reviewed loot Focus adjustments.",
+      "live_verified": false,
+      "mechanic_id": "spell.cast_cost",
+      "mode": "online_snapshot",
+      "path": "src/systems/spellcost.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "effectCost, skillScaledCost, calculateCastCost",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "single_direct_spell",
+      "limits": "Reports maker gold and chapter-adjusted quote when the factor is supplied. Buying requires access, a spellbook, a name and sufficient funds.",
+      "live_verified": false,
+      "mechanic_id": "spell.purchase",
+      "mode": "online_snapshot",
+      "path": "src/ui/spell/spellMakerWindow.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "SpellMakerWindow._updateSpellCosts, chapterPriced",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Frozen caster resources through the cast."
+      ],
+      "implementation_status": "single_direct_spell",
+      "limits": "Ordinary payable cast. The price freezes at ready. Insufficient SP at ready and a missing touch target prevent payment. Free and mid-aim drain cases are recorded as independent host boundary tests.",
+      "live_verified": false,
+      "mechanic_id": "spell.ready_charge",
+      "mode": "online_snapshot",
+      "path": "src/scenes/hostMagic.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "createPlayerMagic.readySpell, createPlayerMagic.castInput",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Continuous legal inputs, one confirmed impact per cast, stationary foe, no interruptions."
+      ],
+      "implementation_status": "single_direct_spell",
+      "limits": "Normal hand release and recast from a frozen live Speed plus declared cast-speed percentage.",
+      "live_verified": false,
+      "mechanic_id": "spell.cadence",
+      "mode": "online_snapshot",
+      "path": "src/combat/fpsSpellCasting.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "castReleaseS, SpellCastAnim.playOneShot, SpellCastAnim.tick",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "single_direct_spell",
+      "limits": "Online player's own direct spell against an ordinary foe, with separately identified live price skill, earned mastery and frozen supported modifiers.",
+      "live_verified": false,
+      "mechanic_id": "spell.potency",
+      "mode": "online_snapshot",
+      "path": "src/systems/spell/spellPower.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "fightingClimb, schoolPotency, spellPowerMult, spellPierce",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "single_direct_spell",
+      "limits": "Single NPC target. Active elemental resistance, career tolerance precedence, pre-Willpower immunity, penetration, clamping, and prorated D100 saves.",
+      "live_verified": false,
+      "mechanic_id": "spell.saves",
+      "mode": "online_snapshot",
+      "path": "src/systems/spellcast.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "savingChance, savingThrow, elementalResistanceChance, rollMagnitude",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "unimplemented",
+      "limits": "Multi-effect bundles, damage-over-time, encounter recovery, signatures, boss reactions, active absorption and reflection need additional verified evaluation.",
+      "live_verified": false,
+      "mechanic_id": "spell.extended_effects",
+      "mode": "online_snapshot",
+      "path": "src/systems/effects.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "applySpell, tickActiveEffects",
+      "verification_status": "unsupported"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "equipment_scoring",
+      "limits": "Speed, Intelligence and Destruction from supported rolls. Socket-derived lines are counted once. Suppressed duplicate legendary lines follow slot order.",
+      "live_verified": false,
+      "mechanic_id": "gear.caster_affixes",
+      "mode": "online_snapshot",
+      "path": "src/systems/loot/lootRarity.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "affixFold, validAffix, readLines, countedPieces",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "equipment_scoring",
+      "limits": "Focus, cast speed and potency under their independent caps for a solo player's direct spell. Conditional powers require additional evidence.",
+      "live_verified": false,
+      "mechanic_id": "gear.loot_cost_speed_power",
+      "mode": "online_snapshot",
+      "path": "src/systems/loot/lootPowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "lootCastCost, lootCastSpeed, lootSpellPower, lootSpellPierce",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "equipment_scoring",
+      "limits": "Worn legacy Enhances Skill adds to the live school. Unrecognized active enchantments exclude that item from scoring.",
+      "live_verified": false,
+      "mechanic_id": "gear.enhances_skill",
+      "mode": "online_snapshot",
+      "path": "src/systems/enchantments.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "ENHANCE_SKILL_MOD, EnhancesSkill",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "catalog",
+      "limits": "Seeded access-gated loot witnesses and a finite declared domain of theoretical magic and rare caster rolls. Source quotes are separate from level, price and ownership.",
+      "live_verified": false,
+      "mechanic_id": "gear.generated_rolls",
+      "mode": "online_snapshot",
+      "path": "src/systems/loot/lootRarity.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "rollLootRarity, rollAffixes, addProcLine, RARE_FLAVOURS",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "equipment_scoring",
+      "limits": "Immediate post-swap affordability uses the observed pool, earned Intelligence, known retained gear and career multiplier. Unknown flat maximum bonuses can leave the frontier incomplete. A fixed post-swap resource assumption is explicit.",
+      "live_verified": false,
+      "mechanic_id": "gear.swap_capacity",
+      "mode": "online_snapshot",
+      "path": "src/systems/chargen.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "defineLiveMaxMagicka, spellPointMultiplier; src/combat/formulas.js spellPointsFor; src/systems/enchantments.js computeEnchantmentMods",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "unimplemented",
+      "limits": "Conditional equipment powers, specialized templates and set bonuses require a broader encounter model. Affected items report exclusions.",
+      "live_verified": false,
+      "mechanic_id": "gear.conditional_effects",
+      "mode": "online_snapshot",
+      "path": "src/systems/sigil/sigilSets.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "wornSetPieces, sigilSetId",
       "verification_status": "unsupported"
     }
   ],
@@ -525,6 +712,80 @@
   "snapshot_date": "2026-11-02",
   "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
   "source_url": "https://github.com/Lattymoy/daggerfall-js-source",
+  "spell_rules": {
+    "cost": {
+      "floor": 5,
+      "focus_cap": 30,
+      "loot_cut_cap": 50,
+      "overcap_reference": 100,
+      "target_multipliers": {
+        "0": 1,
+        "1": 1,
+        "2": 1.5,
+        "3": 2,
+        "4": 2.5
+      }
+    },
+    "effect": {
+      "cost": {
+        "magnitude": {
+          "A": 20,
+          "B": 28,
+          "offset": 0
+        },
+        "skill": 22
+      },
+      "element_mask": 31,
+      "flags": {
+        "Disease": 64,
+        "Fire": 8,
+        "Frost": 16,
+        "Magic": 2,
+        "Paralysis": 1,
+        "Poison": 4,
+        "Shock": 32
+      },
+      "key": "4,0",
+      "spinners": {
+        "magnitudeBaseHigh": [
+          1,
+          100
+        ],
+        "magnitudeBaseLow": [
+          1,
+          100
+        ],
+        "magnitudeLevelBase": [
+          1,
+          100
+        ],
+        "magnitudeLevelHigh": [
+          1,
+          100
+        ],
+        "magnitudePerLevel": [
+          1,
+          20
+        ]
+      },
+      "target_mask": 30
+    },
+    "mode": "online_snapshot",
+    "power": {
+      "floor": 0.5,
+      "school_potency_per_point": 0.01
+    },
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "timing": {
+      "frame_period_seconds": 0.04,
+      "maximum": 2,
+      "minimum": 0.5,
+      "pivot": 50,
+      "recovery_seconds": 0.7,
+      "release_frame": 5,
+      "span": 200
+    }
+  },
   "supported_live_version": null,
   "traits": [
     {

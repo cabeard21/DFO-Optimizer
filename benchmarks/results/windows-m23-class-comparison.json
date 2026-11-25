@@ -1,0 +1,97 @@
+{
+  "suite": "smoke",
+  "order": [
+    "m1",
+    "m23",
+    "m23",
+    "m1",
+    "m1",
+    "m23"
+  ],
+  "wheels": {
+    "m1": {
+      "filename": "dfo_optimizer-0.1.0-cp312-cp312-win_amd64.whl",
+      "sha256": "8323a227dad7725da63074efbf54a7568a44e47a49ac82959e038013f5d33925"
+    },
+    "m23": {
+      "filename": "dfo_optimizer-0.2.0-cp312-cp312-win_amd64.whl",
+      "sha256": "32269ea64bc89a3f72eb4f0c3ea3563f2019ca43c4ba58d5ac0d6c62335e2d28"
+    }
+  },
+  "runs": [
+    {
+      "version": "m1",
+      "warm_p50_ms": {
+        "mechanics_batch": 0.28979999933653744,
+        "class_exact": 2.88289999934932,
+        "class_bounded": 4.123899999285641
+      },
+      "peak_rss_bytes": 27934720
+    },
+    {
+      "version": "m23",
+      "warm_p50_ms": {
+        "mechanics_batch": 0.2862999999706517,
+        "class_exact": 1.980600000024424,
+        "class_bounded": 4.274400000213063
+      },
+      "peak_rss_bytes": 27869184
+    },
+    {
+      "version": "m23",
+      "warm_p50_ms": {
+        "mechanics_batch": 0.426300000071933,
+        "class_exact": 2.0543000000543543,
+        "class_bounded": 4.589099999975588
+      },
+      "peak_rss_bytes": 28155904
+    },
+    {
+      "version": "m1",
+      "warm_p50_ms": {
+        "mechanics_batch": 0.3255000001445296,
+        "class_exact": 1.9284999998490093,
+        "class_bounded": 4.174200000306882
+      },
+      "peak_rss_bytes": 27930624
+    },
+    {
+      "version": "m1",
+      "warm_p50_ms": {
+        "mechanics_batch": 0.3179000004820409,
+        "class_exact": 1.8700999999055057,
+        "class_bounded": 4.129200000534183
+      },
+      "peak_rss_bytes": 27803648
+    },
+    {
+      "version": "m23",
+      "warm_p50_ms": {
+        "mechanics_batch": 0.30789999982516747,
+        "class_exact": 2.0268999996915227,
+        "class_bounded": 4.568600000311562
+      },
+      "peak_rss_bytes": 27942912
+    }
+  ],
+  "host": {
+    "os": "Windows-10-10.0.19045-SP0",
+    "architecture": "AMD64",
+    "cpu": "AMD Ryzen 5 5600X 6-Core Processor",
+    "logical_cpus": 12,
+    "python": "3.12.10",
+    "python_compiler": "MSC v.1943 64 bit (AMD64)"
+  },
+  "bundle_comparison_current_engine": {
+    "m1": {
+      "text_sha256": "5e95f73a93e9c652be913fd9528dde955dae6743d16edb6f96efc505ab7fedd3",
+      "copy_and_validate_ms": 1.2433639999956843,
+      "current_engine_exact_ms": 1.9380088888889684
+    },
+    "m23": {
+      "text_sha256": "906449d3736dd1f34386e181abcd3312d518f3fdf6d5f67fbbc8086889b34d19",
+      "copy_and_validate_ms": 1.185181999996227,
+      "current_engine_exact_ms": 2.087566666664821
+    }
+  }
+}

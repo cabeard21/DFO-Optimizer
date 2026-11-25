@@ -1,4 +1,6 @@
-# M1 class search
+# Optimization
+
+## Class search
 
 The default query finds examples at the Dhargo construction floor. It uses HP 30, 3× INT Magery, all eight race IDs, a balanced all-50 class attribute vector, and one reproducible 12-skill assignment. Fixing the latter two domains keeps the first query focused on trait construction. Supply `attribute_domains` or twelve `skill_domains` to search alternatives. User-supplied skill slot order is meaningful, and all 12 selections must be distinct.
 
@@ -21,3 +23,13 @@ The default node budget is 1,000,000 and the default native working-memory budge
 - With `exact: true`, exhaust the declared domain subject to the stated budgets. Proof requires actual exhaustion or a proven inconsistent lock. Bounded examples can stop after the requested count. A node or time limit with no incumbent reports an incomplete search. Stable traversal resolves equal objectives. Wall-clock-limited incumbents can vary between runs.
 
 The service reports native work and revalidates each finalist independently through the class document path. The deterministic digest excludes timing. All benchmarks in this milestone use one worker.
+
+## Direct spell and equipment frontiers
+
+Each frontier point gives the expected target HP actually lost per recast second and per SP. Target HP, current SP, effective casting skill, earned mastery, and the caster's speed belong to the frozen request. A fixed evaluation can also show pre-overkill damage and whether the caster can pay for the spell. The repeat-cast scenario assumes each cast lands on a target at the specified HP and funds are available.
+
+For Damage Health, the two inclusive magnitude intervals, level divisor, five elements and four legal target modes yield 10,201,000,000 legal settings. The spell solver builds cumulative HP-loss tables and scores a pair of intervals with a rectangle sum. Complete Pareto queries retain a representative of each distinct nondominated metric pair. Exactness requires exhaustion of the declared domain. Finite budgets return the best points visited; use the reported limits, work counts and stopping reason to reproduce them.
+
+Joint equipment search preserves physical copies, filters candidate slots and acquisition routes, and evaluates each retained modifier combination with the same spell kernel. Memoization is local to the request. Inspect both the outer equipment limit and the per-loadout spell limit. A complete traversal of loadouts with sampled spells still has a bounded result. The available and theoretical catalog modes describe their generated roll universe. A user can supply explicit observed copies and confirmed offers at actual prices.
+
+Changing Intelligence equipment can lower the maximum SP during a swap. The solver checks immediate affordability, retaining casts affordable at the conservative available pool. If a possible higher pool could admit more recipes, the response reports `unknown_swap_capacity` on exhaustion. A separately supplied `capacity.post_swap_sp` models a stated hypothetical pool. Physical empty-hand locks also exclude the second hand occupied by a two-handed item. Each result records both the item's anchor slot and all occupied slots.

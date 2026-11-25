@@ -1,0 +1,1197 @@
+{
+  "casts": [
+    {
+      "editor_cost": {
+        "gold": 160,
+        "sp": 22
+      },
+      "expected": {
+        "actual_sp_charged": 33,
+        "affordable": true,
+        "cast_rate": 1,
+        "cost_sp": 33,
+        "damage_per_sp": 0.20777777777777778,
+        "damage_per_sp_if_cast": 0.20777777777777778,
+        "dps": 9.795238095238096,
+        "expected_damage": 6.8566666666666665,
+        "expected_health_loss": 6.8566666666666665,
+        "gold": 240,
+        "immune": false,
+        "kill_probability": 0,
+        "potency": 1,
+        "purchase_gold": 240,
+        "recovery_seconds": 0.7,
+        "release_seconds": 0.2,
+        "save_chance": 55
+      },
+      "id": "ordinary",
+      "request": {
+        "caster": {
+          "current_sp": 450,
+          "destruction_live": 55,
+          "destruction_mastered": false,
+          "destruction_trained": 55,
+          "gold": 6000,
+          "has_spellbook": true,
+          "level": 12,
+          "max_sp": 500,
+          "speed": 50
+        },
+        "price_factor": 1,
+        "schema_version": 1,
+        "spell": {
+          "base_high": 9,
+          "base_low": 7,
+          "effect_id": "4,0",
+          "element": 0,
+          "per_level": 4,
+          "plus_high": 2,
+          "plus_low": 1,
+          "range_type": 2
+        },
+        "target": {
+          "hp": 55,
+          "id": "synthetic_foe",
+          "willpower": 50
+        }
+      },
+      "trials": 600
+    },
+    {
+      "editor_cost": {
+        "gold": 40,
+        "sp": 1
+      },
+      "expected": {
+        "actual_sp_charged": 5,
+        "affordable": true,
+        "cast_rate": 1,
+        "cost_sp": 5,
+        "damage_per_sp": 0.20400000000000001,
+        "damage_per_sp_if_cast": 0.20400000000000001,
+        "dps": 1.4571428571428573,
+        "expected_damage": 1.02,
+        "expected_health_loss": 1.02,
+        "gold": 40,
+        "immune": false,
+        "kill_probability": 0,
+        "potency": 1,
+        "purchase_gold": 40,
+        "recovery_seconds": 0.7,
+        "release_seconds": 0.2,
+        "save_chance": 55
+      },
+      "id": "touch_floor",
+      "request": {
+        "caster": {
+          "current_sp": 450,
+          "destruction_live": 100,
+          "destruction_mastered": false,
+          "destruction_trained": 55,
+          "gold": 6000,
+          "has_spellbook": true,
+          "level": 1,
+          "max_sp": 500,
+          "speed": 50
+        },
+        "price_factor": 1,
+        "schema_version": 1,
+        "spell": {
+          "base_high": 2,
+          "base_low": 2,
+          "effect_id": "4,0",
+          "element": 4,
+          "per_level": 20,
+          "plus_high": 1,
+          "plus_low": 1,
+          "range_type": 1
+        },
+        "target": {
+          "hp": 55,
+          "id": "synthetic_foe",
+          "willpower": 50
+        }
+      },
+      "trials": 100
+    },
+    {
+      "editor_cost": {
+        "gold": 4648,
+        "sp": 127
+      },
+      "expected": {
+        "actual_sp_charged": 254,
+        "affordable": true,
+        "cast_rate": 1,
+        "cost_sp": 254,
+        "damage_per_sp": 0.140748031496063,
+        "damage_per_sp_if_cast": 0.140748031496063,
+        "dps": 51.07142857142858,
+        "expected_damage": 693.9475,
+        "expected_health_loss": 35.75,
+        "gold": 9296,
+        "immune": false,
+        "kill_probability": 0.65,
+        "potency": 1,
+        "purchase_gold": 9296,
+        "recovery_seconds": 0.7,
+        "release_seconds": 0.2,
+        "save_chance": 55
+      },
+      "id": "online_99",
+      "request": {
+        "caster": {
+          "current_sp": 450,
+          "destruction_live": 99,
+          "destruction_mastered": false,
+          "destruction_trained": 55,
+          "gold": 6000,
+          "has_spellbook": true,
+          "level": 12,
+          "max_sp": 500,
+          "speed": 50
+        },
+        "price_factor": 1,
+        "schema_version": 1,
+        "spell": {
+          "base_high": 100,
+          "base_low": 97,
+          "effect_id": "4,0",
+          "element": 1,
+          "per_level": 1,
+          "plus_high": 97,
+          "plus_low": 95,
+          "range_type": 3
+        },
+        "target": {
+          "hp": 55,
+          "id": "synthetic_foe",
+          "willpower": 50
+        }
+      },
+      "trials": 1200
+    },
+    {
+      "editor_cost": {
+        "gold": 4648,
+        "sp": 116
+      },
+      "expected": {
+        "actual_sp_charged": 232,
+        "affordable": true,
+        "cast_rate": 1,
+        "cost_sp": 232,
+        "damage_per_sp": 0.1540948275862069,
+        "damage_per_sp_if_cast": 0.1540948275862069,
+        "dps": 51.07142857142858,
+        "expected_damage": 693.9475,
+        "expected_health_loss": 35.75,
+        "gold": 9296,
+        "immune": false,
+        "kill_probability": 0.65,
+        "potency": 1,
+        "purchase_gold": 9296,
+        "recovery_seconds": 0.7,
+        "release_seconds": 0.2,
+        "save_chance": 55
+      },
+      "id": "online_100",
+      "request": {
+        "caster": {
+          "current_sp": 450,
+          "destruction_live": 100,
+          "destruction_mastered": false,
+          "destruction_trained": 55,
+          "gold": 6000,
+          "has_spellbook": true,
+          "level": 12,
+          "max_sp": 500,
+          "speed": 50
+        },
+        "price_factor": 1,
+        "schema_version": 1,
+        "spell": {
+          "base_high": 100,
+          "base_low": 97,
+          "effect_id": "4,0",
+          "element": 1,
+          "per_level": 1,
+          "plus_high": 97,
+          "plus_low": 95,
+          "range_type": 3
+        },
+        "target": {
+          "hp": 55,
+          "id": "synthetic_foe",
+          "willpower": 50
+        }
+      },
+      "trials": 1200
+    },
+    {
+      "editor_cost": {
+        "gold": 4648,
+        "sp": 115
+      },
+      "expected": {
+        "actual_sp_charged": 230,
+        "affordable": true,
+        "cast_rate": 1,
+        "cost_sp": 230,
+        "damage_per_sp": 0.15543478260869564,
+        "damage_per_sp_if_cast": 0.15543478260869564,
+        "dps": 51.07142857142858,
+        "expected_damage": 693.9475,
+        "expected_health_loss": 35.75,
+        "gold": 9296,
+        "immune": false,
+        "kill_probability": 0.65,
+        "potency": 1,
+        "purchase_gold": 9296,
+        "recovery_seconds": 0.7,
+        "release_seconds": 0.2,
+        "save_chance": 55
+      },
+      "id": "online_101",
+      "request": {
+        "caster": {
+          "current_sp": 450,
+          "destruction_live": 101,
+          "destruction_mastered": false,
+          "destruction_trained": 55,
+          "gold": 6000,
+          "has_spellbook": true,
+          "level": 12,
+          "max_sp": 500,
+          "speed": 50
+        },
+        "price_factor": 1,
+        "schema_version": 1,
+        "spell": {
+          "base_high": 100,
+          "base_low": 97,
+          "effect_id": "4,0",
+          "element": 1,
+          "per_level": 1,
+          "plus_high": 97,
+          "plus_low": 95,
+          "range_type": 3
+        },
+        "target": {
+          "hp": 55,
+          "id": "synthetic_foe",
+          "willpower": 50
+        }
+      },
+      "trials": 1200
+    },
+    {
+      "editor_cost": {
+        "gold": 160,
+        "sp": 22
+      },
+      "expected": {
+        "actual_sp_charged": 33,
+        "affordable": true,
+        "cast_rate": 1.15,
+        "cost_sp": 33,
+        "damage_per_sp": 0.1318181818181818,
+        "damage_per_sp_if_cast": 0.1318181818181818,
+        "dps": 7.1464285714285705,
+        "expected_damage": 4.35,
+        "expected_health_loss": 4.35,
+        "gold": 240,
+        "immune": false,
+        "kill_probability": 0,
+        "potency": 1,
+        "purchase_gold": 240,
+        "recovery_seconds": 0.6086956521739131,
+        "release_seconds": 0.1739130434782609,
+        "save_chance": 55
+      },
+      "id": "scaled_roll",
+      "request": {
+        "caster": {
+          "current_sp": 450,
+          "destruction_live": 55,
+          "destruction_mastered": false,
+          "destruction_trained": 55,
+          "gold": 6000,
+          "has_spellbook": true,
+          "level": 7,
+          "max_sp": 500,
+          "speed": 80
+        },
+        "price_factor": 1,
+        "schema_version": 1,
+        "spell": {
+          "base_high": 9,
+          "base_low": 7,
+          "effect_id": "4,0",
+          "element": 0,
+          "per_level": 8,
+          "plus_high": 2,
+          "plus_low": 1,
+          "range_type": 2
+        },
+        "target": {
+          "hp": 55,
+          "id": "synthetic_foe",
+          "willpower": 50
+        }
+      },
+      "trials": 600
+    },
+    {
+      "editor_cost": {
+        "gold": 160,
+        "sp": 3
+      },
+      "expected": {
+        "actual_sp_charged": 5,
+        "affordable": true,
+        "cast_rate": 1,
+        "cost_sp": 5,
+        "damage_per_sp": 1.2366666666666668,
+        "damage_per_sp_if_cast": 1.2366666666666668,
+        "dps": 8.833333333333334,
+        "expected_damage": 6.183333333333334,
+        "expected_health_loss": 6.183333333333334,
+        "gold": 240,
+        "immune": false,
+        "kill_probability": 0,
+        "potency": 1.1772000000000002,
+        "purchase_gold": 240,
+        "recovery_seconds": 0.7,
+        "release_seconds": 0.2,
+        "save_chance": 55
+      },
+      "id": "mastery_step",
+      "request": {
+        "caster": {
+          "current_sp": 450,
+          "destruction_live": 116,
+          "destruction_mastered": true,
+          "destruction_trained": 125,
+          "gold": 6000,
+          "has_spellbook": true,
+          "level": 8,
+          "max_sp": 500,
+          "power_pct": 9,
+          "speed": 50
+        },
+        "price_factor": 1,
+        "schema_version": 1,
+        "spell": {
+          "base_high": 9,
+          "base_low": 7,
+          "effect_id": "4,0",
+          "element": 2,
+          "per_level": 8,
+          "plus_high": 2,
+          "plus_low": 1,
+          "range_type": 2
+        },
+        "target": {
+          "hp": 55,
+          "id": "synthetic_foe",
+          "willpower": 50
+        }
+      },
+      "trials": 600
+    },
+    {
+      "editor_cost": {
+        "gold": 160,
+        "sp": 2
+      },
+      "expected": {
+        "actual_sp_charged": 5,
+        "affordable": true,
+        "cast_rate": 1.45,
+        "cost_sp": 5,
+        "damage_per_sp": 1.474,
+        "damage_per_sp_if_cast": 1.474,
+        "dps": 15.266428571428573,
+        "expected_damage": 18.951666666666668,
+        "expected_health_loss": 7.37,
+        "gold": 400,
+        "immune": false,
+        "kill_probability": 0.58,
+        "potency": 1.4,
+        "purchase_gold": 400,
+        "recovery_seconds": 0.48275862068965514,
+        "release_seconds": 0.13793103448275862,
+        "save_chance": 55
+      },
+      "id": "mastery_cap",
+      "request": {
+        "caster": {
+          "cast_speed_pct": 20,
+          "current_sp": 450,
+          "destruction_live": 155,
+          "destruction_mastered": true,
+          "destruction_trained": 200,
+          "gold": 6000,
+          "has_spellbook": true,
+          "level": 45,
+          "max_sp": 500,
+          "speed": 100
+        },
+        "price_factor": 1,
+        "schema_version": 1,
+        "spell": {
+          "base_high": 9,
+          "base_low": 7,
+          "effect_id": "4,0",
+          "element": 0,
+          "per_level": 4,
+          "plus_high": 2,
+          "plus_low": 1,
+          "range_type": 4
+        },
+        "target": {
+          "hp": 12,
+          "id": "synthetic_foe",
+          "willpower": 50
+        }
+      },
+      "trials": 600
+    },
+    {
+      "editor_cost": {
+        "gold": 160,
+        "sp": 3
+      },
+      "expected": {
+        "actual_sp_charged": 5,
+        "affordable": true,
+        "cast_rate": 1,
+        "cost_sp": 5,
+        "damage_per_sp": 1.3713333333333333,
+        "damage_per_sp_if_cast": 1.3713333333333333,
+        "dps": 9.795238095238096,
+        "expected_damage": 6.8566666666666665,
+        "expected_health_loss": 6.8566666666666665,
+        "gold": 240,
+        "immune": false,
+        "kill_probability": 0,
+        "potency": 1,
+        "purchase_gold": 240,
+        "recovery_seconds": 0.7,
+        "release_seconds": 0.2,
+        "save_chance": 55
+      },
+      "id": "unmastered",
+      "request": {
+        "caster": {
+          "current_sp": 450,
+          "destruction_live": 103,
+          "destruction_mastered": false,
+          "destruction_trained": 190,
+          "gold": 6000,
+          "has_spellbook": true,
+          "level": 12,
+          "max_sp": 500,
+          "speed": 50
+        },
+        "price_factor": 1,
+        "schema_version": 1,
+        "spell": {
+          "base_high": 9,
+          "base_low": 7,
+          "effect_id": "4,0",
+          "element": 0,
+          "per_level": 4,
+          "plus_high": 2,
+          "plus_low": 1,
+          "range_type": 2
+        },
+        "target": {
+          "hp": 55,
+          "id": "synthetic_foe",
+          "willpower": 50
+        }
+      },
+      "trials": 600
+    },
+    {
+      "editor_cost": {
+        "gold": 160,
+        "sp": 22
+      },
+      "expected": {
+        "actual_sp_charged": 33,
+        "affordable": true,
+        "cast_rate": 1,
+        "cost_sp": 33,
+        "damage_per_sp": 0,
+        "damage_per_sp_if_cast": 0,
+        "dps": 0,
+        "expected_damage": 0,
+        "expected_health_loss": 0,
+        "gold": 240,
+        "immune": true,
+        "kill_probability": 0,
+        "potency": 1,
+        "purchase_gold": 240,
+        "recovery_seconds": 0.7,
+        "release_seconds": 0.2,
+        "save_chance": 100
+      },
+      "id": "immune_before_pierce",
+      "request": {
+        "caster": {
+          "current_sp": 450,
+          "destruction_live": 55,
+          "destruction_mastered": false,
+          "destruction_trained": 55,
+          "gold": 6000,
+          "has_spellbook": true,
+          "level": 12,
+          "max_sp": 500,
+          "pierce": 15,
+          "speed": 50
+        },
+        "price_factor": 1,
+        "schema_version": 1,
+        "spell": {
+          "base_high": 9,
+          "base_low": 7,
+          "effect_id": "4,0",
+          "element": 0,
+          "per_level": 4,
+          "plus_high": 2,
+          "plus_low": 1,
+          "range_type": 2
+        },
+        "target": {
+          "hp": 55,
+          "id": "synthetic_foe",
+          "immune": 8,
+          "willpower": 50
+        }
+      },
+      "trials": 600
+    },
+    {
+      "editor_cost": {
+        "gold": 160,
+        "sp": 22
+      },
+      "expected": {
+        "actual_sp_charged": 55,
+        "affordable": true,
+        "cast_rate": 1,
+        "cost_sp": 55,
+        "damage_per_sp": 0.06784848484848484,
+        "damage_per_sp_if_cast": 0.06784848484848484,
+        "dps": 5.330952380952381,
+        "expected_damage": 3.7316666666666665,
+        "expected_health_loss": 3.7316666666666665,
+        "gold": 400,
+        "immune": false,
+        "kill_probability": 0,
+        "potency": 1,
+        "purchase_gold": 400,
+        "recovery_seconds": 0.7,
+        "release_seconds": 0.2,
+        "save_chance": 80
+      },
+      "id": "tolerance_order",
+      "request": {
+        "caster": {
+          "current_sp": 450,
+          "destruction_live": 55,
+          "destruction_mastered": false,
+          "destruction_trained": 55,
+          "gold": 6000,
+          "has_spellbook": true,
+          "level": 12,
+          "max_sp": 500,
+          "speed": 50
+        },
+        "price_factor": 1,
+        "schema_version": 1,
+        "spell": {
+          "base_high": 9,
+          "base_low": 7,
+          "effect_id": "4,0",
+          "element": 3,
+          "per_level": 4,
+          "plus_high": 2,
+          "plus_low": 1,
+          "range_type": 4
+        },
+        "target": {
+          "hp": 55,
+          "id": "synthetic_foe",
+          "immune": 32,
+          "resistant": 32,
+          "willpower": 50
+        }
+      },
+      "trials": 600
+    },
+    {
+      "editor_cost": {
+        "gold": 160,
+        "sp": 22
+      },
+      "expected": {
+        "actual_sp_charged": 33,
+        "affordable": true,
+        "cast_rate": 1,
+        "cost_sp": 33,
+        "damage_per_sp": 0.37636363636363634,
+        "damage_per_sp_if_cast": 0.37636363636363634,
+        "dps": 17.742857142857144,
+        "expected_damage": 12.42,
+        "expected_health_loss": 12.42,
+        "gold": 240,
+        "immune": false,
+        "kill_probability": 0,
+        "potency": 1,
+        "purchase_gold": 240,
+        "recovery_seconds": 0.7,
+        "release_seconds": 0.2,
+        "save_chance": 5
+      },
+      "id": "weak",
+      "request": {
+        "caster": {
+          "current_sp": 450,
+          "destruction_live": 55,
+          "destruction_mastered": false,
+          "destruction_trained": 55,
+          "gold": 6000,
+          "has_spellbook": true,
+          "level": 12,
+          "max_sp": 500,
+          "pierce": 15,
+          "speed": 50
+        },
+        "price_factor": 1,
+        "schema_version": 1,
+        "spell": {
+          "base_high": 9,
+          "base_low": 7,
+          "effect_id": "4,0",
+          "element": 2,
+          "per_level": 4,
+          "plus_high": 2,
+          "plus_low": 1,
+          "range_type": 2
+        },
+        "target": {
+          "critical_weakness": 4,
+          "hp": 55,
+          "id": "synthetic_foe",
+          "willpower": 1
+        }
+      },
+      "trials": 600
+    },
+    {
+      "editor_cost": {
+        "gold": 160,
+        "sp": 22
+      },
+      "expected": {
+        "actual_sp_charged": 33,
+        "affordable": true,
+        "cast_rate": 1,
+        "cost_sp": 33,
+        "damage_per_sp": 0.2683838383838384,
+        "damage_per_sp_if_cast": 0.2683838383838384,
+        "dps": 12.652380952380954,
+        "expected_damage": 8.856666666666667,
+        "expected_health_loss": 8.856666666666667,
+        "gold": 240,
+        "immune": false,
+        "kill_probability": 0,
+        "potency": 1,
+        "purchase_gold": 240,
+        "recovery_seconds": 0.7,
+        "release_seconds": 0.2,
+        "save_chance": 39
+      },
+      "id": "low_tolerance",
+      "request": {
+        "caster": {
+          "current_sp": 450,
+          "destruction_live": 55,
+          "destruction_mastered": false,
+          "destruction_trained": 55,
+          "gold": 6000,
+          "has_spellbook": true,
+          "level": 12,
+          "max_sp": 500,
+          "pierce": 4,
+          "speed": 50
+        },
+        "price_factor": 1,
+        "schema_version": 1,
+        "spell": {
+          "base_high": 9,
+          "base_low": 7,
+          "effect_id": "4,0",
+          "element": 4,
+          "per_level": 4,
+          "plus_high": 2,
+          "plus_low": 1,
+          "range_type": 2
+        },
+        "target": {
+          "hp": 55,
+          "id": "synthetic_foe",
+          "low_tolerance": 2,
+          "resist_mods": [
+            0,
+            0,
+            0,
+            0,
+            13
+          ],
+          "willpower": 50
+        }
+      },
+      "trials": 600
+    },
+    {
+      "editor_cost": {
+        "gold": 40,
+        "sp": 5
+      },
+      "expected": {
+        "actual_sp_charged": 7,
+        "affordable": true,
+        "cast_rate": 1,
+        "cost_sp": 7,
+        "damage_per_sp": 0.09179999999999999,
+        "damage_per_sp_if_cast": 0.09179999999999999,
+        "dps": 0.918,
+        "expected_damage": 0.6426,
+        "expected_health_loss": 0.6426,
+        "gold": 60,
+        "immune": false,
+        "kill_probability": 0,
+        "potency": 1,
+        "purchase_gold": 60,
+        "recovery_seconds": 0.7,
+        "release_seconds": 0.2,
+        "save_chance": 55
+      },
+      "id": "absolute_resist",
+      "request": {
+        "caster": {
+          "current_sp": 450,
+          "destruction_live": 55,
+          "destruction_mastered": false,
+          "destruction_trained": 55,
+          "gold": 6000,
+          "has_spellbook": true,
+          "level": 12,
+          "max_sp": 500,
+          "speed": 50
+        },
+        "price_factor": 1,
+        "schema_version": 1,
+        "spell": {
+          "base_high": 2,
+          "base_low": 2,
+          "effect_id": "4,0",
+          "element": 0,
+          "per_level": 20,
+          "plus_high": 1,
+          "plus_low": 1,
+          "range_type": 2
+        },
+        "target": {
+          "elemental_resists": [
+            37,
+            0,
+            0,
+            0,
+            0
+          ],
+          "hp": 55,
+          "id": "synthetic_foe",
+          "willpower": 50
+        }
+      },
+      "trials": 10000
+    },
+    {
+      "editor_cost": {
+        "gold": 40,
+        "sp": 0
+      },
+      "expected": {
+        "actual_sp_charged": 4,
+        "affordable": true,
+        "cast_rate": 1,
+        "cost_sp": 4,
+        "damage_per_sp": 0.255,
+        "damage_per_sp_if_cast": 0.255,
+        "dps": 1.4571428571428573,
+        "expected_damage": 1.02,
+        "expected_health_loss": 1.02,
+        "gold": 60,
+        "immune": false,
+        "kill_probability": 0,
+        "potency": 1,
+        "purchase_gold": 51,
+        "recovery_seconds": 0.7,
+        "release_seconds": 0.2,
+        "save_chance": 55
+      },
+      "id": "focus_floor",
+      "request": {
+        "caster": {
+          "current_sp": 450,
+          "destruction_live": 140,
+          "destruction_mastered": false,
+          "destruction_trained": 55,
+          "focus_pct": 12,
+          "gold": 6000,
+          "has_spellbook": true,
+          "level": 12,
+          "max_sp": 500,
+          "speed": 50
+        },
+        "price_factor": 0.85,
+        "schema_version": 1,
+        "spell": {
+          "base_high": 2,
+          "base_low": 2,
+          "effect_id": "4,0",
+          "element": 0,
+          "per_level": 20,
+          "plus_high": 1,
+          "plus_low": 1,
+          "range_type": 2
+        },
+        "target": {
+          "hp": 55,
+          "id": "synthetic_foe",
+          "willpower": 50
+        }
+      },
+      "trials": 100
+    },
+    {
+      "editor_cost": {
+        "gold": 160,
+        "sp": 22
+      },
+      "expected": {
+        "actual_sp_charged": 48,
+        "affordable": true,
+        "cast_rate": 1,
+        "cost_sp": 48,
+        "damage_per_sp": 0.1428472222222222,
+        "damage_per_sp_if_cast": 0.1428472222222222,
+        "dps": 9.795238095238096,
+        "expected_damage": 6.8566666666666665,
+        "expected_health_loss": 6.8566666666666665,
+        "gold": 400,
+        "immune": false,
+        "kill_probability": 0,
+        "potency": 1,
+        "purchase_gold": 460,
+        "recovery_seconds": 0.7,
+        "release_seconds": 0.2,
+        "save_chance": 55
+      },
+      "id": "charged_range",
+      "request": {
+        "caster": {
+          "current_sp": 450,
+          "destruction_live": 55,
+          "destruction_mastered": false,
+          "destruction_trained": 55,
+          "focus_pct": 12,
+          "gold": 6000,
+          "has_spellbook": true,
+          "level": 12,
+          "max_sp": 500,
+          "speed": 50
+        },
+        "price_factor": 1.15,
+        "schema_version": 1,
+        "spell": {
+          "base_high": 9,
+          "base_low": 7,
+          "effect_id": "4,0",
+          "element": 0,
+          "per_level": 4,
+          "plus_high": 2,
+          "plus_low": 1,
+          "range_type": 4
+        },
+        "target": {
+          "hp": 55,
+          "id": "synthetic_foe",
+          "willpower": 50
+        }
+      },
+      "trials": 600
+    },
+    {
+      "editor_cost": {
+        "gold": 40,
+        "sp": 5
+      },
+      "expected": {
+        "actual_sp_charged": 7,
+        "affordable": true,
+        "cast_rate": 2,
+        "cost_sp": 7,
+        "damage_per_sp": 0.1457142857142857,
+        "damage_per_sp_if_cast": 0.1457142857142857,
+        "dps": 2.9142857142857146,
+        "expected_damage": 1.02,
+        "expected_health_loss": 1.02,
+        "gold": 60,
+        "immune": false,
+        "kill_probability": 0,
+        "potency": 1,
+        "purchase_gold": 60,
+        "recovery_seconds": 0.35,
+        "release_seconds": 0.1,
+        "save_chance": 55
+      },
+      "id": "rate_ceiling",
+      "request": {
+        "caster": {
+          "cast_speed_pct": 100,
+          "current_sp": 450,
+          "destruction_live": 55,
+          "destruction_mastered": false,
+          "destruction_trained": 55,
+          "gold": 6000,
+          "has_spellbook": true,
+          "level": 12,
+          "max_sp": 500,
+          "speed": 100
+        },
+        "price_factor": 1,
+        "schema_version": 1,
+        "spell": {
+          "base_high": 2,
+          "base_low": 2,
+          "effect_id": "4,0",
+          "element": 0,
+          "per_level": 20,
+          "plus_high": 1,
+          "plus_low": 1,
+          "range_type": 2
+        },
+        "target": {
+          "hp": 55,
+          "id": "synthetic_foe",
+          "willpower": 50
+        }
+      },
+      "trials": 100
+    },
+    {
+      "editor_cost": {
+        "gold": 40,
+        "sp": 5
+      },
+      "expected": {
+        "actual_sp_charged": 7,
+        "affordable": true,
+        "cast_rate": 0.5,
+        "cost_sp": 7,
+        "damage_per_sp": 0.08,
+        "damage_per_sp_if_cast": 0.08,
+        "dps": 0.4000000000000001,
+        "expected_damage": 0.56,
+        "expected_health_loss": 0.56,
+        "gold": 60,
+        "immune": false,
+        "kill_probability": 0,
+        "potency": 0.5,
+        "purchase_gold": 60,
+        "recovery_seconds": 1.4,
+        "release_seconds": 0.4,
+        "save_chance": 55
+      },
+      "id": "rate_floor",
+      "request": {
+        "caster": {
+          "cast_speed_pct": -60,
+          "current_sp": 450,
+          "destruction_live": 55,
+          "destruction_mastered": false,
+          "destruction_trained": 55,
+          "gold": 6000,
+          "has_spellbook": true,
+          "level": 12,
+          "max_sp": 500,
+          "power_pct": -80,
+          "speed": 0
+        },
+        "price_factor": 1,
+        "schema_version": 1,
+        "spell": {
+          "base_high": 2,
+          "base_low": 2,
+          "effect_id": "4,0",
+          "element": 0,
+          "per_level": 20,
+          "plus_high": 1,
+          "plus_low": 1,
+          "range_type": 2
+        },
+        "target": {
+          "hp": 55,
+          "id": "synthetic_foe",
+          "willpower": 50
+        }
+      },
+      "trials": 100
+    },
+    {
+      "editor_cost": {
+        "gold": 40,
+        "sp": 5
+      },
+      "expected": {
+        "actual_sp_charged": 0,
+        "affordable": false,
+        "cast_rate": 1,
+        "cost_sp": 7,
+        "damage_per_sp": null,
+        "damage_per_sp_if_cast": 0.1457142857142857,
+        "dps": 1.4571428571428573,
+        "expected_damage": 1.02,
+        "expected_health_loss": 1.02,
+        "gold": 60,
+        "immune": false,
+        "kill_probability": 0,
+        "potency": 1,
+        "purchase_gold": 60,
+        "recovery_seconds": 0.7,
+        "release_seconds": 0.2,
+        "save_chance": 55
+      },
+      "id": "insufficient_sp",
+      "request": {
+        "caster": {
+          "current_sp": 4,
+          "destruction_live": 55,
+          "destruction_mastered": false,
+          "destruction_trained": 55,
+          "gold": 6000,
+          "has_spellbook": true,
+          "level": 12,
+          "max_sp": 500,
+          "speed": 50
+        },
+        "price_factor": 1,
+        "schema_version": 1,
+        "spell": {
+          "base_high": 2,
+          "base_low": 2,
+          "effect_id": "4,0",
+          "element": 0,
+          "per_level": 20,
+          "plus_high": 1,
+          "plus_low": 1,
+          "range_type": 2
+        },
+        "target": {
+          "hp": 55,
+          "id": "synthetic_foe",
+          "willpower": 50
+        }
+      },
+      "trials": 100
+    }
+  ],
+  "host": [
+    {
+      "after_cast_sp": 417,
+      "before_cast_sp": 450,
+      "cast": true,
+      "charged": 33,
+      "id": "normal",
+      "ready": true,
+      "ready_cost": 33
+    },
+    {
+      "after_cast_sp": 417,
+      "before_cast_sp": 450,
+      "cast": true,
+      "charged": 33,
+      "id": "changed_skill",
+      "ready": true,
+      "ready_cost": 33
+    },
+    {
+      "after_cast_sp": 450,
+      "before_cast_sp": 450,
+      "cast": true,
+      "charged": 0,
+      "id": "free",
+      "ready": true,
+      "ready_cost": 0
+    },
+    {
+      "after_cast_sp": 0,
+      "before_cast_sp": 2,
+      "cast": true,
+      "charged": 2,
+      "id": "drained_after_ready",
+      "ready": true,
+      "ready_cost": 33
+    },
+    {
+      "after_cast_sp": 1,
+      "before_cast_sp": 1,
+      "cast": false,
+      "charged": 0,
+      "id": "insufficient",
+      "ready": false,
+      "ready_cost": 0
+    },
+    {
+      "after_cast_sp": 450,
+      "before_cast_sp": 450,
+      "cast": false,
+      "charged": 0,
+      "id": "touch_miss",
+      "ready": true,
+      "ready_cost": 22
+    }
+  ],
+  "host_impact": {
+    "hurt": 15,
+    "initial_hp": 3,
+    "landed_damage": 15,
+    "taken": 3
+  },
+  "mode": "online_snapshot",
+  "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+  "sources": [
+    "src/systems/spell/spellMaker.js#buildCustomSpell,spellMakerCost",
+    "src/systems/spellcost.js#calculateCastCost",
+    "src/systems/effects.js#applySpell",
+    "src/systems/spell/spellPower.js#spellPowerMult",
+    "src/systems/spellcast.js#savingChance",
+    "src/combat/fpsSpellCasting.js#SpellCastAnim",
+    "src/scenes/hostMagic.js#createPlayerMagic",
+    "src/net/npcChapterLaw.js#chapterPriced"
+  ],
+  "stubs": [
+    "Online page query, own player, ordinary stationary NPC and no other encounter conditions.",
+    "RNG exhausts inclusive magnitude and save rolls. Expected health loss clips one hit to supplied target HP.",
+    "Source skill override provides observed live school value. Earned mastery reads permanent skills separately.",
+    "Named source hooks receive explicit aggregate power, penetration and speed. Focus uses two equipped fixture rings.",
+    "Cast host uses an empty scene, inert rendering/audio and a parked animation release to observe magicka payment."
+  ]
+}

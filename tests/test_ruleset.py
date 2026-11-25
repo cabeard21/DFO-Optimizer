@@ -28,6 +28,19 @@ def test_packaged_ruleset_matches_snapshot():
     assert coverage(bundle)["unsupported"]
 
 
+def test_combat_bundle_binds_spell_tables_and_equipment_catalog():
+    import hashlib
+    from dfo_optimizer.ruleset import validate_combat_ruleset
+
+    bundle = validate_combat_ruleset(load_ruleset())
+    assert bundle["spell_rules"] == json.loads((DATA / "spell-rules.json").read_text(encoding="utf8"))
+    equipment = json.loads((DATA / "equipment.json").read_text(encoding="utf8"))
+    content = json.dumps(equipment, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode()
+    assert bundle["equipment_hash"] == hashlib.sha256(content).hexdigest()
+    ids = [entry["mechanic_id"] for entry in bundle["mechanics"]]
+    assert len(set(ids)) == len(ids)
+
+
 def test_offline_validate_and_load_reject_corruption(tmp_path):
     bundle = load_ruleset()
     path = tmp_path / "ruleset.json"

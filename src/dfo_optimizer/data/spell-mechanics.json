@@ -1,0 +1,116 @@
+[
+  {
+    "mechanic_id": "spell.maker",
+    "implementation_status": "single_direct_spell",
+    "verification_status": "source_verified",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/systems/spell/spellMaker.js",
+    "symbol": "updateAllowedButtons, SPINNER_RANGES, applyPairRules",
+    "limits": "One player-created instant Damage Health (4,0) with an ordered base pair, ordered level pair and divisor.",
+    "assumptions": [],
+    "live_verified": false
+  },
+  {
+    "mechanic_id": "spell.cast_cost",
+    "implementation_status": "single_direct_spell",
+    "verification_status": "source_verified",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/systems/spellcost.js",
+    "symbol": "effectCost, skillScaledCost, calculateCastCost",
+    "limits": "One ordinary player cast. Live school skill pricing, target multiplier, integer truncation, five-SP baseline and reviewed loot Focus adjustments.",
+    "assumptions": [],
+    "live_verified": false
+  },
+  {
+    "mechanic_id": "spell.purchase",
+    "implementation_status": "single_direct_spell",
+    "verification_status": "source_verified",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/ui/spell/spellMakerWindow.js",
+    "symbol": "SpellMakerWindow._updateSpellCosts, chapterPriced",
+    "limits": "Reports maker gold and chapter-adjusted quote when the factor is supplied. Buying requires access, a spellbook, a name and sufficient funds.",
+    "assumptions": [],
+    "live_verified": false
+  },
+  {
+    "mechanic_id": "spell.ready_charge",
+    "implementation_status": "single_direct_spell",
+    "verification_status": "source_verified",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/scenes/hostMagic.js",
+    "symbol": "createPlayerMagic.readySpell, createPlayerMagic.castInput",
+    "limits": "Ordinary payable cast. The price freezes at ready. Insufficient SP at ready and a missing touch target prevent payment. Free and mid-aim drain cases are recorded as independent host boundary tests.",
+    "assumptions": [
+      "Frozen caster resources through the cast."
+    ],
+    "live_verified": false
+  },
+  {
+    "mechanic_id": "spell.cadence",
+    "implementation_status": "single_direct_spell",
+    "verification_status": "source_verified",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/combat/fpsSpellCasting.js",
+    "symbol": "castReleaseS, SpellCastAnim.playOneShot, SpellCastAnim.tick",
+    "limits": "Normal hand release and recast from a frozen live Speed plus declared cast-speed percentage.",
+    "assumptions": [
+      "Continuous legal inputs, one confirmed impact per cast, stationary foe, no interruptions."
+    ],
+    "live_verified": false
+  },
+  {
+    "mechanic_id": "spell.potency",
+    "implementation_status": "single_direct_spell",
+    "verification_status": "source_verified",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/systems/spell/spellPower.js",
+    "symbol": "fightingClimb, schoolPotency, spellPowerMult, spellPierce",
+    "limits": "Online player's own direct spell against an ordinary foe, with separately identified live price skill, earned mastery and frozen supported modifiers.",
+    "assumptions": [],
+    "live_verified": false
+  },
+  {
+    "mechanic_id": "spell.saves",
+    "implementation_status": "single_direct_spell",
+    "verification_status": "source_verified",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/systems/spellcast.js",
+    "symbol": "savingChance, savingThrow, elementalResistanceChance, rollMagnitude",
+    "limits": "Single NPC target. Active elemental resistance, career tolerance precedence, pre-Willpower immunity, penetration, clamping, and prorated D100 saves.",
+    "assumptions": [],
+    "live_verified": false
+  },
+  {
+    "mechanic_id": "pve.spell_damage",
+    "implementation_status": "single_direct_spell",
+    "verification_status": "source_verified",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/systems/effects.js",
+    "symbol": "applySpell, effectMagnitude, casterDamageScaled",
+    "limits": "Instant Damage Health (4,0). Report pre-HP-cap landed damage, capped HP loss and lethal probability separately.",
+    "assumptions": [
+      "Ordinary unshielded foe. No reflection, absorption, special foe damage modifiers or refunds."
+    ],
+    "live_verified": false
+  },
+  {
+    "mechanic_id": "spell.extended_effects",
+    "implementation_status": "unimplemented",
+    "verification_status": "unsupported",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/systems/effects.js",
+    "symbol": "applySpell, tickActiveEffects",
+    "limits": "Multi-effect bundles, damage-over-time, encounter recovery, signatures, boss reactions, active absorption and reflection need additional verified evaluation.",
+    "assumptions": [],
+    "live_verified": false
+  }
+]

@@ -1,5 +1,17 @@
 [
   {
+    "mechanic_id": "character.save_import",
+    "implementation_status": "snapshot_import",
+    "verification_status": "source_verified",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/systems/save/save.js",
+    "symbol": "snapshotPlayer; saveSlots.saveSlot; saveTransfer.exportSavesZip",
+    "limits": "Portable JSON and version 1 local saves. Stock spell indexes can be unresolved. Saved vitals may omit online bonuses. Item availability depends on the observed container.",
+    "assumptions": [],
+    "live_verified": false
+  },
+  {
     "mechanic_id": "class.magicka_multiplier",
     "implementation_status": "class_construction",
     "verification_status": "source_verified",

@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dfo-optimizer"
-version = "0.1.0"
-description = "Offline native class search for the pinned Daggerfall Online snapshot"
+version = "0.2.0"
+description = "Offline native class, spell and equipment optimization for Daggerfall Online"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = []
@@ -18,7 +18,7 @@ where = ["src"]
 include = ["dfo_optimizer*"]
 
 [tool.setuptools.package-data]
-dfo_optimizer = ["*.hpp", "*.pyx", "data/*", "data/**/*"]
+dfo_optimizer = ["*.hpp", "*.pyx", "*.pxi", "data/*", "data/**/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

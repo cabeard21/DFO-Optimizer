@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "mode": "owned_plus_budget",
+  "career": {},
+  "caster": {
+    "level": 10,
+    "speed": 65,
+    "destruction_live": 75,
+    "destruction_trained": 75,
+    "destruction_mastered": false,
+    "current_sp": 80,
+    "max_sp": 100,
+    "gold": 500,
+    "has_spellbook": true
+  },
+  "target": {
+    "id": "synthetic_solo_foe",
+    "hp": 60,
+    "willpower": 50
+  },
+  "price_factor": 1,
+  "domain": {
+    "effect_id": "4,0",
+    "element": [
+      0
+    ],
+    "range_type": [
+      1,
+      2
+    ],
+    "base_low": [
+      2,
+      4
+    ],
+    "base_high": [
+      4,
+      8
+    ],
+    "plus_low": [
+      1
+    ],
+    "plus_high": [
+      1,
+      3
+    ],
+    "per_level": [
+      1,
+      2,
+      4
+    ]
+  },
+  "inventory": [
+    {
+      "instance_id": "worn-focus",
+      "container": "pack",
+      "item": {
+        "templateIndex": 135,
+        "group": "Jewellery",
+        "equipSlot": 4,
+        "rarity": "magic",
+        "affixes": [
+          {
+            "id": "skill",
+            "param": 22,
+            "value": 8
+          },
+          {
+            "id": "focus",
+            "value": 3
+          }
+        ]
+      }
+    },
+    {
+      "instance_id": "training-ring",
+      "container": "pack",
+      "item": {
+        "templateIndex": 135,
+        "group": "Jewellery",
+        "magic": true,
+        "enchantments": [
+          {
+            "type": 10,
+            "param": 22
+          }
+        ]
+      }
+    },
+    {
+      "instance_id": "holdout",
+      "container": "repair",
+      "item": {
+        "templateIndex": 133,
+        "group": "Jewellery"
+      }
+    }
+  ],
+  "search": {
+    "exact": true,
+    "max_nodes": 0,
+    "wall_seconds": 0
+  },
+  "marginals": true,
+  "budget": {
+    "gold": 120
+  },
+  "offers": [
+    {
+      "instance_id": "vendor-amulet",
+      "item": {
+        "templateIndex": 133,
+        "group": "Jewellery",
+        "rarity": "magic",
+        "affixes": [
+          {"id":"stat","param":"speed","value":5},
+          {"id":"potency","value":6}
+        ]
+      },
+      "acquisition": {
+        "owned": false,
+        "obtainable": true,
+        "source": "Synthetic confirmed vendor quote for this worked example",
+        "price": {
+          "gold": 100
+        }
+      }
+    },
+    {
+      "instance_id": "unknown-quote",
+      "item": {
+        "templateIndex": 133,
+        "group": "Jewellery",
+        "magic": true,
+        "enchantments": [
+          {
+            "type": 10,
+            "param": 22
+          }
+        ]
+      },
+      "acquisition": {
+        "owned": false,
+        "obtainable": true
+      }
+    }
+  ]
+}

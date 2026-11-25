@@ -1,0 +1,74 @@
+{
+  "cost": {
+    "floor": 5,
+    "focus_cap": 30,
+    "loot_cut_cap": 50,
+    "overcap_reference": 100,
+    "target_multipliers": {
+      "0": 1,
+      "1": 1,
+      "2": 1.5,
+      "3": 2,
+      "4": 2.5
+    }
+  },
+  "effect": {
+    "cost": {
+      "magnitude": {
+        "A": 20,
+        "B": 28,
+        "offset": 0
+      },
+      "skill": 22
+    },
+    "element_mask": 31,
+    "flags": {
+      "Disease": 64,
+      "Fire": 8,
+      "Frost": 16,
+      "Magic": 2,
+      "Paralysis": 1,
+      "Poison": 4,
+      "Shock": 32
+    },
+    "key": "4,0",
+    "spinners": {
+      "magnitudeBaseHigh": [
+        1,
+        100
+      ],
+      "magnitudeBaseLow": [
+        1,
+        100
+      ],
+      "magnitudeLevelBase": [
+        1,
+        100
+      ],
+      "magnitudeLevelHigh": [
+        1,
+        100
+      ],
+      "magnitudePerLevel": [
+        1,
+        20
+      ]
+    },
+    "target_mask": 30
+  },
+  "mode": "online_snapshot",
+  "power": {
+    "floor": 0.5,
+    "school_potency_per_point": 0.01
+  },
+  "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+  "timing": {
+    "frame_period_seconds": 0.04,
+    "maximum": 2,
+    "minimum": 0.5,
+    "pivot": 50,
+    "recovery_seconds": 0.7,
+    "release_frame": 5,
+    "span": 200
+  }
+}

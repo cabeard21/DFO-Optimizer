@@ -1,0 +1,86 @@
+[
+  {
+    "mechanic_id": "gear.eligibility",
+    "implementation_status": "equipment_window",
+    "verification_status": "source_verified",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/systems/equip.js",
+    "symbol": "getEquipSlot, isForbiddenEquip, isBrokenItem",
+    "limits": "Reviewed classic wearable template groups, including retained restricted equipment. The caller supplies the bow-switching setting.",
+    "assumptions": [],
+    "live_verified": false
+  },
+  {
+    "mechanic_id": "gear.caster_affixes",
+    "implementation_status": "equipment_scoring",
+    "verification_status": "source_verified",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/systems/loot/lootRarity.js",
+    "symbol": "affixFold, validAffix, readLines, countedPieces",
+    "limits": "Speed, Intelligence and Destruction from supported rolls. Socket-derived lines are counted once. Suppressed duplicate legendary lines follow slot order.",
+    "assumptions": [],
+    "live_verified": false
+  },
+  {
+    "mechanic_id": "gear.loot_cost_speed_power",
+    "implementation_status": "equipment_scoring",
+    "verification_status": "source_verified",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/systems/loot/lootPowers.js",
+    "symbol": "lootCastCost, lootCastSpeed, lootSpellPower, lootSpellPierce",
+    "limits": "Focus, cast speed and potency under their independent caps for a solo player's direct spell. Conditional powers require additional evidence.",
+    "assumptions": [],
+    "live_verified": false
+  },
+  {
+    "mechanic_id": "gear.enhances_skill",
+    "implementation_status": "equipment_scoring",
+    "verification_status": "source_verified",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/systems/enchantments.js",
+    "symbol": "ENHANCE_SKILL_MOD, EnhancesSkill",
+    "limits": "Worn legacy Enhances Skill adds to the live school. Unrecognized active enchantments exclude that item from scoring.",
+    "assumptions": [],
+    "live_verified": false
+  },
+  {
+    "mechanic_id": "gear.generated_rolls",
+    "implementation_status": "catalog",
+    "verification_status": "source_verified",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/systems/loot/lootRarity.js",
+    "symbol": "rollLootRarity, rollAffixes, addProcLine, RARE_FLAVOURS",
+    "limits": "Seeded access-gated loot witnesses and a finite declared domain of theoretical magic and rare caster rolls. Source quotes are separate from level, price and ownership.",
+    "assumptions": [],
+    "live_verified": false
+  },
+  {
+    "mechanic_id": "gear.swap_capacity",
+    "implementation_status": "equipment_scoring",
+    "verification_status": "source_verified",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/systems/chargen.js",
+    "symbol": "defineLiveMaxMagicka, spellPointMultiplier; src/combat/formulas.js spellPointsFor; src/systems/enchantments.js computeEnchantmentMods",
+    "limits": "Immediate post-swap affordability uses the observed pool, earned Intelligence, known retained gear and career multiplier. Unknown flat maximum bonuses can leave the frontier incomplete. A fixed post-swap resource assumption is explicit.",
+    "assumptions": [],
+    "live_verified": false
+  },
+  {
+    "mechanic_id": "gear.conditional_effects",
+    "implementation_status": "unimplemented",
+    "verification_status": "unsupported",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/systems/sigil/sigilSets.js",
+    "symbol": "wornSetPieces, sigilSetId",
+    "limits": "Conditional equipment powers, specialized templates and set bonuses require a broader encounter model. Affected items report exclusions.",
+    "assumptions": [],
+    "live_verified": false
+  }
+]

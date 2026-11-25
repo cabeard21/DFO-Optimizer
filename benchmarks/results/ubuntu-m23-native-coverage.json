@@ -1,0 +1,81 @@
+{
+  "headers": [
+    {
+      "file": "src/dfo_optimizer/class_search.hpp",
+      "source_sha256": "b3da2ed99a90375722b4e7c3e57a31e8946ce089c1579622b4afb0af7997fe20",
+      "executable_lines": 121,
+      "covered_lines": 121,
+      "line_percent": 100.0,
+      "uncovered_lines": []
+    },
+    {
+      "file": "src/dfo_optimizer/spell_kernel.hpp",
+      "source_sha256": "fe5952c49885ca8b1a498ea9aede824dcffa9bcb1562035e6f03e27e71caad69",
+      "executable_lines": 306,
+      "covered_lines": 293,
+      "line_percent": 95.7516339869281,
+      "uncovered_lines": [
+        295,
+        372,
+        373,
+        374,
+        489,
+        490,
+        491,
+        492,
+        493,
+        494,
+        495,
+        497,
+        498
+      ]
+    },
+    {
+      "file": "src/dfo_optimizer/gear_search.hpp",
+      "source_sha256": "a5a7eb4f5b1cf6c0268f70a5d2ec4f8f53bb612531063b54374c5915a63bcbc1",
+      "executable_lines": 225,
+      "covered_lines": 223,
+      "line_percent": 99.11111111111111,
+      "uncovered_lines": [
+        22,
+        350
+      ]
+    },
+    {
+      "file": "src/dfo_optimizer/native_build.hpp",
+      "source_sha256": "dcbada1aabcad3a5105a232e93a9db3f4c0b5a666c3cba8c7cd26abd804c33b8",
+      "executable_lines": 4,
+      "covered_lines": 4,
+      "line_percent": 100.0,
+      "uncovered_lines": []
+    }
+  ],
+  "modules": [
+    "_native",
+    "_spells",
+    "_gear"
+  ],
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "gcov": "gcov (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "flags": [
+    "-std=c++17",
+    "-O0",
+    "-fPIC",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "--coverage",
+    "-fprofile-abs-path"
+  ],
+  "tests": [
+    "tests/test_gear.py",
+    "tests/test_gear_native.py",
+    "tests/test_native.py",
+    "tests/test_spell_kernel.py",
+    "tests/test_spell_oracle.py",
+    "tests/test_spells.py"
+  ],
+  "executable_lines": 656,
+  "covered_lines": 641,
+  "line_percent": 97.71341463414635,
+  "minimum_percent": 80
+}

@@ -1,0 +1,18 @@
+{
+  "kind": "character",
+  "schema_version": 1,
+  "provenance": {"format": "portable", "description": "Synthetic solo caster in an empty loadout"},
+  "caster": {
+    "level": 5, "speed": 60, "destruction_trained": 58, "destruction_mastered": false,
+    "destruction_live": 58, "current_sp": 50, "max_sp": 74, "gold": 350, "has_spellbook": true
+  },
+  "gear": {
+    "race_id": 1, "gender": "female", "career": {}, "items": [],
+    "base_caster": {
+      "level": 5, "speed": 60, "destruction_trained": 58, "destruction_mastered": false,
+      "destruction_live": 58, "current_sp": 50, "max_sp": 74, "gold": 350, "has_spellbook": true
+    }
+  },
+  "observations": {"spells": {"records": [], "unresolved_indices": []}},
+  "unknown_mechanics": []
+}

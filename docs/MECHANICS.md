@@ -16,6 +16,6 @@ The 14 public Dhargo class files independently parse at −12 and 0.30× with ze
 
 ## Open mechanics
 
-Combat potency and saves, spell costs and timing, effective defensive tradeoffs, target-specific damage, gear access, online regeneration, and attainable training paths need later evidence. M1 can encode the associated flags and offer construction examples. It cannot certify survival, damage, progression feasibility or an optimal mage. Historical High Elf and Breton builds require actual source documents before they can serve as comparison fixtures.
+M2 verifies immediate Damage Health for an ordinary PvE target, and M3 applies the supported equipment channels to that calculation. The coverage registry records the available item sources and the assumptions required for each. Encounter survival, online regeneration, conditional powers, and attainable training paths remain open. Historical High Elf and Breton comparison builds still require their original specifications. [Spell evidence and limitations](SPELL-MECHANICS.md)
 
 For a live observation, retain the client version/date, mode, class export, race, sheet values, exact action or spell settings, target, displayed and observed values, and any uncertainty. Compare the intermediate result with the matching snapshot mechanic. A live overlay requires explicit evidence, a new hash, and a replay test.
