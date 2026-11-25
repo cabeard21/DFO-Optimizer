@@ -2,12 +2,11 @@
 
 import hashlib
 import json
-from copy import deepcopy
 
 from .class_document import FORMAT, REPUTATIONS
 from .classes import disallowed_trait, validate_class_snapshot
 from .native import require_native
-from .ruleset import load_ruleset, validate_ruleset
+from .ruleset import freeze_ruleset, load_ruleset
 from .search_request import ATTRIBUTES, MAGERY_KEYS, parse_request
 
 ORDER_SENSITIVE = {"rapidHealing": 1, "regenerateHealth": 2, "spellAbsorption": 3}
@@ -156,7 +155,7 @@ def _status(termination, has_candidates):
 def optimize_classes(request=None, *, ruleset=None, cancel=None):
     """Run an explicit finite-domain search under the pinned online snapshot."""
     engine = require_native()
-    rules = load_ruleset() if ruleset is None else validate_ruleset(deepcopy(ruleset))
+    rules = load_ruleset() if ruleset is None else freeze_ruleset(ruleset)
     spec = parse_request(request, rules)
     native_request, required, excluded, conflict = _compile(spec, rules)
     if conflict:

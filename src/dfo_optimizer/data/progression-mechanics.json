@@ -1,0 +1,86 @@
+[
+  {
+    "mechanic_id": "progression.birth",
+    "implementation_status": "progression",
+    "verification_status": "source_verified",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/systems/roleplayRealismItems/rriKits.js",
+    "symbol": "assignSkillEquipment, assignSkillSpellbook; chargen.js rollStats, rollSkills, spendPoolLowest, applyCharacter",
+    "limits": "Online ordinary custom creation, fixed or supplied legal rolls, no biography. Proprietary stock spell details require local observations.",
+    "assumptions": [],
+    "live_verified": false
+  },
+  {
+    "mechanic_id": "progression.training",
+    "implementation_status": "progression",
+    "verification_status": "source_verified",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/systems/advancement.js",
+    "symbol": "raiseSkills, raisePriceLevel, skillUsesForAdvancement, checkForLevelUp; guild/guildServiceActions.js trainSkill",
+    "limits": "One raise per skill per eligible skill check. Practice requires declared access, resources and opportunity.",
+    "assumptions": [],
+    "live_verified": false
+  },
+  {
+    "mechanic_id": "progression.real_use",
+    "implementation_status": "progression",
+    "verification_status": "source_verified",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/systems/skillSoftcap.js",
+    "symbol": "overcapTallyWeight, noteSkillChallenge, effectiveSkill; skills.js tallySkill",
+    "limits": "Real-use practice with source challenge and repeated-use weighting. Training duration requires an explicit activity schedule.",
+    "assumptions": [],
+    "live_verified": false
+  },
+  {
+    "mechanic_id": "progression.level",
+    "implementation_status": "progression",
+    "verification_status": "source_verified",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/systems/levelClimb.js",
+    "symbol": "onlineLevelFor; skills.js levelUpSkillSum; advancement.js bonusPoolFor, applyLevelUp",
+    "limits": "Supports the pinned online classic-leveling lane and separates cap sum, earned level and level claims.",
+    "assumptions": [],
+    "live_verified": false
+  },
+  {
+    "mechanic_id": "progression.mastery",
+    "implementation_status": "progression",
+    "verification_status": "source_verified",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/systems/masterSkills.js",
+    "symbol": "masterSkill, masterySlots; skillSoftcap.js softcapCostMultiplier",
+    "limits": "The three primary, two major and one minor quotas are permanent. Character level and skill cap are independent.",
+    "assumptions": [],
+    "live_verified": false
+  },
+  {
+    "mechanic_id": "progression.path",
+    "implementation_status": "progression",
+    "verification_status": "source_verified",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/systems/arcanePaths.js",
+    "symbol": "pathChoices, choosePath; martialPaths.js martialChoices; specReset.js resetSpec; signatureSpells.js signatureOffers",
+    "limits": "Both mastery pairs, family selection, paid reset and signature availability. Specialization bonuses require encounter-specific validation.",
+    "assumptions": [],
+    "live_verified": false
+  },
+  {
+    "mechanic_id": "progression.clock",
+    "implementation_status": "progression",
+    "verification_status": "source_verified",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/systems/rest/restAct.js",
+    "symbol": "nightDue, stampNight; advancement.js SKILL_RAISE_CHECK_INTERVAL",
+    "limits": "Conditional on an available uninterrupted rest. Saved personal classic minutes and timestamped real use are distinct.",
+    "assumptions": [],
+    "live_verified": false
+  }
+]

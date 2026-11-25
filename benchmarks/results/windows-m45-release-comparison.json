@@ -1,0 +1,2699 @@
+{
+  "schema_version": 1,
+  "workers": 1,
+  "host": {
+    "os": "Windows-10-10.0.19045-SP0",
+    "architecture": "AMD64",
+    "cpu": "AMD Ryzen 5 5600X 6-Core Processor",
+    "logical_cpus": 12,
+    "python": "3.12.10",
+    "python_compiler": "MSC v.1943 64 bit (AMD64)"
+  },
+  "repetitions_per_wheel": 3,
+  "wheels": {
+    "before": {
+      "filename": "dfo_optimizer-0.2.0-cp312-cp312-win_amd64.whl",
+      "sha256": "32269ea64bc89a3f72eb4f0c3ea3563f2019ca43c4ba58d5ac0d6c62335e2d28"
+    },
+    "after": {
+      "filename": "dfo_optimizer-0.3.0-cp312-cp312-win_amd64.whl",
+      "sha256": "1fc38c43ec001d2b9ea75ea197dbc3fd9c3b5c1ba97e5a6d1b8bff3aca0ee27d"
+    }
+  },
+  "runs": [
+    {
+      "version": "before",
+      "suite": "smoke",
+      "workload_version": 1,
+      "ruleset_hash": "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "peak_rss_bytes": 27852800,
+      "workloads": {
+        "mechanics_batch": {
+          "p50_ms": 0.300599998809048,
+          "evidence": {
+            "rows": 65536,
+            "verified": true,
+            "counters": {},
+            "input_sha256": "b891bda52a43d1a30495c945db1e8d3d96d6171c3ebd1ebdbb0ff342922a6071",
+            "batch_sha256": "cbea3ee92b3bfbd9c4010532ebf4a5af83109e74ea8c31baccfbc38de5270875"
+          },
+          "result_sha256": "cbea3ee92b3bfbd9c4010532ebf4a5af83109e74ea8c31baccfbc38de5270875"
+        },
+        "class_exact": {
+          "p50_ms": 2.193299998907605,
+          "evidence": {
+            "nodes": 78,
+            "leaves": 4,
+            "pruned": 9,
+            "quality": "All four expected classes",
+            "verified": true,
+            "returned": 4,
+            "status": "optimal_proven",
+            "termination": "exhausted",
+            "eligible_trait_count": 9,
+            "counters": {},
+            "input_sha256": "f60c0ec70284088e9599e28100aa38f69aa7ed9e039b8f9dbb308b3d54ae148d",
+            "ordered_classes_sha256": "efc0dcf2973e51b594288d2b134e0ead1ad36596d412d238ba3f217d7026a8a5"
+          },
+          "result_sha256": "2c50c9be772ff57c0c52c7c2c8df1be323047879710c447a6f7136d11881e150"
+        },
+        "class_bounded": {
+          "p50_ms": 4.873399999269168,
+          "evidence": {
+            "nodes": 252,
+            "leaves": 20,
+            "pruned": 66,
+            "quality": "Feasible examples at the locked floor",
+            "verified": true,
+            "returned": 20,
+            "status": "best_found_bounded",
+            "termination": "top_k",
+            "eligible_trait_count": 71,
+            "counters": {},
+            "input_sha256": "7eedf79d343ebe103454fac9d9f995c3b3a7fc5330510eaac867597469e2e3f5",
+            "ordered_classes_sha256": "ff2fe12f0c69fba240aea64cf1b177e4f61b2f771787fcb8f213746fa27da01b"
+          },
+          "result_sha256": "7164b68d95f22949c61275c5ba0163d245516040e8db81a2ad824f6bf219cfbd"
+        }
+      }
+    },
+    {
+      "version": "before",
+      "suite": "combat",
+      "workload_version": 1,
+      "ruleset_hash": "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "peak_rss_bytes": 30097408,
+      "workloads": {
+        "simple_batch": {
+          "p50_ms": 4.702999998698942,
+          "evidence": {
+            "rows": 65536,
+            "checksum": 15077840896,
+            "counters": {},
+            "input_sha256": "b30920a432005904798b53d74efad7011644814d40df0f79b27ae64ac6775091"
+          },
+          "result_sha256": null
+        },
+        "fixed_spell": {
+          "p50_ms": 0.17950000074051786,
+          "evidence": {
+            "status": "evaluated",
+            "termination": "evaluated",
+            "frontier": [
+              [
+                20.330809523809528,
+                1.2035151515151516
+              ]
+            ],
+            "counters": {
+              "nodes": 1,
+              "leaves": 1,
+              "pruned": 0
+            },
+            "input_sha256": "aff86472e17953c9965d6db72597a2092b0cf8e8985136b2fb913b5ec2d7373e"
+          },
+          "result_sha256": "91688cd3ebe13695e4fdba541a5e0c582d17e1069976fd8b8b23965b51e0e8f3"
+        },
+        "spell_exact": {
+          "p50_ms": 0.5243999985395931,
+          "evidence": {
+            "status": "optimal_proven",
+            "termination": "exhausted",
+            "frontier": [
+              [
+                24.579107142857143,
+                2.6675
+              ],
+              [
+                39.229821428571434,
+                2.3222727272727273
+              ],
+              [
+                47.488125000000004,
+                2.2087499999999998
+              ],
+              [
+                47.987232142857145,
+                2.0831666666666666
+              ],
+              [
+                48.487619047619056,
+                1.8572549019607845
+              ],
+              [
+                48.987366071428575,
+                1.6788815789473683
+              ],
+              [
+                49.48839285714286,
+                1.5345238095238096
+              ]
+            ],
+            "counters": {
+              "nodes": 648,
+              "leaves": 648,
+              "pruned": 0
+            },
+            "input_sha256": "1016071ffc1abe68e0203bf9a2edff509885b3985bdb6b2f8b63b16a08918c38"
+          },
+          "result_sha256": "4f0ed172955ca017bb41d7359bcd633482126f4dd20e836e0f2fefe9125b530f"
+        },
+        "spell_bounded": {
+          "p50_ms": 0.40890000127546955,
+          "evidence": {
+            "quality": {
+              "exact_points": 7,
+              "bounded_points": 4,
+              "exact_points_recovered": 4,
+              "frontier_recall": 0.5714285714285714,
+              "dominated_area_fraction": 0.9847775384736815,
+              "peak_dps_fraction": 1.0
+            },
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                24.579107142857143,
+                2.6675
+              ],
+              [
+                47.488125000000004,
+                2.2087499999999998
+              ],
+              [
+                48.487619047619056,
+                1.8572549019607845
+              ],
+              [
+                49.48839285714286,
+                1.5345238095238096
+              ]
+            ],
+            "counters": {
+              "nodes": 128,
+              "leaves": 128,
+              "pruned": 0
+            },
+            "input_sha256": "2a3feb758b34a5fe443676bc53f1ac237290e9758c8289c948a905bb62e8a0c8"
+          },
+          "result_sha256": "cdfee33fd64375d87ddb4e16081a831878fff2c644aa70ebf9513cbe9ae2e4bd"
+        },
+        "gear_exact": {
+          "p50_ms": 7.582300000649411,
+          "evidence": {
+            "status": "optimal_proven",
+            "termination": "exhausted",
+            "frontier": [
+              [
+                40.79625000000001,
+                4.4275
+              ],
+              [
+                41.05446428571429,
+                4.2575
+              ],
+              [
+                51.22767857142857,
+                3.984375
+              ],
+              [
+                51.75000000000001,
+                3.577777777777778
+              ],
+              [
+                52.27232142857142,
+                2.9568181818181816
+              ],
+              [
+                52.79464285714286,
+                2.7375000000000003
+              ],
+              [
+                53.31696428571428,
+                2.5519230769230767
+              ]
+            ],
+            "counters": {
+              "nodes": 16065,
+              "pruned": 4,
+              "leaves": 21,
+              "evaluations": 7128,
+              "cache_hits": 10,
+              "cache_misses": 11,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1458,
+              "sampled_spells": false
+            },
+            "input_sha256": "1e70a05ca72d2e5315687bc0a48c78afc22841064477c99a45d997adea72eb44"
+          },
+          "result_sha256": "d50605c52834ecc67f2f4e28f7908e95924009b66f4daebfe3352146e86f6e64"
+        },
+        "gear_bounded": {
+          "p50_ms": 6.363999998939107,
+          "evidence": {
+            "quality": {
+              "exact_points": 7,
+              "bounded_points": 7,
+              "exact_points_recovered": 2,
+              "frontier_recall": 0.2857142857142857,
+              "dominated_area_fraction": 0.8596710692963448,
+              "peak_dps_fraction": 0.9902034664657123
+            },
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                41.476763392857144,
+                3.8583035714285714
+              ],
+              [
+                41.761607142857144,
+                3.712142857142857
+              ],
+              [
+                43.405915178571426,
+                3.376015625
+              ],
+              [
+                49.949107142857144,
+                3.2525
+              ],
+              [
+                50.74285714285714,
+                3.1573333333333333
+              ],
+              [
+                52.27232142857142,
+                2.9568181818181816
+              ],
+              [
+                52.79464285714286,
+                2.7375000000000003
+              ]
+            ],
+            "counters": {
+              "nodes": 700,
+              "pruned": 2,
+              "leaves": 7,
+              "evaluations": 328,
+              "cache_hits": 1,
+              "cache_misses": 6,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1458,
+              "sampled_spells": true
+            },
+            "input_sha256": "2b3b001d58f7ed52bf166164765b1d6c090ca90691af109295d557f4aa7f9e77"
+          },
+          "result_sha256": "836c0bbe94a050a64060f1700208ec86484c460e10ac9598acab1f09baf1fbe4"
+        },
+        "spell_full_budget": {
+          "p50_ms": 8.457800000542193,
+          "evidence": {
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                13.49125,
+                1.7570000000000001
+              ],
+              [
+                30.983803571428574,
+                1.6812916666666666
+              ],
+              [
+                43.345535714285724,
+                1.660294117647059
+              ],
+              [
+                54.82500000000001,
+                1.373076923076923
+              ],
+              [
+                55.056956845238105,
+                0.8147964015151515
+              ],
+              [
+                56.41871703296704,
+                0.7653701923076923
+              ],
+              [
+                57.58928571428572,
+                0.75
+              ],
+              [
+                57.67002884615385,
+                0.5364653846153846
+              ],
+              [
+                57.82943719593101,
+                0.4827740731920298
+              ],
+              [
+                58.058531746031754,
+                0.4785513361462729
+              ]
+            ],
+            "counters": {
+              "nodes": 100000,
+              "leaves": 13185,
+              "pruned": 86815
+            },
+            "input_sha256": "802764badde304c0475bef76f8898f436eb3815b9d5a8790fcca29eee3057dce"
+          },
+          "result_sha256": "4a4a44c5a7533cd6e4f6bcd372b7b11781647e50b91cf334475d05d50904fd55"
+        },
+        "gear_owned": {
+          "p50_ms": 17.874499999379623,
+          "evidence": {
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                22.29,
+                3.4673333333333334
+              ],
+              [
+                26.73,
+                3.3264000000000005
+              ]
+            ],
+            "counters": {
+              "nodes": 60000,
+              "pruned": 4223,
+              "leaves": 54877,
+              "evaluations": 195,
+              "cache_hits": 54682,
+              "cache_misses": 195,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1,
+              "sampled_spells": false
+            },
+            "input_sha256": "57576912cc2968b7a09239e8d3d25f6ee1078e91c0520d33f124f50d62b77723"
+          },
+          "result_sha256": "b99206b1dafca6091cf552780a3cf326b72b3d81c0bc2e4c8e5965f3889d5896"
+        },
+        "joint_budget": {
+          "p50_ms": 22.332900000037625,
+          "evidence": {
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                52.79464285714286,
+                8.2125
+              ],
+              [
+                53.54433035714286,
+                7.9746875
+              ],
+              [
+                55.21138392857142,
+                6.870749999999999
+              ],
+              [
+                57.291741071428575,
+                6.82625
+              ],
+              [
+                59.333749999999995,
+                6.781000000000001
+              ],
+              [
+                61.03607142857142,
+                6.702
+              ],
+              [
+                62.18035714285715,
+                6.57
+              ],
+              [
+                62.658258928571435,
+                6.37975
+              ]
+            ],
+            "counters": {
+              "nodes": 75000,
+              "pruned": 3543,
+              "leaves": 46033,
+              "evaluations": 11834,
+              "cache_hits": 45839,
+              "cache_misses": 194,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1458,
+              "sampled_spells": true
+            },
+            "input_sha256": "624f4c2c79585c66568ac83cf730d7abd6dcacbcf8539d728aa379ddc8506f02"
+          },
+          "result_sha256": "096588999413c531a71a6c5036f066a322979cebce0893d0686e6d725f08f252"
+        }
+      }
+    },
+    {
+      "version": "after",
+      "suite": "smoke",
+      "workload_version": 1,
+      "ruleset_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "peak_rss_bytes": 28033024,
+      "workloads": {
+        "mechanics_batch": {
+          "p50_ms": 0.45959999988554046,
+          "evidence": {
+            "rows": 65536,
+            "verified": true,
+            "counters": {},
+            "input_sha256": "b891bda52a43d1a30495c945db1e8d3d96d6171c3ebd1ebdbb0ff342922a6071",
+            "batch_sha256": "cbea3ee92b3bfbd9c4010532ebf4a5af83109e74ea8c31baccfbc38de5270875"
+          },
+          "result_sha256": "cbea3ee92b3bfbd9c4010532ebf4a5af83109e74ea8c31baccfbc38de5270875"
+        },
+        "class_exact": {
+          "p50_ms": 3.265000001192675,
+          "evidence": {
+            "nodes": 78,
+            "leaves": 4,
+            "pruned": 9,
+            "quality": "All four expected classes",
+            "verified": true,
+            "returned": 4,
+            "status": "optimal_proven",
+            "termination": "exhausted",
+            "eligible_trait_count": 9,
+            "counters": {},
+            "input_sha256": "f60c0ec70284088e9599e28100aa38f69aa7ed9e039b8f9dbb308b3d54ae148d",
+            "ordered_classes_sha256": "efc0dcf2973e51b594288d2b134e0ead1ad36596d412d238ba3f217d7026a8a5"
+          },
+          "result_sha256": "3b7dc572006d2e6aa710efc564f3ffde1a096c96a056543b585829d35d513f1f"
+        },
+        "class_bounded": {
+          "p50_ms": 6.82059999962803,
+          "evidence": {
+            "nodes": 252,
+            "leaves": 20,
+            "pruned": 66,
+            "quality": "Feasible examples at the locked floor",
+            "verified": true,
+            "returned": 20,
+            "status": "best_found_bounded",
+            "termination": "top_k",
+            "eligible_trait_count": 71,
+            "counters": {},
+            "input_sha256": "7eedf79d343ebe103454fac9d9f995c3b3a7fc5330510eaac867597469e2e3f5",
+            "ordered_classes_sha256": "ff2fe12f0c69fba240aea64cf1b177e4f61b2f771787fcb8f213746fa27da01b"
+          },
+          "result_sha256": "75adbb62cda16304f49c5b5c0d662ca4e15d8358d9afe1469ffd569c4bf417e1"
+        }
+      }
+    },
+    {
+      "version": "after",
+      "suite": "combat",
+      "workload_version": 1,
+      "ruleset_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "peak_rss_bytes": 30818304,
+      "workloads": {
+        "simple_batch": {
+          "p50_ms": 5.092199999126024,
+          "evidence": {
+            "rows": 65536,
+            "checksum": 15077840896,
+            "counters": {},
+            "input_sha256": "b30920a432005904798b53d74efad7011644814d40df0f79b27ae64ac6775091"
+          },
+          "result_sha256": null
+        },
+        "fixed_spell": {
+          "p50_ms": 0.18349999845668208,
+          "evidence": {
+            "status": "evaluated",
+            "termination": "evaluated",
+            "frontier": [
+              [
+                20.330809523809528,
+                1.2035151515151516
+              ]
+            ],
+            "counters": {
+              "nodes": 1,
+              "leaves": 1,
+              "pruned": 0
+            },
+            "input_sha256": "aff86472e17953c9965d6db72597a2092b0cf8e8985136b2fb913b5ec2d7373e"
+          },
+          "result_sha256": "a3ba9b891418354603d29c89baff7aab0e33ea50770baa745fd918862bc3a211"
+        },
+        "spell_exact": {
+          "p50_ms": 0.5522999999811873,
+          "evidence": {
+            "status": "optimal_proven",
+            "termination": "exhausted",
+            "frontier": [
+              [
+                24.579107142857143,
+                2.6675
+              ],
+              [
+                39.229821428571434,
+                2.3222727272727273
+              ],
+              [
+                47.488125000000004,
+                2.2087499999999998
+              ],
+              [
+                47.987232142857145,
+                2.0831666666666666
+              ],
+              [
+                48.487619047619056,
+                1.8572549019607845
+              ],
+              [
+                48.987366071428575,
+                1.6788815789473683
+              ],
+              [
+                49.48839285714286,
+                1.5345238095238096
+              ]
+            ],
+            "counters": {
+              "nodes": 648,
+              "leaves": 648,
+              "pruned": 0
+            },
+            "input_sha256": "1016071ffc1abe68e0203bf9a2edff509885b3985bdb6b2f8b63b16a08918c38"
+          },
+          "result_sha256": "baafe622aa199f0033af16fa1e96dc9c112c10380155b262581bbf6bf8778400"
+        },
+        "spell_bounded": {
+          "p50_ms": 0.3632000007200986,
+          "evidence": {
+            "quality": {
+              "exact_points": 7,
+              "bounded_points": 4,
+              "exact_points_recovered": 4,
+              "frontier_recall": 0.5714285714285714,
+              "dominated_area_fraction": 0.9847775384736815,
+              "peak_dps_fraction": 1.0
+            },
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                24.579107142857143,
+                2.6675
+              ],
+              [
+                47.488125000000004,
+                2.2087499999999998
+              ],
+              [
+                48.487619047619056,
+                1.8572549019607845
+              ],
+              [
+                49.48839285714286,
+                1.5345238095238096
+              ]
+            ],
+            "counters": {
+              "nodes": 128,
+              "leaves": 128,
+              "pruned": 0
+            },
+            "input_sha256": "2a3feb758b34a5fe443676bc53f1ac237290e9758c8289c948a905bb62e8a0c8"
+          },
+          "result_sha256": "3c27652ee6eb2cacbd1ec9ca85e6fead0abd67d3e420690e888a5bcc9eb5aa26"
+        },
+        "gear_exact": {
+          "p50_ms": 5.618499999400228,
+          "evidence": {
+            "status": "optimal_proven",
+            "termination": "exhausted",
+            "frontier": [
+              [
+                40.79625000000001,
+                4.4275
+              ],
+              [
+                41.05446428571429,
+                4.2575
+              ],
+              [
+                51.22767857142857,
+                3.984375
+              ],
+              [
+                51.75000000000001,
+                3.577777777777778
+              ],
+              [
+                52.27232142857142,
+                2.9568181818181816
+              ],
+              [
+                52.79464285714286,
+                2.7375000000000003
+              ],
+              [
+                53.31696428571428,
+                2.5519230769230767
+              ]
+            ],
+            "counters": {
+              "nodes": 16065,
+              "pruned": 4,
+              "leaves": 21,
+              "evaluations": 7128,
+              "cache_hits": 10,
+              "cache_misses": 11,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1458,
+              "sampled_spells": false
+            },
+            "input_sha256": "1e70a05ca72d2e5315687bc0a48c78afc22841064477c99a45d997adea72eb44"
+          },
+          "result_sha256": "9394981b92a8a245fb743bcb45bcc2cc84413c11214ba07e35038daca37a1dd6"
+        },
+        "gear_bounded": {
+          "p50_ms": 4.711899999165325,
+          "evidence": {
+            "quality": {
+              "exact_points": 7,
+              "bounded_points": 7,
+              "exact_points_recovered": 2,
+              "frontier_recall": 0.2857142857142857,
+              "dominated_area_fraction": 0.8596710692963448,
+              "peak_dps_fraction": 0.9902034664657123
+            },
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                41.476763392857144,
+                3.8583035714285714
+              ],
+              [
+                41.761607142857144,
+                3.712142857142857
+              ],
+              [
+                43.405915178571426,
+                3.376015625
+              ],
+              [
+                49.949107142857144,
+                3.2525
+              ],
+              [
+                50.74285714285714,
+                3.1573333333333333
+              ],
+              [
+                52.27232142857142,
+                2.9568181818181816
+              ],
+              [
+                52.79464285714286,
+                2.7375000000000003
+              ]
+            ],
+            "counters": {
+              "nodes": 700,
+              "pruned": 2,
+              "leaves": 7,
+              "evaluations": 328,
+              "cache_hits": 1,
+              "cache_misses": 6,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1458,
+              "sampled_spells": true
+            },
+            "input_sha256": "2b3b001d58f7ed52bf166164765b1d6c090ca90691af109295d557f4aa7f9e77"
+          },
+          "result_sha256": "80709b6a92775eacbc41353c9111cefda6ca2425629ecc7b4e773152dc229115"
+        },
+        "spell_full_budget": {
+          "p50_ms": 8.720100000573439,
+          "evidence": {
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                13.49125,
+                1.7570000000000001
+              ],
+              [
+                30.983803571428574,
+                1.6812916666666666
+              ],
+              [
+                43.345535714285724,
+                1.660294117647059
+              ],
+              [
+                54.82500000000001,
+                1.373076923076923
+              ],
+              [
+                55.056956845238105,
+                0.8147964015151515
+              ],
+              [
+                56.41871703296704,
+                0.7653701923076923
+              ],
+              [
+                57.58928571428572,
+                0.75
+              ],
+              [
+                57.67002884615385,
+                0.5364653846153846
+              ],
+              [
+                57.82943719593101,
+                0.4827740731920298
+              ],
+              [
+                58.058531746031754,
+                0.4785513361462729
+              ]
+            ],
+            "counters": {
+              "nodes": 100000,
+              "leaves": 13185,
+              "pruned": 86815
+            },
+            "input_sha256": "802764badde304c0475bef76f8898f436eb3815b9d5a8790fcca29eee3057dce"
+          },
+          "result_sha256": "3bfc86b349dadc858c55708a19cbcd56364b179ed2d7096f3b569f3c70a92e6b"
+        },
+        "gear_owned": {
+          "p50_ms": 15.18729999952484,
+          "evidence": {
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                22.29,
+                3.4673333333333334
+              ],
+              [
+                26.73,
+                3.3264000000000005
+              ]
+            ],
+            "counters": {
+              "nodes": 60000,
+              "pruned": 4223,
+              "leaves": 54877,
+              "evaluations": 195,
+              "cache_hits": 54682,
+              "cache_misses": 195,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1,
+              "sampled_spells": false
+            },
+            "input_sha256": "57576912cc2968b7a09239e8d3d25f6ee1078e91c0520d33f124f50d62b77723"
+          },
+          "result_sha256": "d3f5b28e408a2f3cd959c60e1bb9ff060a54221c9adeb7abb014e71cc0f05ace"
+        },
+        "joint_budget": {
+          "p50_ms": 23.85639999920386,
+          "evidence": {
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                52.79464285714286,
+                8.2125
+              ],
+              [
+                53.54433035714286,
+                7.9746875
+              ],
+              [
+                55.21138392857142,
+                6.870749999999999
+              ],
+              [
+                57.291741071428575,
+                6.82625
+              ],
+              [
+                59.333749999999995,
+                6.781000000000001
+              ],
+              [
+                61.03607142857142,
+                6.702
+              ],
+              [
+                62.18035714285715,
+                6.57
+              ],
+              [
+                62.658258928571435,
+                6.37975
+              ]
+            ],
+            "counters": {
+              "nodes": 75000,
+              "pruned": 3543,
+              "leaves": 46033,
+              "evaluations": 11834,
+              "cache_hits": 45839,
+              "cache_misses": 194,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1458,
+              "sampled_spells": true
+            },
+            "input_sha256": "624f4c2c79585c66568ac83cf730d7abd6dcacbcf8539d728aa379ddc8506f02"
+          },
+          "result_sha256": "8fe1fe18fccdbc97dba9b80849731b78223ec16c3d8ea5b8b2c38334ad420c86"
+        }
+      }
+    },
+    {
+      "version": "after",
+      "suite": "smoke",
+      "workload_version": 1,
+      "ruleset_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "peak_rss_bytes": 27983872,
+      "workloads": {
+        "mechanics_batch": {
+          "p50_ms": 0.2911000010499265,
+          "evidence": {
+            "rows": 65536,
+            "verified": true,
+            "counters": {},
+            "input_sha256": "b891bda52a43d1a30495c945db1e8d3d96d6171c3ebd1ebdbb0ff342922a6071",
+            "batch_sha256": "cbea3ee92b3bfbd9c4010532ebf4a5af83109e74ea8c31baccfbc38de5270875"
+          },
+          "result_sha256": "cbea3ee92b3bfbd9c4010532ebf4a5af83109e74ea8c31baccfbc38de5270875"
+        },
+        "class_exact": {
+          "p50_ms": 1.9584999990911456,
+          "evidence": {
+            "nodes": 78,
+            "leaves": 4,
+            "pruned": 9,
+            "quality": "All four expected classes",
+            "verified": true,
+            "returned": 4,
+            "status": "optimal_proven",
+            "termination": "exhausted",
+            "eligible_trait_count": 9,
+            "counters": {},
+            "input_sha256": "f60c0ec70284088e9599e28100aa38f69aa7ed9e039b8f9dbb308b3d54ae148d",
+            "ordered_classes_sha256": "efc0dcf2973e51b594288d2b134e0ead1ad36596d412d238ba3f217d7026a8a5"
+          },
+          "result_sha256": "3b7dc572006d2e6aa710efc564f3ffde1a096c96a056543b585829d35d513f1f"
+        },
+        "class_bounded": {
+          "p50_ms": 5.681799999365467,
+          "evidence": {
+            "nodes": 252,
+            "leaves": 20,
+            "pruned": 66,
+            "quality": "Feasible examples at the locked floor",
+            "verified": true,
+            "returned": 20,
+            "status": "best_found_bounded",
+            "termination": "top_k",
+            "eligible_trait_count": 71,
+            "counters": {},
+            "input_sha256": "7eedf79d343ebe103454fac9d9f995c3b3a7fc5330510eaac867597469e2e3f5",
+            "ordered_classes_sha256": "ff2fe12f0c69fba240aea64cf1b177e4f61b2f771787fcb8f213746fa27da01b"
+          },
+          "result_sha256": "75adbb62cda16304f49c5b5c0d662ca4e15d8358d9afe1469ffd569c4bf417e1"
+        }
+      }
+    },
+    {
+      "version": "after",
+      "suite": "combat",
+      "workload_version": 1,
+      "ruleset_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "peak_rss_bytes": 30101504,
+      "workloads": {
+        "simple_batch": {
+          "p50_ms": 6.720100000165985,
+          "evidence": {
+            "rows": 65536,
+            "checksum": 15077840896,
+            "counters": {},
+            "input_sha256": "b30920a432005904798b53d74efad7011644814d40df0f79b27ae64ac6775091"
+          },
+          "result_sha256": null
+        },
+        "fixed_spell": {
+          "p50_ms": 0.2944999996543629,
+          "evidence": {
+            "status": "evaluated",
+            "termination": "evaluated",
+            "frontier": [
+              [
+                20.330809523809528,
+                1.2035151515151516
+              ]
+            ],
+            "counters": {
+              "nodes": 1,
+              "leaves": 1,
+              "pruned": 0
+            },
+            "input_sha256": "aff86472e17953c9965d6db72597a2092b0cf8e8985136b2fb913b5ec2d7373e"
+          },
+          "result_sha256": "a3ba9b891418354603d29c89baff7aab0e33ea50770baa745fd918862bc3a211"
+        },
+        "spell_exact": {
+          "p50_ms": 0.6676000011793803,
+          "evidence": {
+            "status": "optimal_proven",
+            "termination": "exhausted",
+            "frontier": [
+              [
+                24.579107142857143,
+                2.6675
+              ],
+              [
+                39.229821428571434,
+                2.3222727272727273
+              ],
+              [
+                47.488125000000004,
+                2.2087499999999998
+              ],
+              [
+                47.987232142857145,
+                2.0831666666666666
+              ],
+              [
+                48.487619047619056,
+                1.8572549019607845
+              ],
+              [
+                48.987366071428575,
+                1.6788815789473683
+              ],
+              [
+                49.48839285714286,
+                1.5345238095238096
+              ]
+            ],
+            "counters": {
+              "nodes": 648,
+              "leaves": 648,
+              "pruned": 0
+            },
+            "input_sha256": "1016071ffc1abe68e0203bf9a2edff509885b3985bdb6b2f8b63b16a08918c38"
+          },
+          "result_sha256": "baafe622aa199f0033af16fa1e96dc9c112c10380155b262581bbf6bf8778400"
+        },
+        "spell_bounded": {
+          "p50_ms": 0.6034999987605261,
+          "evidence": {
+            "quality": {
+              "exact_points": 7,
+              "bounded_points": 4,
+              "exact_points_recovered": 4,
+              "frontier_recall": 0.5714285714285714,
+              "dominated_area_fraction": 0.9847775384736815,
+              "peak_dps_fraction": 1.0
+            },
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                24.579107142857143,
+                2.6675
+              ],
+              [
+                47.488125000000004,
+                2.2087499999999998
+              ],
+              [
+                48.487619047619056,
+                1.8572549019607845
+              ],
+              [
+                49.48839285714286,
+                1.5345238095238096
+              ]
+            ],
+            "counters": {
+              "nodes": 128,
+              "leaves": 128,
+              "pruned": 0
+            },
+            "input_sha256": "2a3feb758b34a5fe443676bc53f1ac237290e9758c8289c948a905bb62e8a0c8"
+          },
+          "result_sha256": "3c27652ee6eb2cacbd1ec9ca85e6fead0abd67d3e420690e888a5bcc9eb5aa26"
+        },
+        "gear_exact": {
+          "p50_ms": 8.991799999421346,
+          "evidence": {
+            "status": "optimal_proven",
+            "termination": "exhausted",
+            "frontier": [
+              [
+                40.79625000000001,
+                4.4275
+              ],
+              [
+                41.05446428571429,
+                4.2575
+              ],
+              [
+                51.22767857142857,
+                3.984375
+              ],
+              [
+                51.75000000000001,
+                3.577777777777778
+              ],
+              [
+                52.27232142857142,
+                2.9568181818181816
+              ],
+              [
+                52.79464285714286,
+                2.7375000000000003
+              ],
+              [
+                53.31696428571428,
+                2.5519230769230767
+              ]
+            ],
+            "counters": {
+              "nodes": 16065,
+              "pruned": 4,
+              "leaves": 21,
+              "evaluations": 7128,
+              "cache_hits": 10,
+              "cache_misses": 11,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1458,
+              "sampled_spells": false
+            },
+            "input_sha256": "1e70a05ca72d2e5315687bc0a48c78afc22841064477c99a45d997adea72eb44"
+          },
+          "result_sha256": "9394981b92a8a245fb743bcb45bcc2cc84413c11214ba07e35038daca37a1dd6"
+        },
+        "gear_bounded": {
+          "p50_ms": 6.065400000807131,
+          "evidence": {
+            "quality": {
+              "exact_points": 7,
+              "bounded_points": 7,
+              "exact_points_recovered": 2,
+              "frontier_recall": 0.2857142857142857,
+              "dominated_area_fraction": 0.8596710692963448,
+              "peak_dps_fraction": 0.9902034664657123
+            },
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                41.476763392857144,
+                3.8583035714285714
+              ],
+              [
+                41.761607142857144,
+                3.712142857142857
+              ],
+              [
+                43.405915178571426,
+                3.376015625
+              ],
+              [
+                49.949107142857144,
+                3.2525
+              ],
+              [
+                50.74285714285714,
+                3.1573333333333333
+              ],
+              [
+                52.27232142857142,
+                2.9568181818181816
+              ],
+              [
+                52.79464285714286,
+                2.7375000000000003
+              ]
+            ],
+            "counters": {
+              "nodes": 700,
+              "pruned": 2,
+              "leaves": 7,
+              "evaluations": 328,
+              "cache_hits": 1,
+              "cache_misses": 6,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1458,
+              "sampled_spells": true
+            },
+            "input_sha256": "2b3b001d58f7ed52bf166164765b1d6c090ca90691af109295d557f4aa7f9e77"
+          },
+          "result_sha256": "80709b6a92775eacbc41353c9111cefda6ca2425629ecc7b4e773152dc229115"
+        },
+        "spell_full_budget": {
+          "p50_ms": 6.630199999563047,
+          "evidence": {
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                13.49125,
+                1.7570000000000001
+              ],
+              [
+                30.983803571428574,
+                1.6812916666666666
+              ],
+              [
+                43.345535714285724,
+                1.660294117647059
+              ],
+              [
+                54.82500000000001,
+                1.373076923076923
+              ],
+              [
+                55.056956845238105,
+                0.8147964015151515
+              ],
+              [
+                56.41871703296704,
+                0.7653701923076923
+              ],
+              [
+                57.58928571428572,
+                0.75
+              ],
+              [
+                57.67002884615385,
+                0.5364653846153846
+              ],
+              [
+                57.82943719593101,
+                0.4827740731920298
+              ],
+              [
+                58.058531746031754,
+                0.4785513361462729
+              ]
+            ],
+            "counters": {
+              "nodes": 100000,
+              "leaves": 13185,
+              "pruned": 86815
+            },
+            "input_sha256": "802764badde304c0475bef76f8898f436eb3815b9d5a8790fcca29eee3057dce"
+          },
+          "result_sha256": "3bfc86b349dadc858c55708a19cbcd56364b179ed2d7096f3b569f3c70a92e6b"
+        },
+        "gear_owned": {
+          "p50_ms": 16.270599999188562,
+          "evidence": {
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                22.29,
+                3.4673333333333334
+              ],
+              [
+                26.73,
+                3.3264000000000005
+              ]
+            ],
+            "counters": {
+              "nodes": 60000,
+              "pruned": 4223,
+              "leaves": 54877,
+              "evaluations": 195,
+              "cache_hits": 54682,
+              "cache_misses": 195,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1,
+              "sampled_spells": false
+            },
+            "input_sha256": "57576912cc2968b7a09239e8d3d25f6ee1078e91c0520d33f124f50d62b77723"
+          },
+          "result_sha256": "d3f5b28e408a2f3cd959c60e1bb9ff060a54221c9adeb7abb014e71cc0f05ace"
+        },
+        "joint_budget": {
+          "p50_ms": 21.73679999941669,
+          "evidence": {
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                52.79464285714286,
+                8.2125
+              ],
+              [
+                53.54433035714286,
+                7.9746875
+              ],
+              [
+                55.21138392857142,
+                6.870749999999999
+              ],
+              [
+                57.291741071428575,
+                6.82625
+              ],
+              [
+                59.333749999999995,
+                6.781000000000001
+              ],
+              [
+                61.03607142857142,
+                6.702
+              ],
+              [
+                62.18035714285715,
+                6.57
+              ],
+              [
+                62.658258928571435,
+                6.37975
+              ]
+            ],
+            "counters": {
+              "nodes": 75000,
+              "pruned": 3543,
+              "leaves": 46033,
+              "evaluations": 11834,
+              "cache_hits": 45839,
+              "cache_misses": 194,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1458,
+              "sampled_spells": true
+            },
+            "input_sha256": "624f4c2c79585c66568ac83cf730d7abd6dcacbcf8539d728aa379ddc8506f02"
+          },
+          "result_sha256": "8fe1fe18fccdbc97dba9b80849731b78223ec16c3d8ea5b8b2c38334ad420c86"
+        }
+      }
+    },
+    {
+      "version": "before",
+      "suite": "smoke",
+      "workload_version": 1,
+      "ruleset_hash": "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "peak_rss_bytes": 28028928,
+      "workloads": {
+        "mechanics_batch": {
+          "p50_ms": 0.28170000041427556,
+          "evidence": {
+            "rows": 65536,
+            "verified": true,
+            "counters": {},
+            "input_sha256": "b891bda52a43d1a30495c945db1e8d3d96d6171c3ebd1ebdbb0ff342922a6071",
+            "batch_sha256": "cbea3ee92b3bfbd9c4010532ebf4a5af83109e74ea8c31baccfbc38de5270875"
+          },
+          "result_sha256": "cbea3ee92b3bfbd9c4010532ebf4a5af83109e74ea8c31baccfbc38de5270875"
+        },
+        "class_exact": {
+          "p50_ms": 2.0334000000730157,
+          "evidence": {
+            "nodes": 78,
+            "leaves": 4,
+            "pruned": 9,
+            "quality": "All four expected classes",
+            "verified": true,
+            "returned": 4,
+            "status": "optimal_proven",
+            "termination": "exhausted",
+            "eligible_trait_count": 9,
+            "counters": {},
+            "input_sha256": "f60c0ec70284088e9599e28100aa38f69aa7ed9e039b8f9dbb308b3d54ae148d",
+            "ordered_classes_sha256": "efc0dcf2973e51b594288d2b134e0ead1ad36596d412d238ba3f217d7026a8a5"
+          },
+          "result_sha256": "2c50c9be772ff57c0c52c7c2c8df1be323047879710c447a6f7136d11881e150"
+        },
+        "class_bounded": {
+          "p50_ms": 4.607599999872036,
+          "evidence": {
+            "nodes": 252,
+            "leaves": 20,
+            "pruned": 66,
+            "quality": "Feasible examples at the locked floor",
+            "verified": true,
+            "returned": 20,
+            "status": "best_found_bounded",
+            "termination": "top_k",
+            "eligible_trait_count": 71,
+            "counters": {},
+            "input_sha256": "7eedf79d343ebe103454fac9d9f995c3b3a7fc5330510eaac867597469e2e3f5",
+            "ordered_classes_sha256": "ff2fe12f0c69fba240aea64cf1b177e4f61b2f771787fcb8f213746fa27da01b"
+          },
+          "result_sha256": "7164b68d95f22949c61275c5ba0163d245516040e8db81a2ad824f6bf219cfbd"
+        }
+      }
+    },
+    {
+      "version": "before",
+      "suite": "combat",
+      "workload_version": 1,
+      "ruleset_hash": "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "peak_rss_bytes": 30277632,
+      "workloads": {
+        "simple_batch": {
+          "p50_ms": 4.706600000645267,
+          "evidence": {
+            "rows": 65536,
+            "checksum": 15077840896,
+            "counters": {},
+            "input_sha256": "b30920a432005904798b53d74efad7011644814d40df0f79b27ae64ac6775091"
+          },
+          "result_sha256": null
+        },
+        "fixed_spell": {
+          "p50_ms": 0.2082999999402091,
+          "evidence": {
+            "status": "evaluated",
+            "termination": "evaluated",
+            "frontier": [
+              [
+                20.330809523809528,
+                1.2035151515151516
+              ]
+            ],
+            "counters": {
+              "nodes": 1,
+              "leaves": 1,
+              "pruned": 0
+            },
+            "input_sha256": "aff86472e17953c9965d6db72597a2092b0cf8e8985136b2fb913b5ec2d7373e"
+          },
+          "result_sha256": "91688cd3ebe13695e4fdba541a5e0c582d17e1069976fd8b8b23965b51e0e8f3"
+        },
+        "spell_exact": {
+          "p50_ms": 0.4847999989578966,
+          "evidence": {
+            "status": "optimal_proven",
+            "termination": "exhausted",
+            "frontier": [
+              [
+                24.579107142857143,
+                2.6675
+              ],
+              [
+                39.229821428571434,
+                2.3222727272727273
+              ],
+              [
+                47.488125000000004,
+                2.2087499999999998
+              ],
+              [
+                47.987232142857145,
+                2.0831666666666666
+              ],
+              [
+                48.487619047619056,
+                1.8572549019607845
+              ],
+              [
+                48.987366071428575,
+                1.6788815789473683
+              ],
+              [
+                49.48839285714286,
+                1.5345238095238096
+              ]
+            ],
+            "counters": {
+              "nodes": 648,
+              "leaves": 648,
+              "pruned": 0
+            },
+            "input_sha256": "1016071ffc1abe68e0203bf9a2edff509885b3985bdb6b2f8b63b16a08918c38"
+          },
+          "result_sha256": "4f0ed172955ca017bb41d7359bcd633482126f4dd20e836e0f2fefe9125b530f"
+        },
+        "spell_bounded": {
+          "p50_ms": 0.33509999957459513,
+          "evidence": {
+            "quality": {
+              "exact_points": 7,
+              "bounded_points": 4,
+              "exact_points_recovered": 4,
+              "frontier_recall": 0.5714285714285714,
+              "dominated_area_fraction": 0.9847775384736815,
+              "peak_dps_fraction": 1.0
+            },
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                24.579107142857143,
+                2.6675
+              ],
+              [
+                47.488125000000004,
+                2.2087499999999998
+              ],
+              [
+                48.487619047619056,
+                1.8572549019607845
+              ],
+              [
+                49.48839285714286,
+                1.5345238095238096
+              ]
+            ],
+            "counters": {
+              "nodes": 128,
+              "leaves": 128,
+              "pruned": 0
+            },
+            "input_sha256": "2a3feb758b34a5fe443676bc53f1ac237290e9758c8289c948a905bb62e8a0c8"
+          },
+          "result_sha256": "cdfee33fd64375d87ddb4e16081a831878fff2c644aa70ebf9513cbe9ae2e4bd"
+        },
+        "gear_exact": {
+          "p50_ms": 7.314899999983027,
+          "evidence": {
+            "status": "optimal_proven",
+            "termination": "exhausted",
+            "frontier": [
+              [
+                40.79625000000001,
+                4.4275
+              ],
+              [
+                41.05446428571429,
+                4.2575
+              ],
+              [
+                51.22767857142857,
+                3.984375
+              ],
+              [
+                51.75000000000001,
+                3.577777777777778
+              ],
+              [
+                52.27232142857142,
+                2.9568181818181816
+              ],
+              [
+                52.79464285714286,
+                2.7375000000000003
+              ],
+              [
+                53.31696428571428,
+                2.5519230769230767
+              ]
+            ],
+            "counters": {
+              "nodes": 16065,
+              "pruned": 4,
+              "leaves": 21,
+              "evaluations": 7128,
+              "cache_hits": 10,
+              "cache_misses": 11,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1458,
+              "sampled_spells": false
+            },
+            "input_sha256": "1e70a05ca72d2e5315687bc0a48c78afc22841064477c99a45d997adea72eb44"
+          },
+          "result_sha256": "d50605c52834ecc67f2f4e28f7908e95924009b66f4daebfe3352146e86f6e64"
+        },
+        "gear_bounded": {
+          "p50_ms": 6.122199998571887,
+          "evidence": {
+            "quality": {
+              "exact_points": 7,
+              "bounded_points": 7,
+              "exact_points_recovered": 2,
+              "frontier_recall": 0.2857142857142857,
+              "dominated_area_fraction": 0.8596710692963448,
+              "peak_dps_fraction": 0.9902034664657123
+            },
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                41.476763392857144,
+                3.8583035714285714
+              ],
+              [
+                41.761607142857144,
+                3.712142857142857
+              ],
+              [
+                43.405915178571426,
+                3.376015625
+              ],
+              [
+                49.949107142857144,
+                3.2525
+              ],
+              [
+                50.74285714285714,
+                3.1573333333333333
+              ],
+              [
+                52.27232142857142,
+                2.9568181818181816
+              ],
+              [
+                52.79464285714286,
+                2.7375000000000003
+              ]
+            ],
+            "counters": {
+              "nodes": 700,
+              "pruned": 2,
+              "leaves": 7,
+              "evaluations": 328,
+              "cache_hits": 1,
+              "cache_misses": 6,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1458,
+              "sampled_spells": true
+            },
+            "input_sha256": "2b3b001d58f7ed52bf166164765b1d6c090ca90691af109295d557f4aa7f9e77"
+          },
+          "result_sha256": "836c0bbe94a050a64060f1700208ec86484c460e10ac9598acab1f09baf1fbe4"
+        },
+        "spell_full_budget": {
+          "p50_ms": 7.46419999995851,
+          "evidence": {
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                13.49125,
+                1.7570000000000001
+              ],
+              [
+                30.983803571428574,
+                1.6812916666666666
+              ],
+              [
+                43.345535714285724,
+                1.660294117647059
+              ],
+              [
+                54.82500000000001,
+                1.373076923076923
+              ],
+              [
+                55.056956845238105,
+                0.8147964015151515
+              ],
+              [
+                56.41871703296704,
+                0.7653701923076923
+              ],
+              [
+                57.58928571428572,
+                0.75
+              ],
+              [
+                57.67002884615385,
+                0.5364653846153846
+              ],
+              [
+                57.82943719593101,
+                0.4827740731920298
+              ],
+              [
+                58.058531746031754,
+                0.4785513361462729
+              ]
+            ],
+            "counters": {
+              "nodes": 100000,
+              "leaves": 13185,
+              "pruned": 86815
+            },
+            "input_sha256": "802764badde304c0475bef76f8898f436eb3815b9d5a8790fcca29eee3057dce"
+          },
+          "result_sha256": "4a4a44c5a7533cd6e4f6bcd372b7b11781647e50b91cf334475d05d50904fd55"
+        },
+        "gear_owned": {
+          "p50_ms": 17.04059999974561,
+          "evidence": {
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                22.29,
+                3.4673333333333334
+              ],
+              [
+                26.73,
+                3.3264000000000005
+              ]
+            ],
+            "counters": {
+              "nodes": 60000,
+              "pruned": 4223,
+              "leaves": 54877,
+              "evaluations": 195,
+              "cache_hits": 54682,
+              "cache_misses": 195,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1,
+              "sampled_spells": false
+            },
+            "input_sha256": "57576912cc2968b7a09239e8d3d25f6ee1078e91c0520d33f124f50d62b77723"
+          },
+          "result_sha256": "b99206b1dafca6091cf552780a3cf326b72b3d81c0bc2e4c8e5965f3889d5896"
+        },
+        "joint_budget": {
+          "p50_ms": 22.593800000322517,
+          "evidence": {
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                52.79464285714286,
+                8.2125
+              ],
+              [
+                53.54433035714286,
+                7.9746875
+              ],
+              [
+                55.21138392857142,
+                6.870749999999999
+              ],
+              [
+                57.291741071428575,
+                6.82625
+              ],
+              [
+                59.333749999999995,
+                6.781000000000001
+              ],
+              [
+                61.03607142857142,
+                6.702
+              ],
+              [
+                62.18035714285715,
+                6.57
+              ],
+              [
+                62.658258928571435,
+                6.37975
+              ]
+            ],
+            "counters": {
+              "nodes": 75000,
+              "pruned": 3543,
+              "leaves": 46033,
+              "evaluations": 11834,
+              "cache_hits": 45839,
+              "cache_misses": 194,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1458,
+              "sampled_spells": true
+            },
+            "input_sha256": "624f4c2c79585c66568ac83cf730d7abd6dcacbcf8539d728aa379ddc8506f02"
+          },
+          "result_sha256": "096588999413c531a71a6c5036f066a322979cebce0893d0686e6d725f08f252"
+        }
+      }
+    },
+    {
+      "version": "before",
+      "suite": "smoke",
+      "workload_version": 1,
+      "ruleset_hash": "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "peak_rss_bytes": 27750400,
+      "workloads": {
+        "mechanics_batch": {
+          "p50_ms": 0.2958000004582573,
+          "evidence": {
+            "rows": 65536,
+            "verified": true,
+            "counters": {},
+            "input_sha256": "b891bda52a43d1a30495c945db1e8d3d96d6171c3ebd1ebdbb0ff342922a6071",
+            "batch_sha256": "cbea3ee92b3bfbd9c4010532ebf4a5af83109e74ea8c31baccfbc38de5270875"
+          },
+          "result_sha256": "cbea3ee92b3bfbd9c4010532ebf4a5af83109e74ea8c31baccfbc38de5270875"
+        },
+        "class_exact": {
+          "p50_ms": 3.320400001030066,
+          "evidence": {
+            "nodes": 78,
+            "leaves": 4,
+            "pruned": 9,
+            "quality": "All four expected classes",
+            "verified": true,
+            "returned": 4,
+            "status": "optimal_proven",
+            "termination": "exhausted",
+            "eligible_trait_count": 9,
+            "counters": {},
+            "input_sha256": "f60c0ec70284088e9599e28100aa38f69aa7ed9e039b8f9dbb308b3d54ae148d",
+            "ordered_classes_sha256": "efc0dcf2973e51b594288d2b134e0ead1ad36596d412d238ba3f217d7026a8a5"
+          },
+          "result_sha256": "2c50c9be772ff57c0c52c7c2c8df1be323047879710c447a6f7136d11881e150"
+        },
+        "class_bounded": {
+          "p50_ms": 4.5286999993550126,
+          "evidence": {
+            "nodes": 252,
+            "leaves": 20,
+            "pruned": 66,
+            "quality": "Feasible examples at the locked floor",
+            "verified": true,
+            "returned": 20,
+            "status": "best_found_bounded",
+            "termination": "top_k",
+            "eligible_trait_count": 71,
+            "counters": {},
+            "input_sha256": "7eedf79d343ebe103454fac9d9f995c3b3a7fc5330510eaac867597469e2e3f5",
+            "ordered_classes_sha256": "ff2fe12f0c69fba240aea64cf1b177e4f61b2f771787fcb8f213746fa27da01b"
+          },
+          "result_sha256": "7164b68d95f22949c61275c5ba0163d245516040e8db81a2ad824f6bf219cfbd"
+        }
+      }
+    },
+    {
+      "version": "before",
+      "suite": "combat",
+      "workload_version": 1,
+      "ruleset_hash": "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "peak_rss_bytes": 30068736,
+      "workloads": {
+        "simple_batch": {
+          "p50_ms": 4.846499999985099,
+          "evidence": {
+            "rows": 65536,
+            "checksum": 15077840896,
+            "counters": {},
+            "input_sha256": "b30920a432005904798b53d74efad7011644814d40df0f79b27ae64ac6775091"
+          },
+          "result_sha256": null
+        },
+        "fixed_spell": {
+          "p50_ms": 0.1778999994712649,
+          "evidence": {
+            "status": "evaluated",
+            "termination": "evaluated",
+            "frontier": [
+              [
+                20.330809523809528,
+                1.2035151515151516
+              ]
+            ],
+            "counters": {
+              "nodes": 1,
+              "leaves": 1,
+              "pruned": 0
+            },
+            "input_sha256": "aff86472e17953c9965d6db72597a2092b0cf8e8985136b2fb913b5ec2d7373e"
+          },
+          "result_sha256": "91688cd3ebe13695e4fdba541a5e0c582d17e1069976fd8b8b23965b51e0e8f3"
+        },
+        "spell_exact": {
+          "p50_ms": 0.48459999925398733,
+          "evidence": {
+            "status": "optimal_proven",
+            "termination": "exhausted",
+            "frontier": [
+              [
+                24.579107142857143,
+                2.6675
+              ],
+              [
+                39.229821428571434,
+                2.3222727272727273
+              ],
+              [
+                47.488125000000004,
+                2.2087499999999998
+              ],
+              [
+                47.987232142857145,
+                2.0831666666666666
+              ],
+              [
+                48.487619047619056,
+                1.8572549019607845
+              ],
+              [
+                48.987366071428575,
+                1.6788815789473683
+              ],
+              [
+                49.48839285714286,
+                1.5345238095238096
+              ]
+            ],
+            "counters": {
+              "nodes": 648,
+              "leaves": 648,
+              "pruned": 0
+            },
+            "input_sha256": "1016071ffc1abe68e0203bf9a2edff509885b3985bdb6b2f8b63b16a08918c38"
+          },
+          "result_sha256": "4f0ed172955ca017bb41d7359bcd633482126f4dd20e836e0f2fefe9125b530f"
+        },
+        "spell_bounded": {
+          "p50_ms": 0.37090000114403665,
+          "evidence": {
+            "quality": {
+              "exact_points": 7,
+              "bounded_points": 4,
+              "exact_points_recovered": 4,
+              "frontier_recall": 0.5714285714285714,
+              "dominated_area_fraction": 0.9847775384736815,
+              "peak_dps_fraction": 1.0
+            },
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                24.579107142857143,
+                2.6675
+              ],
+              [
+                47.488125000000004,
+                2.2087499999999998
+              ],
+              [
+                48.487619047619056,
+                1.8572549019607845
+              ],
+              [
+                49.48839285714286,
+                1.5345238095238096
+              ]
+            ],
+            "counters": {
+              "nodes": 128,
+              "leaves": 128,
+              "pruned": 0
+            },
+            "input_sha256": "2a3feb758b34a5fe443676bc53f1ac237290e9758c8289c948a905bb62e8a0c8"
+          },
+          "result_sha256": "cdfee33fd64375d87ddb4e16081a831878fff2c644aa70ebf9513cbe9ae2e4bd"
+        },
+        "gear_exact": {
+          "p50_ms": 6.698199998936616,
+          "evidence": {
+            "status": "optimal_proven",
+            "termination": "exhausted",
+            "frontier": [
+              [
+                40.79625000000001,
+                4.4275
+              ],
+              [
+                41.05446428571429,
+                4.2575
+              ],
+              [
+                51.22767857142857,
+                3.984375
+              ],
+              [
+                51.75000000000001,
+                3.577777777777778
+              ],
+              [
+                52.27232142857142,
+                2.9568181818181816
+              ],
+              [
+                52.79464285714286,
+                2.7375000000000003
+              ],
+              [
+                53.31696428571428,
+                2.5519230769230767
+              ]
+            ],
+            "counters": {
+              "nodes": 16065,
+              "pruned": 4,
+              "leaves": 21,
+              "evaluations": 7128,
+              "cache_hits": 10,
+              "cache_misses": 11,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1458,
+              "sampled_spells": false
+            },
+            "input_sha256": "1e70a05ca72d2e5315687bc0a48c78afc22841064477c99a45d997adea72eb44"
+          },
+          "result_sha256": "d50605c52834ecc67f2f4e28f7908e95924009b66f4daebfe3352146e86f6e64"
+        },
+        "gear_bounded": {
+          "p50_ms": 5.805099999633967,
+          "evidence": {
+            "quality": {
+              "exact_points": 7,
+              "bounded_points": 7,
+              "exact_points_recovered": 2,
+              "frontier_recall": 0.2857142857142857,
+              "dominated_area_fraction": 0.8596710692963448,
+              "peak_dps_fraction": 0.9902034664657123
+            },
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                41.476763392857144,
+                3.8583035714285714
+              ],
+              [
+                41.761607142857144,
+                3.712142857142857
+              ],
+              [
+                43.405915178571426,
+                3.376015625
+              ],
+              [
+                49.949107142857144,
+                3.2525
+              ],
+              [
+                50.74285714285714,
+                3.1573333333333333
+              ],
+              [
+                52.27232142857142,
+                2.9568181818181816
+              ],
+              [
+                52.79464285714286,
+                2.7375000000000003
+              ]
+            ],
+            "counters": {
+              "nodes": 700,
+              "pruned": 2,
+              "leaves": 7,
+              "evaluations": 328,
+              "cache_hits": 1,
+              "cache_misses": 6,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1458,
+              "sampled_spells": true
+            },
+            "input_sha256": "2b3b001d58f7ed52bf166164765b1d6c090ca90691af109295d557f4aa7f9e77"
+          },
+          "result_sha256": "836c0bbe94a050a64060f1700208ec86484c460e10ac9598acab1f09baf1fbe4"
+        },
+        "spell_full_budget": {
+          "p50_ms": 6.611400000110734,
+          "evidence": {
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                13.49125,
+                1.7570000000000001
+              ],
+              [
+                30.983803571428574,
+                1.6812916666666666
+              ],
+              [
+                43.345535714285724,
+                1.660294117647059
+              ],
+              [
+                54.82500000000001,
+                1.373076923076923
+              ],
+              [
+                55.056956845238105,
+                0.8147964015151515
+              ],
+              [
+                56.41871703296704,
+                0.7653701923076923
+              ],
+              [
+                57.58928571428572,
+                0.75
+              ],
+              [
+                57.67002884615385,
+                0.5364653846153846
+              ],
+              [
+                57.82943719593101,
+                0.4827740731920298
+              ],
+              [
+                58.058531746031754,
+                0.4785513361462729
+              ]
+            ],
+            "counters": {
+              "nodes": 100000,
+              "leaves": 13185,
+              "pruned": 86815
+            },
+            "input_sha256": "802764badde304c0475bef76f8898f436eb3815b9d5a8790fcca29eee3057dce"
+          },
+          "result_sha256": "4a4a44c5a7533cd6e4f6bcd372b7b11781647e50b91cf334475d05d50904fd55"
+        },
+        "gear_owned": {
+          "p50_ms": 16.615000000456348,
+          "evidence": {
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                22.29,
+                3.4673333333333334
+              ],
+              [
+                26.73,
+                3.3264000000000005
+              ]
+            ],
+            "counters": {
+              "nodes": 60000,
+              "pruned": 4223,
+              "leaves": 54877,
+              "evaluations": 195,
+              "cache_hits": 54682,
+              "cache_misses": 195,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1,
+              "sampled_spells": false
+            },
+            "input_sha256": "57576912cc2968b7a09239e8d3d25f6ee1078e91c0520d33f124f50d62b77723"
+          },
+          "result_sha256": "b99206b1dafca6091cf552780a3cf326b72b3d81c0bc2e4c8e5965f3889d5896"
+        },
+        "joint_budget": {
+          "p50_ms": 21.78509999976086,
+          "evidence": {
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                52.79464285714286,
+                8.2125
+              ],
+              [
+                53.54433035714286,
+                7.9746875
+              ],
+              [
+                55.21138392857142,
+                6.870749999999999
+              ],
+              [
+                57.291741071428575,
+                6.82625
+              ],
+              [
+                59.333749999999995,
+                6.781000000000001
+              ],
+              [
+                61.03607142857142,
+                6.702
+              ],
+              [
+                62.18035714285715,
+                6.57
+              ],
+              [
+                62.658258928571435,
+                6.37975
+              ]
+            ],
+            "counters": {
+              "nodes": 75000,
+              "pruned": 3543,
+              "leaves": 46033,
+              "evaluations": 11834,
+              "cache_hits": 45839,
+              "cache_misses": 194,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1458,
+              "sampled_spells": true
+            },
+            "input_sha256": "624f4c2c79585c66568ac83cf730d7abd6dcacbcf8539d728aa379ddc8506f02"
+          },
+          "result_sha256": "096588999413c531a71a6c5036f066a322979cebce0893d0686e6d725f08f252"
+        }
+      }
+    },
+    {
+      "version": "after",
+      "suite": "smoke",
+      "workload_version": 1,
+      "ruleset_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "peak_rss_bytes": 28028928,
+      "workloads": {
+        "mechanics_batch": {
+          "p50_ms": 0.4470999992918223,
+          "evidence": {
+            "rows": 65536,
+            "verified": true,
+            "counters": {},
+            "input_sha256": "b891bda52a43d1a30495c945db1e8d3d96d6171c3ebd1ebdbb0ff342922a6071",
+            "batch_sha256": "cbea3ee92b3bfbd9c4010532ebf4a5af83109e74ea8c31baccfbc38de5270875"
+          },
+          "result_sha256": "cbea3ee92b3bfbd9c4010532ebf4a5af83109e74ea8c31baccfbc38de5270875"
+        },
+        "class_exact": {
+          "p50_ms": 1.9257000003563007,
+          "evidence": {
+            "nodes": 78,
+            "leaves": 4,
+            "pruned": 9,
+            "quality": "All four expected classes",
+            "verified": true,
+            "returned": 4,
+            "status": "optimal_proven",
+            "termination": "exhausted",
+            "eligible_trait_count": 9,
+            "counters": {},
+            "input_sha256": "f60c0ec70284088e9599e28100aa38f69aa7ed9e039b8f9dbb308b3d54ae148d",
+            "ordered_classes_sha256": "efc0dcf2973e51b594288d2b134e0ead1ad36596d412d238ba3f217d7026a8a5"
+          },
+          "result_sha256": "3b7dc572006d2e6aa710efc564f3ffde1a096c96a056543b585829d35d513f1f"
+        },
+        "class_bounded": {
+          "p50_ms": 4.397800001243013,
+          "evidence": {
+            "nodes": 252,
+            "leaves": 20,
+            "pruned": 66,
+            "quality": "Feasible examples at the locked floor",
+            "verified": true,
+            "returned": 20,
+            "status": "best_found_bounded",
+            "termination": "top_k",
+            "eligible_trait_count": 71,
+            "counters": {},
+            "input_sha256": "7eedf79d343ebe103454fac9d9f995c3b3a7fc5330510eaac867597469e2e3f5",
+            "ordered_classes_sha256": "ff2fe12f0c69fba240aea64cf1b177e4f61b2f771787fcb8f213746fa27da01b"
+          },
+          "result_sha256": "75adbb62cda16304f49c5b5c0d662ca4e15d8358d9afe1469ffd569c4bf417e1"
+        }
+      }
+    },
+    {
+      "version": "after",
+      "suite": "combat",
+      "workload_version": 1,
+      "ruleset_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "peak_rss_bytes": 30224384,
+      "workloads": {
+        "simple_batch": {
+          "p50_ms": 5.569400000240421,
+          "evidence": {
+            "rows": 65536,
+            "checksum": 15077840896,
+            "counters": {},
+            "input_sha256": "b30920a432005904798b53d74efad7011644814d40df0f79b27ae64ac6775091"
+          },
+          "result_sha256": null
+        },
+        "fixed_spell": {
+          "p50_ms": 0.17129999832832254,
+          "evidence": {
+            "status": "evaluated",
+            "termination": "evaluated",
+            "frontier": [
+              [
+                20.330809523809528,
+                1.2035151515151516
+              ]
+            ],
+            "counters": {
+              "nodes": 1,
+              "leaves": 1,
+              "pruned": 0
+            },
+            "input_sha256": "aff86472e17953c9965d6db72597a2092b0cf8e8985136b2fb913b5ec2d7373e"
+          },
+          "result_sha256": "a3ba9b891418354603d29c89baff7aab0e33ea50770baa745fd918862bc3a211"
+        },
+        "spell_exact": {
+          "p50_ms": 0.5118000008224044,
+          "evidence": {
+            "status": "optimal_proven",
+            "termination": "exhausted",
+            "frontier": [
+              [
+                24.579107142857143,
+                2.6675
+              ],
+              [
+                39.229821428571434,
+                2.3222727272727273
+              ],
+              [
+                47.488125000000004,
+                2.2087499999999998
+              ],
+              [
+                47.987232142857145,
+                2.0831666666666666
+              ],
+              [
+                48.487619047619056,
+                1.8572549019607845
+              ],
+              [
+                48.987366071428575,
+                1.6788815789473683
+              ],
+              [
+                49.48839285714286,
+                1.5345238095238096
+              ]
+            ],
+            "counters": {
+              "nodes": 648,
+              "leaves": 648,
+              "pruned": 0
+            },
+            "input_sha256": "1016071ffc1abe68e0203bf9a2edff509885b3985bdb6b2f8b63b16a08918c38"
+          },
+          "result_sha256": "baafe622aa199f0033af16fa1e96dc9c112c10380155b262581bbf6bf8778400"
+        },
+        "spell_bounded": {
+          "p50_ms": 0.4656000000977656,
+          "evidence": {
+            "quality": {
+              "exact_points": 7,
+              "bounded_points": 4,
+              "exact_points_recovered": 4,
+              "frontier_recall": 0.5714285714285714,
+              "dominated_area_fraction": 0.9847775384736815,
+              "peak_dps_fraction": 1.0
+            },
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                24.579107142857143,
+                2.6675
+              ],
+              [
+                47.488125000000004,
+                2.2087499999999998
+              ],
+              [
+                48.487619047619056,
+                1.8572549019607845
+              ],
+              [
+                49.48839285714286,
+                1.5345238095238096
+              ]
+            ],
+            "counters": {
+              "nodes": 128,
+              "leaves": 128,
+              "pruned": 0
+            },
+            "input_sha256": "2a3feb758b34a5fe443676bc53f1ac237290e9758c8289c948a905bb62e8a0c8"
+          },
+          "result_sha256": "3c27652ee6eb2cacbd1ec9ca85e6fead0abd67d3e420690e888a5bcc9eb5aa26"
+        },
+        "gear_exact": {
+          "p50_ms": 5.682000000888365,
+          "evidence": {
+            "status": "optimal_proven",
+            "termination": "exhausted",
+            "frontier": [
+              [
+                40.79625000000001,
+                4.4275
+              ],
+              [
+                41.05446428571429,
+                4.2575
+              ],
+              [
+                51.22767857142857,
+                3.984375
+              ],
+              [
+                51.75000000000001,
+                3.577777777777778
+              ],
+              [
+                52.27232142857142,
+                2.9568181818181816
+              ],
+              [
+                52.79464285714286,
+                2.7375000000000003
+              ],
+              [
+                53.31696428571428,
+                2.5519230769230767
+              ]
+            ],
+            "counters": {
+              "nodes": 16065,
+              "pruned": 4,
+              "leaves": 21,
+              "evaluations": 7128,
+              "cache_hits": 10,
+              "cache_misses": 11,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1458,
+              "sampled_spells": false
+            },
+            "input_sha256": "1e70a05ca72d2e5315687bc0a48c78afc22841064477c99a45d997adea72eb44"
+          },
+          "result_sha256": "9394981b92a8a245fb743bcb45bcc2cc84413c11214ba07e35038daca37a1dd6"
+        },
+        "gear_bounded": {
+          "p50_ms": 4.631599998901947,
+          "evidence": {
+            "quality": {
+              "exact_points": 7,
+              "bounded_points": 7,
+              "exact_points_recovered": 2,
+              "frontier_recall": 0.2857142857142857,
+              "dominated_area_fraction": 0.8596710692963448,
+              "peak_dps_fraction": 0.9902034664657123
+            },
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                41.476763392857144,
+                3.8583035714285714
+              ],
+              [
+                41.761607142857144,
+                3.712142857142857
+              ],
+              [
+                43.405915178571426,
+                3.376015625
+              ],
+              [
+                49.949107142857144,
+                3.2525
+              ],
+              [
+                50.74285714285714,
+                3.1573333333333333
+              ],
+              [
+                52.27232142857142,
+                2.9568181818181816
+              ],
+              [
+                52.79464285714286,
+                2.7375000000000003
+              ]
+            ],
+            "counters": {
+              "nodes": 700,
+              "pruned": 2,
+              "leaves": 7,
+              "evaluations": 328,
+              "cache_hits": 1,
+              "cache_misses": 6,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1458,
+              "sampled_spells": true
+            },
+            "input_sha256": "2b3b001d58f7ed52bf166164765b1d6c090ca90691af109295d557f4aa7f9e77"
+          },
+          "result_sha256": "80709b6a92775eacbc41353c9111cefda6ca2425629ecc7b4e773152dc229115"
+        },
+        "spell_full_budget": {
+          "p50_ms": 6.6389000003255205,
+          "evidence": {
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                13.49125,
+                1.7570000000000001
+              ],
+              [
+                30.983803571428574,
+                1.6812916666666666
+              ],
+              [
+                43.345535714285724,
+                1.660294117647059
+              ],
+              [
+                54.82500000000001,
+                1.373076923076923
+              ],
+              [
+                55.056956845238105,
+                0.8147964015151515
+              ],
+              [
+                56.41871703296704,
+                0.7653701923076923
+              ],
+              [
+                57.58928571428572,
+                0.75
+              ],
+              [
+                57.67002884615385,
+                0.5364653846153846
+              ],
+              [
+                57.82943719593101,
+                0.4827740731920298
+              ],
+              [
+                58.058531746031754,
+                0.4785513361462729
+              ]
+            ],
+            "counters": {
+              "nodes": 100000,
+              "leaves": 13185,
+              "pruned": 86815
+            },
+            "input_sha256": "802764badde304c0475bef76f8898f436eb3815b9d5a8790fcca29eee3057dce"
+          },
+          "result_sha256": "3bfc86b349dadc858c55708a19cbcd56364b179ed2d7096f3b569f3c70a92e6b"
+        },
+        "gear_owned": {
+          "p50_ms": 13.97249999899941,
+          "evidence": {
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                22.29,
+                3.4673333333333334
+              ],
+              [
+                26.73,
+                3.3264000000000005
+              ]
+            ],
+            "counters": {
+              "nodes": 60000,
+              "pruned": 4223,
+              "leaves": 54877,
+              "evaluations": 195,
+              "cache_hits": 54682,
+              "cache_misses": 195,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1,
+              "sampled_spells": false
+            },
+            "input_sha256": "57576912cc2968b7a09239e8d3d25f6ee1078e91c0520d33f124f50d62b77723"
+          },
+          "result_sha256": "d3f5b28e408a2f3cd959c60e1bb9ff060a54221c9adeb7abb014e71cc0f05ace"
+        },
+        "joint_budget": {
+          "p50_ms": 22.271899999395828,
+          "evidence": {
+            "status": "best_found_bounded",
+            "termination": "node_limit",
+            "frontier": [
+              [
+                52.79464285714286,
+                8.2125
+              ],
+              [
+                53.54433035714286,
+                7.9746875
+              ],
+              [
+                55.21138392857142,
+                6.870749999999999
+              ],
+              [
+                57.291741071428575,
+                6.82625
+              ],
+              [
+                59.333749999999995,
+                6.781000000000001
+              ],
+              [
+                61.03607142857142,
+                6.702
+              ],
+              [
+                62.18035714285715,
+                6.57
+              ],
+              [
+                62.658258928571435,
+                6.37975
+              ]
+            ],
+            "counters": {
+              "nodes": 75000,
+              "pruned": 3543,
+              "leaves": 46033,
+              "evaluations": 11834,
+              "cache_hits": 45839,
+              "cache_misses": 194,
+              "uncertain_sp_recipes": 0,
+              "spell_grid_cardinality": 1458,
+              "sampled_spells": true
+            },
+            "input_sha256": "624f4c2c79585c66568ac83cf730d7abd6dcacbcf8539d728aa379ddc8506f02"
+          },
+          "result_sha256": "8fe1fe18fccdbc97dba9b80849731b78223ec16c3d8ea5b8b2c38334ad420c86"
+        }
+      }
+    }
+  ],
+  "summary": {
+    "combat": {
+      "before_peak_rss_bytes": 30097408,
+      "after_peak_rss_bytes": 30224384,
+      "rss_growth_investigation": false,
+      "workloads": {
+        "simple_batch": {
+          "before_p50_ms": 4.706600000645267,
+          "after_p50_ms": 5.569400000240421,
+          "p50_change_percent": 18.33170440396179,
+          "regression_investigation": true,
+          "matching_work_and_quality": true
+        },
+        "fixed_spell": {
+          "before_p50_ms": 0.17950000074051786,
+          "after_p50_ms": 0.18349999845668208,
+          "p50_change_percent": 2.228410974742312,
+          "regression_investigation": false,
+          "matching_work_and_quality": true
+        },
+        "spell_exact": {
+          "before_p50_ms": 0.4847999989578966,
+          "after_p50_ms": 0.5522999999811873,
+          "p50_change_percent": 13.923267567736296,
+          "regression_investigation": true,
+          "matching_work_and_quality": true
+        },
+        "spell_bounded": {
+          "before_p50_ms": 0.37090000114403665,
+          "after_p50_ms": 0.4656000000977656,
+          "p50_change_percent": 25.532488180541367,
+          "regression_investigation": true,
+          "matching_work_and_quality": true
+        },
+        "gear_exact": {
+          "before_p50_ms": 7.314899999983027,
+          "after_p50_ms": 5.682000000888365,
+          "p50_change_percent": -22.32292989785848,
+          "regression_investigation": false,
+          "matching_work_and_quality": true
+        },
+        "gear_bounded": {
+          "before_p50_ms": 6.122199998571887,
+          "after_p50_ms": 4.711899999165325,
+          "p50_change_percent": -23.03583678637645,
+          "regression_investigation": false,
+          "matching_work_and_quality": true
+        },
+        "spell_full_budget": {
+          "before_p50_ms": 7.46419999995851,
+          "after_p50_ms": 6.6389000003255205,
+          "p50_change_percent": -11.056777680629892,
+          "regression_investigation": false,
+          "matching_work_and_quality": true
+        },
+        "gear_owned": {
+          "before_p50_ms": 17.04059999974561,
+          "after_p50_ms": 15.18729999952484,
+          "p50_change_percent": -10.875790759999282,
+          "regression_investigation": false,
+          "matching_work_and_quality": true
+        },
+        "joint_budget": {
+          "before_p50_ms": 22.332900000037625,
+          "after_p50_ms": 22.271899999395828,
+          "p50_change_percent": -0.2731396309556544,
+          "regression_investigation": false,
+          "matching_work_and_quality": true
+        }
+      }
+    },
+    "smoke": {
+      "before_peak_rss_bytes": 27852800,
+      "after_peak_rss_bytes": 28028928,
+      "rss_growth_investigation": false,
+      "workloads": {
+        "mechanics_batch": {
+          "before_p50_ms": 0.2958000004582573,
+          "after_p50_ms": 0.4470999992918223,
+          "p50_change_percent": 51.14942481378264,
+          "regression_investigation": true,
+          "matching_work_and_quality": true
+        },
+        "class_exact": {
+          "before_p50_ms": 2.193299998907605,
+          "after_p50_ms": 1.9584999990911456,
+          "p50_change_percent": -10.705329865198742,
+          "regression_investigation": false,
+          "matching_work_and_quality": true
+        },
+        "class_bounded": {
+          "before_p50_ms": 4.607599999872036,
+          "after_p50_ms": 5.681799999365467,
+          "p50_change_percent": 23.313655688932712,
+          "regression_investigation": true,
+          "matching_work_and_quality": true
+        }
+      }
+    }
+  }
+}

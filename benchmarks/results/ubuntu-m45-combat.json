@@ -1,0 +1,3368 @@
+{
+  "schema_version": 1,
+  "workload_version": 1,
+  "suite": "combat",
+  "workers": 1,
+  "host": {
+    "os": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
+    "architecture": "x86_64",
+    "cpu": "AMD Ryzen 5 5600X 6-Core Processor",
+    "logical_cpus": 1,
+    "python": "3.12.3",
+    "python_compiler": "GCC 13.3.0"
+  },
+  "engine": {
+    "compiler": "GCC 13.3.0",
+    "flags": "-std=c++17 -O3 -fno-fast-math -ffp-contract=off",
+    "native": true,
+    "extension": "_native.cpython-312-x86_64-linux-gnu.so",
+    "binary_sha256": "2938dfd1d2b5556e5790668fe3e58615827d885e29965d352a9e232d1b10f10d",
+    "version": "0.3.0"
+  },
+  "extensions": {
+    "dfo_optimizer._gear": "19d3a13209db4f7ba72418a6a9fd7de6117edb6fb2a066172f561aed499dad2e",
+    "dfo_optimizer._spells": "a45bb0ccb2e2887c02fcd3e40cab69e33d9aa8f19ad66bf4f004eac7c3c104d4"
+  },
+  "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+  "ruleset_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+  "workloads": {
+    "simple_batch": {
+      "rows": 65536,
+      "checksum": 15077840896,
+      "context": {
+        "level": 10,
+        "live_skill": 75,
+        "climb": 75,
+        "speed": 65,
+        "available_sp": 80,
+        "target_hp": 60,
+        "willpower": 50,
+        "power_pct": 0,
+        "pierce": 0,
+        "cast_speed_pct": 0,
+        "focus_pct": 0,
+        "resistant": 8,
+        "immune": 0,
+        "low_tolerance": 0,
+        "critical_weakness": 0,
+        "resist_mods": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "elemental_resists": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "price_factor": 1.0
+      },
+      "recipes": [
+        [
+          1,
+          2,
+          1,
+          1,
+          1,
+          1,
+          2
+        ],
+        [
+          2,
+          3,
+          2,
+          2,
+          2,
+          2,
+          3
+        ],
+        [
+          3,
+          4,
+          3,
+          3,
+          3,
+          3,
+          4
+        ],
+        [
+          4,
+          1,
+          4,
+          4,
+          4,
+          4,
+          5
+        ],
+        [
+          0,
+          2,
+          5,
+          5,
+          5,
+          5,
+          6
+        ],
+        [
+          1,
+          3,
+          6,
+          6,
+          6,
+          6,
+          7
+        ],
+        [
+          2,
+          4,
+          7,
+          7,
+          7,
+          7,
+          1
+        ],
+        [
+          3,
+          1,
+          8,
+          8,
+          8,
+          8,
+          2
+        ],
+        [
+          4,
+          2,
+          9,
+          9,
+          9,
+          9,
+          3
+        ],
+        [
+          0,
+          3,
+          10,
+          10,
+          10,
+          10,
+          4
+        ],
+        [
+          1,
+          4,
+          11,
+          11,
+          11,
+          11,
+          5
+        ],
+        [
+          2,
+          1,
+          12,
+          12,
+          12,
+          12,
+          6
+        ],
+        [
+          3,
+          2,
+          13,
+          13,
+          13,
+          13,
+          7
+        ],
+        [
+          4,
+          3,
+          14,
+          14,
+          14,
+          14,
+          1
+        ],
+        [
+          0,
+          4,
+          15,
+          15,
+          15,
+          15,
+          2
+        ],
+        [
+          1,
+          1,
+          16,
+          16,
+          16,
+          16,
+          3
+        ],
+        [
+          2,
+          2,
+          17,
+          17,
+          17,
+          17,
+          4
+        ],
+        [
+          3,
+          3,
+          18,
+          18,
+          18,
+          18,
+          5
+        ],
+        [
+          4,
+          4,
+          19,
+          19,
+          19,
+          19,
+          6
+        ],
+        [
+          0,
+          1,
+          20,
+          20,
+          20,
+          20,
+          7
+        ],
+        [
+          1,
+          2,
+          21,
+          21,
+          21,
+          21,
+          1
+        ],
+        [
+          2,
+          3,
+          22,
+          22,
+          22,
+          22,
+          2
+        ],
+        [
+          3,
+          4,
+          23,
+          23,
+          23,
+          23,
+          3
+        ],
+        [
+          4,
+          1,
+          24,
+          24,
+          24,
+          24,
+          4
+        ],
+        [
+          0,
+          2,
+          25,
+          25,
+          25,
+          25,
+          5
+        ],
+        [
+          1,
+          3,
+          26,
+          26,
+          26,
+          26,
+          6
+        ],
+        [
+          2,
+          4,
+          27,
+          27,
+          27,
+          27,
+          7
+        ],
+        [
+          3,
+          1,
+          28,
+          28,
+          28,
+          28,
+          1
+        ],
+        [
+          4,
+          2,
+          29,
+          29,
+          29,
+          29,
+          2
+        ],
+        [
+          0,
+          3,
+          30,
+          30,
+          30,
+          30,
+          3
+        ],
+        [
+          1,
+          4,
+          31,
+          31,
+          31,
+          31,
+          4
+        ],
+        [
+          2,
+          1,
+          32,
+          32,
+          32,
+          32,
+          5
+        ]
+      ],
+      "warm": {
+        "samples": [
+          {
+            "wall_seconds": 0.0020601109999915934,
+            "cpu_seconds": 0.002057654000000006,
+            "kernel_seconds": 0.002032271
+          },
+          {
+            "wall_seconds": 0.00556157300002269,
+            "cpu_seconds": 0.005550679000000003,
+            "kernel_seconds": 0.005536563
+          },
+          {
+            "wall_seconds": 0.003214570000011463,
+            "cpu_seconds": 0.003216643000000005,
+            "kernel_seconds": 0.00318883
+          },
+          {
+            "wall_seconds": 0.003591885000048478,
+            "cpu_seconds": 0.003583385999999994,
+            "kernel_seconds": 0.003575595
+          },
+          {
+            "wall_seconds": 0.001966979999963314,
+            "cpu_seconds": 0.001967123000000001,
+            "kernel_seconds": 0.00195592
+          },
+          {
+            "wall_seconds": 0.001959599000031176,
+            "cpu_seconds": 0.001959733000000005,
+            "kernel_seconds": 0.001951089
+          },
+          {
+            "wall_seconds": 0.0019657899999856454,
+            "cpu_seconds": 0.001966093000000002,
+            "kernel_seconds": 0.00195709
+          }
+        ],
+        "p50_seconds": 0.0020601109999915934,
+        "p95_seconds": 0.00556157300002269
+      },
+      "evaluations_per_second": 31811878.097960465
+    },
+    "fixed_spell": {
+      "request": {
+        "caster": {
+          "level": 10,
+          "speed": 65,
+          "destruction_live": 75,
+          "destruction_trained": 75,
+          "destruction_mastered": false,
+          "current_sp": 80,
+          "max_sp": 100,
+          "gold": 500,
+          "has_spellbook": true
+        },
+        "target": {
+          "id": "synthetic_fire_resistant_foe",
+          "hp": 60,
+          "willpower": 50,
+          "resistant": 8
+        },
+        "spell": {
+          "effect_id": "4,0",
+          "element": 1,
+          "range_type": 1,
+          "base_low": 2,
+          "base_high": 6,
+          "plus_low": 3,
+          "plus_high": 5,
+          "per_level": 2
+        }
+      },
+      "request_hash": "9220ee55b8a0aff477633ff714184723be81c6886d68b62ba99178bec02ee675",
+      "result_sha256": "a3ba9b891418354603d29c89baff7aab0e33ea50770baa745fd918862bc3a211",
+      "status": "evaluated",
+      "termination": "evaluated",
+      "counters": {
+        "nodes": 1,
+        "leaves": 1,
+        "pruned": 0,
+        "preparation_seconds": 0.004052537999996275,
+        "service_seconds": 0.004545802999984971
+      },
+      "frontier": [
+        [
+          20.330809523809528,
+          1.2035151515151516
+        ]
+      ],
+      "cold_cli_seconds": 0.07890826700003117,
+      "warm": {
+        "samples": [
+          {
+            "wall_seconds": 0.003876629000046705,
+            "cpu_seconds": 0.0038770749999999937
+          },
+          {
+            "wall_seconds": 0.00025913300004276607,
+            "cpu_seconds": 0.00025980000000000447
+          },
+          {
+            "wall_seconds": 0.00022710199999664837,
+            "cpu_seconds": 0.00022757999999999112
+          },
+          {
+            "wall_seconds": 0.00023648199999115604,
+            "cpu_seconds": 0.00023716000000000015
+          },
+          {
+            "wall_seconds": 0.00022094299998798306,
+            "cpu_seconds": 0.00022163000000000044
+          },
+          {
+            "wall_seconds": 0.0002530319999891617,
+            "cpu_seconds": 0.00025409100000001184
+          },
+          {
+            "wall_seconds": 0.00021960200001558405,
+            "cpu_seconds": 0.00022050099999999795
+          }
+        ],
+        "p50_seconds": 0.00023648199999115604,
+        "p95_seconds": 0.003876629000046705
+      },
+      "peak_rss_bytes_after_workload": 25288704
+    },
+    "spell_exact": {
+      "request": {
+        "caster": {
+          "level": 10,
+          "speed": 65,
+          "destruction_live": 75,
+          "destruction_trained": 75,
+          "destruction_mastered": false,
+          "current_sp": 80,
+          "max_sp": 100,
+          "gold": 500,
+          "has_spellbook": true
+        },
+        "target": {
+          "id": "synthetic_fire_resistant_foe",
+          "hp": 60,
+          "willpower": 50,
+          "resistant": 8
+        },
+        "domain": {
+          "effect_id": "4,0",
+          "element": [
+            0,
+            1,
+            4
+          ],
+          "range_type": [
+            1,
+            2
+          ],
+          "base_low": [
+            1,
+            3,
+            5
+          ],
+          "base_high": [
+            2,
+            4,
+            6
+          ],
+          "plus_low": [
+            1,
+            3,
+            5
+          ],
+          "plus_high": [
+            2,
+            4,
+            6
+          ],
+          "per_level": [
+            1,
+            2,
+            5
+          ]
+        },
+        "search": {
+          "max_nodes": 0,
+          "wall_seconds": 0
+        }
+      },
+      "request_hash": "9be18d31cba06fa3a554870c6f1f47974338814e3e25ca60ef2c3c42a931951e",
+      "result_sha256": "baafe622aa199f0033af16fa1e96dc9c112c10380155b262581bbf6bf8778400",
+      "status": "optimal_proven",
+      "termination": "exhausted",
+      "counters": {
+        "nodes": 648,
+        "leaves": 648,
+        "pruned": 0,
+        "work_bytes": 6176,
+        "first_seconds": 3.63e-06,
+        "preparation_seconds": 0.002706618999980037,
+        "service_seconds": 0.003420796000000337
+      },
+      "frontier": [
+        [
+          24.579107142857143,
+          2.6675
+        ],
+        [
+          39.229821428571434,
+          2.3222727272727273
+        ],
+        [
+          47.488125000000004,
+          2.2087499999999998
+        ],
+        [
+          47.987232142857145,
+          2.0831666666666666
+        ],
+        [
+          48.487619047619056,
+          1.8572549019607845
+        ],
+        [
+          48.987366071428575,
+          1.6788815789473683
+        ],
+        [
+          49.48839285714286,
+          1.5345238095238096
+        ]
+      ],
+      "cold_cli_seconds": 0.07442760199995746,
+      "warm": {
+        "samples": [
+          {
+            "wall_seconds": 0.0006773569999722895,
+            "cpu_seconds": 0.0006760110000000041
+          },
+          {
+            "wall_seconds": 0.0018631089999985306,
+            "cpu_seconds": 0.001847662
+          },
+          {
+            "wall_seconds": 0.00048824399999602974,
+            "cpu_seconds": 0.0004889409999999927
+          },
+          {
+            "wall_seconds": 0.0004492349999623002,
+            "cpu_seconds": 0.000449839999999993
+          },
+          {
+            "wall_seconds": 0.0004967539999825021,
+            "cpu_seconds": 0.0004974710000000132
+          },
+          {
+            "wall_seconds": 0.0004569949999790879,
+            "cpu_seconds": 0.0004575799999999991
+          },
+          {
+            "wall_seconds": 0.00043130400001700764,
+            "cpu_seconds": 0.0004319009999999984
+          }
+        ],
+        "p50_seconds": 0.00048824399999602974,
+        "p95_seconds": 0.0018631089999985306
+      },
+      "peak_rss_bytes_after_workload": 25288704
+    },
+    "spell_bounded": {
+      "request": {
+        "caster": {
+          "level": 10,
+          "speed": 65,
+          "destruction_live": 75,
+          "destruction_trained": 75,
+          "destruction_mastered": false,
+          "current_sp": 80,
+          "max_sp": 100,
+          "gold": 500,
+          "has_spellbook": true
+        },
+        "target": {
+          "id": "synthetic_fire_resistant_foe",
+          "hp": 60,
+          "willpower": 50,
+          "resistant": 8
+        },
+        "domain": {
+          "effect_id": "4,0",
+          "element": [
+            0,
+            1,
+            4
+          ],
+          "range_type": [
+            1,
+            2
+          ],
+          "base_low": [
+            1,
+            3,
+            5
+          ],
+          "base_high": [
+            2,
+            4,
+            6
+          ],
+          "plus_low": [
+            1,
+            3,
+            5
+          ],
+          "plus_high": [
+            2,
+            4,
+            6
+          ],
+          "per_level": [
+            1,
+            2,
+            5
+          ]
+        },
+        "search": {
+          "max_nodes": 128,
+          "wall_seconds": 0
+        }
+      },
+      "request_hash": "1288fd4be2de1c7f6772349c0a30e7483c092862f7f5ff50c84a90136d0df170",
+      "result_sha256": "3c27652ee6eb2cacbd1ec9ca85e6fead0abd67d3e420690e888a5bcc9eb5aa26",
+      "status": "best_found_bounded",
+      "termination": "node_limit",
+      "counters": {
+        "nodes": 128,
+        "leaves": 128,
+        "pruned": 0,
+        "work_bytes": 6176,
+        "first_seconds": 6.1e-06,
+        "preparation_seconds": 0.006074439999963488,
+        "service_seconds": 0.006870477999996183
+      },
+      "frontier": [
+        [
+          24.579107142857143,
+          2.6675
+        ],
+        [
+          47.488125000000004,
+          2.2087499999999998
+        ],
+        [
+          48.487619047619056,
+          1.8572549019607845
+        ],
+        [
+          49.48839285714286,
+          1.5345238095238096
+        ]
+      ],
+      "cold_cli_seconds": 0.07570049500003506,
+      "warm": {
+        "samples": [
+          {
+            "wall_seconds": 0.0006523570000354084,
+            "cpu_seconds": 0.0006519209999999998
+          },
+          {
+            "wall_seconds": 0.00048304400002052716,
+            "cpu_seconds": 0.00048365999999999687
+          },
+          {
+            "wall_seconds": 0.00046928500000831264,
+            "cpu_seconds": 0.0004700110000000063
+          },
+          {
+            "wall_seconds": 0.0004964350000022932,
+            "cpu_seconds": 0.0004975809999999969
+          },
+          {
+            "wall_seconds": 0.00046728400002393755,
+            "cpu_seconds": 0.00046772100000000427
+          },
+          {
+            "wall_seconds": 0.00047207499994783575,
+            "cpu_seconds": 0.00047292100000000115
+          },
+          {
+            "wall_seconds": 0.0004364339999938238,
+            "cpu_seconds": 0.00043727100000000296
+          }
+        ],
+        "p50_seconds": 0.00047207499994783575,
+        "p95_seconds": 0.0006523570000354084
+      },
+      "peak_rss_bytes_after_workload": 25288704,
+      "quality": {
+        "exact_points": 7,
+        "bounded_points": 4,
+        "exact_points_recovered": 4,
+        "frontier_recall": 0.5714285714285714,
+        "dominated_area_fraction": 0.9847775384736815,
+        "peak_dps_fraction": 1.0
+      }
+    },
+    "gear_exact": {
+      "request": {
+        "caster": {
+          "level": 10,
+          "speed": 65,
+          "destruction_live": 75,
+          "destruction_trained": 75,
+          "destruction_mastered": false,
+          "current_sp": 80,
+          "max_sp": 100,
+          "gold": 500,
+          "has_spellbook": true
+        },
+        "target": {
+          "id": "synthetic_fire_resistant_foe",
+          "hp": 60,
+          "willpower": 50,
+          "resistant": 8
+        },
+        "career": {},
+        "mode": "owned_only",
+        "marginals": false,
+        "inventory": [
+          {
+            "instance_id": "bench-000",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 5
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-001",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 6
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-002",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 7
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-003",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 8
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          }
+        ],
+        "domain": {
+          "effect_id": "4,0",
+          "element": [
+            0,
+            1,
+            4
+          ],
+          "range_type": [
+            1,
+            2
+          ],
+          "base_low": [
+            1,
+            3,
+            5
+          ],
+          "base_high": [
+            2,
+            4,
+            6
+          ],
+          "plus_low": [
+            1,
+            3,
+            5
+          ],
+          "plus_high": [
+            2,
+            4,
+            6
+          ],
+          "per_level": [
+            1,
+            2,
+            5
+          ]
+        },
+        "search": {
+          "max_nodes": 0,
+          "wall_seconds": 0,
+          "exact": true
+        }
+      },
+      "request_hash": "daf20e32480f1497394c50e757b186425e9bae77c73159b1f97af1d2d125786a",
+      "result_sha256": "9394981b92a8a245fb743bcb45bcc2cc84413c11214ba07e35038daca37a1dd6",
+      "status": "optimal_proven",
+      "termination": "exhausted",
+      "counters": {
+        "nodes": 16065,
+        "pruned": 4,
+        "leaves": 21,
+        "evaluations": 7128,
+        "cache_hits": 10,
+        "cache_misses": 11,
+        "work_bytes": 11236,
+        "first_feasible_seconds": 0.008943569000057466,
+        "uncertain_sp_recipes": 0,
+        "spell_grid_cardinality": 1458,
+        "sampled_spells": false,
+        "first_feasible_native_seconds": 5.01e-06
+      },
+      "frontier": [
+        [
+          40.79625000000001,
+          4.4275
+        ],
+        [
+          41.05446428571429,
+          4.2575
+        ],
+        [
+          51.22767857142857,
+          3.984375
+        ],
+        [
+          51.75000000000001,
+          3.577777777777778
+        ],
+        [
+          52.27232142857142,
+          2.9568181818181816
+        ],
+        [
+          52.79464285714286,
+          2.7375000000000003
+        ],
+        [
+          53.31696428571428,
+          2.5519230769230767
+        ]
+      ],
+      "cold_cli_seconds": 0.09037494099999321,
+      "warm": {
+        "samples": [
+          {
+            "wall_seconds": 0.01187104600001021,
+            "cpu_seconds": 0.011855988000000012
+          },
+          {
+            "wall_seconds": 0.00844324500002358,
+            "cpu_seconds": 0.008426733999999991
+          },
+          {
+            "wall_seconds": 0.00907741899999337,
+            "cpu_seconds": 0.009060613000000023
+          },
+          {
+            "wall_seconds": 0.005094388999964394,
+            "cpu_seconds": 0.005096307999999994
+          },
+          {
+            "wall_seconds": 0.005506353999976454,
+            "cpu_seconds": 0.0055075189999999885
+          },
+          {
+            "wall_seconds": 0.004718597000021418,
+            "cpu_seconds": 0.004730117000000006
+          },
+          {
+            "wall_seconds": 0.008054730000026211,
+            "cpu_seconds": 0.008058272000000005
+          }
+        ],
+        "p50_seconds": 0.008054730000026211,
+        "p95_seconds": 0.01187104600001021
+      },
+      "peak_rss_bytes_after_workload": 26599424
+    },
+    "gear_bounded": {
+      "request": {
+        "caster": {
+          "level": 10,
+          "speed": 65,
+          "destruction_live": 75,
+          "destruction_trained": 75,
+          "destruction_mastered": false,
+          "current_sp": 80,
+          "max_sp": 100,
+          "gold": 500,
+          "has_spellbook": true
+        },
+        "target": {
+          "id": "synthetic_fire_resistant_foe",
+          "hp": 60,
+          "willpower": 50,
+          "resistant": 8
+        },
+        "career": {},
+        "mode": "owned_only",
+        "marginals": false,
+        "inventory": [
+          {
+            "instance_id": "bench-000",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 5
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-001",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 6
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-002",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 7
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-003",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 8
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          }
+        ],
+        "domain": {
+          "effect_id": "4,0",
+          "element": [
+            0,
+            1,
+            4
+          ],
+          "range_type": [
+            1,
+            2
+          ],
+          "base_low": [
+            1,
+            3,
+            5
+          ],
+          "base_high": [
+            2,
+            4,
+            6
+          ],
+          "plus_low": [
+            1,
+            3,
+            5
+          ],
+          "plus_high": [
+            2,
+            4,
+            6
+          ],
+          "per_level": [
+            1,
+            2,
+            5
+          ]
+        },
+        "search": {
+          "max_nodes": 700,
+          "wall_seconds": 0
+        }
+      },
+      "request_hash": "e774aa94c6d4a60c81288502f864a618960bb01e2979915eba35777a39586966",
+      "result_sha256": "80709b6a92775eacbc41353c9111cefda6ca2425629ecc7b4e773152dc229115",
+      "status": "best_found_bounded",
+      "termination": "node_limit",
+      "counters": {
+        "nodes": 700,
+        "pruned": 2,
+        "leaves": 7,
+        "evaluations": 328,
+        "cache_hits": 1,
+        "cache_misses": 6,
+        "work_bytes": 6084,
+        "first_feasible_seconds": 0.010610034999966647,
+        "uncertain_sp_recipes": 0,
+        "spell_grid_cardinality": 1458,
+        "sampled_spells": true,
+        "first_feasible_native_seconds": 3.57e-06
+      },
+      "frontier": [
+        [
+          41.476763392857144,
+          3.8583035714285714
+        ],
+        [
+          41.761607142857144,
+          3.712142857142857
+        ],
+        [
+          43.405915178571426,
+          3.376015625
+        ],
+        [
+          49.949107142857144,
+          3.2525
+        ],
+        [
+          50.74285714285714,
+          3.1573333333333333
+        ],
+        [
+          52.27232142857142,
+          2.9568181818181816
+        ],
+        [
+          52.79464285714286,
+          2.7375000000000003
+        ]
+      ],
+      "cold_cli_seconds": 0.1108609709999655,
+      "warm": {
+        "samples": [
+          {
+            "wall_seconds": 0.004942027000026883,
+            "cpu_seconds": 0.004945487999999998
+          },
+          {
+            "wall_seconds": 0.005540494000001672,
+            "cpu_seconds": 0.0055275490000000205
+          },
+          {
+            "wall_seconds": 0.004073490999985552,
+            "cpu_seconds": 0.004074726000000001
+          },
+          {
+            "wall_seconds": 0.004023259999996753,
+            "cpu_seconds": 0.004027846000000002
+          },
+          {
+            "wall_seconds": 0.007791667999981655,
+            "cpu_seconds": 0.007789911999999982
+          },
+          {
+            "wall_seconds": 0.007954226999970615,
+            "cpu_seconds": 0.007930631999999993
+          },
+          {
+            "wall_seconds": 0.004811616000040431,
+            "cpu_seconds": 0.004818096999999993
+          }
+        ],
+        "p50_seconds": 0.004942027000026883,
+        "p95_seconds": 0.007954226999970615
+      },
+      "peak_rss_bytes_after_workload": 26599424,
+      "quality": {
+        "exact_points": 7,
+        "bounded_points": 7,
+        "exact_points_recovered": 2,
+        "frontier_recall": 0.2857142857142857,
+        "dominated_area_fraction": 0.8596710692963448,
+        "peak_dps_fraction": 0.9902034664657123
+      }
+    },
+    "spell_full_budget": {
+      "request": {
+        "caster": {
+          "level": 10,
+          "speed": 65,
+          "destruction_live": 75,
+          "destruction_trained": 75,
+          "destruction_mastered": false,
+          "current_sp": 80,
+          "max_sp": 100,
+          "gold": 500,
+          "has_spellbook": true
+        },
+        "target": {
+          "id": "synthetic_fire_resistant_foe",
+          "hp": 60,
+          "willpower": 50,
+          "resistant": 8
+        },
+        "search": {
+          "max_nodes": 100000,
+          "wall_seconds": 0
+        }
+      },
+      "request_hash": "da89dd07d36ef09317a1164f5d094ff04b0c8feca2d9ee1738603e4d5cc82896",
+      "result_sha256": "3bfc86b349dadc858c55708a19cbcd56364b179ed2d7096f3b569f3c70a92e6b",
+      "status": "best_found_bounded",
+      "termination": "node_limit",
+      "counters": {
+        "nodes": 100000,
+        "leaves": 13185,
+        "pruned": 86815,
+        "work_bytes": 261024,
+        "first_seconds": 7.416e-05,
+        "preparation_seconds": 0.006594876000008298,
+        "service_seconds": 0.01871760799997446
+      },
+      "frontier": [
+        [
+          13.49125,
+          1.7570000000000001
+        ],
+        [
+          30.983803571428574,
+          1.6812916666666666
+        ],
+        [
+          43.345535714285724,
+          1.660294117647059
+        ],
+        [
+          54.82500000000001,
+          1.373076923076923
+        ],
+        [
+          55.056956845238105,
+          0.8147964015151515
+        ],
+        [
+          56.41871703296704,
+          0.7653701923076923
+        ],
+        [
+          57.58928571428572,
+          0.75
+        ],
+        [
+          57.67002884615385,
+          0.5364653846153846
+        ],
+        [
+          57.82943719593101,
+          0.4827740731920298
+        ],
+        [
+          58.058531746031754,
+          0.4785513361462729
+        ]
+      ],
+      "cold_cli_seconds": 0.09313136799994481,
+      "warm": {
+        "samples": [
+          {
+            "wall_seconds": 0.008747666000033405,
+            "cpu_seconds": 0.008010271999999985
+          },
+          {
+            "wall_seconds": 0.004443293999997877,
+            "cpu_seconds": 0.004445058000000002
+          },
+          {
+            "wall_seconds": 0.005543004999992718,
+            "cpu_seconds": 0.005529818999999991
+          },
+          {
+            "wall_seconds": 0.004787046999979339,
+            "cpu_seconds": 0.004790057999999986
+          },
+          {
+            "wall_seconds": 0.0056073119999950904,
+            "cpu_seconds": 0.005596777999999997
+          },
+          {
+            "wall_seconds": 0.006572604999973919,
+            "cpu_seconds": 0.006574920999999984
+          },
+          {
+            "wall_seconds": 0.006872138999995059,
+            "cpu_seconds": 0.006878490999999987
+          }
+        ],
+        "p50_seconds": 0.0056073119999950904,
+        "p95_seconds": 0.008747666000033405
+      },
+      "peak_rss_bytes_after_workload": 26730496
+    },
+    "gear_owned": {
+      "request": {
+        "caster": {
+          "level": 10,
+          "speed": 65,
+          "destruction_live": 75,
+          "destruction_trained": 75,
+          "destruction_mastered": false,
+          "current_sp": 80,
+          "max_sp": 100,
+          "gold": 500,
+          "has_spellbook": true
+        },
+        "target": {
+          "id": "synthetic_fire_resistant_foe",
+          "hp": 60,
+          "willpower": 50,
+          "resistant": 8
+        },
+        "career": {},
+        "mode": "owned_only",
+        "marginals": true,
+        "spell": {
+          "effect_id": "4,0",
+          "element": 1,
+          "range_type": 1,
+          "base_low": 2,
+          "base_high": 6,
+          "plus_low": 3,
+          "plus_high": 5,
+          "per_level": 2
+        },
+        "inventory": [
+          {
+            "instance_id": "bench-000",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 5
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-001",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 6
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-002",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 7
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-003",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 8
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-004",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 9
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-005",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 10
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-006",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 5
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-007",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 6
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-008",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 7
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-009",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 8
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-010",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 9
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-011",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 10
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-012",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 5
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-013",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 6
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-014",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 7
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-015",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 8
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-016",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 9
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-017",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 10
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-018",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 5
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-019",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 6
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-020",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 7
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-021",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 8
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-022",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 9
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-023",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 10
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-024",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 5
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-025",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 6
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-026",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 7
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-027",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 8
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-028",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 9
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-029",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 10
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-030",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 5
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-031",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 6
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-032",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 7
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-033",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 8
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-034",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 9
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-035",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 10
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          }
+        ],
+        "search": {
+          "max_nodes": 60000,
+          "wall_seconds": 0
+        }
+      },
+      "request_hash": "bc7ff081916c19c6a6fdce844d5cd0168fc43c7f8279a8ed81b1cebe29a76d52",
+      "result_sha256": "d3f5b28e408a2f3cd959c60e1bb9ff060a54221c9adeb7abb014e71cc0f05ace",
+      "status": "best_found_bounded",
+      "termination": "node_limit",
+      "counters": {
+        "nodes": 60000,
+        "pruned": 4223,
+        "leaves": 54877,
+        "evaluations": 195,
+        "cache_hits": 54682,
+        "cache_misses": 195,
+        "work_bytes": 44888,
+        "first_feasible_seconds": 0.010517812000029754,
+        "uncertain_sp_recipes": 0,
+        "spell_grid_cardinality": 1,
+        "sampled_spells": false,
+        "first_feasible_native_seconds": 3.03e-06
+      },
+      "frontier": [
+        [
+          22.29,
+          3.4673333333333334
+        ],
+        [
+          26.73,
+          3.3264000000000005
+        ]
+      ],
+      "cold_cli_seconds": 0.12140765100002682,
+      "warm": {
+        "samples": [
+          {
+            "wall_seconds": 0.023762411999996402,
+            "cpu_seconds": 0.02373961600000002
+          },
+          {
+            "wall_seconds": 0.017398332999960076,
+            "cpu_seconds": 0.017290907999999994
+          },
+          {
+            "wall_seconds": 0.014356599999985065,
+            "cpu_seconds": 0.014158223000000025
+          },
+          {
+            "wall_seconds": 0.02243358900000203,
+            "cpu_seconds": 0.022426644999999967
+          },
+          {
+            "wall_seconds": 0.015557899999976144,
+            "cpu_seconds": 0.015560915000000008
+          },
+          {
+            "wall_seconds": 0.015295302000026822,
+            "cpu_seconds": 0.015291104
+          },
+          {
+            "wall_seconds": 0.015696521999984725,
+            "cpu_seconds": 0.01568884499999995
+          }
+        ],
+        "p50_seconds": 0.015696521999984725,
+        "p95_seconds": 0.023762411999996402
+      },
+      "peak_rss_bytes_after_workload": 26861568
+    },
+    "joint_budget": {
+      "request": {
+        "caster": {
+          "level": 10,
+          "speed": 65,
+          "destruction_live": 75,
+          "destruction_trained": 75,
+          "destruction_mastered": false,
+          "current_sp": 80,
+          "max_sp": 100,
+          "gold": 500,
+          "has_spellbook": true
+        },
+        "target": {
+          "id": "synthetic_fire_resistant_foe",
+          "hp": 60,
+          "willpower": 50,
+          "resistant": 8
+        },
+        "career": {},
+        "mode": "owned_only",
+        "marginals": false,
+        "domain": {
+          "effect_id": "4,0",
+          "element": [
+            0,
+            1,
+            4
+          ],
+          "range_type": [
+            1,
+            2
+          ],
+          "base_low": [
+            1,
+            3,
+            5
+          ],
+          "base_high": [
+            2,
+            4,
+            6
+          ],
+          "plus_low": [
+            1,
+            3,
+            5
+          ],
+          "plus_high": [
+            2,
+            4,
+            6
+          ],
+          "per_level": [
+            1,
+            2,
+            5
+          ]
+        },
+        "inventory": [
+          {
+            "instance_id": "bench-000",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 5
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-001",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 6
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-002",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 7
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-003",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 8
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-004",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 9
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-005",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 10
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-006",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 5
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-007",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 6
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-008",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 7
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-009",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 8
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-010",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 9
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-011",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 10
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-012",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 5
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-013",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 6
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-014",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 7
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-015",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 8
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-016",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 9
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-017",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 10
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-018",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 5
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-019",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 6
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-020",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 7
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-021",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 8
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-022",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 9
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-023",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 135,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 10
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-024",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 5
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-025",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 6
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-026",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 7
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-027",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 8
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-028",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 9
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-029",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 136,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 10
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-030",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 5
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-031",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 6
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-032",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 7
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-033",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 8
+                },
+                {
+                  "id": "focus",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-034",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 9
+                },
+                {
+                  "id": "potency",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          {
+            "instance_id": "bench-035",
+            "container": "pack",
+            "acquisition": {
+              "owned": true
+            },
+            "item": {
+              "group": "Jewellery",
+              "templateIndex": 137,
+              "rarity": "magic",
+              "currentCondition": 10,
+              "affixes": [
+                {
+                  "id": "skill",
+                  "param": 22,
+                  "value": 10
+                },
+                {
+                  "id": "castSpeed",
+                  "value": 5
+                }
+              ]
+            }
+          }
+        ],
+        "search": {
+          "max_nodes": 75000,
+          "wall_seconds": 0,
+          "max_spells_per_loadout": 128
+        }
+      },
+      "request_hash": "544b23f0ea571b27a232d0587f797c2c02d5561414b8bc7384dbbd9c610b50a8",
+      "result_sha256": "8fe1fe18fccdbc97dba9b80849731b78223ec16c3d8ea5b8b2c38334ad420c86",
+      "status": "best_found_bounded",
+      "termination": "node_limit",
+      "counters": {
+        "nodes": 75000,
+        "pruned": 3543,
+        "leaves": 46033,
+        "evaluations": 11834,
+        "cache_hits": 45839,
+        "cache_misses": 194,
+        "work_bytes": 45780,
+        "first_feasible_seconds": 0.012067689999989646,
+        "uncertain_sp_recipes": 0,
+        "spell_grid_cardinality": 1458,
+        "sampled_spells": true,
+        "first_feasible_native_seconds": 3.07e-06
+      },
+      "frontier": [
+        [
+          52.79464285714286,
+          8.2125
+        ],
+        [
+          53.54433035714286,
+          7.9746875
+        ],
+        [
+          55.21138392857142,
+          6.870749999999999
+        ],
+        [
+          57.291741071428575,
+          6.82625
+        ],
+        [
+          59.333749999999995,
+          6.781000000000001
+        ],
+        [
+          61.03607142857142,
+          6.702
+        ],
+        [
+          62.18035714285715,
+          6.57
+        ],
+        [
+          62.658258928571435,
+          6.37975
+        ]
+      ],
+      "cold_cli_seconds": 0.12225163900001235,
+      "warm": {
+        "samples": [
+          {
+            "wall_seconds": 0.02234794899999315,
+            "cpu_seconds": 0.021975634999999993
+          },
+          {
+            "wall_seconds": 0.021699334000004455,
+            "cpu_seconds": 0.02168907400000003
+          },
+          {
+            "wall_seconds": 0.029237396999974408,
+            "cpu_seconds": 0.02920626599999998
+          },
+          {
+            "wall_seconds": 0.021327187999986563,
+            "cpu_seconds": 0.021317114000000026
+          },
+          {
+            "wall_seconds": 0.018678123000029245,
+            "cpu_seconds": 0.01867950900000004
+          },
+          {
+            "wall_seconds": 0.017794724999987466,
+            "cpu_seconds": 0.017784376999999962
+          },
+          {
+            "wall_seconds": 0.018471809999994093,
+            "cpu_seconds": 0.018463899000000006
+          }
+        ],
+        "p50_seconds": 0.021327187999986563,
+        "p95_seconds": 0.029237396999974408
+      },
+      "peak_rss_bytes_after_workload": 27123712
+    }
+  },
+  "peak_rss_bytes": 29483008
+}

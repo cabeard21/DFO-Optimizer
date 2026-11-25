@@ -41,6 +41,14 @@ def test_combat_bundle_binds_spell_tables_and_equipment_catalog():
     assert len(set(ids)) == len(ids)
 
 
+def test_progression_bundle_binds_extracted_mechanics():
+    from dfo_optimizer.ruleset import validate_progression_ruleset
+    bundle = validate_progression_ruleset(load_ruleset())
+    assert bundle["progression_rules"] == json.loads((DATA / "progression-rules.json").read_text(encoding="utf8"))
+    assert bundle["extraction_version"] >= 3
+    assert any(row["mechanic_id"] == "spell.stock_records" for row in bundle["mechanics"])
+
+
 def test_offline_validate_and_load_reject_corruption(tmp_path):
     bundle = load_ruleset()
     path = tmp_path / "ruleset.json"
@@ -52,6 +60,17 @@ def test_offline_validate_and_load_reject_corruption(tmp_path):
         validate_ruleset(altered)
     with pytest.raises(ValueError):
         validate_ruleset({"source_sha": SOURCE_SHA})
+
+
+def test_admission_authenticates_the_exact_detached_snapshot():
+    from dfo_optimizer.ruleset import freeze_ruleset
+    supplied = load_ruleset()
+    frozen = freeze_ruleset(supplied)
+    assert frozen == supplied
+    supplied["traits"][0]["cost"] += 1
+    assert supplied != frozen
+    with pytest.raises(ValueError, match="hash"):
+        freeze_ruleset(supplied)
 
 
 def test_reject_other_source_revision_before_execution(tmp_path):

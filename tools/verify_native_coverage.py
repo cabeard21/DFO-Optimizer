@@ -1,4 +1,4 @@
-"""Exercise the production class, spell and gear kernels in an instrumented Linux build."""
+"""Exercise the production native kernels in an instrumented Linux build."""
 import argparse
 import gzip
 import hashlib
@@ -14,8 +14,8 @@ from tempfile import TemporaryDirectory
 
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = ROOT / "src" / "dfo_optimizer"
-EXTENSIONS = ("_native", "_spells", "_gear")
-HEADERS = ("class_search.hpp", "spell_kernel.hpp", "gear_search.hpp", "native_build.hpp")
+EXTENSIONS = ("_native", "_spells", "_gear", "_progression", "_spellbook", "_lifecycle")
+HEADERS = tuple(sorted(path.name for path in PACKAGE.glob("*.hpp")))
 FLAGS = ["-std=c++17", "-O0", "-fPIC", "-fno-fast-math", "-ffp-contract=off",
          "--coverage", "-fprofile-abs-path"]
 MINIMUM_PERCENT = 80
@@ -38,22 +38,29 @@ def compile_module(directory, package, name):
 def native_tests(directory):
     # Only Python service modules and frozen data are copied. Every imported
     # extension must belong to this build, even if a release wheel is installed.
-    package = directory / "dfo_optimizer"
-    package.mkdir()
+    source = directory / "src"
+    package = source / "dfo_optimizer"
+    package.mkdir(parents=True)
     for module in PACKAGE.glob("*.py"):
         shutil.copy2(module, package)
     shutil.copytree(PACKAGE / "data", package / "data")
+    # The instrumented source tree resolves the same shared inputs as an
+    # uninstrumented checkout, including the real class comparison corpus.
+    shutil.copy2(ROOT / "DFO_Spellcasting_Optimizer_Codex_Handoff.md", directory)
+    shutil.copytree(ROOT / "examples", directory / "examples")
+    shutil.copytree(ROOT / "tests" / "fixtures" / "dhargo", directory / "tests" / "fixtures" / "dhargo")
     for name in EXTENSIONS:
         compile_module(directory, package, name)
-    env = {**os.environ, "PYTHONPATH": str(directory)}
+    env = {**os.environ, "PYTHONPATH": str(source)}
     check_imports = (
         "import importlib, pathlib; "
         f"modules = [importlib.import_module('dfo_optimizer.' + n) for n in {EXTENSIONS!r}]; "
-        "assert all(pathlib.Path(m.__file__).parent == pathlib.Path.cwd()/'dfo_optimizer' for m in modules); "
+        "assert all(pathlib.Path(m.__file__).parent == pathlib.Path.cwd()/'src'/'dfo_optimizer' for m in modules); "
         "assert modules[0].build_info()['flags'] == 'gcov -O0'"
     )
     run([sys.executable, "-c", check_imports], directory, env=env)
-    tests = sorted({p for pattern in ("test_native.py", "test_spell*.py", "test_gear*.py")
+    tests = sorted({p for pattern in ("test_native.py", "test_spell*.py", "test_gear*.py",
+                                      "test_progression*.py", "test_lifecycle*.py")
                     for p in (ROOT / "tests").glob(pattern)})
     run([sys.executable, "-m", "pytest", "-q", *tests], directory, env=env)
     for name in EXTENSIONS:
@@ -66,8 +73,8 @@ def native_tests(directory):
 def header_lines(directory):
     # gcov can report the same physical line several times (inlined bodies).
     # A source line is executed if any of those counters is positive.
-    # spell_kernel.hpp is compiled into two extensions. Union the counters
-    # across both translation units, without double-counting source lines.
+    # Several extensions share kernels. Union counters from their translation
+    # units so a source line contributes once to the reported coverage.
     executed = {(PACKAGE / name).resolve(): {} for name in HEADERS}
     for report in directory.glob("*.gcov.json.gz"):
         with gzip.open(report, "rt", encoding="utf-8") as stream:

@@ -18,6 +18,10 @@ Spell and gear requests use the same pinned instant-damage mechanics. A portable
 
 The spell service sends a validated caster, target and finite setting domains through a coarse Cython call. Its C++ kernel counts discrete outcomes and accumulates expected HP loss over legal magnitude intervals. The gear service evaluates or searches whole configurations, folding modifiers and calling the same C++ spell arithmetic. Independent scalar replay checks the published spells and the equipment solver's retained results. Each service reports its candidate universe and termination reason. The installed CLI and benchmark exercise those service entry points.
 
+## Progression and lifecycle services
+
+Progression, spellbook and lifecycle services accept the same frozen inputs from the CLI and benchmarks. The progression worker expands batched legal transitions. The spellbook worker evaluates ordered direct effects and paid cast sequences. The lifecycle worker carries equipment copies, purchases and reserved resources across checkpoint policies. Independent replay starts from the embedded character and observations. [Progression and lifecycle design](adr/0004-progression-and-lifecycle.md)
+
 ## Reference application
 
 The OSRS audit used revision `97834e66983b906f800481ad46abcd2e5924babf`, including the architecture, build configuration, native transition/frontier code, integration tests and frozen benchmark replay. DFO uses frozen inputs, coarse native calls, exactness labels, result digests and separate service/kernel measurements. [OSRS Recommender](https://github.com/cabeard21/osrs_recommender/tree/97834e66983b906f800481ad46abcd2e5924babf)

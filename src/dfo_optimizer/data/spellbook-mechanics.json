@@ -1,0 +1,44 @@
+[
+  {
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "mechanic_id": "spell.disintegrate",
+    "verification_status": "source_verified",
+    "live_verified": false,
+    "implementation_status": "native_spellbook",
+    "mode": "online_snapshot",
+    "symbol": "applySpell,chanceValue",
+    "path": "src/systems/effects.js",
+    "limits": "Native chance-to-kill calculation with the displayed spellmaker settings, chance-before-save order, and the remaining target HP. The final witness uses a confirmed legal finite cast on a non-player stationary target.",
+    "assumptions": [
+      "The resolved encounter is one stationary ordinary NPC and a confirmed hit per cast."
+    ]
+  },
+  {
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "mechanic_id": "spell.multi_effect",
+    "verification_status": "source_verified",
+    "live_verified": false,
+    "implementation_status": "native_spellbook",
+    "mode": "online_snapshot",
+    "symbol": "buildCustomSpell,spellMakerCost,validateSpellPurchase",
+    "path": "src/systems/spell/spellMaker.js",
+    "limits": "One to three valid ordered Damage Health or Disintegrate effects on a stationary NPC. Each cast combines the visible price and health loss from retained effects in the requested order.",
+    "assumptions": [
+      "The resolved encounter is one stationary ordinary NPC and a confirmed hit per cast."
+    ]
+  },
+  {
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "mechanic_id": "spell.native_spellbook",
+    "verification_status": "source_verified",
+    "live_verified": false,
+    "implementation_status": "native_spellbook",
+    "mode": "online_snapshot",
+    "symbol": "purchaseSpell",
+    "path": "src/systems/spell/spellMaker.js",
+    "limits": "Fixed and stage-specific dynamic policies replay confirmed spell acquisitions and SP costs. Policies can use the declared fresh-target casts and quote history. Practice, regeneration and equipment-dependent redistribution are outside the proficiency snapshot.",
+    "assumptions": [
+      "The resolved encounter is one stationary ordinary NPC and a confirmed hit per cast."
+    ]
+  }
+]

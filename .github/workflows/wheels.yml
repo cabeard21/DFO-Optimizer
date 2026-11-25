@@ -27,6 +27,8 @@ jobs:
           sparse-checkout-cone-mode: false
           sparse-checkout: |
             /src/
+            /server-account/src/
+            /.github/workflows/account-deploy.yml
             /locales/
             /test/systems/
             /test/modsOff.js
@@ -47,6 +49,8 @@ jobs:
           test/systems/bal9_destruction.test.js test/systems/castspeed.test.js
           test/systems/equiprestrictions.test.js test/systems/spell/audit26_spellmaker.test.js
           test/systems/save/savetransfer.test.js
+          test/systems/advancement.test.js test/systems/fb1019b_leveleven.test.js
+          test/systems/fb1026d_masterthree.test.js test/systems/schools_arcane.test.js
         working-directory: vendor/dfo-source
       - run: python tools/verify_wheel.py
       - if: runner.os == 'Linux'

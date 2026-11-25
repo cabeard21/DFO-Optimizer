@@ -81,6 +81,9 @@ def _parser():
         if action == "import":
             cmd.add_argument("--slot", type=int, help="DFO save slot number in a multi-slot export")
     spell = commands.add_parser("spell").add_subparsers(dest="action", required=True)
+    stock = _command(spell, "stock", "Resolve spell IDs from a local classic SPELLS.STD file", ruleset=False)
+    stock.add_argument("--input", type=Path, required=True)
+    stock.add_argument("--index", type=int, action="append", help="stock spell ID (repeatable)")
     gear = commands.add_parser("gear").add_subparsers(dest="action", required=True)
     for parent, action, help_text in (
         (commands, "evaluate", "Evaluate one fixed direct spell"),
@@ -92,8 +95,30 @@ def _parser():
         cmd.add_argument("--request", type=Path, required=True, help="frozen JSON request, or - for stdin")
         cmd.add_argument("--character", type=Path, help="supply the character from an exported save or portable snapshot")
         cmd.add_argument("--slot", type=int, help="save slot in --character")
+    progression = commands.add_parser("progression").add_subparsers(dest="action", required=True)
+    builds = commands.add_parser("build").add_subparsers(dest="action", required=True)
+    _command(builds, "baselines", "List verified comparison class inputs and profile exclusions")
+    books = commands.add_parser("spellbook").add_subparsers(dest="action", required=True)
+    for group, action, description in (
+        (progression, "plan", "Plan reachable progression from a frozen start"),
+        (builds, "optimize", "Compare reachable lifecycle plans"),
+        (builds, "replan", "Replan from the observed character"),
+        (books, "evaluate", "Evaluate a fixed spellbook policy"),
+        (books, "optimize", "Search a finite spellbook and casting policy domain"),
+    ):
+        cmd = _command(group, action, description)
+        cmd.add_argument("--request", type=Path, required=True, help="request JSON, or - for stdin")
+        if group is progression:
+            cmd.add_argument("--stock-spells", type=Path, help="locally supplied classic SPELLS.STD")
+            cmd.add_argument("--character", type=Path, help="use this exported save or portable character as the start")
+            cmd.add_argument("--slot", type=int, help="save slot in --character")
+    for group in (progression, builds):
+        replay = _command(group, "replay", "Verify the actions and checkpoints of a saved plan")
+        replay.add_argument("--plan", type=Path, required=True)
+    compare = _command(builds, "compare", "Compare lifecycle results under their frozen assumptions")
+    compare.add_argument("--plans", type=Path, nargs="+", required=True)
     bench = _command(commands, "benchmark", "Run the serial native benchmark suite", ruleset=False)
-    bench.add_argument("--suite", choices=["foundation", "smoke", "combat"], default="smoke")
+    bench.add_argument("--suite", choices=["foundation", "smoke", "combat", "progression", "lifecycle"], default="smoke")
     bench.add_argument("--workers", type=int, choices=[1], default=1)
     return parser
 
@@ -177,10 +202,85 @@ def _combat(args, bundle):
     return result, 130 if result.get("termination") == "cancelled" else 0
 
 
+def _protect_planning_inputs(request, directory, destination):
+    from .character_files import MAX_SAVE_BYTES, read_json
+    stack = [(request, directory)]
+    schedule = request.get("progression_file")
+    if isinstance(schedule, str):
+        path = (directory / schedule).resolve()
+        _protect_game_path(path, destination)
+        with path.open("rb") as stream:
+            stack.append((read_json(stream, MAX_SAVE_BYTES, "progression request"), path.parent))
+    while stack:
+        value, root = stack.pop()
+        if isinstance(value, dict):
+            if isinstance(value.get("character_file"), str):
+                _protect_game_path(root / value["character_file"], destination)
+            stack.extend((child, root) for child in value.values())
+        elif isinstance(value, list):
+            stack.extend((child, root) for child in value)
+
+
+def _planning(args, bundle):
+    from functools import partial
+    from .ruleset import validate_progression_ruleset
+    if args.action == "baselines":
+        validate_progression_ruleset(bundle)
+        from .build_baselines import baseline_catalog
+        return baseline_catalog(bundle), 0
+    if args.action == "compare":
+        from .lifecycle import compare_builds
+        return compare_builds([_input(path) for path in args.plans], ruleset=bundle), 0
+    if args.action == "replay":
+        if args.command == "build":
+            from .lifecycle import replay_build
+            return replay_build(_input(args.plan), ruleset=bundle), 0
+        from .progression import replay_progression
+        return replay_progression(_input(args.plan), ruleset=bundle), 0
+    request = _input(args.request)
+    if not isinstance(request, dict):
+        raise ValueError("Planning request must be a JSON object.")
+    directory = Path.cwd() if str(args.request) == "-" else args.request.resolve().parent
+    if args.output and str(args.output) != "-":
+        _protect_planning_inputs(request, directory, args.output.resolve())
+    validate_progression_ruleset(bundle)
+    if args.command == "progression":
+        from . import _progression
+        from .progression import plan_progression
+        if args.character is not None:
+            if "start" in request:
+                raise ValueError("Supply the character once, in the request or with --character.")
+            from .character import import_character
+            request = {**request, "start": {"type": "current_character",
+                                            "character": import_character(args.character, slot=args.slot)}}
+        elif args.slot is not None:
+            raise ValueError("--slot requires --character.")
+        if args.stock_spells is not None:
+            from .stock_spells import stock_records
+            start = request.get("start")
+            if not isinstance(start, dict) or "spell_records" in start:
+                raise ValueError("Supply a start and one source of stock spell records.")
+            request = {**request, "start": {**start, "spell_records": stock_records(args.stock_spells)}}
+        service, factory = partial(plan_progression, base_dir=directory), _progression.CancelToken
+    elif args.command == "spellbook":
+        from . import _spellbook, spellbook
+        service = spellbook.evaluate_spellbook if args.action == "evaluate" else spellbook.optimize_spellbook
+        factory = _spellbook.CancelToken
+    else:
+        from . import _lifecycle, lifecycle
+        fn = lifecycle.replan_build if args.action == "replan" else lifecycle.optimize_build
+        service, factory = partial(fn, base_dir=directory), _lifecycle.CancelToken
+    result = _interruptible_search(service, factory, request, bundle)
+    return result, 130 if result.get("termination") == "cancelled" or result.get("status") == "cancelled" else 0
+
+
 def _dispatch(args):
     from . import ruleset
 
     if args.command == "benchmark":
+        if args.suite in ("progression", "lifecycle"):
+            from .planning_benchmark import run_planning_benchmark
+            return run_planning_benchmark(args.suite), 0
         if args.suite == "combat":
             from .combat_benchmark import run_combat_benchmark
             return run_combat_benchmark(), 0
@@ -194,7 +294,12 @@ def _dispatch(args):
         if args.action == "slots":
             return list_character_slots(args.input), 0
         return import_character(args.input, slot=args.slot), 0
+    if args.command == "spell" and args.action == "stock":
+        from .stock_spells import stock_records
+        return {"spell_records": stock_records(args.input, args.index)}, 0
     bundle = ruleset.load_ruleset(args.ruleset)
+    if args.command in ("build", "progression", "spellbook"):
+        return _planning(args, bundle)
     if args.command in ("evaluate", "gear", "spell"):
         return _combat(args, bundle)
     if args.command == "ruleset":
@@ -223,11 +328,18 @@ def _dispatch(args):
 def _protect_save(args):
     if getattr(args, "output", None) is None or str(args.output) == "-":
         return
-    source = args.input if args.command == "character" else getattr(args, "character", None)
-    if source is None:
-        return
-    path = source.resolve()
     destination = args.output.resolve()
+    input_files = [getattr(args, key, None) for key in ("stock_spells", "request", "plan")]
+    input_files.extend(getattr(args, "plans", ()))
+    if any(p and str(p) != "-" and p.resolve() == destination for p in input_files):
+        raise ValueError("Choose an output path distinct from the input files.")
+    source = getattr(args, "input", None) or getattr(args, "character", None)
+    if source is not None:
+        _protect_game_path(source, destination)
+
+
+def _protect_game_path(source, destination):
+    path = source.resolve()
     if path == destination or (path.is_dir() and destination.is_relative_to(path)):
         raise ValueError("Choose an output path outside the input game save.")
     slot_files = {"savedata.txt", "saveinfo.txt"}

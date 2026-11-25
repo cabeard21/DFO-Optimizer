@@ -1,0 +1,162 @@
+{
+  "headers": [
+    {
+      "file": "src/dfo_optimizer/class_search.hpp",
+      "source_sha256": "b3da2ed99a90375722b4e7c3e57a31e8946ce089c1579622b4afb0af7997fe20",
+      "executable_lines": 121,
+      "covered_lines": 121,
+      "line_percent": 100.0,
+      "uncovered_lines": []
+    },
+    {
+      "file": "src/dfo_optimizer/gear_search.hpp",
+      "source_sha256": "a5a7eb4f5b1cf6c0268f70a5d2ec4f8f53bb612531063b54374c5915a63bcbc1",
+      "executable_lines": 225,
+      "covered_lines": 223,
+      "line_percent": 99.11111111111111,
+      "uncovered_lines": [
+        22,
+        350
+      ]
+    },
+    {
+      "file": "src/dfo_optimizer/lifecycle_combat.hpp",
+      "source_sha256": "4daf18eb67a224afa21075bcd8dc61081325c96f69a45061236a357be42fbe57",
+      "executable_lines": 129,
+      "covered_lines": 118,
+      "line_percent": 91.47286821705427,
+      "uncovered_lines": [
+        49,
+        72,
+        73,
+        74,
+        76,
+        122,
+        138,
+        139,
+        140,
+        141,
+        142
+      ]
+    },
+    {
+      "file": "src/dfo_optimizer/lifecycle_search.hpp",
+      "source_sha256": "4d4e30a86b0b753ee468b71d4aca9f8b2ca8e96e5cb9831b434e7b500fcc1d7b",
+      "executable_lines": 104,
+      "covered_lines": 103,
+      "line_percent": 99.03846153846153,
+      "uncovered_lines": [
+        177
+      ]
+    },
+    {
+      "file": "src/dfo_optimizer/native_build.hpp",
+      "source_sha256": "dcbada1aabcad3a5105a232e93a9db3f4c0b5a666c3cba8c7cd26abd804c33b8",
+      "executable_lines": 4,
+      "covered_lines": 4,
+      "line_percent": 100.0,
+      "uncovered_lines": []
+    },
+    {
+      "file": "src/dfo_optimizer/progression_mechanics.hpp",
+      "source_sha256": "ed9d1c1ad895a949803537955b95b18bf0841c10ceb8cc050e5efa6041c30710",
+      "executable_lines": 199,
+      "covered_lines": 198,
+      "line_percent": 99.49748743718592,
+      "uncovered_lines": [
+        292
+      ]
+    },
+    {
+      "file": "src/dfo_optimizer/progression_search.hpp",
+      "source_sha256": "bb4d03b2b01b887beea69eabc1abd5bf99599662d091d5cf4f43e755b512a76f",
+      "executable_lines": 116,
+      "covered_lines": 114,
+      "line_percent": 98.27586206896552,
+      "uncovered_lines": [
+        13,
+        159
+      ]
+    },
+    {
+      "file": "src/dfo_optimizer/spell_kernel.hpp",
+      "source_sha256": "fe5952c49885ca8b1a498ea9aede824dcffa9bcb1562035e6f03e27e71caad69",
+      "executable_lines": 306,
+      "covered_lines": 293,
+      "line_percent": 95.7516339869281,
+      "uncovered_lines": [
+        295,
+        372,
+        373,
+        374,
+        489,
+        490,
+        491,
+        492,
+        493,
+        494,
+        495,
+        497,
+        498
+      ]
+    },
+    {
+      "file": "src/dfo_optimizer/spellbook.hpp",
+      "source_sha256": "b8770ee74b936479542327c8ee9003a185212baeb061e8909e55d71a6b04a0bf",
+      "executable_lines": 128,
+      "covered_lines": 128,
+      "line_percent": 100.0,
+      "uncovered_lines": []
+    },
+    {
+      "file": "src/dfo_optimizer/spellbook_loadouts.hpp",
+      "source_sha256": "63af1550e6b02c30868fa483062a978c8d9a486c73f67013acbf10f53a09327e",
+      "executable_lines": 79,
+      "covered_lines": 77,
+      "line_percent": 97.46835443037975,
+      "uncovered_lines": [
+        93,
+        94
+      ]
+    }
+  ],
+  "modules": [
+    "_native",
+    "_spells",
+    "_gear",
+    "_progression",
+    "_spellbook",
+    "_lifecycle"
+  ],
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "gcov": "gcov (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "flags": [
+    "-std=c++17",
+    "-O0",
+    "-fPIC",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "--coverage",
+    "-fprofile-abs-path"
+  ],
+  "tests": [
+    "tests/test_gear.py",
+    "tests/test_gear_native.py",
+    "tests/test_lifecycle.py",
+    "tests/test_lifecycle_native.py",
+    "tests/test_lifecycle_refinement.py",
+    "tests/test_native.py",
+    "tests/test_progression_inputs.py",
+    "tests/test_progression_native.py",
+    "tests/test_progression_service.py",
+    "tests/test_spell_kernel.py",
+    "tests/test_spell_oracle.py",
+    "tests/test_spellbook_gameplan.py",
+    "tests/test_spellbook_motion.py",
+    "tests/test_spells.py"
+  ],
+  "executable_lines": 1411,
+  "covered_lines": 1379,
+  "line_percent": 97.73210489014883,
+  "minimum_percent": 80
+}

@@ -1,0 +1,293 @@
+{
+  "description": "Post-load synthetic save. Five trained skills already contribute 140 each. Crossing Destruction 99 to 100 reaches the level cap. Further Destruction practice and mastery can continue after the cap.",
+  "start": {
+    "type": "current_character",
+    "character": {
+      "v": 1,
+      "characterId": "m4-synthetic",
+      "name": "Mastery witness",
+      "raceId": 1,
+      "level": 44,
+      "skills": [
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        200,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        99,
+        200,
+        200,
+        200,
+        200,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "masteredSkills": [
+        13,
+        23,
+        24,
+        25,
+        26
+      ],
+      "arcanePath": null,
+      "martialPath": null,
+      "stats": {
+        "strength": 70,
+        "intelligence": 70,
+        "willpower": 70,
+        "agility": 70,
+        "endurance": 70,
+        "personality": 70,
+        "speed": 70,
+        "luck": 70
+      },
+      "career": {
+        "primarySkills": [
+          22,
+          23,
+          24
+        ],
+        "majorSkills": [
+          25,
+          26,
+          27
+        ],
+        "minorSkills": [
+          13,
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "advancementMultiplier": 0.3,
+        "hitPointsPerLevel": 30,
+        "abilityFlagsAndSpellPointsBitfield": 0
+      },
+      "spells": [
+        {
+          "custom": true,
+          "index": -1,
+          "rangeType": 1,
+          "element": 4,
+          "name": "Training spark",
+          "effects": [
+            {
+              "type": 4,
+              "subType": 0,
+              "magnitudeBaseLow": 1,
+              "magnitudeBaseHigh": 1,
+              "magnitudeLevelBase": 1,
+              "magnitudeLevelHigh": 1,
+              "magnitudePerLevel": 20
+            }
+          ]
+        }
+      ],
+      "items": [
+        {
+          "group": "MiscItems",
+          "templateIndex": 132
+        }
+      ],
+      "goldPieces": 200000,
+      "fatigue": 28000,
+      "maxHealth": 1000,
+      "health": 1000,
+      "classicMinutes": 1000,
+      "lastSkillCheckTime": 1000,
+      "timeOfLastSkillTraining": 0,
+      "reflexes": 2,
+      "readyToLevelUp": false,
+      "startingLevelUpSkillSum": 154,
+      "currentLevelUpSkillSum": 799,
+      "chargenDone": true,
+      "skillUses": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        100,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "skillUseFrac": null,
+      "skillProgress": null,
+      "bankAccounts": [],
+      "restNightAt": null
+    },
+    "live_observations": {
+      "current_sp": {
+        "value": 200,
+        "observed_at_ms": 1,
+        "source": "Synthetic character sheet at scenario start"
+      },
+      "max_sp": {
+        "value": 210,
+        "observed_at_ms": 1,
+        "source": "Synthetic character sheet at scenario start"
+      }
+    }
+  },
+  "goal": {
+    "level": 45,
+    "skills": {
+      "22": 101
+    },
+    "arcane_path": "battlemage"
+  },
+  "stages": [
+    [
+      {
+        "kind": "check",
+        "trigger": "fast_travel_arrival",
+        "fare_gold": 0,
+        "minutes": 361,
+        "evidence": "Confirmed zero-cost arrival opportunity after 361 personal minutes."
+      }
+    ],
+    [
+      {
+        "kind": "level",
+        "if_due": true,
+        "allocation_order": [
+          6,
+          1,
+          4,
+          2,
+          0,
+          3,
+          5,
+          7
+        ]
+      }
+    ],
+    [
+      {
+        "kind": "master",
+        "skill": 22
+      }
+    ],
+    [
+      {
+        "kind": "practice",
+        "skill": 22,
+        "spell": -1,
+        "count": 32,
+        "cadence_ms": 60000,
+        "challenge_level": 34,
+        "minutes": 384,
+        "evidence": "32 funded training casts against declared level-34 foes. Each release was preceded by a current challenge."
+      }
+    ],
+    [
+      {
+        "kind": "rest",
+        "site": "bed",
+        "refill_sp": 200,
+        "evidence": "Synthetic uninterrupted night at a safe room."
+      }
+    ],
+    [
+      {
+        "kind": "practice",
+        "skill": 22,
+        "spell": -1,
+        "count": 32,
+        "cadence_ms": 60000,
+        "challenge_level": 34,
+        "minutes": 384,
+        "evidence": "32 funded training casts against declared level-34 foes. Each release was preceded by a current challenge."
+      }
+    ],
+    [
+      {
+        "kind": "rest",
+        "site": "bed",
+        "refill_sp": 200,
+        "evidence": "Synthetic uninterrupted night at a safe room."
+      }
+    ],
+    [
+      {
+        "kind": "practice",
+        "skill": 22,
+        "spell": -1,
+        "count": 32,
+        "cadence_ms": 60000,
+        "challenge_level": 34,
+        "minutes": 384,
+        "evidence": "32 funded training casts against declared level-34 foes. Each release was preceded by a current challenge."
+      }
+    ],
+    [
+      {
+        "kind": "rest",
+        "site": "bed",
+        "refill_sp": 200,
+        "evidence": "Synthetic uninterrupted night at a safe room."
+      }
+    ],
+    [
+      {
+        "kind": "choose",
+        "family": "arcane",
+        "path": "battlemage"
+      }
+    ]
+  ],
+  "search": {
+    "exact": true
+  }
+}

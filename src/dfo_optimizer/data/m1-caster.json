@@ -1,0 +1,79 @@
+{
+  "format": "daggerfall-enhanced/custom-class",
+  "version": 1,
+  "name": "DFO class",
+  "hitPointsPerLevel": 30,
+  "skills": {
+    "primary": [
+      "Destruction",
+      "Medical",
+      "Dodging"
+    ],
+    "major": [
+      "Restoration",
+      "Stealth",
+      "Swimming"
+    ],
+    "minor": [
+      "Etiquette",
+      "Jumping",
+      "Lockpicking",
+      "Mercantile",
+      "Climbing",
+      "Running"
+    ]
+  },
+  "attributes": {
+    "strength": 30,
+    "intelligence": 70,
+    "willpower": 50,
+    "agility": 50,
+    "endurance": 50,
+    "personality": 50,
+    "speed": 50,
+    "luck": 50
+  },
+  "advantages": [
+    {
+      "primary": "increasedMagery",
+      "secondary": "intInSpellPoints3"
+    }
+  ],
+  "disadvantages": [
+    {
+      "primary": "forbiddenMaterial",
+      "secondary": "steel"
+    },
+    {
+      "primary": "forbiddenMaterial",
+      "secondary": "elven"
+    },
+    {
+      "primary": "forbiddenMaterial",
+      "secondary": "dwarven"
+    },
+    {
+      "primary": "forbiddenMaterial",
+      "secondary": "mithril"
+    },
+    {
+      "primary": "forbiddenMaterial",
+      "secondary": "silver"
+    },
+    {
+      "primary": "forbiddenMaterial",
+      "secondary": "adamantium"
+    },
+    {
+      "primary": "forbiddenMaterial",
+      "secondary": "iron"
+    }
+  ],
+  "reputations": {
+    "merchants": 0,
+    "peasants": 0,
+    "scholars": 0,
+    "nobility": 0,
+    "underworld": 0
+  }
+}

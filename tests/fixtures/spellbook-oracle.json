@@ -1,0 +1,639 @@
+{
+  "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+  "mode": "online_snapshot",
+  "observed": "Game-owned spell cost, magnitude, target and retained effect-path replay",
+  "paths": [
+    "systems/spell/spellMaker.js#validateSpellPurchase,spellMakerCost",
+    "systems/effects.js#applySpell",
+    "systems/spellcast.js#savingChance,savingThrow"
+  ],
+  "examples": [
+    {
+      "id": "pair",
+      "context": {
+        "level": 10,
+        "live_skill": 85,
+        "climb": 35,
+        "speed": 70,
+        "available_sp": 20000,
+        "target_hp": 25,
+        "willpower": 50,
+        "price_factor": 1
+      },
+      "spell": {
+        "element": 4,
+        "range_type": 2,
+        "effects": [
+          {
+            "effect_id": "4,0",
+            "base_low": 3,
+            "base_high": 3,
+            "plus_low": 2,
+            "plus_high": 2,
+            "per_level": 7
+          },
+          {
+            "effect_id": "4,0",
+            "base_low": 9,
+            "base_high": 9,
+            "plus_low": 2,
+            "plus_high": 2,
+            "per_level": 7
+          }
+        ]
+      },
+      "estimate": {
+        "expected_health_loss": 8.71,
+        "expected_damage": 8.710000000000058,
+        "kill_probability": 0,
+        "dps": 13.687142857142861,
+        "cost_sp": 21,
+        "purchase_gold": 360
+      },
+      "specific": {
+        "available": true,
+        "after": 0,
+        "trajectory_count": 700,
+        "price": 360,
+        "sp": 21,
+        "masks": {
+          "targets": 30,
+          "elements": 31,
+          "forced": false
+        },
+        "ordered_stages": [
+          {
+            "dam": 0,
+            "h": 25,
+            "plan": []
+          },
+          {
+            "dam": 16,
+            "h": 9,
+            "plan": [
+              5,
+              11
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "slope",
+      "context": {
+        "level": 10,
+        "live_skill": 85,
+        "climb": 35,
+        "speed": 70,
+        "available_sp": 20000,
+        "target_hp": 25,
+        "willpower": 50,
+        "price_factor": 1
+      },
+      "spell": {
+        "element": 4,
+        "range_type": 2,
+        "effects": [
+          {
+            "effect_id": "5,255",
+            "chance_base": 14,
+            "chance_increment": 1,
+            "chance_per_level": 12
+          }
+        ]
+      },
+      "estimate": {
+        "expected_health_loss": 2.2750000000000394,
+        "expected_damage": 2.2749999999999626,
+        "kill_probability": 0.09100000000000158,
+        "dps": 3.575000000000063,
+        "cost_sp": 105,
+        "purchase_gold": 1680
+      },
+      "specific": {
+        "available": true,
+        "after": 0,
+        "trajectory_count": 10000,
+        "price": 1680,
+        "sp": 105,
+        "masks": {
+          "targets": 30,
+          "elements": 31,
+          "forced": false
+        },
+        "ordered_stages": [
+          {
+            "dam": 0,
+            "h": 25,
+            "plan": []
+          },
+          {
+            "dam": 25,
+            "h": 0,
+            "plan": [
+              25
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "challenging_full",
+      "context": {
+        "level": 10,
+        "live_skill": 85,
+        "climb": 35,
+        "speed": 70,
+        "available_sp": 20000,
+        "target_hp": 6,
+        "willpower": 50,
+        "price_factor": 1
+      },
+      "spell": {
+        "element": 4,
+        "range_type": 2,
+        "effects": [
+          {
+            "effect_id": "4,0",
+            "base_low": 8,
+            "base_high": 8,
+            "plus_low": 2,
+            "plus_high": 2,
+            "per_level": 7
+          },
+          {
+            "effect_id": "5,255",
+            "chance_base": 100,
+            "chance_increment": 1,
+            "chance_per_level": 12
+          }
+        ]
+      },
+      "estimate": {
+        "expected_health_loss": 5.139000000000404,
+        "expected_damage": 7.098999999998348,
+        "kill_probability": 0.8390000000000668,
+        "dps": 8.075571428572065,
+        "cost_sp": 765,
+        "purchase_gold": 12240
+      },
+      "specific": {
+        "available": true,
+        "after": 0,
+        "trajectory_count": 70100,
+        "price": 12240,
+        "sp": 765,
+        "masks": {
+          "targets": 30,
+          "elements": 31,
+          "forced": false
+        },
+        "ordered_stages": [
+          {
+            "dam": 0,
+            "h": 6,
+            "plan": []
+          },
+          {
+            "dam": 10,
+            "h": 0,
+            "plan": [
+              10
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gold_frontier",
+      "context": {
+        "level": 10,
+        "live_skill": 85,
+        "climb": 35,
+        "speed": 70,
+        "available_sp": 20000,
+        "target_hp": 6,
+        "willpower": 50,
+        "price_factor": 1
+      },
+      "spell": {
+        "element": 4,
+        "range_type": 2,
+        "effects": [
+          {
+            "effect_id": "5,255",
+            "chance_base": 100,
+            "chance_increment": 1,
+            "chance_per_level": 12
+          },
+          {
+            "effect_id": "4,0",
+            "base_low": 8,
+            "base_high": 8,
+            "plus_low": 2,
+            "plus_high": 2,
+            "per_level": 7
+          }
+        ]
+      },
+      "estimate": {
+        "expected_health_loss": 5.138999999999575,
+        "expected_damage": 9.399999999999258,
+        "kill_probability": 0.8389999999999302,
+        "dps": 8.075571428570761,
+        "cost_sp": 765,
+        "purchase_gold": 12240
+      },
+      "specific": {
+        "available": true,
+        "after": 0,
+        "trajectory_count": 10200,
+        "price": 12240,
+        "sp": 765,
+        "masks": {
+          "targets": 30,
+          "elements": 31,
+          "forced": false
+        },
+        "ordered_stages": [
+          {
+            "dam": 0,
+            "h": 6,
+            "plan": []
+          },
+          {
+            "dam": 16,
+            "h": 0,
+            "plan": [
+              6,
+              10
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "magicka",
+      "context": {
+        "level": 12,
+        "live_skill": 85,
+        "climb": 35,
+        "speed": 70,
+        "available_sp": 20000,
+        "target_hp": 18,
+        "willpower": 50,
+        "price_factor": 1
+      },
+      "spell": {
+        "element": 4,
+        "range_type": 2,
+        "effects": [
+          {
+            "effect_id": "4,0",
+            "base_low": 3,
+            "base_high": 4,
+            "plus_low": 2,
+            "plus_high": 2,
+            "per_level": 7
+          },
+          {
+            "effect_id": "5,255",
+            "chance_base": 20,
+            "chance_increment": 1,
+            "chance_per_level": 12
+          },
+          {
+            "effect_id": "4,0",
+            "base_low": 9,
+            "base_high": 9,
+            "plus_low": 2,
+            "plus_high": 2,
+            "per_level": 7
+          }
+        ]
+      },
+      "estimate": {
+        "expected_health_loss": 10.211229999999755,
+        "expected_damage": 11.031594999999966,
+        "kill_probability": 0.1364999999999895,
+        "dps": 16.04621857142819,
+        "cost_sp": 171,
+        "purchase_gold": 2760
+      },
+      "specific": {
+        "available": true,
+        "after": 0,
+        "trajectory_count": 71000,
+        "price": 2760,
+        "sp": 171,
+        "masks": {
+          "targets": 30,
+          "elements": 31,
+          "forced": false
+        },
+        "ordered_stages": [
+          {
+            "dam": 0,
+            "h": 18,
+            "plan": []
+          },
+          {
+            "dam": 18,
+            "h": 0,
+            "plan": [
+              5,
+              13
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "pierce",
+      "context": {
+        "level": 10,
+        "live_skill": 85,
+        "climb": 35,
+        "speed": 70,
+        "available_sp": 20000,
+        "target_hp": 25,
+        "willpower": 50,
+        "price_factor": 1,
+        "pierce": 20,
+        "resist_mods": [
+          0,
+          0,
+          0,
+          0,
+          10
+        ]
+      },
+      "spell": {
+        "element": 4,
+        "range_type": 2,
+        "effects": [
+          {
+            "effect_id": "4,0",
+            "base_low": 4,
+            "base_high": 4,
+            "plus_low": 2,
+            "plus_high": 2,
+            "per_level": 7
+          },
+          {
+            "effect_id": "5,255",
+            "chance_base": 60,
+            "chance_increment": 1,
+            "chance_per_level": 12
+          }
+        ]
+      },
+      "estimate": {
+        "expected_health_loss": 10.82280000000139,
+        "expected_damage": 10.8228000000006,
+        "kill_probability": 0.3300000000000552,
+        "dps": 17.00725714285933,
+        "cost_sp": 457,
+        "purchase_gold": 7320
+      },
+      "specific": {
+        "available": true,
+        "after": 0,
+        "trajectory_count": 70100,
+        "price": 7320,
+        "sp": 457,
+        "masks": {
+          "targets": 30,
+          "elements": 31,
+          "forced": false
+        },
+        "ordered_stages": [
+          {
+            "dam": 0,
+            "h": 25,
+            "plan": []
+          },
+          {
+            "dam": 25,
+            "h": 0,
+            "plan": [
+              6,
+              19
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "immune",
+      "context": {
+        "level": 10,
+        "live_skill": 85,
+        "climb": 35,
+        "speed": 70,
+        "available_sp": 20000,
+        "target_hp": 25,
+        "willpower": 50,
+        "price_factor": 1,
+        "immune": 2
+      },
+      "spell": {
+        "element": 4,
+        "range_type": 2,
+        "effects": [
+          {
+            "effect_id": "5,255",
+            "chance_base": 55,
+            "chance_increment": 1,
+            "chance_per_level": 12
+          },
+          {
+            "effect_id": "4,0",
+            "base_low": 9,
+            "base_high": 9,
+            "plus_low": 2,
+            "plus_high": 2,
+            "per_level": 7
+          }
+        ]
+      },
+      "estimate": {
+        "expected_health_loss": 0,
+        "expected_damage": 0,
+        "kill_probability": 0,
+        "dps": 0,
+        "cost_sp": 429,
+        "purchase_gold": 6870
+      },
+      "specific": {
+        "available": true,
+        "after": 0,
+        "trajectory_count": 10100,
+        "price": 6870,
+        "sp": 429,
+        "masks": {
+          "targets": 30,
+          "elements": 31,
+          "forced": false
+        },
+        "ordered_stages": [
+          {
+            "dam": 0,
+            "h": 25,
+            "plan": []
+          },
+          {
+            "dam": 0,
+            "h": 25,
+            "plan": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "native_hazard",
+      "context": {
+        "level": 10,
+        "live_skill": 85,
+        "climb": 35,
+        "speed": 70,
+        "available_sp": 20000,
+        "target_hp": 25,
+        "willpower": 90,
+        "price_factor": 1,
+        "immune": 0
+      },
+      "spell": {
+        "element": 4,
+        "range_type": 2,
+        "effects": [
+          {
+            "effect_id": "5,255",
+            "chance_base": 60,
+            "chance_increment": 1,
+            "chance_per_level": 12
+          },
+          {
+            "effect_id": "5,255",
+            "chance_base": 100,
+            "chance_increment": 1,
+            "chance_per_level": 12
+          }
+        ]
+      },
+      "estimate": {
+        "expected_health_loss": 18.81849999998856,
+        "expected_damage": 18.818499999999553,
+        "kill_probability": 0.7527399999995424,
+        "dps": 29.571928571410602,
+        "cost_sp": 1200,
+        "purchase_gold": 19200
+      },
+      "specific": {
+        "available": true,
+        "after": 0,
+        "trajectory_count": 30000,
+        "price": 19200,
+        "sp": 1200,
+        "masks": {
+          "targets": 30,
+          "elements": 31,
+          "forced": false
+        },
+        "ordered_stages": [
+          {
+            "dam": 0,
+            "h": 25,
+            "plan": []
+          },
+          {
+            "dam": 25,
+            "h": 0,
+            "plan": [
+              25
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "toll",
+      "context": {
+        "level": 10,
+        "live_skill": 179,
+        "climb": 35,
+        "speed": 70,
+        "available_sp": 20000,
+        "target_hp": 25,
+        "willpower": 50,
+        "price_factor": 0.85
+      },
+      "spell": {
+        "element": 4,
+        "range_type": 2,
+        "effects": [
+          {
+            "effect_id": "4,0",
+            "base_low": 2,
+            "base_high": 2,
+            "plus_low": 2,
+            "plus_high": 2,
+            "per_level": 7
+          },
+          {
+            "effect_id": "4,0",
+            "base_low": 2,
+            "base_high": 2,
+            "plus_low": 2,
+            "plus_high": 2,
+            "per_level": 7
+          },
+          {
+            "effect_id": "4,0",
+            "base_low": 1,
+            "base_high": 1,
+            "plus_low": 2,
+            "plus_high": 2,
+            "per_level": 7
+          }
+        ]
+      },
+      "estimate": {
+        "expected_health_loss": 5.8500000000000005,
+        "expected_damage": 5.849999999999994,
+        "kill_probability": 0,
+        "dps": 9.192857142857145,
+        "cost_sp": 5,
+        "purchase_gold": 128
+      },
+      "specific": {
+        "available": true,
+        "after": 0,
+        "trajectory_count": 1500,
+        "price": 150,
+        "sp": 5,
+        "masks": {
+          "targets": 30,
+          "elements": 31,
+          "forced": false
+        },
+        "ordered_stages": [
+          {
+            "dam": 0,
+            "h": 25,
+            "plan": []
+          },
+          {
+            "dam": 11,
+            "h": 14,
+            "plan": [
+              4,
+              4,
+              3
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

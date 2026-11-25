@@ -1,0 +1,2372 @@
+{
+  "creation": {
+    "attributes": [
+      "strength",
+      "intelligence",
+      "willpower",
+      "agility",
+      "endurance",
+      "personality",
+      "speed",
+      "luck"
+    ],
+    "common_kit": {
+      "female": [
+        {
+          "currentCondition": 52,
+          "dye": 5,
+          "equipSlot": 17,
+          "foundCondition": 52,
+          "group": "WomensClothing",
+          "maxCondition": 100,
+          "name": "Short Shirt",
+          "templateIndex": 206,
+          "value": 5,
+          "variant": 0
+        },
+        {
+          "currentCondition": 78,
+          "dye": 0,
+          "equipSlot": 24,
+          "foundCondition": 78,
+          "group": "WomensClothing",
+          "maxCondition": 150,
+          "name": "Casual Pants",
+          "templateIndex": 190,
+          "value": 5,
+          "variant": 2
+        },
+        {
+          "currentCondition": 75,
+          "group": "MiscItems",
+          "maxCondition": 75,
+          "name": "Spellbook",
+          "templateIndex": 132,
+          "value": 50
+        },
+        {
+          "currentCondition": 1600,
+          "flags": 0,
+          "group": "Weapons",
+          "material": 0,
+          "maxCondition": 1600,
+          "maxDamage": 6,
+          "minDamage": 1,
+          "name": "Dagger",
+          "templateIndex": 113,
+          "value": 3
+        },
+        {
+          "currentCondition": 50,
+          "group": "UselessItems2",
+          "maxCondition": 50,
+          "name": "Torch",
+          "templateIndex": 247,
+          "value": 10
+        },
+        {
+          "currentCondition": 50,
+          "group": "UselessItems2",
+          "maxCondition": 50,
+          "name": "Torch",
+          "templateIndex": 247,
+          "value": 10
+        },
+        {
+          "currentCondition": 50,
+          "group": "UselessItems2",
+          "maxCondition": 50,
+          "name": "Torch",
+          "templateIndex": 247,
+          "value": 10
+        },
+        {
+          "currentCondition": 50,
+          "group": "UselessItems2",
+          "maxCondition": 50,
+          "name": "Torch",
+          "templateIndex": 247,
+          "value": 10
+        },
+        {
+          "currentCondition": 50,
+          "group": "UselessItems2",
+          "maxCondition": 50,
+          "name": "Torch",
+          "templateIndex": 247,
+          "value": 10
+        },
+        {
+          "currentCondition": 50,
+          "group": "UselessItems2",
+          "maxCondition": 50,
+          "name": "Torch",
+          "templateIndex": 247,
+          "value": 10
+        },
+        {
+          "currentCondition": 16,
+          "group": "UselessItems2",
+          "maxCondition": 16,
+          "name": "Candle",
+          "templateIndex": 253,
+          "value": 1
+        },
+        {
+          "currentCondition": 16,
+          "group": "UselessItems2",
+          "maxCondition": 16,
+          "name": "Candle",
+          "templateIndex": 253,
+          "value": 1
+        },
+        {
+          "currentCondition": 16,
+          "group": "UselessItems2",
+          "maxCondition": 16,
+          "name": "Candle",
+          "templateIndex": 253,
+          "value": 1
+        },
+        {
+          "currentCondition": 16,
+          "group": "UselessItems2",
+          "maxCondition": 16,
+          "name": "Candle",
+          "templateIndex": 253,
+          "value": 1
+        },
+        {
+          "currentCondition": 10,
+          "flags": 0,
+          "group": "UselessItems2",
+          "material": 0,
+          "maxCondition": 10,
+          "message": 0,
+          "name": "Rations",
+          "stackCount": 2,
+          "stack_family": 0,
+          "templateIndex": 531,
+          "value": 20,
+          "variant": 0
+        },
+        {
+          "currentCondition": 10,
+          "flags": 0,
+          "group": "UselessItems2",
+          "material": 0,
+          "maxCondition": 10,
+          "message": 0,
+          "name": "Waterskin",
+          "stackCount": 1,
+          "templateIndex": 539,
+          "value": 10,
+          "variant": 0,
+          "water": 2
+        },
+        {
+          "currentCondition": 30,
+          "dye": 0,
+          "group": "WomensClothing",
+          "maxCondition": 120,
+          "name": "Formal Cloak",
+          "templateIndex": 192,
+          "value": 25,
+          "variant": 1
+        },
+        {
+          "currentCondition": 31,
+          "dye": 0,
+          "group": "WomensClothing",
+          "maxCondition": 125,
+          "name": "Shoes",
+          "templateIndex": 186,
+          "value": 4,
+          "variant": 0
+        },
+        {
+          "currentCondition": 25,
+          "flags": 0,
+          "group": "UselessItems2",
+          "material": 0,
+          "maxCondition": 50,
+          "message": 0,
+          "name": "Camping Equipment",
+          "stackCount": 1,
+          "templateIndex": 530,
+          "value": 150,
+          "variant": 0
+        },
+        {
+          "currentCondition": 8,
+          "flags": 0,
+          "group": "UselessItems2",
+          "material": 0,
+          "maxCondition": 8,
+          "message": 0,
+          "name": "Campfire",
+          "stackCount": 1,
+          "templateIndex": 541,
+          "value": 40,
+          "variant": 0
+        },
+        {
+          "currentCondition": 0,
+          "group": "UselessItems2",
+          "maxCondition": 0,
+          "name": "Wallet",
+          "templateIndex": 580,
+          "value": 1
+        },
+        {
+          "currentCondition": 0,
+          "group": "UselessItems2",
+          "maxCondition": 0,
+          "name": "Portal Book",
+          "templateIndex": 577,
+          "value": 1
+        }
+      ],
+      "male": [
+        {
+          "currentCondition": 52,
+          "dye": 5,
+          "equipSlot": 17,
+          "foundCondition": 52,
+          "group": "MensClothing",
+          "maxCondition": 100,
+          "name": "Short Shirt",
+          "templateIndex": 165,
+          "value": 5,
+          "variant": 0
+        },
+        {
+          "currentCondition": 78,
+          "dye": 0,
+          "equipSlot": 24,
+          "foundCondition": 78,
+          "group": "MensClothing",
+          "maxCondition": 150,
+          "name": "Casual Pants",
+          "templateIndex": 151,
+          "value": 5,
+          "variant": 2
+        },
+        {
+          "currentCondition": 75,
+          "group": "MiscItems",
+          "maxCondition": 75,
+          "name": "Spellbook",
+          "templateIndex": 132,
+          "value": 50
+        },
+        {
+          "currentCondition": 1600,
+          "flags": 0,
+          "group": "Weapons",
+          "material": 0,
+          "maxCondition": 1600,
+          "maxDamage": 6,
+          "minDamage": 1,
+          "name": "Dagger",
+          "templateIndex": 113,
+          "value": 3
+        },
+        {
+          "currentCondition": 50,
+          "group": "UselessItems2",
+          "maxCondition": 50,
+          "name": "Torch",
+          "templateIndex": 247,
+          "value": 10
+        },
+        {
+          "currentCondition": 50,
+          "group": "UselessItems2",
+          "maxCondition": 50,
+          "name": "Torch",
+          "templateIndex": 247,
+          "value": 10
+        },
+        {
+          "currentCondition": 50,
+          "group": "UselessItems2",
+          "maxCondition": 50,
+          "name": "Torch",
+          "templateIndex": 247,
+          "value": 10
+        },
+        {
+          "currentCondition": 50,
+          "group": "UselessItems2",
+          "maxCondition": 50,
+          "name": "Torch",
+          "templateIndex": 247,
+          "value": 10
+        },
+        {
+          "currentCondition": 50,
+          "group": "UselessItems2",
+          "maxCondition": 50,
+          "name": "Torch",
+          "templateIndex": 247,
+          "value": 10
+        },
+        {
+          "currentCondition": 50,
+          "group": "UselessItems2",
+          "maxCondition": 50,
+          "name": "Torch",
+          "templateIndex": 247,
+          "value": 10
+        },
+        {
+          "currentCondition": 16,
+          "group": "UselessItems2",
+          "maxCondition": 16,
+          "name": "Candle",
+          "templateIndex": 253,
+          "value": 1
+        },
+        {
+          "currentCondition": 16,
+          "group": "UselessItems2",
+          "maxCondition": 16,
+          "name": "Candle",
+          "templateIndex": 253,
+          "value": 1
+        },
+        {
+          "currentCondition": 16,
+          "group": "UselessItems2",
+          "maxCondition": 16,
+          "name": "Candle",
+          "templateIndex": 253,
+          "value": 1
+        },
+        {
+          "currentCondition": 16,
+          "group": "UselessItems2",
+          "maxCondition": 16,
+          "name": "Candle",
+          "templateIndex": 253,
+          "value": 1
+        },
+        {
+          "currentCondition": 10,
+          "flags": 0,
+          "group": "UselessItems2",
+          "material": 0,
+          "maxCondition": 10,
+          "message": 0,
+          "name": "Rations",
+          "stackCount": 2,
+          "stack_family": 0,
+          "templateIndex": 531,
+          "value": 20,
+          "variant": 0
+        },
+        {
+          "currentCondition": 10,
+          "flags": 0,
+          "group": "UselessItems2",
+          "material": 0,
+          "maxCondition": 10,
+          "message": 0,
+          "name": "Waterskin",
+          "stackCount": 1,
+          "templateIndex": 539,
+          "value": 10,
+          "variant": 0,
+          "water": 2
+        },
+        {
+          "currentCondition": 30,
+          "dye": 0,
+          "group": "MensClothing",
+          "maxCondition": 120,
+          "name": "Formal Cloak",
+          "templateIndex": 155,
+          "value": 25,
+          "variant": 1
+        },
+        {
+          "currentCondition": 31,
+          "dye": 0,
+          "group": "MensClothing",
+          "maxCondition": 125,
+          "name": "Shoes",
+          "templateIndex": 147,
+          "value": 4,
+          "variant": 0
+        },
+        {
+          "currentCondition": 25,
+          "flags": 0,
+          "group": "UselessItems2",
+          "material": 0,
+          "maxCondition": 50,
+          "message": 0,
+          "name": "Camping Equipment",
+          "stackCount": 1,
+          "templateIndex": 530,
+          "value": 150,
+          "variant": 0
+        },
+        {
+          "currentCondition": 8,
+          "flags": 0,
+          "group": "UselessItems2",
+          "material": 0,
+          "maxCondition": 8,
+          "message": 0,
+          "name": "Campfire",
+          "stackCount": 1,
+          "templateIndex": 541,
+          "value": 40,
+          "variant": 0
+        },
+        {
+          "currentCondition": 0,
+          "group": "UselessItems2",
+          "maxCondition": 0,
+          "name": "Wallet",
+          "templateIndex": 580,
+          "value": 1
+        },
+        {
+          "currentCondition": 0,
+          "group": "UselessItems2",
+          "maxCondition": 0,
+          "name": "Portal Book",
+          "templateIndex": 577,
+          "value": 1
+        }
+      ]
+    },
+    "fatigue_multiplier": 64,
+    "generated_records": [
+      {
+        "cost": 22,
+        "effects": [
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 0,
+            "durationMod": 0,
+            "durationPerLevel": 0,
+            "magnitudeBaseHigh": 10,
+            "magnitudeBaseLow": 2,
+            "magnitudeLevelBase": 1,
+            "magnitudeLevelHigh": 2,
+            "magnitudePerLevel": 1,
+            "subType": 0,
+            "type": 4
+          },
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 0,
+            "durationMod": 0,
+            "durationPerLevel": 0,
+            "magnitudeBaseHigh": 0,
+            "magnitudeBaseLow": 0,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 0,
+            "subType": -1,
+            "type": -1
+          },
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 0,
+            "durationMod": 0,
+            "durationPerLevel": 0,
+            "magnitudeBaseHigh": 0,
+            "magnitudeBaseLow": 0,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 0,
+            "subType": -1,
+            "type": -1
+          }
+        ],
+        "element": 3,
+        "icon": 37,
+        "index": 990,
+        "name": "Minor Shock",
+        "rangeType": 1,
+        "rri": true
+      },
+      {
+        "cost": 22,
+        "effects": [
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 0,
+            "durationMod": 0,
+            "durationPerLevel": 0,
+            "magnitudeBaseHigh": 6,
+            "magnitudeBaseLow": 5,
+            "magnitudeLevelBase": 1,
+            "magnitudeLevelHigh": 1,
+            "magnitudePerLevel": 2,
+            "subType": 0,
+            "type": 4
+          },
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 0,
+            "durationMod": 0,
+            "durationPerLevel": 0,
+            "magnitudeBaseHigh": 0,
+            "magnitudeBaseLow": 0,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 0,
+            "subType": -1,
+            "type": -1
+          },
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 0,
+            "durationMod": 0,
+            "durationPerLevel": 0,
+            "magnitudeBaseHigh": 0,
+            "magnitudeBaseLow": 0,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 0,
+            "subType": -1,
+            "type": -1
+          }
+        ],
+        "element": 4,
+        "icon": 57,
+        "index": 991,
+        "name": "Arcane Arrow",
+        "rangeType": 2,
+        "rri": true
+      },
+      {
+        "cost": 8,
+        "effects": [
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 2,
+            "durationMod": 1,
+            "durationPerLevel": 2,
+            "magnitudeBaseHigh": 0,
+            "magnitudeBaseLow": 0,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 0,
+            "subType": 255,
+            "type": 25
+          },
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 0,
+            "durationMod": 0,
+            "durationPerLevel": 0,
+            "magnitudeBaseHigh": 0,
+            "magnitudeBaseLow": 0,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 0,
+            "subType": -1,
+            "type": -1
+          },
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 0,
+            "durationMod": 0,
+            "durationPerLevel": 0,
+            "magnitudeBaseHigh": 0,
+            "magnitudeBaseLow": 0,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 0,
+            "subType": -1,
+            "type": -1
+          }
+        ],
+        "element": 4,
+        "icon": 31,
+        "index": 992,
+        "name": "Gentle Fall",
+        "rangeType": 0,
+        "rri": true
+      },
+      {
+        "cost": 76,
+        "effects": [
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 4,
+            "durationMod": 4,
+            "durationPerLevel": 1,
+            "magnitudeBaseHigh": 0,
+            "magnitudeBaseLow": 0,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 0,
+            "subType": 255,
+            "type": 15
+          },
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 0,
+            "durationMod": 0,
+            "durationPerLevel": 0,
+            "magnitudeBaseHigh": 0,
+            "magnitudeBaseLow": 0,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 0,
+            "subType": -1,
+            "type": -1
+          },
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 0,
+            "durationMod": 0,
+            "durationPerLevel": 0,
+            "magnitudeBaseHigh": 0,
+            "magnitudeBaseLow": 0,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 0,
+            "subType": -1,
+            "type": -1
+          }
+        ],
+        "element": 4,
+        "icon": 22,
+        "index": 993,
+        "name": "Candle",
+        "rangeType": 0,
+        "rri": true
+      },
+      {
+        "cost": 16,
+        "effects": [
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 4,
+            "durationMod": 1,
+            "durationPerLevel": 2,
+            "magnitudeBaseHigh": 0,
+            "magnitudeBaseLow": 0,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 0,
+            "subType": 255,
+            "type": 2
+          },
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 0,
+            "durationMod": 0,
+            "durationPerLevel": 0,
+            "magnitudeBaseHigh": 0,
+            "magnitudeBaseLow": 0,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 0,
+            "subType": -1,
+            "type": -1
+          },
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 0,
+            "durationMod": 0,
+            "durationPerLevel": 0,
+            "magnitudeBaseHigh": 0,
+            "magnitudeBaseLow": 0,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 0,
+            "subType": -1,
+            "type": -1
+          }
+        ],
+        "element": 4,
+        "icon": 26,
+        "index": 994,
+        "name": "Knick-Knack",
+        "rangeType": 0,
+        "rri": true
+      },
+      {
+        "cost": 12,
+        "effects": [
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 0,
+            "durationMod": 0,
+            "durationPerLevel": 0,
+            "magnitudeBaseHigh": 6,
+            "magnitudeBaseLow": 3,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 1,
+            "subType": 8,
+            "type": 10
+          },
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 0,
+            "durationMod": 0,
+            "durationPerLevel": 0,
+            "magnitudeBaseHigh": 0,
+            "magnitudeBaseLow": 0,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 0,
+            "subType": -1,
+            "type": -1
+          },
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 0,
+            "durationMod": 0,
+            "durationPerLevel": 0,
+            "magnitudeBaseHigh": 0,
+            "magnitudeBaseLow": 0,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 0,
+            "subType": -1,
+            "type": -1
+          }
+        ],
+        "element": 4,
+        "icon": 13,
+        "index": 995,
+        "name": "Salve Bruise",
+        "rangeType": 0,
+        "rri": true
+      },
+      {
+        "cost": 5,
+        "effects": [
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 0,
+            "durationMod": 0,
+            "durationPerLevel": 0,
+            "magnitudeBaseHigh": 6,
+            "magnitudeBaseLow": 3,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 1,
+            "subType": 9,
+            "type": 10
+          },
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 0,
+            "durationMod": 0,
+            "durationPerLevel": 0,
+            "magnitudeBaseHigh": 0,
+            "magnitudeBaseLow": 0,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 0,
+            "subType": -1,
+            "type": -1
+          },
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 0,
+            "durationMod": 0,
+            "durationPerLevel": 0,
+            "magnitudeBaseHigh": 0,
+            "magnitudeBaseLow": 0,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 0,
+            "subType": -1,
+            "type": -1
+          }
+        ],
+        "element": 4,
+        "icon": 10,
+        "index": 996,
+        "name": "Smelling Salts",
+        "rangeType": 0,
+        "rri": true
+      },
+      {
+        "cost": 5,
+        "effects": [
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 1,
+            "durationMod": 1,
+            "durationPerLevel": 2,
+            "magnitudeBaseHigh": 0,
+            "magnitudeBaseLow": 0,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 0,
+            "subType": 255,
+            "type": 14
+          },
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 0,
+            "durationMod": 0,
+            "durationPerLevel": 0,
+            "magnitudeBaseHigh": 0,
+            "magnitudeBaseLow": 0,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 0,
+            "subType": -1,
+            "type": -1
+          },
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 0,
+            "durationMod": 0,
+            "durationPerLevel": 0,
+            "magnitudeBaseHigh": 0,
+            "magnitudeBaseLow": 0,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 0,
+            "subType": -1,
+            "type": -1
+          }
+        ],
+        "element": 4,
+        "icon": 13,
+        "index": 997,
+        "name": "Rise",
+        "rangeType": 0,
+        "rri": true
+      },
+      {
+        "cost": 33,
+        "effects": [
+          {
+            "chanceBase": 8,
+            "chanceMod": 0,
+            "chancePerLevel": 2,
+            "durationBase": 1,
+            "durationMod": 1,
+            "durationPerLevel": 0,
+            "magnitudeBaseHigh": 0,
+            "magnitudeBaseLow": 0,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 0,
+            "subType": 255,
+            "type": 17
+          },
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 0,
+            "durationMod": 0,
+            "durationPerLevel": 0,
+            "magnitudeBaseHigh": 0,
+            "magnitudeBaseLow": 0,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 0,
+            "subType": -1,
+            "type": -1
+          },
+          {
+            "chanceBase": 0,
+            "chanceMod": 0,
+            "chancePerLevel": 0,
+            "durationBase": 0,
+            "durationMod": 0,
+            "durationPerLevel": 0,
+            "magnitudeBaseHigh": 0,
+            "magnitudeBaseLow": 0,
+            "magnitudeLevelBase": 0,
+            "magnitudeLevelHigh": 0,
+            "magnitudePerLevel": 0,
+            "subType": -1,
+            "type": -1
+          }
+        ],
+        "element": 4,
+        "icon": 3,
+        "index": 998,
+        "name": "Knock",
+        "rangeType": 0,
+        "rri": true
+      }
+    ],
+    "iron_mask": 1,
+    "kit_rows": [
+      [
+        {
+          "currentCondition": 3,
+          "group": "UselessItems2",
+          "maxCondition": 3,
+          "name": "Bandage",
+          "stackCount": 4,
+          "stack_family": 1,
+          "templateIndex": 249,
+          "value": 2
+        }
+      ],
+      [
+        {
+          "currentCondition": 78,
+          "dye": 0,
+          "foundCondition": 78,
+          "group": "MensClothing",
+          "maxCondition": 150,
+          "name": "Formal Tunic",
+          "templateIndex": 159,
+          "value": 5,
+          "variant": 1
+        }
+      ],
+      [
+        {
+          "currentCondition": 2150,
+          "foundCondition": 2150,
+          "group": "Armor",
+          "material": 0,
+          "maxCondition": 4096,
+          "name": "Cuirass",
+          "templateIndex": 102,
+          "value": 100,
+          "variant": 0
+        }
+      ],
+      [
+        {
+          "currentCondition": 1344,
+          "foundCondition": 1344,
+          "group": "Armor",
+          "material": 0,
+          "maxCondition": 2560,
+          "name": "Boots",
+          "templateIndex": 108,
+          "value": 50,
+          "variant": 0
+        }
+      ],
+      [
+        {
+          "currentCondition": 20,
+          "group": "Books",
+          "maxCondition": 20,
+          "message": 58,
+          "name": "Book",
+          "stack_family": 2,
+          "templateIndex": 277,
+          "value": 2500,
+          "variant": 1
+        },
+        {
+          "currentCondition": 10,
+          "group": "CreatureIngredients1",
+          "maxCondition": 10,
+          "name": "Snake Venom",
+          "stackCount": 4,
+          "stack_family": 3,
+          "templateIndex": 43,
+          "value": 10
+        }
+      ],
+      [
+        {
+          "currentCondition": 20,
+          "group": "Books",
+          "maxCondition": 20,
+          "message": 58,
+          "name": "Book",
+          "stack_family": 2,
+          "templateIndex": 277,
+          "value": 2500,
+          "variant": 1
+        },
+        {
+          "currentCondition": 5,
+          "group": "PlantIngredients1",
+          "maxCondition": 5,
+          "name": "Green Berries",
+          "stackCount": 4,
+          "stack_family": 4,
+          "templateIndex": 15,
+          "value": 4
+        }
+      ],
+      [
+        {
+          "currentCondition": 5,
+          "group": "UselessItems1",
+          "maxCondition": 5,
+          "potionRecipeKey": 240081,
+          "stack_family": 5,
+          "templateIndex": 83,
+          "value": 100,
+          "worldTextureRecord": 32
+        }
+      ],
+      [],
+      [
+        {
+          "currentCondition": 1000,
+          "group": "Gems",
+          "maxCondition": 1000,
+          "name": "Jade",
+          "stack_family": 6,
+          "templateIndex": 4,
+          "value": 10
+        }
+      ],
+      [
+        {
+          "currentCondition": 57,
+          "dye": 0,
+          "foundCondition": 57,
+          "group": "MensClothing",
+          "maxCondition": 110,
+          "name": "Khajiit Suit",
+          "templateIndex": 156,
+          "value": 10,
+          "variant": 0
+        }
+      ],
+      [
+        {
+          "currentCondition": 100,
+          "dye": 0,
+          "group": "MensClothing",
+          "maxCondition": 100,
+          "name": "Loincloth",
+          "templateIndex": 162,
+          "value": 3,
+          "variant": 1
+        }
+      ],
+      [
+        {
+          "currentCondition": 1344,
+          "foundCondition": 1344,
+          "group": "Armor",
+          "material": 0,
+          "maxCondition": 2560,
+          "name": "Helm",
+          "templateIndex": 107,
+          "value": 80,
+          "variant": 3
+        }
+      ],
+      [
+        {
+          "currentCondition": 1075,
+          "foundCondition": 1075,
+          "group": "Armor",
+          "material": 0,
+          "maxCondition": 2048,
+          "name": "Right Pauldron",
+          "templateIndex": 106,
+          "value": 60,
+          "variant": 0
+        }
+      ],
+      [
+        {
+          "currentCondition": 73,
+          "dye": 0,
+          "foundCondition": 73,
+          "group": "MensClothing",
+          "maxCondition": 140,
+          "name": "Casual Cloak",
+          "templateIndex": 154,
+          "value": 5,
+          "variant": 3
+        }
+      ],
+      [
+        {
+          "currentCondition": 65,
+          "dye": 0,
+          "foundCondition": 65,
+          "group": "MensClothing",
+          "maxCondition": 125,
+          "name": "Shoes",
+          "templateIndex": 147,
+          "value": 4,
+          "variant": 0
+        }
+      ],
+      [
+        {
+          "currentCondition": 840,
+          "flags": 0,
+          "foundCondition": 840,
+          "group": "Weapons",
+          "material": 0,
+          "maxCondition": 1600,
+          "maxDamage": 8,
+          "minDamage": 1,
+          "name": "Tanto",
+          "templateIndex": 114,
+          "value": 9
+        }
+      ],
+      [
+        {
+          "currentCondition": 840,
+          "flags": 0,
+          "foundCondition": 840,
+          "group": "Weapons",
+          "material": 0,
+          "maxCondition": 1600,
+          "maxDamage": 12,
+          "minDamage": 1,
+          "name": "Broadsword",
+          "templateIndex": 118,
+          "value": 30
+        }
+      ],
+      [
+        {
+          "currentCondition": 1075,
+          "foundCondition": 1075,
+          "group": "Armor",
+          "material": 0,
+          "maxCondition": 2048,
+          "name": "Gauntlets",
+          "templateIndex": 103,
+          "value": 50,
+          "variant": 0
+        }
+      ],
+      [
+        {
+          "currentCondition": 840,
+          "flags": 0,
+          "foundCondition": 840,
+          "group": "Weapons",
+          "material": 0,
+          "maxCondition": 1600,
+          "maxDamage": 16,
+          "minDamage": 2,
+          "name": "War Axe",
+          "templateIndex": 128,
+          "value": 60
+        }
+      ],
+      [
+        {
+          "currentCondition": 840,
+          "flags": 0,
+          "foundCondition": 840,
+          "group": "Weapons",
+          "material": 0,
+          "maxCondition": 1600,
+          "maxDamage": 18,
+          "minDamage": 3,
+          "name": "Warhammer",
+          "templateIndex": 126,
+          "value": 60
+        }
+      ],
+      [
+        {
+          "currentCondition": 840,
+          "flags": 0,
+          "foundCondition": 840,
+          "group": "Weapons",
+          "material": 0,
+          "maxCondition": 1600,
+          "maxDamage": 17,
+          "minDamage": 5,
+          "name": "Short Bow",
+          "templateIndex": 129,
+          "value": 30
+        },
+        {
+          "currentCondition": 0,
+          "flags": 0,
+          "group": "Weapons",
+          "material": 0,
+          "maxCondition": 1,
+          "name": "Arrow",
+          "stackCount": 30,
+          "stack_family": 7,
+          "templateIndex": 131,
+          "value": 2
+        }
+      ],
+      [
+        {
+          "currentCondition": 1612,
+          "foundCondition": 1612,
+          "group": "Armor",
+          "material": 0,
+          "maxCondition": 3072,
+          "name": "Greaves",
+          "templateIndex": 104,
+          "value": 80,
+          "variant": 1
+        }
+      ],
+      [
+        {
+          "currentCondition": 2150,
+          "foundCondition": 2150,
+          "group": "Armor",
+          "material": 256,
+          "maxCondition": 4096,
+          "name": "Cuirass",
+          "templateIndex": 102,
+          "value": 200,
+          "variant": 0
+        }
+      ],
+      [
+        {
+          "currentCondition": 1344,
+          "foundCondition": 1344,
+          "group": "Armor",
+          "material": 256,
+          "maxCondition": 2560,
+          "name": "Boots",
+          "templateIndex": 108,
+          "value": 100,
+          "variant": 0
+        }
+      ],
+      [
+        {
+          "currentCondition": 1344,
+          "foundCondition": 1344,
+          "group": "Armor",
+          "material": 256,
+          "maxCondition": 2560,
+          "name": "Helm",
+          "templateIndex": 107,
+          "value": 160,
+          "variant": 3
+        }
+      ],
+      [
+        {
+          "currentCondition": 1075,
+          "foundCondition": 1075,
+          "group": "Armor",
+          "material": 256,
+          "maxCondition": 2048,
+          "name": "Right Pauldron",
+          "templateIndex": 106,
+          "value": 120,
+          "variant": 0
+        }
+      ],
+      [
+        {
+          "currentCondition": 1075,
+          "foundCondition": 1075,
+          "group": "Armor",
+          "material": 256,
+          "maxCondition": 2048,
+          "name": "Gauntlets",
+          "templateIndex": 103,
+          "value": 100,
+          "variant": 0
+        }
+      ],
+      [
+        {
+          "currentCondition": 1612,
+          "foundCondition": 1612,
+          "group": "Armor",
+          "material": 256,
+          "maxCondition": 3072,
+          "name": "Greaves",
+          "templateIndex": 104,
+          "value": 160,
+          "variant": 0
+        }
+      ],
+      [
+        {
+          "currentCondition": 1260,
+          "flags": 0,
+          "foundCondition": 1260,
+          "group": "Weapons",
+          "material": 1,
+          "maxCondition": 2400,
+          "maxDamage": 8,
+          "minDamage": 1,
+          "name": "Tanto",
+          "templateIndex": 114,
+          "value": 18
+        }
+      ],
+      [
+        {
+          "currentCondition": 1260,
+          "flags": 0,
+          "foundCondition": 1260,
+          "group": "Weapons",
+          "material": 1,
+          "maxCondition": 2400,
+          "maxDamage": 12,
+          "minDamage": 1,
+          "name": "Broadsword",
+          "templateIndex": 118,
+          "value": 60
+        }
+      ],
+      [
+        {
+          "currentCondition": 1260,
+          "flags": 0,
+          "foundCondition": 1260,
+          "group": "Weapons",
+          "material": 1,
+          "maxCondition": 2400,
+          "maxDamage": 16,
+          "minDamage": 2,
+          "name": "War Axe",
+          "templateIndex": 128,
+          "value": 120
+        }
+      ],
+      [
+        {
+          "currentCondition": 1260,
+          "flags": 0,
+          "foundCondition": 1260,
+          "group": "Weapons",
+          "material": 1,
+          "maxCondition": 2400,
+          "maxDamage": 18,
+          "minDamage": 3,
+          "name": "Warhammer",
+          "templateIndex": 126,
+          "value": 120
+        }
+      ],
+      [
+        {
+          "currentCondition": 1260,
+          "flags": 0,
+          "foundCondition": 1260,
+          "group": "Weapons",
+          "material": 1,
+          "maxCondition": 2400,
+          "maxDamage": 17,
+          "minDamage": 5,
+          "name": "Short Bow",
+          "templateIndex": 129,
+          "value": 60
+        },
+        {
+          "currentCondition": 0,
+          "flags": 0,
+          "group": "Weapons",
+          "material": 0,
+          "maxCondition": 1,
+          "name": "Arrow",
+          "stackCount": 30,
+          "stack_family": 7,
+          "templateIndex": 131,
+          "value": 2
+        }
+      ],
+      [
+        {
+          "currentCondition": 105,
+          "dye": 0,
+          "foundCondition": 105,
+          "group": "WomensClothing",
+          "maxCondition": 200,
+          "name": "Evening Gown",
+          "templateIndex": 195,
+          "value": 10,
+          "variant": 1
+        }
+      ],
+      [
+        {
+          "currentCondition": 57,
+          "dye": 0,
+          "foundCondition": 57,
+          "group": "WomensClothing",
+          "maxCondition": 110,
+          "name": "Khajiit Suit",
+          "templateIndex": 193,
+          "value": 10,
+          "variant": 0
+        }
+      ],
+      [
+        {
+          "currentCondition": 100,
+          "dye": 0,
+          "group": "WomensClothing",
+          "maxCondition": 100,
+          "name": "Loincloth",
+          "templateIndex": 199,
+          "value": 3,
+          "variant": 1
+        }
+      ],
+      [
+        {
+          "currentCondition": 73,
+          "dye": 0,
+          "foundCondition": 73,
+          "group": "WomensClothing",
+          "maxCondition": 140,
+          "name": "Casual Cloak",
+          "templateIndex": 191,
+          "value": 5,
+          "variant": 3
+        }
+      ],
+      [
+        {
+          "currentCondition": 65,
+          "dye": 0,
+          "foundCondition": 65,
+          "group": "WomensClothing",
+          "maxCondition": 125,
+          "name": "Shoes",
+          "templateIndex": 186,
+          "value": 4,
+          "variant": 0
+        }
+      ]
+    ],
+    "mercantile": 14,
+    "skill_kits": {
+      "female/0/0": [
+        0,
+        33,
+        2,
+        3,
+        4,
+        4,
+        4,
+        4,
+        5,
+        4,
+        5,
+        5,
+        4,
+        6,
+        7,
+        8,
+        34,
+        35,
+        11,
+        12,
+        36,
+        37,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "female/0/1": [
+        0,
+        33,
+        22,
+        23,
+        4,
+        4,
+        4,
+        4,
+        5,
+        4,
+        5,
+        5,
+        4,
+        6,
+        7,
+        8,
+        34,
+        35,
+        24,
+        25,
+        36,
+        37,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        15,
+        16,
+        26,
+        18,
+        19,
+        20,
+        27
+      ],
+      "female/1/0": [
+        0,
+        33,
+        2,
+        3,
+        4,
+        4,
+        4,
+        4,
+        5,
+        4,
+        5,
+        5,
+        4,
+        6,
+        7,
+        8,
+        34,
+        35,
+        11,
+        12,
+        36,
+        37,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        28,
+        29,
+        17,
+        30,
+        31,
+        32,
+        21
+      ],
+      "female/1/1": [
+        0,
+        33,
+        22,
+        23,
+        4,
+        4,
+        4,
+        4,
+        5,
+        4,
+        5,
+        5,
+        4,
+        6,
+        7,
+        8,
+        34,
+        35,
+        24,
+        25,
+        36,
+        37,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        28,
+        29,
+        26,
+        30,
+        31,
+        32,
+        27
+      ],
+      "male/0/0": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        4,
+        4,
+        4,
+        5,
+        4,
+        5,
+        5,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "male/0/1": [
+        0,
+        1,
+        22,
+        23,
+        4,
+        4,
+        4,
+        4,
+        5,
+        4,
+        5,
+        5,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        24,
+        25,
+        13,
+        14,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        15,
+        16,
+        26,
+        18,
+        19,
+        20,
+        27
+      ],
+      "male/1/0": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        4,
+        4,
+        4,
+        5,
+        4,
+        5,
+        5,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        28,
+        29,
+        17,
+        30,
+        31,
+        32,
+        21
+      ],
+      "male/1/1": [
+        0,
+        1,
+        22,
+        23,
+        4,
+        4,
+        4,
+        4,
+        5,
+        4,
+        5,
+        5,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        24,
+        25,
+        13,
+        14,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        28,
+        29,
+        26,
+        30,
+        31,
+        32,
+        27
+      ]
+    },
+    "start_minutes": 523530,
+    "starting_spells": {
+      "22": {
+        "major": [
+          991
+        ],
+        "primary": [
+          991,
+          990
+        ]
+      },
+      "23": {
+        "major": [
+          995
+        ],
+        "primary": [
+          995,
+          996,
+          97
+        ]
+      },
+      "24": {
+        "major": [
+          993
+        ],
+        "primary": [
+          993,
+          44
+        ]
+      },
+      "25": {
+        "major": [
+          992
+        ],
+        "primary": [
+          992,
+          38
+        ]
+      },
+      "26": {
+        "major": [
+          2
+        ],
+        "primary": [
+          2,
+          997
+        ]
+      },
+      "27": {
+        "major": [
+          998,
+          994
+        ],
+        "primary": [
+          998,
+          994,
+          1,
+          94
+        ]
+      }
+    },
+    "steel_mask": 2
+  },
+  "empire_account": 17,
+  "limits": {
+    "attribute_pool": 5,
+    "challenge_ttl_ms": 6000,
+    "level_cap": 45,
+    "level_sum_top": 800,
+    "mastery_slots": {
+      "major": 2,
+      "minor": 1,
+      "primary": 3
+    },
+    "reset_gold": 200000,
+    "skill_check_minutes": 360,
+    "skill_hard_cap": 200,
+    "skill_soft_cap": 100,
+    "spam_burst": {
+      "combat": 40,
+      "magic": 10,
+      "utility": 6
+    },
+    "spam_half_life_ms": 60000,
+    "training_cap": 50,
+    "training_cooldown": 720,
+    "training_fatigue": 1980,
+    "training_minutes": 180
+  },
+  "paths": [
+    {
+      "family": "arcane",
+      "id": "battlemage",
+      "signature": -46101,
+      "skills": [
+        25,
+        22
+      ]
+    },
+    {
+      "family": "arcane",
+      "id": "trickster",
+      "signature": -46102,
+      "skills": [
+        25,
+        24
+      ]
+    },
+    {
+      "family": "arcane",
+      "id": "riftwalker",
+      "signature": -46103,
+      "skills": [
+        25,
+        27
+      ]
+    },
+    {
+      "family": "arcane",
+      "id": "warden",
+      "signature": -46104,
+      "skills": [
+        25,
+        23
+      ]
+    },
+    {
+      "family": "arcane",
+      "id": "wardwright",
+      "signature": -46105,
+      "skills": [
+        25,
+        26
+      ]
+    },
+    {
+      "family": "arcane",
+      "id": "shadowcaster",
+      "signature": -46106,
+      "skills": [
+        22,
+        24
+      ]
+    },
+    {
+      "family": "arcane",
+      "id": "spellbreaker",
+      "signature": -46107,
+      "skills": [
+        22,
+        27
+      ]
+    },
+    {
+      "family": "arcane",
+      "id": "bloodmage",
+      "signature": -46108,
+      "skills": [
+        22,
+        23
+      ]
+    },
+    {
+      "family": "arcane",
+      "id": "elementalist",
+      "signature": -46109,
+      "skills": [
+        22,
+        26
+      ]
+    },
+    {
+      "family": "arcane",
+      "id": "seer",
+      "signature": -46110,
+      "skills": [
+        24,
+        27
+      ]
+    },
+    {
+      "family": "arcane",
+      "id": "lightbringer",
+      "signature": -46111,
+      "skills": [
+        24,
+        23
+      ]
+    },
+    {
+      "family": "arcane",
+      "id": "enchanter",
+      "signature": -46112,
+      "skills": [
+        24,
+        26
+      ]
+    },
+    {
+      "family": "arcane",
+      "id": "necromancer",
+      "signature": -46113,
+      "skills": [
+        23,
+        27
+      ]
+    },
+    {
+      "family": "arcane",
+      "id": "soulbinder",
+      "signature": -46114,
+      "skills": [
+        27,
+        26
+      ]
+    },
+    {
+      "family": "arcane",
+      "id": "hierophant",
+      "signature": -46115,
+      "skills": [
+        23,
+        26
+      ]
+    },
+    {
+      "family": "martial",
+      "id": "blademaster",
+      "skills": [
+        29,
+        28
+      ]
+    },
+    {
+      "family": "martial",
+      "id": "warblade",
+      "skills": [
+        29,
+        31
+      ]
+    },
+    {
+      "family": "martial",
+      "id": "vanguard",
+      "skills": [
+        29,
+        32
+      ]
+    },
+    {
+      "family": "martial",
+      "id": "ranger",
+      "skills": [
+        29,
+        33
+      ]
+    },
+    {
+      "family": "martial",
+      "id": "bladedancer",
+      "skills": [
+        29,
+        30
+      ]
+    },
+    {
+      "family": "martial",
+      "id": "bloodletter",
+      "skills": [
+        28,
+        31
+      ]
+    },
+    {
+      "family": "martial",
+      "id": "cutthroat",
+      "skills": [
+        28,
+        32
+      ]
+    },
+    {
+      "family": "martial",
+      "id": "assassin",
+      "skills": [
+        28,
+        33
+      ]
+    },
+    {
+      "family": "martial",
+      "id": "shadowdancer",
+      "skills": [
+        28,
+        30
+      ]
+    },
+    {
+      "family": "martial",
+      "id": "juggernaut",
+      "skills": [
+        31,
+        32
+      ]
+    },
+    {
+      "family": "martial",
+      "id": "woodsman",
+      "skills": [
+        31,
+        33
+      ]
+    },
+    {
+      "family": "martial",
+      "id": "berserker",
+      "skills": [
+        31,
+        30
+      ]
+    },
+    {
+      "family": "martial",
+      "id": "crusader",
+      "skills": [
+        32,
+        33
+      ]
+    },
+    {
+      "family": "martial",
+      "id": "brawler",
+      "skills": [
+        32,
+        30
+      ]
+    },
+    {
+      "family": "martial",
+      "id": "windrunner",
+      "skills": [
+        33,
+        30
+      ]
+    }
+  ],
+  "skill_milestones": [
+    {
+      "at": 125,
+      "bonus": 2,
+      "title": "Expert"
+    },
+    {
+      "at": 150,
+      "bonus": 3,
+      "title": "Master"
+    },
+    {
+      "at": 175,
+      "bonus": 4,
+      "title": "Grandmaster"
+    },
+    {
+      "at": 200,
+      "bonus": 6,
+      "title": "Legend"
+    }
+  ],
+  "skill_multipliers": [
+    12,
+    1,
+    1,
+    5,
+    15,
+    15,
+    15,
+    15,
+    15,
+    15,
+    15,
+    15,
+    15,
+    2,
+    1,
+    2,
+    2,
+    1,
+    2,
+    1,
+    4,
+    50,
+    1,
+    2,
+    1,
+    1,
+    2,
+    1,
+    2,
+    2,
+    2,
+    2,
+    2,
+    1,
+    8
+  ],
+  "softcap_tiers": [
+    {
+      "from": 100,
+      "mult": 1.5,
+      "to": 125
+    },
+    {
+      "from": 125,
+      "mult": 2,
+      "to": 150
+    },
+    {
+      "from": 150,
+      "mult": 4,
+      "to": 200
+    }
+  ],
+  "temple_training_skills": {
+    "Akatosh": [
+      25,
+      33,
+      9,
+      22,
+      7,
+      29,
+      21,
+      16,
+      17
+    ],
+    "Arkay": [
+      31,
+      19,
+      18,
+      34,
+      9,
+      22,
+      0,
+      23,
+      28
+    ],
+    "Dibella": [
+      9,
+      1,
+      5,
+      24,
+      13,
+      29,
+      8,
+      4,
+      23,
+      2
+    ],
+    "Julianos": [
+      25,
+      34,
+      9,
+      12,
+      13,
+      14,
+      27,
+      28,
+      26
+    ],
+    "Kynareth": [
+      33,
+      18,
+      9,
+      22,
+      20,
+      7,
+      5,
+      24,
+      3,
+      21,
+      16
+    ],
+    "Mara": [
+      33,
+      34,
+      9,
+      1,
+      5,
+      24,
+      0,
+      8,
+      23,
+      2
+    ],
+    "Stendarr": [
+      31,
+      32,
+      34,
+      9,
+      20,
+      0,
+      4,
+      23,
+      10
+    ],
+    "Zenithar": [
+      32,
+      11,
+      9,
+      1,
+      6,
+      5,
+      14,
+      4,
+      15,
+      10,
+      2,
+      26
+    ]
+  },
+  "training_skills": {
+    "DarkBrotherhood": [
+      33,
+      19,
+      18,
+      34,
+      9,
+      22,
+      20,
+      21,
+      28,
+      16,
+      2,
+      17
+    ],
+    "FightersGuild": [
+      33,
+      31,
+      32,
+      34,
+      6,
+      30,
+      3,
+      29,
+      4,
+      21,
+      28,
+      17
+    ],
+    "MagesGuild": [
+      25,
+      9,
+      22,
+      7,
+      5,
+      24,
+      12,
+      27,
+      4,
+      23,
+      10,
+      26
+    ],
+    "ThievesGuild": [
+      19,
+      32,
+      18,
+      20,
+      3,
+      13,
+      15,
+      28,
+      16,
+      2,
+      17
+    ]
+  }
+}

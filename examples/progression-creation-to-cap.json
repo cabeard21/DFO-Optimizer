@@ -1,0 +1,362 @@
+{
+  "description": "Conditional new-character cap witness. One finite, source-legal class and a deliberately generous, synthetic supply of activity opportunities. Personal minutes and practice cadence are separate inputs; this is not an estimate of ordinary play time.",
+  "start": {
+    "type": "new_character",
+    "class": {
+      "format": "daggerfall-enhanced/custom-class",
+      "version": 1,
+      "name": "Breton progression witness",
+      "hitPointsPerLevel": 30,
+      "skills": {
+        "primary": [
+          22,
+          1,
+          2
+        ],
+        "major": [
+          15,
+          16,
+          23
+        ],
+        "minor": [
+          13,
+          0,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "attributes": {
+        "strength": 30,
+        "intelligence": 70,
+        "willpower": 50,
+        "agility": 50,
+        "endurance": 50,
+        "personality": 50,
+        "speed": 50,
+        "luck": 50
+      },
+      "advantages": [
+        {
+          "primary": "increasedMagery",
+          "secondary": "intInSpellPoints3"
+        }
+      ],
+      "disadvantages": [
+        {
+          "primary": "forbiddenMaterial",
+          "secondary": "steel"
+        },
+        {
+          "primary": "forbiddenMaterial",
+          "secondary": "elven"
+        },
+        {
+          "primary": "forbiddenMaterial",
+          "secondary": "dwarven"
+        },
+        {
+          "primary": "forbiddenMaterial",
+          "secondary": "mithril"
+        },
+        {
+          "primary": "forbiddenMaterial",
+          "secondary": "silver"
+        },
+        {
+          "primary": "forbiddenMaterial",
+          "secondary": "adamantium"
+        },
+        {
+          "primary": "forbiddenMaterial",
+          "secondary": "iron"
+        }
+      ],
+      "reputations": {}
+    },
+    "race_id": 1,
+    "roll_seed": 42
+  },
+  "goal": {
+    "level": 45
+  },
+  "cycles": [
+    {
+      "repeat": 80,
+      "windows": [
+        [
+          {
+            "kind": "practice",
+            "skill": 22,
+            "spell": 991,
+            "count": 5,
+            "cadence_ms": 120000,
+            "minutes": 120,
+            "until_skill": 100,
+            "evidence": "Synthetic schedule of ordinary casts with the character's starter Arcane Arrow. An available target is supplied for each landed cast."
+          }
+        ],
+        [
+          {
+            "kind": "practice",
+            "skill": 1,
+            "activity": "polite_conversation",
+            "count": 75,
+            "cadence_ms": 60000,
+            "minutes": 900,
+            "until_skill": 200,
+            "evidence": "One successful eligible polite tone check in each new conversation session."
+          }
+        ],
+        [
+          {
+            "kind": "practice",
+            "skill": 2,
+            "activity": "blunt_conversation",
+            "count": 75,
+            "cadence_ms": 60000,
+            "minutes": 900,
+            "until_skill": 200,
+            "evidence": "One eligible blunt tone check in each fresh conversation session."
+          }
+        ],
+        [
+          {
+            "kind": "practice",
+            "skill": 13,
+            "activity": "lockpick_attempt",
+            "count": 75,
+            "cadence_ms": 60000,
+            "minutes": 900,
+            "until_skill": 200,
+            "evidence": "A completed lockpick attempt per use on an available locked door."
+          }
+        ],
+        [
+          {
+            "kind": "practice",
+            "skill": 15,
+            "activity": "pickpocket_attempt",
+            "count": 75,
+            "cadence_ms": 60000,
+            "minutes": 900,
+            "until_skill": 200,
+            "evidence": "A fresh eligible pickpocket target per attempt, no detected theft or inventory pickup in the frozen workload."
+          }
+        ],
+        [
+          {
+            "kind": "practice",
+            "skill": 16,
+            "activity": "stealth_check",
+            "count": 75,
+            "cadence_ms": 60000,
+            "minutes": 900,
+            "until_skill": 200,
+            "evidence": "A qualifying stealth tally per available encounter, with a 60-second cadence."
+          }
+        ],
+        [
+          {
+            "kind": "rest",
+            "site": "bed",
+            "refill_sp": 192,
+            "evidence": "A safe uninterrupted eight-hour night; preserve only a recoverable lower bound of 192 SP from a starting capacity above 200."
+          }
+        ],
+        [
+          {
+            "kind": "master",
+            "skill": 1,
+            "if_eligible": true
+          }
+        ],
+        [
+          {
+            "kind": "master",
+            "skill": 2,
+            "if_eligible": true
+          }
+        ],
+        [
+          {
+            "kind": "master",
+            "skill": 13,
+            "if_eligible": true
+          }
+        ],
+        [
+          {
+            "kind": "master",
+            "skill": 15,
+            "if_eligible": true
+          }
+        ],
+        [
+          {
+            "kind": "master",
+            "skill": 16,
+            "if_eligible": true
+          }
+        ],
+        [
+          {
+            "kind": "level",
+            "if_due": true,
+            "allocation_order": [
+              6,
+              1,
+              4,
+              2,
+              0,
+              3,
+              5,
+              7
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "repeat": 625,
+      "windows": [
+        [
+          {
+            "kind": "practice",
+            "skill": 22,
+            "spell": 991,
+            "count": 5,
+            "cadence_ms": 120000,
+            "minutes": 120,
+            "until_skill": 100,
+            "evidence": "Synthetic schedule of ordinary casts with the character's starter Arcane Arrow. An available target is supplied for each landed cast."
+          }
+        ],
+        [
+          {
+            "kind": "practice",
+            "skill": 1,
+            "activity": "polite_conversation",
+            "count": 1200,
+            "cadence_ms": 60000,
+            "minutes": 14400,
+            "until_skill": 200,
+            "evidence": "One successful eligible polite tone check in each new conversation session."
+          }
+        ],
+        [
+          {
+            "kind": "practice",
+            "skill": 2,
+            "activity": "blunt_conversation",
+            "count": 1200,
+            "cadence_ms": 60000,
+            "minutes": 14400,
+            "until_skill": 200,
+            "evidence": "One eligible blunt tone check in each fresh conversation session."
+          }
+        ],
+        [
+          {
+            "kind": "practice",
+            "skill": 13,
+            "activity": "lockpick_attempt",
+            "count": 1200,
+            "cadence_ms": 60000,
+            "minutes": 14400,
+            "until_skill": 200,
+            "evidence": "A completed lockpick attempt per use on an available locked door."
+          }
+        ],
+        [
+          {
+            "kind": "practice",
+            "skill": 15,
+            "activity": "pickpocket_attempt",
+            "count": 1200,
+            "cadence_ms": 60000,
+            "minutes": 14400,
+            "until_skill": 200,
+            "evidence": "A fresh eligible pickpocket target per attempt, no detected theft or inventory pickup in the frozen workload."
+          }
+        ],
+        [
+          {
+            "kind": "practice",
+            "skill": 16,
+            "activity": "stealth_check",
+            "count": 1200,
+            "cadence_ms": 60000,
+            "minutes": 14400,
+            "until_skill": 200,
+            "evidence": "A qualifying stealth tally per available encounter, with a 60-second cadence."
+          }
+        ],
+        [
+          {
+            "kind": "rest",
+            "site": "bed",
+            "refill_sp": 192,
+            "evidence": "A safe uninterrupted eight-hour night; preserve only a recoverable lower bound of 192 SP from a starting capacity above 200."
+          }
+        ],
+        [
+          {
+            "kind": "master",
+            "skill": 1,
+            "if_eligible": true
+          }
+        ],
+        [
+          {
+            "kind": "master",
+            "skill": 2,
+            "if_eligible": true
+          }
+        ],
+        [
+          {
+            "kind": "master",
+            "skill": 13,
+            "if_eligible": true
+          }
+        ],
+        [
+          {
+            "kind": "master",
+            "skill": 15,
+            "if_eligible": true
+          }
+        ],
+        [
+          {
+            "kind": "master",
+            "skill": 16,
+            "if_eligible": true
+          }
+        ],
+        [
+          {
+            "kind": "level",
+            "if_due": true,
+            "allocation_order": [
+              6,
+              1,
+              4,
+              2,
+              0,
+              3,
+              5,
+              7
+            ]
+          }
+        ]
+      ]
+    }
+  ],
+  "search": {
+    "exact": true,
+    "memory_bytes": 134217728
+  }
+}

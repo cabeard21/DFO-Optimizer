@@ -1,0 +1,215 @@
+{
+  "description": "Reduced earned-skill frontier. Training trades a paid session for fewer repeated actions.",
+  "start": {
+    "type": "current_character",
+    "character": {
+      "v": 1,
+      "characterId": "m4-synthetic",
+      "name": "Mastery witness",
+      "raceId": 1,
+      "level": 1,
+      "skills": [
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "masteredSkills": [],
+      "arcanePath": null,
+      "martialPath": null,
+      "stats": {
+        "strength": 70,
+        "intelligence": 70,
+        "willpower": 70,
+        "agility": 70,
+        "endurance": 70,
+        "personality": 70,
+        "speed": 70,
+        "luck": 70
+      },
+      "career": {
+        "primarySkills": [
+          22,
+          23,
+          24
+        ],
+        "majorSkills": [
+          25,
+          26,
+          27
+        ],
+        "minorSkills": [
+          13,
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "advancementMultiplier": 0.3,
+        "hitPointsPerLevel": 30,
+        "abilityFlagsAndSpellPointsBitfield": 0
+      },
+      "spells": [
+        {
+          "custom": true,
+          "index": -1,
+          "rangeType": 1,
+          "element": 4,
+          "name": "Training spark",
+          "effects": [
+            {
+              "type": 4,
+              "subType": 0,
+              "magnitudeBaseLow": 1,
+              "magnitudeBaseHigh": 1,
+              "magnitudeLevelBase": 1,
+              "magnitudeLevelHigh": 1,
+              "magnitudePerLevel": 20
+            }
+          ]
+        }
+      ],
+      "items": [
+        {
+          "group": "MiscItems",
+          "templateIndex": 132
+        }
+      ],
+      "goldPieces": 200000,
+      "fatigue": 28000,
+      "maxHealth": 1000,
+      "health": 1000,
+      "classicMinutes": 1000,
+      "lastSkillCheckTime": 1000,
+      "timeOfLastSkillTraining": 0,
+      "reflexes": 2,
+      "readyToLevelUp": false,
+      "startingLevelUpSkillSum": 120,
+      "currentLevelUpSkillSum": 120,
+      "chargenDone": true,
+      "skillUses": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "skillUseFrac": null,
+      "skillProgress": null,
+      "bankAccounts": [],
+      "restNightAt": null
+    },
+    "live_observations": {
+      "current_sp": {
+        "value": 200,
+        "observed_at_ms": 1,
+        "source": "Synthetic character sheet at scenario start"
+      },
+      "max_sp": {
+        "value": 210,
+        "observed_at_ms": 1,
+        "source": "Synthetic character sheet at scenario start"
+      }
+    }
+  },
+  "goal": {
+    "skills": {
+      "22": 21
+    }
+  },
+  "stages": [
+    [
+      {
+        "kind": "practice",
+        "skill": 22,
+        "spell": -1,
+        "count": 3,
+        "cadence_ms": 1500,
+        "minutes": 0,
+        "evidence": "Three available landed touch casts."
+      },
+      {
+        "kind": "train",
+        "skill": 22,
+        "guild": "MagesGuild",
+        "member": true,
+        "roll": 10,
+        "evidence": "Synthetic accessible Mages Guild trainer and fixed legal 10-roll, ordinary pricing."
+      }
+    ],
+    [
+      {
+        "kind": "check",
+        "trigger": "fast_travel_arrival",
+        "fare_gold": 0,
+        "minutes": 361,
+        "evidence": "Confirmed zero-cost arrival opportunity after 361 personal minutes for either choice."
+      }
+    ]
+  ],
+  "search": {
+    "exact": true
+  }
+}

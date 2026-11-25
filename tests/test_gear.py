@@ -37,6 +37,27 @@ def test_owned_and_budget_use_positive_evidence():
     assert [row.identity for row in owned.items] == ["own"]
 
 
+def test_warm_gear_reuses_packaged_rules_but_rejects_a_changed_external_bundle(monkeypatch):
+    from pathlib import Path
+    from dfo_optimizer.ruleset import DATA, load_ruleset
+    request = example("owned")
+    service = GearService()
+    expected = service.optimize(request)["result_hash"]
+    external = load_ruleset()
+    external["source_sha"] = "different snapshot"
+    open_file = Path.open
+
+    def guard_packaged_read(path, *args, **kwargs):
+        if path == DATA / "ruleset.json":
+            pytest.fail("A warm gear query reopened the installed ruleset")
+        return open_file(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "open", guard_packaged_read)
+    assert service.optimize(request)["result_hash"] == expected
+    with pytest.raises(ValueError, match="ruleset"):
+        service.optimize(request, ruleset=external)
+
+
 def test_catalog_prices_stay_unknown_and_currencies_distinct():
     records = [item("a", owned=False, price={"gold": 2, "marks": 1}),
                item("b", owned=False, available=None)]

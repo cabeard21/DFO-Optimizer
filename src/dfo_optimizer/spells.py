@@ -2,12 +2,11 @@
 import hashlib
 import json
 from copy import deepcopy
-from functools import lru_cache
 from importlib import import_module
 from math import isclose
 from time import perf_counter
 
-from .ruleset import load_ruleset
+from .ruleset import _installed_combat_rules, validate_combat_ruleset
 from .spell_reference import evaluate_reference
 from .spell_request import AXES, parse_spell_request
 
@@ -29,12 +28,6 @@ OUT_OF_SCOPE = ("multi-effect spells and spellbooks", "damage over time", "condi
 def _digest(value):
     raw = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True, allow_nan=False)
     return hashlib.sha256(raw.encode()).hexdigest()
-
-
-@lru_cache(maxsize=1)
-def _installed_rules():
-    from .ruleset import validate_combat_ruleset
-    return validate_combat_ruleset(load_ruleset())
 
 
 def _engine():
@@ -142,8 +135,7 @@ def _find(spec, native, cancel, started):
 
 def _run(request, ruleset, cancel, auto):
     started = perf_counter()
-    from .ruleset import validate_combat_ruleset
-    rules = _installed_rules() if ruleset is None else validate_combat_ruleset(deepcopy(ruleset))
+    rules = _installed_combat_rules() if ruleset is None else validate_combat_ruleset(deepcopy(ruleset))
     spec = parse_spell_request(request, rules, auto=auto)
     native = _engine()
     prepared = perf_counter()

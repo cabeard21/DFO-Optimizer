@@ -1,0 +1,20 @@
+{
+  "start": {
+    "type": "current_character",
+    "character_file": "character-portable.json"
+  },
+  "goal": {
+    "skills": {
+      "22": 101
+    }
+  },
+  "activities": [
+    {
+      "kind": "check",
+      "trigger": "short_rest_end",
+      "minutes": 361,
+      "evidence": "Available short rest."
+    }
+  ],
+  "max_events": 2
+}

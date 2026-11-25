@@ -1,6 +1,6 @@
 # DFO Optimizer
 
-Offline native class construction, single-effect spell evaluation, and joint gear/spell optimization for Daggerfall Online's 2026-11-02 public source snapshot. [Project specification](DFO_Spellcasting_Optimizer_Codex_Handoff.md)
+Offline native class, spellbook, gear and progression optimization for Daggerfall Online's 2026-11-02 public source snapshot. [Project specification](DFO_Spellcasting_Optimizer_Codex_Handoff.md)
 
 ## Install
 
@@ -50,7 +50,28 @@ dfo gear optimize --request examples/gear-bis.json --output build/theory.json
 dfo benchmark --suite combat --workers 1 --output build/combat.json
 ```
 
-Each point pairs a complete recipe with expected target HP loss per recast second and per actual SP. The scenario assumes one ordinary, stationary PvE foe and one confirmed hit per cast. Read the returned search status, domain, acquisition evidence, and exclusions before comparing points. The theoretical gear example searches a declared roll catalog. Damage over time, recovery, conditional powers and training routes are later milestones.
+Each point pairs a complete recipe with expected target HP loss per recast second and per actual SP. The scenario assumes one ordinary, stationary PvE foe and one confirmed hit per cast. Read the returned search status, domain, acquisition evidence, and exclusions before comparing points. The theoretical gear example searches a declared roll catalog.
+
+### Plan a character through level 45
+
+```sh
+dfo progression plan --request examples/progression-tradeoffs.json --output build/training.json
+dfo progression replay --plan build/training.json
+dfo progression plan --request examples/progression-mastery.json --output build/mastery.json
+dfo spellbook evaluate --request examples/spellbook-fixed.json
+dfo spellbook optimize --request examples/spellbook-auto.json
+dfo build baselines
+dfo build optimize --request examples/build-lifecycle.json --output build/early.json
+dfo build replay --plan build/early.json
+dfo build optimize --request examples/build-checkpoint-reversal.json --output build/checkpoints.json
+dfo build optimize --request examples/build-creation-to-cap.json --output build/capped.json
+dfo build replan --request examples/build-replan-current.json --output build/current.json
+dfo build replan --request examples/build-replan.json
+dfo benchmark --suite progression --output build/progression-benchmark.json
+dfo benchmark --suite lifecycle --output build/lifecycle-benchmark.json
+```
+
+Start with the small training example to see the price of replacing casts with a guild session. The creation-to-cap examples use declared activity access and a frozen birth roll. The near-cap mastery example starts from a synthetic save. The replan example shows which missing observations prevent a route from being verified. Use `dfo build compare --plans first.json second.json` for compatible lifecycle results. A save's stock spell IDs can be resolved with a locally supplied `SPELLS.STD` via `dfo progression plan --stock-spells PATH --request REQUEST`. Viewing records alone does not grant a spell.
 
 ### Use a character save
 
@@ -80,6 +101,6 @@ python -m build
 python tools/verify_wheel.py
 ```
 
-Wheel acceptance creates a new environment, regenerates four source fixtures, runs the tests against the installed package from outside the checkout, and records the class and combat benchmarks. Set `DFO_SOURCE` to use another local checkout. The 14 original Dhargo downloads can also be replayed separately. [Fixture verification](tests/fixtures/dhargo/README.md)
+Wheel acceptance creates a new environment, regenerates the source fixtures, runs the tests against the installed package from outside the checkout, and records all four serial benchmark suites. Set `DFO_SOURCE` to use another local checkout. The 14 original Dhargo downloads can also be replayed separately. [Fixture verification](tests/fixtures/dhargo/README.md)
 
-[M0–M1 acceptance](docs/M0-M1-ACCEPTANCE.md) · [M2–M3 acceptance](docs/M2-M3-ACCEPTANCE.md) · [Architecture](docs/ARCHITECTURE.md) · [Mechanics and open questions](docs/MECHANICS.md) · [Search guarantees](docs/OPTIMIZATION.md) · [Performance measurements](docs/PERFORMANCE.md)
+[M0–M1 acceptance](docs/M0-M1-ACCEPTANCE.md) · [M2–M3 acceptance](docs/M2-M3-ACCEPTANCE.md) · [M4–M5 acceptance](docs/M4-M5-ACCEPTANCE.md) · [Architecture](docs/ARCHITECTURE.md) · [Mechanics and open questions](docs/MECHANICS.md) · [Search guarantees](docs/OPTIMIZATION.md) · [Performance measurements](docs/PERFORMANCE.md)

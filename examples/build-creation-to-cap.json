@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "description": "The creation-to-45 progression example evaluated on one fixed birth roll, the two source starter spells, and a confirmed synthetic five-gold ring offer at birth.",
+  "progression_file": "progression-creation-to-cap.json",
+  "target": {"id":"ordinary stationary target","hp":100,"willpower":50},
+  "equipment": {
+    "offers": [{
+      "instance_id":"caster-ring","stages":[0],
+      "acquisition":{"owned":false,"obtainable":true,"price":{"gold":5},"source":"Synthetic five-gold starting quote"},
+      "item":{"group":"Jewellery","templateIndex":135,"rarity":"magic","affixes":[{"id":"skill","param":34,"value":8},{"id":"castSpeed","value":6}]}
+    }],
+    "loadouts":[{},{"Ring0":"caster-ring"}]
+  },
+  "spellbook":{"mode":"auto_spellbook","policies":[["known/990"],["known/991"]]},
+  "search":{"exact":true,"wall_seconds":120,"max_nodes":1000000,"memory_bytes":268435456}
+}

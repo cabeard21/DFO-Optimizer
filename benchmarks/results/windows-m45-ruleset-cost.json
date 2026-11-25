@@ -1,0 +1,198 @@
+{
+  "host": {
+    "os": "Windows-10-10.0.19045-SP0",
+    "architecture": "AMD64",
+    "cpu": "AMD Ryzen 5 5600X 6-Core Processor",
+    "logical_cpus": 12,
+    "python": "3.12.10",
+    "python_compiler": "MSC v.1943 64 bit (AMD64)"
+  },
+  "calls_per_sample": 25,
+  "alternating_pairs": 7,
+  "request": {
+    "top_k": 20,
+    "max_nodes": 100000
+  },
+  "samples": [
+    {
+      "repeat": 0,
+      "ruleset_hash": "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183",
+      "operation": "admission",
+      "mean_ms": 0.5393840000033379
+    },
+    {
+      "repeat": 0,
+      "ruleset_hash": "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183",
+      "operation": "bounded_class",
+      "mean_ms": 4.086979999992764
+    },
+    {
+      "repeat": 0,
+      "ruleset_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+      "operation": "admission",
+      "mean_ms": 1.1422200000379235
+    },
+    {
+      "repeat": 0,
+      "ruleset_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+      "operation": "bounded_class",
+      "mean_ms": 4.495900000038091
+    },
+    {
+      "repeat": 1,
+      "ruleset_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+      "operation": "admission",
+      "mean_ms": 1.0767800000030547
+    },
+    {
+      "repeat": 1,
+      "ruleset_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+      "operation": "bounded_class",
+      "mean_ms": 4.192499999990105
+    },
+    {
+      "repeat": 1,
+      "ruleset_hash": "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183",
+      "operation": "admission",
+      "mean_ms": 0.5362839999725111
+    },
+    {
+      "repeat": 1,
+      "ruleset_hash": "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183",
+      "operation": "bounded_class",
+      "mean_ms": 4.037900000039372
+    },
+    {
+      "repeat": 2,
+      "ruleset_hash": "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183",
+      "operation": "admission",
+      "mean_ms": 0.5119520000152988
+    },
+    {
+      "repeat": 2,
+      "ruleset_hash": "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183",
+      "operation": "bounded_class",
+      "mean_ms": 3.7851519999821903
+    },
+    {
+      "repeat": 2,
+      "ruleset_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+      "operation": "admission",
+      "mean_ms": 1.1102240000036545
+    },
+    {
+      "repeat": 2,
+      "ruleset_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+      "operation": "bounded_class",
+      "mean_ms": 4.925447999994503
+    },
+    {
+      "repeat": 3,
+      "ruleset_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+      "operation": "admission",
+      "mean_ms": 1.1083079999662004
+    },
+    {
+      "repeat": 3,
+      "ruleset_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+      "operation": "bounded_class",
+      "mean_ms": 4.209351999961655
+    },
+    {
+      "repeat": 3,
+      "ruleset_hash": "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183",
+      "operation": "admission",
+      "mean_ms": 0.5304400000022724
+    },
+    {
+      "repeat": 3,
+      "ruleset_hash": "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183",
+      "operation": "bounded_class",
+      "mean_ms": 3.7458000000333413
+    },
+    {
+      "repeat": 4,
+      "ruleset_hash": "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183",
+      "operation": "admission",
+      "mean_ms": 0.5287520000274526
+    },
+    {
+      "repeat": 4,
+      "ruleset_hash": "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183",
+      "operation": "bounded_class",
+      "mean_ms": 4.090699999942444
+    },
+    {
+      "repeat": 4,
+      "ruleset_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+      "operation": "admission",
+      "mean_ms": 1.2268240000412334
+    },
+    {
+      "repeat": 4,
+      "ruleset_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+      "operation": "bounded_class",
+      "mean_ms": 4.158231999972486
+    },
+    {
+      "repeat": 5,
+      "ruleset_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+      "operation": "admission",
+      "mean_ms": 1.0357399999338668
+    },
+    {
+      "repeat": 5,
+      "ruleset_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+      "operation": "bounded_class",
+      "mean_ms": 4.07855199999176
+    },
+    {
+      "repeat": 5,
+      "ruleset_hash": "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183",
+      "operation": "admission",
+      "mean_ms": 0.5185039999923902
+    },
+    {
+      "repeat": 5,
+      "ruleset_hash": "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183",
+      "operation": "bounded_class",
+      "mean_ms": 3.566759999957867
+    },
+    {
+      "repeat": 6,
+      "ruleset_hash": "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183",
+      "operation": "admission",
+      "mean_ms": 0.5139600000256905
+    },
+    {
+      "repeat": 6,
+      "ruleset_hash": "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183",
+      "operation": "bounded_class",
+      "mean_ms": 3.604196000014781
+    },
+    {
+      "repeat": 6,
+      "ruleset_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+      "operation": "admission",
+      "mean_ms": 1.020115999999689
+    },
+    {
+      "repeat": 6,
+      "ruleset_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+      "operation": "bounded_class",
+      "mean_ms": 4.048684000008507
+    }
+  ],
+  "median_ms": {
+    "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183": {
+      "admission": 0.5287520000274526,
+      "bounded_class": 3.7851519999821903
+    },
+    "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886": {
+      "admission": 1.1083079999662004,
+      "bounded_class": 4.192499999990105
+    }
+  },
+  "wheel_sha256": "183926576a16de12e1d4cf7b9f5438697602bd7df5498f777ebc67fb5a99a343",
+  "scope": "Pre-cache qualification wheel. Seven alternating pairs, 25 serial calls per observation. Compare canonical ruleset detachment and the bounded 20-class request using the historical and expanded bundles."
+}

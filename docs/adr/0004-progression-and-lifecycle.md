@@ -1,0 +1,9 @@
+# Replayable progression and lifecycle search
+
+The planner freezes a class and birth rolls or a portable character before expanding any actions. The upstream JavaScript oracle runs against authenticated Git objects during development and release qualification. Normal searches run offline. The Python transition implementation replays exported action indices, recomputes the public checkpoints and checks native results. This makes a route inspectable even after moving the result to another machine with the same ruleset.
+
+Progression searches finite opportunities. A stage can admit several actions, a cycle can express repeated opportunities compactly, and a goal can depend on earned skill, level and specialization. Native code carries the high-water leveling sum, practice fractions, clocks, mastery slots and resource balances. Current and hypothetical starts use the same transitions. Missing prerequisites stay visible in the result.
+
+Lifecycle search adds purchases, equipped physical copies and a casting policy at selected stages. Comparing a spell at the end of a route cannot establish that the character could fund or cast it earlier. The search therefore keeps ownership, remaining resources and checkpoint scores through the whole route. Each emitted witness is independently reconstructed. Paired rolls, stage targets and action opportunities are part of the comparison input. A frontier claim applies to the stated class families, opportunity schedules, equipment copies, recipes, policies and search limits.
+
+The production kernels use Cython to pass batches into C++17. Source adapters, input validation, orchestration and witness replay remain separately testable. A stopped search reports its stopping reason. Timing and process measurements are excluded from the deterministic result identity. [Progression tests](../../tests/test_progression_service.py) · [Lifecycle tests](../../tests/test_lifecycle.py)

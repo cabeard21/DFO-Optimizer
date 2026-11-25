@@ -1,5 +1,17 @@
 [
   {
+    "mechanic_id": "spell.stock_records",
+    "implementation_status": "local_classic_asset",
+    "verification_status": "source_verified",
+    "mode": "online_snapshot",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "path": "src/formats/spellsStd.js",
+    "symbol": "readSpellsStd, spellsByIndexMap",
+    "limits": "Reads locally supplied classic records, including the Free Action patch and first matching index. The source file and each record carry hashes. Mod replacements and spell ownership require separate evidence.",
+    "assumptions": [],
+    "live_verified": false
+  },
+  {
     "mechanic_id": "character.save_import",
     "implementation_status": "snapshot_import",
     "verification_status": "source_verified",
@@ -163,7 +175,7 @@
     "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
     "path": "src/systems/customClass.js",
     "symbol": "customSpellSetIndex",
-    "limits": "A magic primary/major selects the Spellsword starting set. Qualifying for this set does not establish damage.",
+    "limits": "A magic primary/major selects the classic Spellsword stock IDs. Online skill-based starter grants and actual spell records are checked separately at character creation.",
     "assumptions": [],
     "live_verified": false
   },

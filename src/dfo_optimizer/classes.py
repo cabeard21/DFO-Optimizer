@@ -5,11 +5,10 @@ the importer kept every selected trait. Class construction covers neither
 post-creation training nor damage delivery.
 """
 
-from copy import deepcopy
 from dataclasses import dataclass
 
 from .class_document import ClassDraft, export_document, parse_document
-from .ruleset import load_ruleset, validate_ruleset
+from .ruleset import freeze_ruleset, load_ruleset
 
 
 # src/systems/chargen.js, spellPointMultiplier. The career bitfield already
@@ -167,7 +166,7 @@ def validate_class_snapshot(document, *, ruleset, race=None, profile="dhargo_pve
 
 def validate_class(document, *, ruleset=None, **options) -> dict:
     """Authenticate the ruleset, then return parser, post-import Create, and profile outcomes."""
-    rules = load_ruleset() if ruleset is None else validate_ruleset(deepcopy(ruleset))
+    rules = load_ruleset() if ruleset is None else freeze_ruleset(ruleset)
     return validate_class_snapshot(document, ruleset=rules, **options)
 
 

@@ -1,0 +1,64 @@
+{
+  "version": "0.3.0",
+  "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+  "ruleset_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+  "artifact_sha256": {
+    "dfo_optimizer-0.3.0-cp312-cp312-win_amd64.whl": "1fc38c43ec001d2b9ea75ea197dbc3fd9c3b5c1ba97e5a6d1b8bff3aca0ee27d",
+    "dfo_optimizer-0.3.0.tar.gz": "dd13e215a4e8061258c52a7639f72dc74fbbe11cefd5cfd961ce8abb3628c778",
+    "ubuntu-glibc/dfo_optimizer-0.3.0-cp312-cp312-linux_x86_64.whl": "f35ec97716d41dd30c4e6e9dea208608cc226d41afae7d8e402b46c31e4f7737"
+  },
+  "windows": {
+    "passed": 478,
+    "skipped": 1,
+    "seconds": 67.18,
+    "python_line_percent": 91.08
+  },
+  "ubuntu": {
+    "passed": 479,
+    "skipped": 0,
+    "seconds": 40.4,
+    "python_line_percent": 90.93
+  },
+  "gcc": {
+    "passed": 246,
+    "skipped": 0,
+    "seconds": 5.64,
+    "executable_lines": 1411,
+    "covered_lines": 1379,
+    "line_percent": 97.73210489014883,
+    "headers": 10
+  },
+  "upstream_node": {
+    "passed": 157,
+    "skipped": 1,
+    "skip_reason": "proprietary ARENA2 data"
+  },
+  "matching_cross_platform_workloads": {
+    "class": [
+      "mechanics_batch",
+      "class_exact",
+      "class_bounded"
+    ],
+    "combat": [
+      "simple_batch",
+      "fixed_spell",
+      "spell_exact",
+      "spell_bounded",
+      "gear_exact",
+      "gear_bounded",
+      "spell_full_budget",
+      "gear_owned",
+      "joint_budget"
+    ],
+    "progression": [
+      "reduced_exact",
+      "reduced_bounded",
+      "representative"
+    ],
+    "lifecycle": [
+      "reduced_exact",
+      "reduced_bounded",
+      "representative"
+    ]
+  }
+}

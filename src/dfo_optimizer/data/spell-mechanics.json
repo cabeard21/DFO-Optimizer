@@ -109,7 +109,7 @@
     "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
     "path": "src/systems/effects.js",
     "symbol": "applySpell, tickActiveEffects",
-    "limits": "Multi-effect bundles, damage-over-time, encounter recovery, signatures, boss reactions, active absorption and reflection need additional verified evaluation.",
+    "limits": "The direct spellbook evaluator supports bundles of Damage Health and Disintegrate. Other effects, damage over time, encounter recovery, most signatures, boss reactions, active absorption and reflection need additional verified evaluation.",
     "assumptions": [],
     "live_verified": false
   }

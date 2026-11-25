@@ -9,7 +9,7 @@ from . import equipment
 from .gear_capacity import capacity
 from .gear_replay import PAIRS, replay
 from .gear_request import mapping, prepare_inventory
-from .ruleset import load_ruleset, validate_combat_ruleset
+from .ruleset import _installed_combat_rules, validate_combat_ruleset
 from .spell_request import parse_spell_request
 
 SPELL_FIELDS = {"schema_version", "ruleset_hash", "caster", "target", "spell", "domain", "price_factor"}
@@ -177,7 +177,7 @@ class GearService:
 
     def _query(self, raw, rules, token, fixed):
         start = perf_counter()
-        rules = validate_combat_ruleset(load_ruleset() if rules is None else rules)
+        rules = _installed_combat_rules() if rules is None else validate_combat_ruleset(rules)
         if rules["equipment_hash"] != equipment.EQUIPMENT_HASH:
             raise ValueError("Gear data differs from the pinned ruleset")
         request, spec, blockers = _normalize(raw, rules)

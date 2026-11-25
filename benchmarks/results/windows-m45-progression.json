@@ -1,0 +1,1078 @@
+{
+  "schema_version": 1,
+  "workload_version": 1,
+  "suite": "progression",
+  "workers": 1,
+  "host": {
+    "os": "Windows-10-10.0.19045-SP0",
+    "architecture": "AMD64",
+    "cpu": "AMD Ryzen 5 5600X 6-Core Processor",
+    "logical_cpus": 12,
+    "python": "3.12.10",
+    "python_compiler": "MSC v.1943 64 bit (AMD64)"
+  },
+  "engine": {
+    "compiler": "MSVC 195035721",
+    "flags": "/std:c++17 /O2 /fp:strict",
+    "native": true,
+    "extension": "_native.cp312-win_amd64.pyd",
+    "binary_sha256": "1f6f99d029aec3e466bdb8b7c4ac7b7093f65f718eb31bf9a3411111935fc79b",
+    "version": "0.3.0"
+  },
+  "extensions": {
+    "dfo_optimizer._progression": "a3a13efdc67af3b70ba14b659730b6670a680bdb04f01776d9bfce344c1e4f9c"
+  },
+  "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+  "ruleset_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+  "workloads": {
+    "reduced_exact": {
+      "request": {
+        "description": "Reduced earned-skill frontier. Training trades a paid session for fewer repeated actions.",
+        "start": {
+          "type": "current_character",
+          "character": {
+            "v": 1,
+            "characterId": "m4-synthetic",
+            "name": "Mastery witness",
+            "raceId": 1,
+            "level": 1,
+            "skills": [
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20
+            ],
+            "masteredSkills": [],
+            "arcanePath": null,
+            "martialPath": null,
+            "stats": {
+              "strength": 70,
+              "intelligence": 70,
+              "willpower": 70,
+              "agility": 70,
+              "endurance": 70,
+              "personality": 70,
+              "speed": 70,
+              "luck": 70
+            },
+            "career": {
+              "primarySkills": [
+                22,
+                23,
+                24
+              ],
+              "majorSkills": [
+                25,
+                26,
+                27
+              ],
+              "minorSkills": [
+                13,
+                0,
+                1,
+                2,
+                3,
+                4
+              ],
+              "advancementMultiplier": 0.3,
+              "hitPointsPerLevel": 30,
+              "abilityFlagsAndSpellPointsBitfield": 0
+            },
+            "spells": [
+              {
+                "custom": true,
+                "index": -1,
+                "rangeType": 1,
+                "element": 4,
+                "name": "Training spark",
+                "effects": [
+                  {
+                    "type": 4,
+                    "subType": 0,
+                    "magnitudeBaseLow": 1,
+                    "magnitudeBaseHigh": 1,
+                    "magnitudeLevelBase": 1,
+                    "magnitudeLevelHigh": 1,
+                    "magnitudePerLevel": 20
+                  }
+                ]
+              }
+            ],
+            "items": [
+              {
+                "group": "MiscItems",
+                "templateIndex": 132
+              }
+            ],
+            "goldPieces": 200000,
+            "fatigue": 28000,
+            "maxHealth": 1000,
+            "health": 1000,
+            "classicMinutes": 1000,
+            "lastSkillCheckTime": 1000,
+            "timeOfLastSkillTraining": 0,
+            "reflexes": 2,
+            "readyToLevelUp": false,
+            "startingLevelUpSkillSum": 120,
+            "currentLevelUpSkillSum": 120,
+            "chargenDone": true,
+            "skillUses": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "skillUseFrac": null,
+            "skillProgress": null,
+            "bankAccounts": [],
+            "restNightAt": null
+          },
+          "live_observations": {
+            "current_sp": {
+              "value": 200,
+              "observed_at_ms": 1,
+              "source": "Synthetic character sheet at scenario start"
+            },
+            "max_sp": {
+              "value": 210,
+              "observed_at_ms": 1,
+              "source": "Synthetic character sheet at scenario start"
+            }
+          }
+        },
+        "goal": {
+          "skills": {
+            "22": 21
+          }
+        },
+        "stages": [
+          [
+            {
+              "kind": "practice",
+              "skill": 22,
+              "spell": -1,
+              "count": 3,
+              "cadence_ms": 1500,
+              "minutes": 0,
+              "evidence": "Three available landed touch casts."
+            },
+            {
+              "kind": "train",
+              "skill": 22,
+              "guild": "MagesGuild",
+              "member": true,
+              "roll": 10,
+              "evidence": "Synthetic accessible Mages Guild trainer and fixed legal 10-roll, ordinary pricing."
+            }
+          ],
+          [
+            {
+              "kind": "check",
+              "trigger": "fast_travel_arrival",
+              "fare_gold": 0,
+              "minutes": 361,
+              "evidence": "Confirmed zero-cost arrival opportunity after 361 personal minutes for either choice."
+            }
+          ]
+        ],
+        "search": {
+          "exact": true,
+          "max_nodes": 0,
+          "wall_seconds": 0
+        }
+      },
+      "request_hash": "3c54144ad2f6c6f8020a3e99b70f811a61bd789f2ccb9b924731932dd42ea39b",
+      "result_sha256": "0d8af4e93f6016e62501e3e9314ad91536bdb64966890735e3655b60abaceca3",
+      "status": "optimal_proven",
+      "termination": "exhausted",
+      "counters": {
+        "nodes": 4,
+        "leaves": 2,
+        "pruned": 0,
+        "work_bytes": 26416,
+        "cache_hits": 0
+      },
+      "frontier": [
+        [
+          1,
+          1,
+          541,
+          100
+        ],
+        [
+          3,
+          1,
+          361,
+          0
+        ]
+      ],
+      "final_levels": [
+        1
+      ],
+      "validation": {
+        "finalists_checked": 2,
+        "prefix_checked": false
+      },
+      "cold_cli_seconds": 0.15640449999955308,
+      "warm": {
+        "samples": [
+          {
+            "wall_seconds": 0.015267499999026768,
+            "cpu_seconds": 0.015625
+          },
+          {
+            "wall_seconds": 0.008053300000028685,
+            "cpu_seconds": 0.0
+          },
+          {
+            "wall_seconds": 0.009821699999520206,
+            "cpu_seconds": 0.015625
+          },
+          {
+            "wall_seconds": 0.006529199999931734,
+            "cpu_seconds": 0.0
+          },
+          {
+            "wall_seconds": 0.009184600001390208,
+            "cpu_seconds": 0.015625
+          }
+        ],
+        "p50_seconds": 0.009184600001390208,
+        "p95_seconds": 0.015267499999026768
+      },
+      "nodes_per_wall_second_p50": 435.5116172064704,
+      "evaluations_per_wall_second_p50": null,
+      "first_replayed_seconds": 0.0066263000007893424,
+      "first_replayed_distribution": {
+        "samples": [
+          {
+            "wall_seconds": 0.012884499999927357
+          },
+          {
+            "wall_seconds": 0.006753499999831547
+          },
+          {
+            "wall_seconds": 0.007300799999939045
+          },
+          {
+            "wall_seconds": 0.005219200000283308
+          },
+          {
+            "wall_seconds": 0.0066263000007893424
+          }
+        ],
+        "p50_seconds": 0.006753499999831547,
+        "p95_seconds": 0.012884499999927357
+      },
+      "peak_rss_bytes_after_workload": 26222592
+    },
+    "reduced_bounded": {
+      "request": {
+        "description": "Reduced earned-skill frontier. Training trades a paid session for fewer repeated actions.",
+        "start": {
+          "type": "current_character",
+          "character": {
+            "v": 1,
+            "characterId": "m4-synthetic",
+            "name": "Mastery witness",
+            "raceId": 1,
+            "level": 1,
+            "skills": [
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20,
+              20
+            ],
+            "masteredSkills": [],
+            "arcanePath": null,
+            "martialPath": null,
+            "stats": {
+              "strength": 70,
+              "intelligence": 70,
+              "willpower": 70,
+              "agility": 70,
+              "endurance": 70,
+              "personality": 70,
+              "speed": 70,
+              "luck": 70
+            },
+            "career": {
+              "primarySkills": [
+                22,
+                23,
+                24
+              ],
+              "majorSkills": [
+                25,
+                26,
+                27
+              ],
+              "minorSkills": [
+                13,
+                0,
+                1,
+                2,
+                3,
+                4
+              ],
+              "advancementMultiplier": 0.3,
+              "hitPointsPerLevel": 30,
+              "abilityFlagsAndSpellPointsBitfield": 0
+            },
+            "spells": [
+              {
+                "custom": true,
+                "index": -1,
+                "rangeType": 1,
+                "element": 4,
+                "name": "Training spark",
+                "effects": [
+                  {
+                    "type": 4,
+                    "subType": 0,
+                    "magnitudeBaseLow": 1,
+                    "magnitudeBaseHigh": 1,
+                    "magnitudeLevelBase": 1,
+                    "magnitudeLevelHigh": 1,
+                    "magnitudePerLevel": 20
+                  }
+                ]
+              }
+            ],
+            "items": [
+              {
+                "group": "MiscItems",
+                "templateIndex": 132
+              }
+            ],
+            "goldPieces": 200000,
+            "fatigue": 28000,
+            "maxHealth": 1000,
+            "health": 1000,
+            "classicMinutes": 1000,
+            "lastSkillCheckTime": 1000,
+            "timeOfLastSkillTraining": 0,
+            "reflexes": 2,
+            "readyToLevelUp": false,
+            "startingLevelUpSkillSum": 120,
+            "currentLevelUpSkillSum": 120,
+            "chargenDone": true,
+            "skillUses": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "skillUseFrac": null,
+            "skillProgress": null,
+            "bankAccounts": [],
+            "restNightAt": null
+          },
+          "live_observations": {
+            "current_sp": {
+              "value": 200,
+              "observed_at_ms": 1,
+              "source": "Synthetic character sheet at scenario start"
+            },
+            "max_sp": {
+              "value": 210,
+              "observed_at_ms": 1,
+              "source": "Synthetic character sheet at scenario start"
+            }
+          }
+        },
+        "goal": {
+          "skills": {
+            "22": 21
+          }
+        },
+        "stages": [
+          [
+            {
+              "kind": "practice",
+              "skill": 22,
+              "spell": -1,
+              "count": 3,
+              "cadence_ms": 1500,
+              "minutes": 0,
+              "evidence": "Three available landed touch casts."
+            },
+            {
+              "kind": "train",
+              "skill": 22,
+              "guild": "MagesGuild",
+              "member": true,
+              "roll": 10,
+              "evidence": "Synthetic accessible Mages Guild trainer and fixed legal 10-roll, ordinary pricing."
+            }
+          ],
+          [
+            {
+              "kind": "check",
+              "trigger": "fast_travel_arrival",
+              "fare_gold": 0,
+              "minutes": 361,
+              "evidence": "Confirmed zero-cost arrival opportunity after 361 personal minutes for either choice."
+            }
+          ]
+        ],
+        "search": {
+          "exact": true,
+          "max_nodes": 3,
+          "wall_seconds": 0
+        }
+      },
+      "request_hash": "c3edd4f0c42e8a5df7c4b2169afa39a8b880cb09f65905ec805bc8ca3bcff6ea",
+      "result_sha256": "ad95912e0d71e9b1ddd08be1522c22e3397c1ef6b360e7958ef06857e534b26b",
+      "status": "best_found_bounded",
+      "termination": "node_limit",
+      "counters": {
+        "nodes": 3,
+        "leaves": 1,
+        "pruned": 0,
+        "work_bytes": 21416,
+        "cache_hits": 0
+      },
+      "frontier": [
+        [
+          1,
+          1,
+          541,
+          100
+        ]
+      ],
+      "final_levels": [
+        1
+      ],
+      "validation": {
+        "finalists_checked": 1,
+        "prefix_checked": false
+      },
+      "cold_cli_seconds": 0.13708950000000186,
+      "warm": {
+        "samples": [
+          {
+            "wall_seconds": 0.008822300000247196,
+            "cpu_seconds": 0.015625
+          },
+          {
+            "wall_seconds": 0.004949699999997392,
+            "cpu_seconds": 0.0
+          },
+          {
+            "wall_seconds": 0.00462110000080429,
+            "cpu_seconds": 0.0
+          },
+          {
+            "wall_seconds": 0.004862800000410061,
+            "cpu_seconds": 0.015625
+          },
+          {
+            "wall_seconds": 0.00510510000094655,
+            "cpu_seconds": 0.0
+          }
+        ],
+        "p50_seconds": 0.004949699999997392,
+        "p95_seconds": 0.008822300000247196
+      },
+      "nodes_per_wall_second_p50": 606.0973392330001,
+      "evaluations_per_wall_second_p50": null,
+      "first_replayed_seconds": 0.0046588000004703645,
+      "first_replayed_distribution": {
+        "samples": [
+          {
+            "wall_seconds": 0.007913499999631313
+          },
+          {
+            "wall_seconds": 0.004495799999858718
+          },
+          {
+            "wall_seconds": 0.004160200000114855
+          },
+          {
+            "wall_seconds": 0.004257099999449565
+          },
+          {
+            "wall_seconds": 0.0046588000004703645
+          }
+        ],
+        "p50_seconds": 0.004495799999858718,
+        "p95_seconds": 0.007913499999631313
+      },
+      "peak_rss_bytes_after_workload": 26923008,
+      "quality": {
+        "exact_points": 2,
+        "bounded_points": 1,
+        "exact_points_recovered": 1,
+        "frontier_recall": 0.5
+      }
+    },
+    "representative": {
+      "request": {
+        "description": "Conditional new-character cap witness. One finite, source-legal class and a deliberately generous, synthetic supply of activity opportunities. Personal minutes and practice cadence are separate inputs; this is not an estimate of ordinary play time.",
+        "start": {
+          "type": "new_character",
+          "class": {
+            "format": "daggerfall-enhanced/custom-class",
+            "version": 1,
+            "name": "Breton progression witness",
+            "hitPointsPerLevel": 30,
+            "skills": {
+              "primary": [
+                22,
+                1,
+                2
+              ],
+              "major": [
+                15,
+                16,
+                23
+              ],
+              "minor": [
+                13,
+                0,
+                3,
+                4,
+                5,
+                6
+              ]
+            },
+            "attributes": {
+              "strength": 30,
+              "intelligence": 70,
+              "willpower": 50,
+              "agility": 50,
+              "endurance": 50,
+              "personality": 50,
+              "speed": 50,
+              "luck": 50
+            },
+            "advantages": [
+              {
+                "primary": "increasedMagery",
+                "secondary": "intInSpellPoints3"
+              }
+            ],
+            "disadvantages": [
+              {
+                "primary": "forbiddenMaterial",
+                "secondary": "steel"
+              },
+              {
+                "primary": "forbiddenMaterial",
+                "secondary": "elven"
+              },
+              {
+                "primary": "forbiddenMaterial",
+                "secondary": "dwarven"
+              },
+              {
+                "primary": "forbiddenMaterial",
+                "secondary": "mithril"
+              },
+              {
+                "primary": "forbiddenMaterial",
+                "secondary": "silver"
+              },
+              {
+                "primary": "forbiddenMaterial",
+                "secondary": "adamantium"
+              },
+              {
+                "primary": "forbiddenMaterial",
+                "secondary": "iron"
+              }
+            ],
+            "reputations": {}
+          },
+          "race_id": 1,
+          "roll_seed": 42
+        },
+        "goal": {
+          "level": 45
+        },
+        "cycles": [
+          {
+            "repeat": 80,
+            "windows": [
+              [
+                {
+                  "kind": "practice",
+                  "skill": 22,
+                  "spell": 991,
+                  "count": 5,
+                  "cadence_ms": 120000,
+                  "minutes": 120,
+                  "until_skill": 100,
+                  "evidence": "Synthetic schedule of ordinary casts with the character's starter Arcane Arrow. An available target is supplied for each landed cast."
+                }
+              ],
+              [
+                {
+                  "kind": "practice",
+                  "skill": 1,
+                  "activity": "polite_conversation",
+                  "count": 75,
+                  "cadence_ms": 60000,
+                  "minutes": 900,
+                  "until_skill": 200,
+                  "evidence": "One successful eligible polite tone check in each new conversation session."
+                }
+              ],
+              [
+                {
+                  "kind": "practice",
+                  "skill": 2,
+                  "activity": "blunt_conversation",
+                  "count": 75,
+                  "cadence_ms": 60000,
+                  "minutes": 900,
+                  "until_skill": 200,
+                  "evidence": "One eligible blunt tone check in each fresh conversation session."
+                }
+              ],
+              [
+                {
+                  "kind": "practice",
+                  "skill": 13,
+                  "activity": "lockpick_attempt",
+                  "count": 75,
+                  "cadence_ms": 60000,
+                  "minutes": 900,
+                  "until_skill": 200,
+                  "evidence": "A completed lockpick attempt per use on an available locked door."
+                }
+              ],
+              [
+                {
+                  "kind": "practice",
+                  "skill": 15,
+                  "activity": "pickpocket_attempt",
+                  "count": 75,
+                  "cadence_ms": 60000,
+                  "minutes": 900,
+                  "until_skill": 200,
+                  "evidence": "A fresh eligible pickpocket target per attempt, no detected theft or inventory pickup in the frozen workload."
+                }
+              ],
+              [
+                {
+                  "kind": "practice",
+                  "skill": 16,
+                  "activity": "stealth_check",
+                  "count": 75,
+                  "cadence_ms": 60000,
+                  "minutes": 900,
+                  "until_skill": 200,
+                  "evidence": "A qualifying stealth tally per available encounter, with a 60-second cadence."
+                }
+              ],
+              [
+                {
+                  "kind": "rest",
+                  "site": "bed",
+                  "refill_sp": 192,
+                  "evidence": "A safe uninterrupted eight-hour night; preserve only a recoverable lower bound of 192 SP from a starting capacity above 200."
+                }
+              ],
+              [
+                {
+                  "kind": "master",
+                  "skill": 1,
+                  "if_eligible": true
+                }
+              ],
+              [
+                {
+                  "kind": "master",
+                  "skill": 2,
+                  "if_eligible": true
+                }
+              ],
+              [
+                {
+                  "kind": "master",
+                  "skill": 13,
+                  "if_eligible": true
+                }
+              ],
+              [
+                {
+                  "kind": "master",
+                  "skill": 15,
+                  "if_eligible": true
+                }
+              ],
+              [
+                {
+                  "kind": "master",
+                  "skill": 16,
+                  "if_eligible": true
+                }
+              ],
+              [
+                {
+                  "kind": "level",
+                  "if_due": true,
+                  "allocation_order": [
+                    6,
+                    1,
+                    4,
+                    2,
+                    0,
+                    3,
+                    5,
+                    7
+                  ]
+                }
+              ]
+            ]
+          },
+          {
+            "repeat": 625,
+            "windows": [
+              [
+                {
+                  "kind": "practice",
+                  "skill": 22,
+                  "spell": 991,
+                  "count": 5,
+                  "cadence_ms": 120000,
+                  "minutes": 120,
+                  "until_skill": 100,
+                  "evidence": "Synthetic schedule of ordinary casts with the character's starter Arcane Arrow. An available target is supplied for each landed cast."
+                }
+              ],
+              [
+                {
+                  "kind": "practice",
+                  "skill": 1,
+                  "activity": "polite_conversation",
+                  "count": 1200,
+                  "cadence_ms": 60000,
+                  "minutes": 14400,
+                  "until_skill": 200,
+                  "evidence": "One successful eligible polite tone check in each new conversation session."
+                }
+              ],
+              [
+                {
+                  "kind": "practice",
+                  "skill": 2,
+                  "activity": "blunt_conversation",
+                  "count": 1200,
+                  "cadence_ms": 60000,
+                  "minutes": 14400,
+                  "until_skill": 200,
+                  "evidence": "One eligible blunt tone check in each fresh conversation session."
+                }
+              ],
+              [
+                {
+                  "kind": "practice",
+                  "skill": 13,
+                  "activity": "lockpick_attempt",
+                  "count": 1200,
+                  "cadence_ms": 60000,
+                  "minutes": 14400,
+                  "until_skill": 200,
+                  "evidence": "A completed lockpick attempt per use on an available locked door."
+                }
+              ],
+              [
+                {
+                  "kind": "practice",
+                  "skill": 15,
+                  "activity": "pickpocket_attempt",
+                  "count": 1200,
+                  "cadence_ms": 60000,
+                  "minutes": 14400,
+                  "until_skill": 200,
+                  "evidence": "A fresh eligible pickpocket target per attempt, no detected theft or inventory pickup in the frozen workload."
+                }
+              ],
+              [
+                {
+                  "kind": "practice",
+                  "skill": 16,
+                  "activity": "stealth_check",
+                  "count": 1200,
+                  "cadence_ms": 60000,
+                  "minutes": 14400,
+                  "until_skill": 200,
+                  "evidence": "A qualifying stealth tally per available encounter, with a 60-second cadence."
+                }
+              ],
+              [
+                {
+                  "kind": "rest",
+                  "site": "bed",
+                  "refill_sp": 192,
+                  "evidence": "A safe uninterrupted eight-hour night; preserve only a recoverable lower bound of 192 SP from a starting capacity above 200."
+                }
+              ],
+              [
+                {
+                  "kind": "master",
+                  "skill": 1,
+                  "if_eligible": true
+                }
+              ],
+              [
+                {
+                  "kind": "master",
+                  "skill": 2,
+                  "if_eligible": true
+                }
+              ],
+              [
+                {
+                  "kind": "master",
+                  "skill": 13,
+                  "if_eligible": true
+                }
+              ],
+              [
+                {
+                  "kind": "master",
+                  "skill": 15,
+                  "if_eligible": true
+                }
+              ],
+              [
+                {
+                  "kind": "master",
+                  "skill": 16,
+                  "if_eligible": true
+                }
+              ],
+              [
+                {
+                  "kind": "level",
+                  "if_due": true,
+                  "allocation_order": [
+                    6,
+                    1,
+                    4,
+                    2,
+                    0,
+                    3,
+                    5,
+                    7
+                  ]
+                }
+              ]
+            ]
+          }
+        ],
+        "search": {
+          "exact": true,
+          "memory_bytes": 134217728
+        }
+      },
+      "request_hash": "121047ff442deced44dc48046ebd908efe4718dbde9ae42f74b2cff6c3a47233",
+      "result_sha256": "4596d17c4904010b61014ae101bf9e443ff845c7dab25e1b07221a5b49bc2ad1",
+      "status": "optimal_proven",
+      "termination": "exhausted",
+      "counters": {
+        "nodes": 5889,
+        "leaves": 1,
+        "pruned": 0,
+        "work_bytes": 17181104,
+        "cache_hits": 0
+      },
+      "frontier": [
+        [
+          609465,
+          453,
+          7558200,
+          0
+        ]
+      ],
+      "final_levels": [
+        45
+      ],
+      "validation": {
+        "finalists_checked": 1,
+        "prefix_checked": false
+      },
+      "cold_cli_seconds": 1.595162600000549,
+      "warm": {
+        "samples": [
+          {
+            "wall_seconds": 1.496552900000097,
+            "cpu_seconds": 1.453125
+          },
+          {
+            "wall_seconds": 1.672395300000062,
+            "cpu_seconds": 1.640625
+          },
+          {
+            "wall_seconds": 1.5725473999991664,
+            "cpu_seconds": 1.5625
+          },
+          {
+            "wall_seconds": 1.503566999999748,
+            "cpu_seconds": 1.5
+          },
+          {
+            "wall_seconds": 1.6285333000014361,
+            "cpu_seconds": 1.640625
+          }
+        ],
+        "p50_seconds": 1.5725473999991664,
+        "p95_seconds": 1.672395300000062
+      },
+      "nodes_per_wall_second_p50": 3744.8791686680615,
+      "evaluations_per_wall_second_p50": null,
+      "first_replayed_seconds": 1.600326400000995,
+      "first_replayed_distribution": {
+        "samples": [
+          {
+            "wall_seconds": 1.4658634999996139
+          },
+          {
+            "wall_seconds": 1.6372155000008206
+          },
+          {
+            "wall_seconds": 1.5461192999991908
+          },
+          {
+            "wall_seconds": 1.4776691000006394
+          },
+          {
+            "wall_seconds": 1.600326400000995
+          }
+        ],
+        "p50_seconds": 1.5461192999991908,
+        "p95_seconds": 1.6372155000008206
+      },
+      "peak_rss_bytes_after_workload": 51236864
+    }
+  },
+  "peak_rss_bytes": 51236864
+}

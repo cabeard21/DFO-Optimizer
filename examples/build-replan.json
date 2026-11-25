@@ -1,0 +1,8 @@
+{
+  "schema_version":1,
+  "description":"Locate missing progression evidence in an existing portable save.",
+  "families":[{"id":"Imported character","start":{"type":"current_character","character_file":"character-portable.json"}}],
+  "progression":{"goal":{"level":45},"stages":[[{"kind":"check","minutes":361,"trigger":"fast_travel_arrival","fare_gold":0,"evidence":"One observed zero-fare travel arrival"}]]},
+  "target":{"id":"ordinary synthetic target","hp":90,"willpower":45},
+  "search":{"exact":true,"wall_seconds":0}
+}

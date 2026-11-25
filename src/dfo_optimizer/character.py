@@ -181,8 +181,12 @@ def _save_snapshot(save, card):
         _obj(career, "career")
     gear = _inventory(save)
     base, caster, problems = _caster(save, gear)
+    # Keep absent fields absent. Several pre-progression portable exports omitted
+    # these counters even when the game had already banked a full skill point.
+    from .progression_inputs import capture_progression
     return {
-        "kind": "character", "schema_version": 1, "caster": caster,
+        "kind": "character", "schema_version": 2, "caster": caster,
+        "progression": capture_progression(save),
         "gear": {"items": gear, "base_caster": base, "career": deepcopy(career),
                  "race_id": _int(save.get("raceId"), "raceId"), "gender": save.get("gender")},
         "observations": {
@@ -223,12 +227,15 @@ def _apply_observations(result):
     live = _obj(result.get("live_observations", {}), "live_observations")
     for key, observation in live.items():
         _obj(observation, "live observation")
-        if key not in CASTER_FIELDS:
+        if key not in CASTER_FIELDS and key != "max_fatigue":
             raise ValueError(f"Unsupported live observation {key!r}")
         if not isinstance(observation.get("source"), str) or not observation["source"].strip():
             raise ValueError("Every live observation requires its source")
         if _int(observation.get("observed_at_ms"), "observed_at_ms") is None or "value" not in observation:
             raise ValueError("Live observations require a timestamp and value")
+        if key == "max_fatigue":
+            _int(observation["value"], "max_fatigue")
+            continue
         result["caster"][key] = observation["value"]
         # Live stat and skill modifiers can already include worn gear.
         if key in ("current_sp", "gold", "has_spellbook") and "base_caster" in result["gear"]:
@@ -236,12 +243,15 @@ def _apply_observations(result):
 
 
 def _portable(document):
-    if type(document.get("schema_version")) is not int or document["schema_version"] != 1:
+    if type(document.get("schema_version")) is not int or document["schema_version"] not in (1, 2):
         raise ValueError("Unsupported portable character schema")
     result = deepcopy(document)
     supplied = result.pop("snapshot_hash", None)
     if supplied is not None and supplied != _hash(result):
         raise ValueError("Character snapshot hash mismatch")
+    if result["schema_version"] == 2:
+        from .progression_inputs import validate_capture
+        validate_capture(result.get("progression"))
     _obj(result.setdefault("observations", {}), "observations")
     _obj(result.setdefault("provenance", {"format": "portable"}), "provenance")
     gear = _obj(result.setdefault("gear", {}), "gear")

@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "description": "Replan the frozen synthetic online save used for the progression tradeoff, including its timestamped character-sheet SP observation.",
+  "progression_file": "progression-tradeoffs.json",
+  "target": {"id":"ordinary synthetic target","hp":100,"willpower":45},
+  "equipment": {"loadouts":[{}]},
+  "search": {"exact":true,"wall_seconds":0}
+}

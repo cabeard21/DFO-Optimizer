@@ -1,4 +1,4 @@
-"""Test a platform wheel outside the source tree and record a serial smoke run."""
+"""Qualify a platform wheel in isolation, including source replays and serial benchmarks."""
 import argparse
 import os
 from pathlib import Path
@@ -38,11 +38,12 @@ def main():
         env["PATH"] = str(bindir) + os.pathsep + env.get("PATH", "")
         run([python, "-m", "pip", "install", "-r", ROOT / "requirements-dev.txt", wheel], work, env)
         run([python, "-m", "pip", "check"], work, env)
-        for script in ("generate_oracle.py", "generate_character.py", "spell_oracle.py", "equipment.py"):
+        for script in ("generate_oracle.py", "generate_character.py", "spell_oracle.py", "equipment.py",
+                       "progression_oracle.py", "spellbook_oracle.py"):
             run([python, ROOT / "tools" / "ruleset" / script, "--source", env["DFO_SOURCE"], "--check"], work, env)
         run([python, "-m", "pytest", ROOT / "tests", "--cov=dfo_optimizer",
              "--cov-config", ROOT / "pyproject.toml", "--cov-report=term-missing"], work, env)
-        for suite in ("smoke", "combat"):
+        for suite in ("smoke", "combat", "progression", "lifecycle"):
             run([bindir / ("dfo.exe" if os.name == "nt" else "dfo"), "benchmark",
                  "--suite", suite, "--workers", "1", "--output", output / f"{suite}.json"], work, env)
 
