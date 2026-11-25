@@ -1,0 +1,16 @@
+.venv*/
+.wheelcheck*/
+build/
+dist/
+wheelhouse/
+*.egg-info/
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+.pytest_cache/
+.coverage*
+coverage.xml
+htmlcov/
+vendor/
+.cache/

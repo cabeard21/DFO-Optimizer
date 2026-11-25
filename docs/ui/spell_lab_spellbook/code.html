@@ -1,0 +1,476 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spell Lab &amp; Spellbook — DFO Optimizer</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'success': '#146C2E',
+        'on-success': '#FFFFFF',
+        'success-container': '#D3F8DF',
+        'on-success-container': '#073B17',
+        'warning': '#8A5300',
+        'on-warning': '#FFFFFF',
+        'warning-container': '#FFE0B2',
+        'on-warning-container': '#4A2C00',
+        'light-primary': '#15196C',
+        'light-on-primary': '#FFFFFF',
+        'light-primary-container': '#2D3282',
+        'light-on-primary-container': '#FFFFFF',
+        'light-secondary': '#5A5C7D',
+        'light-on-secondary': '#FFFFFF',
+        'light-secondary-container': '#D6D7FE',
+        'light-on-secondary-container': '#171936',
+        'light-tertiary': '#421B00',
+        'light-on-tertiary': '#FFFFFF',
+        'light-tertiary-container': '#632C00',
+        'light-on-tertiary-container': '#FFDBC8',
+        'light-error': '#BA1A1A',
+        'light-on-error': '#FFFFFF',
+        'light-error-container': '#FFDAD6',
+        'light-on-error-container': '#410002',
+        'light-background': '#FBF8FF',
+        'light-on-background': '#1B1B20',
+        'light-surface': '#FBF8FF',
+        'light-surface-dim': '#DCD9E0',
+        'light-surface-bright': '#FFFFFF',
+        'light-surface-container-lowest': '#FFFFFF',
+        'light-surface-container-low': '#F5F2FA',
+        'light-surface-container': '#F0ECF4',
+        'light-surface-container-high': '#EAE7EF',
+        'light-surface-container-highest': '#E4E1E9',
+        'light-on-surface': '#1B1B20',
+        'light-surface-variant': '#E3E1EF',
+        'light-on-surface-variant': '#464651',
+        'light-outline': '#777682',
+        'light-outline-variant': '#C7C5D3',
+        'light-inverse-surface': '#303036',
+        'light-inverse-on-surface': '#F3EFF7',
+        'light-inverse-primary': '#BFC2FF',
+        'dark-primary': '#BFC2FF',
+        'dark-on-primary': '#212576',
+        'dark-primary-container': '#2D3282',
+        'dark-on-primary-container': '#E0E0FF',
+        'dark-secondary': '#C3C3EA',
+        'dark-on-secondary': '#2C2E4C',
+        'dark-secondary-container': '#424464',
+        'dark-on-secondary-container': '#E0E0FF',
+        'dark-tertiary': '#FFB68A',
+        'dark-on-tertiary': '#522300',
+        'dark-tertiary-container': '#632C00',
+        'dark-on-tertiary-container': '#FFDBC8',
+        'dark-error': '#FFB4AB',
+        'dark-on-error': '#690005',
+        'dark-error-container': '#93000A',
+        'dark-on-error-container': '#FFDAD6',
+        'dark-background': '#131318',
+        'dark-on-background': '#E4E1E9',
+        'dark-surface': '#131318',
+        'dark-surface-dim': '#131318',
+        'dark-surface-bright': '#39393E',
+        'dark-surface-container-lowest': '#0E0E13',
+        'dark-surface-container-low': '#1B1B20',
+        'dark-surface-container': '#1F1F25',
+        'dark-surface-container-high': '#2A292F',
+        'dark-surface-container-highest': '#35343A',
+        'dark-on-surface': '#E4E1E9',
+        'dark-surface-variant': '#464651',
+        'dark-on-surface-variant': '#C7C5D3',
+        'dark-outline': '#908F9C',
+        'dark-outline-variant': '#464651',
+        'dark-inverse-surface': '#E4E1E9',
+        'dark-inverse-on-surface': '#303036',
+        'dark-inverse-primary': '#5156A7',
+      },
+      borderRadius: {
+        'sm': '4px',
+        'DEFAULT': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '40px',
+        'page-margin': '24px',
+      },
+      fontFamily: {
+        'display': ['"Alata"', 'sans-serif'],
+        'headline': ['"Alata"', 'sans-serif'],
+        'title': ['"Instrument Sans"', 'sans-serif'],
+        'body': ['"Instrument Sans"', 'sans-serif'],
+        'label': ['"Instrument Sans"', 'sans-serif'],
+        'mono': ['"Spline Sans Mono"', 'monospace'],
+      },
+      fontSize: {
+        'display-md': ['36px', { lineHeight: '44px', letterSpacing: '-0.5px', fontWeight: '400' }],
+        'display-md-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.25px', fontWeight: '400' }],
+        'headline-lg': ['28px', { lineHeight: '36px', letterSpacing: '-0.25px', fontWeight: '400' }],
+        'headline-md': ['22px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '400' }],
+        'title-lg': ['18px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['15px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.2px', fontWeight: '600' }],
+        'mono-md': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '500' }],
+        'mono-sm': ['12px', { lineHeight: '16px', letterSpacing: '0px', fontWeight: '400' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'surface-enter': '200ms',
+        'surface-exit': '140ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Alata&amp;family=Instrument+Sans:wght@400;500;600;700&amp;family=Spline+Sans+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined, .material-symbols-rounded, .material-symbols-sharp, .material-icons { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-light-surface text-light-on-surface font-body antialiased">
+  <div class="min-h-[1024px] flex" data-stitch-vh="min-h-[1024px]===min-h-screen">
+    <!-- Persistent Left Navigation Rail -->
+    <aside class="w-60 shrink-0 min-h-[1024px] bg-light-surface-container-low border-r border-light-outline-variant flex flex-col justify-between p-4" data-stitch-vh="min-h-[1024px]===min-h-screen">
+      <div class="flex flex-col gap-6">
+        <div class="px-2 pt-1 flex flex-col gap-1">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-light-primary text-[22px]" aria-hidden="true">auto_fix_high</span>
+            <span class="font-headline text-headline-md text-light-on-surface" data-design-text-token="headline-md">DFO Optimizer</span>
+          </div>
+          <span class="font-mono text-mono-sm text-light-on-surface-variant tabular-nums" data-design-text-token="mono-sm">online_snapshot · a8f3c1e</span>
+        </div>
+
+        <nav aria-label="Primary navigation" class="flex flex-col gap-1">
+          <a href="../character-creator/CharacterCreator.html" class="flex items-center gap-3 px-3 py-2 rounded text-light-on-surface-variant hover:bg-light-surface-container hover:text-light-on-surface transition-colors duration-state-change">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">person_add</span>
+            <span class="font-label text-label-lg" data-design-text-token="label-lg">Character Creator</span>
+          </a>
+          <a href="../progression/Progression.html" class="flex items-center gap-3 px-3 py-2 rounded text-light-on-surface-variant hover:bg-light-surface-container hover:text-light-on-surface transition-colors duration-state-change">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">timeline</span>
+            <span class="font-label text-label-lg" data-design-text-token="label-lg">Progression</span>
+          </a>
+          <a href="../spell-lab/SpellLab.html" aria-current="page" class="flex items-center gap-3 px-3 py-2 rounded bg-light-primary text-light-on-primary transition-colors duration-state-change">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">bolt</span>
+            <span class="font-label text-label-lg" data-design-text-token="label-lg">Spell Lab</span>
+          </a>
+          <a href="../gear-optimizer/GearOptimizer.html" class="flex items-center gap-3 px-3 py-2 rounded text-light-on-surface-variant hover:bg-light-surface-container hover:text-light-on-surface transition-colors duration-state-change">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">shield</span>
+            <span class="font-label text-label-lg" data-design-text-token="label-lg">Gear</span>
+          </a>
+          <a href="#compare" class="flex items-center gap-3 px-3 py-2 rounded text-light-on-surface-variant hover:bg-light-surface-container hover:text-light-on-surface transition-colors duration-state-change">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">compare_arrows</span>
+            <span class="font-label text-label-lg" data-design-text-token="label-lg">Compare</span>
+          </a>
+          <a href="#diagnostics" class="flex items-center gap-3 px-3 py-2 rounded text-light-on-surface-variant hover:bg-light-surface-container hover:text-light-on-surface transition-colors duration-state-change">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">terminal</span>
+            <span class="font-label text-label-lg" data-design-text-token="label-lg">Data / Diagnostics</span>
+          </a>
+        </nav>
+      </div>
+
+      <div class="p-3 rounded-md bg-light-surface-container-lowest border border-light-outline-variant flex flex-col gap-1.5">
+        <div class="flex items-center justify-between gap-2">
+          <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Active Policy</span>
+          <!-- COMPONENT: badge-status -->
+          <span data-component-id="badge-status" data-component-type="badge" data-component-variant="status" role="status" class="inline-flex items-center px-2 py-0.5 rounded-sm bg-light-secondary-container text-light-on-secondary-container">
+            <span class="font-mono text-mono-sm tabular-nums" data-design-text-token="mono-sm">0.30x</span>
+          </span>
+        </div>
+        <span class="font-title text-title-md text-light-on-surface" data-design-text-token="title-md">Dhargo PvE (-12)</span>
+        <span class="font-mono text-mono-sm text-light-on-surface-variant tabular-nums" data-design-text-token="mono-sm">30 HP · 3x INT · Solo</span>
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <div class="flex-1 flex flex-col min-w-0">
+      <header class="sticky top-0 z-10 h-16 bg-light-surface-container-lowest border-b border-light-outline-variant px-6 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3 min-w-0">
+          <h1 class="font-headline text-headline-md text-light-on-surface text-balance" data-design-text-token="headline-md">Spell Lab &amp; Spellbook</h1>
+          <!-- COMPONENT: badge-success -->
+          <span data-component-id="badge-success" data-component-type="badge" data-component-variant="success" role="status" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-sm bg-success-container text-on-success-container">
+            <span class="font-label text-label-md" data-design-text-token="label-md">exact_spell_math</span>
+          </span>
+        </div>
+        <div class="flex items-center gap-3 shrink-0">
+          <!-- COMPONENT: button-secondary -->
+          <button data-component-id="button-secondary" data-component-type="button" data-component-variant="secondary" type="button" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded bg-light-surface-container-lowest text-light-on-surface border border-light-outline-variant hover:bg-light-surface-container-low focus-visible:outline focus-visible:outline-2 focus-visible:outline-light-primary transition-colors duration-state-change cursor-pointer">
+            <span class="font-label text-label-lg" data-design-text-token="label-lg">Import Snapshot</span>
+          </button>
+          <!-- COMPONENT: button-with-icon -->
+          <button data-component-id="button-with-icon" data-component-type="button" data-component-variant="with-icon" type="button" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded bg-light-primary text-light-on-primary hover:bg-light-primary-container focus-visible:outline focus-visible:outline-2 focus-visible:outline-light-primary transition-colors duration-state-change cursor-pointer">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">play_arrow</span>
+            <span class="font-label text-label-lg" data-design-text-token="label-lg">Run Optimization</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="flex-1 p-6 max-w-7xl w-full mx-auto flex flex-col gap-6">
+        <!-- Context & Target Strip -->
+        <section aria-label="Frozen character and scenario" class="bg-light-surface-container-lowest border border-light-outline-variant rounded-md p-4 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap items-center gap-4">
+            <div class="flex flex-col">
+              <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Frozen Character</span>
+              <span class="font-title text-title-md text-light-on-surface tabular-nums" data-design-text-token="title-md">Breton Elementalist · Lv. 25 · Destruction 118</span>
+            </div>
+            <div class="h-8 w-px bg-light-outline-variant"></div>
+            <div class="flex flex-col">
+              <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Target Scenario</span>
+              <span class="font-title text-title-md text-light-on-surface tabular-nums" data-design-text-token="title-md">Mixed Solo PvE · Lv. 25 (30% Resist)</span>
+            </div>
+          </div>
+          <span class="font-mono text-mono-sm text-light-primary tabular-nums" data-design-text-token="mono-sm">Max SP: 255 · Cast Rate: 1.125x</span>
+        </section>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <!-- Left: Spellmaker Composer (5 cols) -->
+          <div class="lg:col-span-5 flex flex-col gap-6">
+            <!-- COMPONENT: card-action -->
+            <article data-component-id="card-action" data-component-type="card" data-component-variant="action" class="bg-light-surface-container-lowest border border-light-outline-variant rounded-md p-5 flex flex-col gap-5">
+              <header class="flex items-center justify-between gap-2">
+                <div>
+                  <h2 class="font-title text-title-lg text-light-on-surface" data-design-text-token="title-lg">Spellmaker Composer</h2>
+                  <p class="font-body text-body-md text-light-on-surface-variant" data-design-text-token="body-md">5-SP minimum floor enforced</p>
+                </div>
+                <span class="font-mono text-mono-sm text-light-on-surface-variant" data-design-text-token="mono-sm">auto_spellbook</span>
+              </header>
+
+              <!-- Target Mode & Element -->
+              <div class="grid grid-cols-2 gap-3">
+                <div class="flex flex-col gap-1.5">
+                  <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Target Mode</span>
+                  <div class="p-2.5 rounded bg-light-surface-container-low border border-light-outline-variant flex items-center justify-between">
+                    <span class="font-body text-body-md text-light-on-surface" data-design-text-token="body-md">Ranged (Single)</span>
+                    <span class="material-symbols-outlined text-[18px] text-light-on-surface-variant" aria-hidden="true">expand_more</span>
+                  </div>
+                </div>
+                <div class="flex flex-col gap-1.5">
+                  <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Element</span>
+                  <div class="p-2.5 rounded bg-light-surface-container-low border border-light-outline-variant flex items-center justify-between">
+                    <span class="font-body text-body-md text-light-on-surface" data-design-text-token="body-md">Fire</span>
+                    <span class="material-symbols-outlined text-[18px] text-light-on-surface-variant" aria-hidden="true">expand_more</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Effect 1 -->
+              <div class="p-3.5 rounded bg-light-surface-container-low border border-light-outline-variant flex flex-col gap-2">
+                <div class="flex items-center justify-between">
+                  <span class="font-title text-title-md text-light-on-surface" data-design-text-token="title-md">1. Fire Damage (Destruction)</span>
+                  <span class="font-mono text-mono-sm text-light-primary tabular-nums" data-design-text-token="mono-sm">12 SP</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="flex items-center justify-between bg-light-surface-container-lowest px-2.5 py-1.5 rounded-sm border border-light-outline-variant">
+                    <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Base</span>
+                    <span class="font-mono text-mono-md text-light-on-surface tabular-nums" data-design-text-token="mono-md">12–24</span>
+                  </div>
+                  <div class="flex items-center justify-between bg-light-surface-container-lowest px-2.5 py-1.5 rounded-sm border border-light-outline-variant">
+                    <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">+ / Lv</span>
+                    <span class="font-mono text-mono-md text-light-on-surface tabular-nums" data-design-text-token="mono-md">+4</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Effect 2 -->
+              <div class="p-3.5 rounded bg-light-surface-container-low border border-light-outline-variant flex flex-col gap-2">
+                <div class="flex items-center justify-between">
+                  <span class="font-title text-title-md text-light-on-surface" data-design-text-token="title-md">2. Weakness to Fire</span>
+                  <span class="font-mono text-mono-sm text-light-primary tabular-nums" data-design-text-token="mono-sm">6 SP</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="flex items-center justify-between bg-light-surface-container-lowest px-2.5 py-1.5 rounded-sm border border-light-outline-variant">
+                    <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Chance</span>
+                    <span class="font-mono text-mono-md text-light-on-surface tabular-nums" data-design-text-token="mono-md">100%</span>
+                  </div>
+                  <div class="flex items-center justify-between bg-light-surface-container-lowest px-2.5 py-1.5 rounded-sm border border-light-outline-variant">
+                    <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Duration</span>
+                    <span class="font-mono text-mono-md text-light-on-surface tabular-nums" data-design-text-token="mono-md">2 rds</span>
+                  </div>
+                </div>
+              </div>
+
+              <footer class="pt-3 border-t border-light-outline-variant flex items-center justify-between gap-3">
+                <button data-component-id="button-secondary" data-component-type="button" data-component-variant="secondary" type="button" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded bg-light-surface-container-lowest text-light-on-surface border border-light-outline-variant hover:bg-light-surface-container-low focus-visible:outline focus-visible:outline-2 focus-visible:outline-light-primary transition-colors duration-state-change cursor-pointer">
+                  <span class="font-label text-label-lg" data-design-text-token="label-lg">Add to Spellbook</span>
+                </button>
+                <button data-component-id="button-primary" data-component-type="button" data-component-variant="primary" type="button" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded bg-light-primary text-light-on-primary hover:bg-light-primary-container transition-colors duration-state-change cursor-pointer">
+                  <span class="font-label text-label-lg" data-design-text-token="label-lg">Optimize Spell</span>
+                </button>
+              </footer>
+            </article>
+          </div>
+
+          <!-- Right: Metrics, Scaling & Spellbook Policy (7 cols) -->
+          <div class="lg:col-span-7 flex flex-col gap-6">
+            <!-- 4 KPI Cards -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 items-stretch">
+              <article data-component-id="card-elevated" data-component-type="card" data-component-variant="elevated" class="h-full bg-light-surface-container-lowest border border-light-outline-variant rounded-md p-4 flex flex-col justify-between gap-1">
+                <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Actual Cost</span>
+                <span class="font-mono text-headline-md text-light-primary tabular-nums" data-design-text-token="headline-md">18 SP</span>
+              </article>
+              <article data-component-id="card-elevated" data-component-type="card" data-component-variant="elevated" class="h-full bg-light-surface-container-lowest border border-light-outline-variant rounded-md p-4 flex flex-col justify-between gap-1">
+                <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Dmg / Cast</span>
+                <span class="font-mono text-headline-md text-light-on-surface tabular-nums" data-design-text-token="headline-md">118.4</span>
+              </article>
+              <article data-component-id="card-elevated" data-component-type="card" data-component-variant="elevated" class="h-full bg-light-surface-container-lowest border border-light-outline-variant rounded-md p-4 flex flex-col justify-between gap-1">
+                <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Sustained DPS</span>
+                <span class="font-mono text-headline-md text-light-on-surface tabular-nums" data-design-text-token="headline-md">133.2</span>
+              </article>
+              <article data-component-id="card-elevated" data-component-type="card" data-component-variant="elevated" class="h-full bg-light-surface-container-lowest border border-light-outline-variant rounded-md p-4 flex flex-col justify-between gap-1">
+                <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Dmg / SP</span>
+                <span class="font-mono text-headline-md text-success tabular-nums" data-design-text-token="headline-md">6.58</span>
+              </article>
+            </div>
+
+            <!-- Scaling Across Levels -->
+            <article data-component-id="card-elevated" data-component-type="card" data-component-variant="elevated" class="bg-light-surface-container-lowest border border-light-outline-variant rounded-md p-5 flex flex-col gap-4">
+              <header class="flex items-center justify-between gap-4">
+                <div>
+                  <h2 class="font-title text-title-lg text-light-on-surface" data-design-text-token="title-lg">DPS &amp; Efficiency Scaling by Level</h2>
+                  <p class="font-body text-body-md text-light-on-surface-variant" data-design-text-token="body-md">Accounts for integer cost floors and skill breakpoints</p>
+                </div>
+                <span class="font-mono text-mono-sm text-light-on-surface-variant" data-design-text-token="mono-sm">5-SP floor hit @ Lv.28</span>
+              </header>
+
+              <div class="grid grid-cols-5 gap-3 items-end pt-2">
+                <div class="flex flex-col items-center gap-2">
+                  <span class="font-mono text-mono-sm text-light-on-surface tabular-nums" data-design-text-token="mono-sm">48.2</span>
+                  <div class="w-full h-12 rounded-sm bg-light-secondary-container"></div>
+                  <span class="font-mono text-mono-sm text-light-on-surface-variant tabular-nums" data-design-text-token="mono-sm">Lv.10</span>
+                </div>
+                <div class="flex flex-col items-center gap-2">
+                  <span class="font-mono text-mono-sm text-light-on-surface tabular-nums" data-design-text-token="mono-sm">94.6</span>
+                  <div class="w-full h-20 rounded-sm bg-light-secondary-container"></div>
+                  <span class="font-mono text-mono-sm text-light-on-surface-variant tabular-nums" data-design-text-token="mono-sm">Lv.20</span>
+                </div>
+                <div class="flex flex-col items-center gap-2">
+                  <span class="font-mono text-mono-sm text-light-primary tabular-nums" data-design-text-token="mono-sm">133.2</span>
+                  <div class="w-full h-28 rounded-sm bg-light-primary"></div>
+                  <span class="font-mono text-mono-sm text-light-primary tabular-nums" data-design-text-token="mono-sm">Lv.25</span>
+                </div>
+                <div class="flex flex-col items-center gap-2">
+                  <span class="font-mono text-mono-sm text-light-on-surface tabular-nums" data-design-text-token="mono-sm">151.0</span>
+                  <div class="w-full h-32 rounded-sm bg-light-secondary-container"></div>
+                  <span class="font-mono text-mono-sm text-light-on-surface-variant tabular-nums" data-design-text-token="mono-sm">Lv.35</span>
+                </div>
+                <div class="flex flex-col items-center gap-2">
+                  <span class="font-mono text-mono-sm text-light-on-surface tabular-nums" data-design-text-token="mono-sm">164.2</span>
+                  <div class="w-full h-36 rounded-sm bg-light-secondary-container"></div>
+                  <span class="font-mono text-mono-sm text-light-on-surface-variant tabular-nums" data-design-text-token="mono-sm">Lv.45</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Optimized Spellbook Table -->
+            <!-- COMPONENT: table-standard -->
+            <div data-component-id="table-standard" data-component-type="table" data-component-variant="standard" class="w-full bg-light-surface-container-lowest border border-light-outline-variant rounded-md overflow-hidden">
+              <div class="px-4 py-3 border-b border-light-outline-variant flex items-center justify-between">
+                <h2 class="font-title text-title-md text-light-on-surface" data-design-text-token="title-md">Recommended Spellbook &amp; Casting Policy</h2>
+                <span class="font-mono text-mono-sm text-light-on-surface-variant" data-design-text-token="mono-sm">4 active slots</span>
+              </div>
+              <table class="w-full text-left border-collapse">
+                <thead class="bg-light-surface-container-low border-b border-light-outline-variant">
+                  <tr>
+                    <th scope="col" class="px-4 py-2.5">
+                      <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Spell</span>
+                    </th>
+                    <th scope="col" class="px-4 py-2.5">
+                      <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Role / Policy</span>
+                    </th>
+                    <th scope="col" class="px-4 py-2.5 text-right">
+                      <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">SP</span>
+                    </th>
+                    <th scope="col" class="px-4 py-2.5 text-right">
+                      <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Dmg / SP</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-light-outline-variant">
+                  <tr class="hover:bg-light-surface-container-low transition-colors duration-state-change">
+                    <td class="px-4 py-3">
+                      <span class="font-title text-title-md text-light-on-surface" data-design-text-token="title-md">Frost Dart (5-SP Floor)</span>
+                    </td>
+                    <td class="px-4 py-3">
+                      <span class="font-body text-body-md text-light-on-surface-variant" data-design-text-token="body-md">Filler · SP &lt; 40%</span>
+                    </td>
+                    <td class="px-4 py-3 text-right tabular-nums">
+                      <span class="font-mono text-mono-md text-light-on-surface" data-design-text-token="mono-md">5</span>
+                    </td>
+                    <td class="px-4 py-3 text-right tabular-nums">
+                      <span class="font-mono text-mono-md text-success" data-design-text-token="mono-md">8.40</span>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-light-surface-container-low transition-colors duration-state-change">
+                    <td class="px-4 py-3">
+                      <span class="font-title text-title-md text-light-on-surface" data-design-text-token="title-md">Inferno Bolt + Weakness</span>
+                    </td>
+                    <td class="px-4 py-3">
+                      <span class="font-body text-body-md text-light-on-surface-variant" data-design-text-token="body-md">Primary Burst</span>
+                    </td>
+                    <td class="px-4 py-3 text-right tabular-nums">
+                      <span class="font-mono text-mono-md text-light-on-surface" data-design-text-token="mono-md">18</span>
+                    </td>
+                    <td class="px-4 py-3 text-right tabular-nums">
+                      <span class="font-mono text-mono-md text-light-primary" data-design-text-token="mono-md">6.58</span>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-light-surface-container-low transition-colors duration-state-change">
+                    <td class="px-4 py-3">
+                      <span class="font-title text-title-md text-light-on-surface" data-design-text-token="title-md">Arcane Ward</span>
+                    </td>
+                    <td class="px-4 py-3">
+                      <span class="font-body text-body-md text-light-on-surface-variant" data-design-text-token="body-md">Shield · On Expire</span>
+                    </td>
+                    <td class="px-4 py-3 text-right tabular-nums">
+                      <span class="font-mono text-mono-md text-light-on-surface" data-design-text-token="mono-md">14</span>
+                    </td>
+                    <td class="px-4 py-3 text-right tabular-nums">
+                      <span class="font-mono text-mono-md text-light-on-surface-variant" data-design-text-token="mono-md">—</span>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-light-surface-container-low transition-colors duration-state-change">
+                    <td class="px-4 py-3">
+                      <span class="font-title text-title-md text-light-on-surface" data-design-text-token="title-md">Shock Nova (AoE 15ft)</span>
+                    </td>
+                    <td class="px-4 py-3">
+                      <span class="font-body text-body-md text-light-on-surface-variant" data-design-text-token="body-md">Multi-Target (≥2)</span>
+                    </td>
+                    <td class="px-4 py-3 text-right tabular-nums">
+                      <span class="font-mono text-mono-md text-light-on-surface" data-design-text-token="mono-md">26</span>
+                    </td>
+                    <td class="px-4 py-3 text-right tabular-nums">
+                      <span class="font-mono text-mono-md text-light-on-surface" data-design-text-token="mono-md">5.92</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+
+</body></html>

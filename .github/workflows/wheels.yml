@@ -1,0 +1,49 @@
+name: Native wheel acceptance
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+
+jobs:
+  wheel:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.18.0"
+      - uses: actions/checkout@v4
+        with:
+          repository: Lattymoy/daggerfall-js-source
+          ref: a3eb1605ea1dc391b691fe314377458a7e63e483
+          path: vendor/dfo-source
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /src/
+            /locales/
+            /test/systems/
+            /package.json
+            /vendor/**/*.json
+            /vendor/**/*.js
+            /LICENSE
+            /README.md
+      - run: python -m pip install -r requirements-dev.txt
+      - run: python -m build
+      - run: node --test test/systems/customclass.test.js test/systems/specialadvantages.test.js
+        working-directory: vendor/dfo-source
+      - run: python tools/verify_wheel.py
+      - if: runner.os == 'Linux'
+        run: python tools/verify_native_coverage.py --output build/acceptance/native-coverage.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-${{ matrix.os }}
+          path: |
+            dist/*.whl
+            build/acceptance/*.json

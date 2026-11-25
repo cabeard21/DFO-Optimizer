@@ -1,0 +1,11 @@
+{
+  "src/systems/armorMaterials.js": "9694199015b85ea60fe8cab21347fdfe56bee2cb",
+  "src/systems/customClass.js": "e1708b8cec418595e8c6d670c6ec79f02433c235",
+  "src/systems/masterSkills.js": "5f24feef0b509d28a53b7cb0853732ba69a44925",
+  "src/systems/mentorMode.js": "7c494ff5ec76cf99ebb377f44654019909fbb05b",
+  "src/systems/races.js": "afd6f158d257c7ee257f3872c34ff6c6ca8e31c0",
+  "src/systems/skillSoftcap.js": "15fedb3c163142fca637758e091836bb19fa5f87",
+  "src/systems/skills.js": "94c603f839bc4b7596d4611280bc3def7bead2b2",
+  "src/systems/specialAdvantages.js": "258721ef5751e84903cd70330caa07a6328a5d05",
+  "src/systems/textManager.js": "4b78d011c4d5ca6e95d8c302cc7d763649c9fd44"
+}

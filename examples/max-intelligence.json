@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "profile": "dhargo_pve",
+  "objective": "max_intelligence",
+  "exact": true,
+  "race_ids": [1, 2],
+  "hp_values": [30],
+  "attribute_domains": {
+    "intelligence": [50, 60, 70],
+    "strength": [30, 40, 50]
+  },
+  "trait_ids": [23, 56, 58, 59, 60, 61, 62, 64, 65],
+  "top_k": 3,
+  "max_nodes": 100000,
+  "workers": 1
+}

@@ -1,0 +1,11 @@
+{
+  "file": "src/dfo_optimizer/class_search.hpp",
+  "compiler": "MSVC 14.50.35717",
+  "source_sha256": "b3da2ed99a90375722b4e7c3e57a31e8946ce089c1579622b4afb0af7997fe20",
+  "covered_lines": 135,
+  "executable_lines": 135,
+  "line_percent": 100,
+  "uncovered_lines": [],
+  "tests": "tests/test_native.py",
+  "flags": "/Od /Zi /GL- /DEBUG:FULL /PROFILE"
+}

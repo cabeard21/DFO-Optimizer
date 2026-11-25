@@ -1,0 +1,5141 @@
+{
+  "cases": [
+    {
+      "advancement": 0.9230769230769231,
+      "career": {
+        "abilityFlagsAndSpellPointsBitfield": 5120,
+        "advancementMultiplier": 0.9230769230769231,
+        "agility": 50,
+        "attackModifierFlags": 0,
+        "criticalWeaknessFlags": 0,
+        "endurance": 50,
+        "forbiddenMaterialsFlags": 0,
+        "hitPointsPerLevel": 8,
+        "immunityFlags": 0,
+        "intelligence": 50,
+        "lowToleranceFlags": 0,
+        "luck": 50,
+        "majorSkills": [
+          25,
+          26,
+          27
+        ],
+        "minorSkills": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "name": "Oracle fixture",
+        "personality": 50,
+        "primarySkills": [
+          22,
+          23,
+          24
+        ],
+        "rapidHealing": 0,
+        "regeneration": 0,
+        "resistanceFlags": 0,
+        "speed": 50,
+        "spellAbsorptionFlags": 0,
+        "strength": 50,
+        "unknown1": 0,
+        "weaponArmorShieldsBitfield": 0,
+        "willpower": 50
+      },
+      "create_legal": true,
+      "difficulty": 0,
+      "document": {
+        "advantages": [],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            "Destruction",
+            "Restoration",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": []
+      },
+      "label": "baseline",
+      "magicka_multiplier": 0.5,
+      "parsed": {
+        "ok": true,
+        "skipped": [],
+        "value": {
+          "advantages": [],
+          "disadvantages": [],
+          "hp": 8,
+          "name": "Oracle fixture",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": 1
+    },
+    {
+      "advancement": 0.9230769230769231,
+      "career": {
+        "abilityFlagsAndSpellPointsBitfield": 5120,
+        "advancementMultiplier": 0.9230769230769231,
+        "agility": 50,
+        "attackModifierFlags": 0,
+        "criticalWeaknessFlags": 0,
+        "endurance": 50,
+        "forbiddenMaterialsFlags": 0,
+        "hitPointsPerLevel": 8,
+        "immunityFlags": 0,
+        "intelligence": 50,
+        "lowToleranceFlags": 0,
+        "luck": 50,
+        "majorSkills": [
+          3,
+          4,
+          5
+        ],
+        "minorSkills": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "name": "Oracle fixture",
+        "personality": 50,
+        "primarySkills": [
+          0,
+          1,
+          2
+        ],
+        "rapidHealing": 0,
+        "regeneration": 0,
+        "resistanceFlags": 0,
+        "speed": 50,
+        "spellAbsorptionFlags": 0,
+        "strength": 50,
+        "unknown1": 0,
+        "weaponArmorShieldsBitfield": 0,
+        "willpower": 50
+      },
+      "create_legal": true,
+      "difficulty": 0,
+      "document": {
+        "advantages": [],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            3,
+            4,
+            5
+          ],
+          "minor": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "primary": [
+            0,
+            1,
+            2
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "minor": [
+            "Giantish",
+            "Dragonish",
+            "Nymph",
+            "Daedric",
+            "Spriggan",
+            "Centaurian"
+          ],
+          "primary": [
+            "Medical",
+            "Etiquette",
+            "Streetwise"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": []
+      },
+      "label": "no_magic_school",
+      "magicka_multiplier": 0.5,
+      "parsed": {
+        "ok": true,
+        "skipped": [],
+        "value": {
+          "advantages": [],
+          "disadvantages": [],
+          "hp": 8,
+          "name": "Oracle fixture",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": null
+    },
+    {
+      "advancement": 1.026923076923077,
+      "career": {
+        "abilityFlagsAndSpellPointsBitfield": 4096,
+        "advancementMultiplier": 1.026923076923077,
+        "agility": 50,
+        "attackModifierFlags": 0,
+        "criticalWeaknessFlags": 0,
+        "endurance": 50,
+        "forbiddenMaterialsFlags": 0,
+        "hitPointsPerLevel": 8,
+        "immunityFlags": 0,
+        "intelligence": 50,
+        "lowToleranceFlags": 0,
+        "luck": 50,
+        "majorSkills": [
+          25,
+          26,
+          27
+        ],
+        "minorSkills": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "name": "Oracle fixture",
+        "personality": 50,
+        "primarySkills": [
+          22,
+          23,
+          24
+        ],
+        "rapidHealing": 0,
+        "regeneration": 0,
+        "resistanceFlags": 0,
+        "speed": 50,
+        "spellAbsorptionFlags": 0,
+        "strength": 50,
+        "unknown1": 0,
+        "weaponArmorShieldsBitfield": 0,
+        "willpower": 50
+      },
+      "create_legal": true,
+      "difficulty": 2,
+      "document": {
+        "advantages": [
+          {
+            "primary": "increasedMagery",
+            "secondary": "intInSpellPoints"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [
+          {
+            "primary": "increasedMagery",
+            "secondary": "intInSpellPoints"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            "Destruction",
+            "Restoration",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": []
+      },
+      "label": "intInSpellPoints",
+      "magicka_multiplier": 1,
+      "parsed": {
+        "ok": true,
+        "skipped": [],
+        "value": {
+          "advantages": [
+            {
+              "difficulty": 2,
+              "primary": "increasedMagery",
+              "secondary": "intInSpellPoints"
+            }
+          ],
+          "disadvantages": [],
+          "hp": 8,
+          "name": "Oracle fixture",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": 1
+    },
+    {
+      "advancement": 1.1307692307692307,
+      "career": {
+        "abilityFlagsAndSpellPointsBitfield": 3072,
+        "advancementMultiplier": 1.1307692307692307,
+        "agility": 50,
+        "attackModifierFlags": 0,
+        "criticalWeaknessFlags": 0,
+        "endurance": 50,
+        "forbiddenMaterialsFlags": 0,
+        "hitPointsPerLevel": 8,
+        "immunityFlags": 0,
+        "intelligence": 50,
+        "lowToleranceFlags": 0,
+        "luck": 50,
+        "majorSkills": [
+          25,
+          26,
+          27
+        ],
+        "minorSkills": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "name": "Oracle fixture",
+        "personality": 50,
+        "primarySkills": [
+          22,
+          23,
+          24
+        ],
+        "rapidHealing": 0,
+        "regeneration": 0,
+        "resistanceFlags": 0,
+        "speed": 50,
+        "spellAbsorptionFlags": 0,
+        "strength": 50,
+        "unknown1": 0,
+        "weaponArmorShieldsBitfield": 0,
+        "willpower": 50
+      },
+      "create_legal": true,
+      "difficulty": 4,
+      "document": {
+        "advantages": [
+          {
+            "primary": "increasedMagery",
+            "secondary": "intInSpellPoints15"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [
+          {
+            "primary": "increasedMagery",
+            "secondary": "intInSpellPoints15"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            "Destruction",
+            "Restoration",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": []
+      },
+      "label": "intInSpellPoints15",
+      "magicka_multiplier": 1.5,
+      "parsed": {
+        "ok": true,
+        "skipped": [],
+        "value": {
+          "advantages": [
+            {
+              "difficulty": 4,
+              "primary": "increasedMagery",
+              "secondary": "intInSpellPoints15"
+            }
+          ],
+          "disadvantages": [],
+          "hp": 8,
+          "name": "Oracle fixture",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": 1
+    },
+    {
+      "advancement": 1.2346153846153847,
+      "career": {
+        "abilityFlagsAndSpellPointsBitfield": 2048,
+        "advancementMultiplier": 1.2346153846153847,
+        "agility": 50,
+        "attackModifierFlags": 0,
+        "criticalWeaknessFlags": 0,
+        "endurance": 50,
+        "forbiddenMaterialsFlags": 0,
+        "hitPointsPerLevel": 8,
+        "immunityFlags": 0,
+        "intelligence": 50,
+        "lowToleranceFlags": 0,
+        "luck": 50,
+        "majorSkills": [
+          25,
+          26,
+          27
+        ],
+        "minorSkills": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "name": "Oracle fixture",
+        "personality": 50,
+        "primarySkills": [
+          22,
+          23,
+          24
+        ],
+        "rapidHealing": 0,
+        "regeneration": 0,
+        "resistanceFlags": 0,
+        "speed": 50,
+        "spellAbsorptionFlags": 0,
+        "strength": 50,
+        "unknown1": 0,
+        "weaponArmorShieldsBitfield": 0,
+        "willpower": 50
+      },
+      "create_legal": true,
+      "difficulty": 6,
+      "document": {
+        "advantages": [
+          {
+            "primary": "increasedMagery",
+            "secondary": "intInSpellPoints175"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [
+          {
+            "primary": "increasedMagery",
+            "secondary": "intInSpellPoints175"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            "Destruction",
+            "Restoration",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": []
+      },
+      "label": "intInSpellPoints175",
+      "magicka_multiplier": 1.75,
+      "parsed": {
+        "ok": true,
+        "skipped": [],
+        "value": {
+          "advantages": [
+            {
+              "difficulty": 6,
+              "primary": "increasedMagery",
+              "secondary": "intInSpellPoints175"
+            }
+          ],
+          "disadvantages": [],
+          "hp": 8,
+          "name": "Oracle fixture",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": 1
+    },
+    {
+      "advancement": 1.3384615384615386,
+      "career": {
+        "abilityFlagsAndSpellPointsBitfield": 1024,
+        "advancementMultiplier": 1.3384615384615386,
+        "agility": 50,
+        "attackModifierFlags": 0,
+        "criticalWeaknessFlags": 0,
+        "endurance": 50,
+        "forbiddenMaterialsFlags": 0,
+        "hitPointsPerLevel": 8,
+        "immunityFlags": 0,
+        "intelligence": 50,
+        "lowToleranceFlags": 0,
+        "luck": 50,
+        "majorSkills": [
+          25,
+          26,
+          27
+        ],
+        "minorSkills": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "name": "Oracle fixture",
+        "personality": 50,
+        "primarySkills": [
+          22,
+          23,
+          24
+        ],
+        "rapidHealing": 0,
+        "regeneration": 0,
+        "resistanceFlags": 0,
+        "speed": 50,
+        "spellAbsorptionFlags": 0,
+        "strength": 50,
+        "unknown1": 0,
+        "weaponArmorShieldsBitfield": 0,
+        "willpower": 50
+      },
+      "create_legal": true,
+      "difficulty": 8,
+      "document": {
+        "advantages": [
+          {
+            "primary": "increasedMagery",
+            "secondary": "intInSpellPoints2"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [
+          {
+            "primary": "increasedMagery",
+            "secondary": "intInSpellPoints2"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            "Destruction",
+            "Restoration",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": []
+      },
+      "label": "intInSpellPoints2",
+      "magicka_multiplier": 2,
+      "parsed": {
+        "ok": true,
+        "skipped": [],
+        "value": {
+          "advantages": [
+            {
+              "difficulty": 8,
+              "primary": "increasedMagery",
+              "secondary": "intInSpellPoints2"
+            }
+          ],
+          "disadvantages": [],
+          "hp": 8,
+          "name": "Oracle fixture",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": 1
+    },
+    {
+      "advancement": 0.3,
+      "career": {
+        "abilityFlagsAndSpellPointsBitfield": 0,
+        "advancementMultiplier": 0.3,
+        "agility": 50,
+        "attackModifierFlags": 0,
+        "criticalWeaknessFlags": 0,
+        "endurance": 50,
+        "forbiddenMaterialsFlags": 127,
+        "hitPointsPerLevel": 30,
+        "immunityFlags": 0,
+        "intelligence": 50,
+        "lowToleranceFlags": 0,
+        "luck": 50,
+        "majorSkills": [
+          25,
+          26,
+          27
+        ],
+        "minorSkills": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "name": "Oracle fixture",
+        "personality": 50,
+        "primarySkills": [
+          22,
+          23,
+          24
+        ],
+        "rapidHealing": 0,
+        "regeneration": 0,
+        "resistanceFlags": 0,
+        "speed": 50,
+        "spellAbsorptionFlags": 0,
+        "strength": 50,
+        "unknown1": 0,
+        "weaponArmorShieldsBitfield": 0,
+        "willpower": 50
+      },
+      "create_legal": true,
+      "difficulty": -12,
+      "document": {
+        "advantages": [
+          {
+            "primary": "increasedMagery",
+            "secondary": "intInSpellPoints3"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "steel"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "elven"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "dwarven"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "mithril"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "silver"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "adamantium"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "iron"
+          }
+        ],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 30,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [
+          {
+            "primary": "increasedMagery",
+            "secondary": "intInSpellPoints3"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "steel"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "elven"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "dwarven"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "mithril"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "silver"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "adamantium"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "iron"
+          }
+        ],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 30,
+        "name": "Oracle fixture",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            "Destruction",
+            "Restoration",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": []
+      },
+      "label": "material_floor",
+      "magicka_multiplier": 3,
+      "parsed": {
+        "ok": true,
+        "skipped": [],
+        "value": {
+          "advantages": [
+            {
+              "difficulty": 10,
+              "primary": "increasedMagery",
+              "secondary": "intInSpellPoints3"
+            }
+          ],
+          "disadvantages": [
+            {
+              "difficulty": -10,
+              "primary": "forbiddenMaterial",
+              "secondary": "steel"
+            },
+            {
+              "difficulty": -9,
+              "primary": "forbiddenMaterial",
+              "secondary": "elven"
+            },
+            {
+              "difficulty": -7,
+              "primary": "forbiddenMaterial",
+              "secondary": "dwarven"
+            },
+            {
+              "difficulty": -6,
+              "primary": "forbiddenMaterial",
+              "secondary": "mithril"
+            },
+            {
+              "difficulty": -6,
+              "primary": "forbiddenMaterial",
+              "secondary": "silver"
+            },
+            {
+              "difficulty": -5,
+              "primary": "forbiddenMaterial",
+              "secondary": "adamantium"
+            },
+            {
+              "difficulty": -1,
+              "primary": "forbiddenMaterial",
+              "secondary": "iron"
+            }
+          ],
+          "hp": 30,
+          "name": "Oracle fixture",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": 1
+    },
+    {
+      "advancement": 1.1826923076923077,
+      "career": {
+        "abilityFlagsAndSpellPointsBitfield": 5120,
+        "advancementMultiplier": 1.1826923076923077,
+        "agility": 50,
+        "attackModifierFlags": 0,
+        "criticalWeaknessFlags": 0,
+        "endurance": 50,
+        "forbiddenMaterialsFlags": 0,
+        "hitPointsPerLevel": 8,
+        "immunityFlags": 0,
+        "intelligence": 50,
+        "lowToleranceFlags": 0,
+        "luck": 50,
+        "majorSkills": [
+          25,
+          26,
+          27
+        ],
+        "minorSkills": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "name": "Oracle fixture",
+        "personality": 50,
+        "primarySkills": [
+          22,
+          23,
+          24
+        ],
+        "rapidHealing": 2,
+        "regeneration": 0,
+        "resistanceFlags": 0,
+        "speed": 50,
+        "spellAbsorptionFlags": 0,
+        "strength": 50,
+        "unknown1": 0,
+        "weaponArmorShieldsBitfield": 0,
+        "willpower": 50
+      },
+      "create_legal": true,
+      "difficulty": 5,
+      "document": {
+        "advantages": [
+          {
+            "primary": "rapidHealing",
+            "secondary": "inLight"
+          },
+          {
+            "primary": "rapidHealing",
+            "secondary": "inDarkness"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [
+          {
+            "primary": "rapidHealing",
+            "secondary": "inLight"
+          },
+          {
+            "primary": "rapidHealing",
+            "secondary": "inDarkness"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            "Destruction",
+            "Restoration",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": []
+      },
+      "label": "order_light_dark",
+      "magicka_multiplier": 0.5,
+      "parsed": {
+        "ok": true,
+        "skipped": [],
+        "value": {
+          "advantages": [
+            {
+              "difficulty": 2,
+              "primary": "rapidHealing",
+              "secondary": "inLight"
+            },
+            {
+              "difficulty": 3,
+              "primary": "rapidHealing",
+              "secondary": "inDarkness"
+            }
+          ],
+          "disadvantages": [],
+          "hp": 8,
+          "name": "Oracle fixture",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": 1
+    },
+    {
+      "advancement": 1.1826923076923077,
+      "career": {
+        "abilityFlagsAndSpellPointsBitfield": 5120,
+        "advancementMultiplier": 1.1826923076923077,
+        "agility": 50,
+        "attackModifierFlags": 0,
+        "criticalWeaknessFlags": 0,
+        "endurance": 50,
+        "forbiddenMaterialsFlags": 0,
+        "hitPointsPerLevel": 8,
+        "immunityFlags": 0,
+        "intelligence": 50,
+        "lowToleranceFlags": 0,
+        "luck": 50,
+        "majorSkills": [
+          25,
+          26,
+          27
+        ],
+        "minorSkills": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "name": "Oracle fixture",
+        "personality": 50,
+        "primarySkills": [
+          22,
+          23,
+          24
+        ],
+        "rapidHealing": 1,
+        "regeneration": 0,
+        "resistanceFlags": 0,
+        "speed": 50,
+        "spellAbsorptionFlags": 0,
+        "strength": 50,
+        "unknown1": 0,
+        "weaponArmorShieldsBitfield": 0,
+        "willpower": 50
+      },
+      "create_legal": true,
+      "difficulty": 5,
+      "document": {
+        "advantages": [
+          {
+            "primary": "rapidHealing",
+            "secondary": "inDarkness"
+          },
+          {
+            "primary": "rapidHealing",
+            "secondary": "inLight"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [
+          {
+            "primary": "rapidHealing",
+            "secondary": "inDarkness"
+          },
+          {
+            "primary": "rapidHealing",
+            "secondary": "inLight"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            "Destruction",
+            "Restoration",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": []
+      },
+      "label": "order_dark_light",
+      "magicka_multiplier": 0.5,
+      "parsed": {
+        "ok": true,
+        "skipped": [],
+        "value": {
+          "advantages": [
+            {
+              "difficulty": 3,
+              "primary": "rapidHealing",
+              "secondary": "inDarkness"
+            },
+            {
+              "difficulty": 2,
+              "primary": "rapidHealing",
+              "secondary": "inLight"
+            }
+          ],
+          "disadvantages": [],
+          "hp": 8,
+          "name": "Oracle fixture",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": 1
+    },
+    {
+      "advancement": 1.9615384615384617,
+      "career": {
+        "abilityFlagsAndSpellPointsBitfield": 5120,
+        "advancementMultiplier": 1.9615384615384617,
+        "agility": 50,
+        "attackModifierFlags": 0,
+        "criticalWeaknessFlags": 0,
+        "endurance": 50,
+        "forbiddenMaterialsFlags": 0,
+        "hitPointsPerLevel": 8,
+        "immunityFlags": 0,
+        "intelligence": 50,
+        "lowToleranceFlags": 0,
+        "luck": 50,
+        "majorSkills": [
+          25,
+          26,
+          27
+        ],
+        "minorSkills": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "name": "Oracle fixture",
+        "personality": 50,
+        "primarySkills": [
+          22,
+          23,
+          24
+        ],
+        "rapidHealing": 0,
+        "regeneration": 0,
+        "resistanceFlags": 0,
+        "speed": 50,
+        "spellAbsorptionFlags": 2,
+        "strength": 50,
+        "unknown1": 0,
+        "weaponArmorShieldsBitfield": 0,
+        "willpower": 50
+      },
+      "create_legal": true,
+      "difficulty": 20,
+      "document": {
+        "advantages": [
+          {
+            "primary": "spellAbsorption",
+            "secondary": "inLight"
+          },
+          {
+            "primary": "spellAbsorption",
+            "secondary": "inDarkness"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [
+          {
+            "primary": "spellAbsorption",
+            "secondary": "inLight"
+          },
+          {
+            "primary": "spellAbsorption",
+            "secondary": "inDarkness"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            "Destruction",
+            "Restoration",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": []
+      },
+      "label": "absorption_light_dark",
+      "magicka_multiplier": 0.5,
+      "parsed": {
+        "ok": true,
+        "skipped": [],
+        "value": {
+          "advantages": [
+            {
+              "difficulty": 8,
+              "primary": "spellAbsorption",
+              "secondary": "inLight"
+            },
+            {
+              "difficulty": 12,
+              "primary": "spellAbsorption",
+              "secondary": "inDarkness"
+            }
+          ],
+          "disadvantages": [],
+          "hp": 8,
+          "name": "Oracle fixture",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": 1
+    },
+    {
+      "advancement": 1.9615384615384617,
+      "career": {
+        "abilityFlagsAndSpellPointsBitfield": 5120,
+        "advancementMultiplier": 1.9615384615384617,
+        "agility": 50,
+        "attackModifierFlags": 0,
+        "criticalWeaknessFlags": 0,
+        "endurance": 50,
+        "forbiddenMaterialsFlags": 0,
+        "hitPointsPerLevel": 8,
+        "immunityFlags": 0,
+        "intelligence": 50,
+        "lowToleranceFlags": 0,
+        "luck": 50,
+        "majorSkills": [
+          25,
+          26,
+          27
+        ],
+        "minorSkills": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "name": "Oracle fixture",
+        "personality": 50,
+        "primarySkills": [
+          22,
+          23,
+          24
+        ],
+        "rapidHealing": 0,
+        "regeneration": 0,
+        "resistanceFlags": 0,
+        "speed": 50,
+        "spellAbsorptionFlags": 1,
+        "strength": 50,
+        "unknown1": 0,
+        "weaponArmorShieldsBitfield": 0,
+        "willpower": 50
+      },
+      "create_legal": true,
+      "difficulty": 20,
+      "document": {
+        "advantages": [
+          {
+            "primary": "spellAbsorption",
+            "secondary": "inDarkness"
+          },
+          {
+            "primary": "spellAbsorption",
+            "secondary": "inLight"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [
+          {
+            "primary": "spellAbsorption",
+            "secondary": "inDarkness"
+          },
+          {
+            "primary": "spellAbsorption",
+            "secondary": "inLight"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            "Destruction",
+            "Restoration",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": []
+      },
+      "label": "absorption_dark_light",
+      "magicka_multiplier": 0.5,
+      "parsed": {
+        "ok": true,
+        "skipped": [],
+        "value": {
+          "advantages": [
+            {
+              "difficulty": 12,
+              "primary": "spellAbsorption",
+              "secondary": "inDarkness"
+            },
+            {
+              "difficulty": 8,
+              "primary": "spellAbsorption",
+              "secondary": "inLight"
+            }
+          ],
+          "disadvantages": [],
+          "hp": 8,
+          "name": "Oracle fixture",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": 1
+    },
+    {
+      "advancement": 1.5461538461538464,
+      "career": {
+        "abilityFlagsAndSpellPointsBitfield": 5120,
+        "advancementMultiplier": 1.5461538461538464,
+        "agility": 50,
+        "attackModifierFlags": 0,
+        "criticalWeaknessFlags": 0,
+        "endurance": 50,
+        "forbiddenMaterialsFlags": 0,
+        "hitPointsPerLevel": 8,
+        "immunityFlags": 0,
+        "intelligence": 50,
+        "lowToleranceFlags": 0,
+        "luck": 50,
+        "majorSkills": [
+          25,
+          26,
+          27
+        ],
+        "minorSkills": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "name": "Oracle fixture",
+        "personality": 50,
+        "primarySkills": [
+          22,
+          23,
+          24
+        ],
+        "rapidHealing": 0,
+        "regeneration": 4,
+        "resistanceFlags": 0,
+        "speed": 50,
+        "spellAbsorptionFlags": 0,
+        "strength": 50,
+        "unknown1": 0,
+        "weaponArmorShieldsBitfield": 0,
+        "willpower": 50
+      },
+      "create_legal": true,
+      "difficulty": 12,
+      "document": {
+        "advantages": [
+          {
+            "primary": "regenerateHealth",
+            "secondary": "inDarkness"
+          },
+          {
+            "primary": "regenerateHealth",
+            "secondary": "whileImmersed"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [
+          {
+            "primary": "regenerateHealth",
+            "secondary": "inDarkness"
+          },
+          {
+            "primary": "regenerateHealth",
+            "secondary": "whileImmersed"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            "Destruction",
+            "Restoration",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": []
+      },
+      "label": "regeneration_dark_immersed",
+      "magicka_multiplier": 0.5,
+      "parsed": {
+        "ok": true,
+        "skipped": [],
+        "value": {
+          "advantages": [
+            {
+              "difficulty": 10,
+              "primary": "regenerateHealth",
+              "secondary": "inDarkness"
+            },
+            {
+              "difficulty": 2,
+              "primary": "regenerateHealth",
+              "secondary": "whileImmersed"
+            }
+          ],
+          "disadvantages": [],
+          "hp": 8,
+          "name": "Oracle fixture",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": 1
+    },
+    {
+      "advancement": 1.5461538461538464,
+      "career": {
+        "abilityFlagsAndSpellPointsBitfield": 5120,
+        "advancementMultiplier": 1.5461538461538464,
+        "agility": 50,
+        "attackModifierFlags": 0,
+        "criticalWeaknessFlags": 0,
+        "endurance": 50,
+        "forbiddenMaterialsFlags": 0,
+        "hitPointsPerLevel": 8,
+        "immunityFlags": 0,
+        "intelligence": 50,
+        "lowToleranceFlags": 0,
+        "luck": 50,
+        "majorSkills": [
+          25,
+          26,
+          27
+        ],
+        "minorSkills": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "name": "Oracle fixture",
+        "personality": 50,
+        "primarySkills": [
+          22,
+          23,
+          24
+        ],
+        "rapidHealing": 0,
+        "regeneration": 2,
+        "resistanceFlags": 0,
+        "speed": 50,
+        "spellAbsorptionFlags": 0,
+        "strength": 50,
+        "unknown1": 0,
+        "weaponArmorShieldsBitfield": 0,
+        "willpower": 50
+      },
+      "create_legal": true,
+      "difficulty": 12,
+      "document": {
+        "advantages": [
+          {
+            "primary": "regenerateHealth",
+            "secondary": "whileImmersed"
+          },
+          {
+            "primary": "regenerateHealth",
+            "secondary": "inDarkness"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [
+          {
+            "primary": "regenerateHealth",
+            "secondary": "whileImmersed"
+          },
+          {
+            "primary": "regenerateHealth",
+            "secondary": "inDarkness"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            "Destruction",
+            "Restoration",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": []
+      },
+      "label": "regeneration_immersed_dark",
+      "magicka_multiplier": 0.5,
+      "parsed": {
+        "ok": true,
+        "skipped": [],
+        "value": {
+          "advantages": [
+            {
+              "difficulty": 2,
+              "primary": "regenerateHealth",
+              "secondary": "whileImmersed"
+            },
+            {
+              "difficulty": 10,
+              "primary": "regenerateHealth",
+              "secondary": "inDarkness"
+            }
+          ],
+          "disadvantages": [],
+          "hp": 8,
+          "name": "Oracle fixture",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": 1
+    },
+    {
+      "advancement": 1.1826923076923077,
+      "career": {
+        "abilityFlagsAndSpellPointsBitfield": 5120,
+        "advancementMultiplier": 1.1826923076923077,
+        "agility": 50,
+        "attackModifierFlags": 0,
+        "criticalWeaknessFlags": 0,
+        "endurance": 50,
+        "forbiddenMaterialsFlags": 0,
+        "hitPointsPerLevel": 8,
+        "immunityFlags": 8,
+        "intelligence": 50,
+        "lowToleranceFlags": 16,
+        "luck": 50,
+        "majorSkills": [
+          25,
+          26,
+          27
+        ],
+        "minorSkills": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "name": "Oracle fixture",
+        "personality": 50,
+        "primarySkills": [
+          22,
+          23,
+          24
+        ],
+        "rapidHealing": 0,
+        "regeneration": 0,
+        "resistanceFlags": 0,
+        "speed": 50,
+        "spellAbsorptionFlags": 0,
+        "strength": 50,
+        "unknown1": 0,
+        "weaponArmorShieldsBitfield": 0,
+        "willpower": 50
+      },
+      "create_legal": true,
+      "difficulty": 5,
+      "document": {
+        "advantages": [
+          {
+            "primary": "immunity",
+            "secondary": "toFire"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [
+          {
+            "primary": "lowTolerance",
+            "secondary": "toFire"
+          },
+          {
+            "primary": "lowTolerance",
+            "secondary": "toFrost"
+          }
+        ],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [
+          {
+            "primary": "immunity",
+            "secondary": "toFire"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [
+          {
+            "primary": "lowTolerance",
+            "secondary": "toFrost"
+          }
+        ],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            "Destruction",
+            "Restoration",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": [
+          {
+            "primary": "lowTolerance",
+            "secondary": "toFire"
+          }
+        ]
+      },
+      "label": "conflict_skip",
+      "magicka_multiplier": 0.5,
+      "parsed": {
+        "ok": true,
+        "skipped": [
+          {
+            "primary": "lowTolerance",
+            "secondary": "toFire"
+          }
+        ],
+        "value": {
+          "advantages": [
+            {
+              "difficulty": 10,
+              "primary": "immunity",
+              "secondary": "toFire"
+            }
+          ],
+          "disadvantages": [
+            {
+              "difficulty": -5,
+              "primary": "lowTolerance",
+              "secondary": "toFrost"
+            }
+          ],
+          "hp": 8,
+          "name": "Oracle fixture",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": 1
+    },
+    {
+      "advancement": -1.153846153846154,
+      "career": null,
+      "create_legal": false,
+      "difficulty": -40,
+      "document": {
+        "advantages": [],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "iron"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "steel"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "silver"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "elven"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "ebony"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "dwarven"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "daedric"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "orcish"
+          }
+        ],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "iron"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "steel"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "silver"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "elven"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "ebony"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "dwarven"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "daedric"
+          }
+        ],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            "Destruction",
+            "Restoration",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": [
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "orcish"
+          }
+        ]
+      },
+      "label": "seven_per_window",
+      "magicka_multiplier": null,
+      "parsed": {
+        "ok": true,
+        "skipped": [
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "orcish"
+          }
+        ],
+        "value": {
+          "advantages": [],
+          "disadvantages": [
+            {
+              "difficulty": -1,
+              "primary": "forbiddenMaterial",
+              "secondary": "iron"
+            },
+            {
+              "difficulty": -10,
+              "primary": "forbiddenMaterial",
+              "secondary": "steel"
+            },
+            {
+              "difficulty": -6,
+              "primary": "forbiddenMaterial",
+              "secondary": "silver"
+            },
+            {
+              "difficulty": -9,
+              "primary": "forbiddenMaterial",
+              "secondary": "elven"
+            },
+            {
+              "difficulty": -5,
+              "primary": "forbiddenMaterial",
+              "secondary": "ebony"
+            },
+            {
+              "difficulty": -7,
+              "primary": "forbiddenMaterial",
+              "secondary": "dwarven"
+            },
+            {
+              "difficulty": -2,
+              "primary": "forbiddenMaterial",
+              "secondary": "daedric"
+            }
+          ],
+          "hp": 8,
+          "name": "Oracle fixture",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": null
+    },
+    {
+      "advancement": 1.4423076923076925,
+      "career": {
+        "abilityFlagsAndSpellPointsBitfield": 0,
+        "advancementMultiplier": 1.4423076923076925,
+        "agility": 50,
+        "attackModifierFlags": 0,
+        "criticalWeaknessFlags": 0,
+        "endurance": 50,
+        "forbiddenMaterialsFlags": 0,
+        "hitPointsPerLevel": 8,
+        "immunityFlags": 0,
+        "intelligence": 50,
+        "lowToleranceFlags": 0,
+        "luck": 50,
+        "majorSkills": [
+          25,
+          26,
+          27
+        ],
+        "minorSkills": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "name": "Oracle fixture",
+        "personality": 50,
+        "primarySkills": [
+          22,
+          23,
+          24
+        ],
+        "rapidHealing": 0,
+        "regeneration": 0,
+        "resistanceFlags": 0,
+        "speed": 50,
+        "spellAbsorptionFlags": 0,
+        "strength": 50,
+        "unknown1": 0,
+        "weaponArmorShieldsBitfield": 0,
+        "willpower": 50
+      },
+      "create_legal": true,
+      "difficulty": 10,
+      "document": {
+        "advantages": [
+          {
+            "primary": "increasedMagery",
+            "secondary": "intInSpellPoints3"
+          },
+          {
+            "primary": "increasedMagery",
+            "secondary": "intInSpellPoints2"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [
+          {
+            "primary": "increasedMagery",
+            "secondary": "intInSpellPoints3"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            "Destruction",
+            "Restoration",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": [
+          {
+            "primary": "increasedMagery",
+            "secondary": "intInSpellPoints2"
+          }
+        ]
+      },
+      "label": "magery_unique",
+      "magicka_multiplier": 3,
+      "parsed": {
+        "ok": true,
+        "skipped": [
+          {
+            "primary": "increasedMagery",
+            "secondary": "intInSpellPoints2"
+          }
+        ],
+        "value": {
+          "advantages": [
+            {
+              "difficulty": 10,
+              "primary": "increasedMagery",
+              "secondary": "intInSpellPoints3"
+            }
+          ],
+          "disadvantages": [],
+          "hp": 8,
+          "name": "Oracle fixture",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": 1
+    },
+    {
+      "advancement": 0.9230769230769231,
+      "career": null,
+      "create_legal": false,
+      "difficulty": 0,
+      "document": {
+        "advantages": [],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": " \u0001",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            "Destruction",
+            "Restoration",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": []
+      },
+      "label": "draft_name",
+      "magicka_multiplier": null,
+      "parsed": {
+        "ok": true,
+        "skipped": [],
+        "value": {
+          "advantages": [],
+          "disadvantages": [],
+          "hp": 8,
+          "name": "",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": null
+    },
+    {
+      "advancement": 0.9230769230769231,
+      "career": {
+        "abilityFlagsAndSpellPointsBitfield": 5120,
+        "advancementMultiplier": 0.9230769230769231,
+        "agility": 50,
+        "attackModifierFlags": 0,
+        "criticalWeaknessFlags": 0,
+        "endurance": 50,
+        "forbiddenMaterialsFlags": 0,
+        "hitPointsPerLevel": 8,
+        "immunityFlags": 0,
+        "intelligence": 50,
+        "lowToleranceFlags": 0,
+        "luck": 50,
+        "majorSkills": [
+          25,
+          26,
+          27
+        ],
+        "minorSkills": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "name": "X X X X X X X X X X X X X X X X",
+        "personality": 50,
+        "primarySkills": [
+          22,
+          23,
+          24
+        ],
+        "rapidHealing": 0,
+        "regeneration": 0,
+        "resistanceFlags": 0,
+        "speed": 50,
+        "spellAbsorptionFlags": 0,
+        "strength": 50,
+        "unknown1": 0,
+        "weaponArmorShieldsBitfield": 0,
+        "willpower": 50
+      },
+      "create_legal": true,
+      "difficulty": 0,
+      "document": {
+        "advantages": [],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": " X X X X X X X X X X X X X X X X X X X X",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "X X X X X X X X X X X X X X X X",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            "Destruction",
+            "Restoration",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": []
+      },
+      "label": "long_name",
+      "magicka_multiplier": 0.5,
+      "parsed": {
+        "ok": true,
+        "skipped": [],
+        "value": {
+          "advantages": [],
+          "disadvantages": [],
+          "hp": 8,
+          "name": "X X X X X X X X X X X X X X X X X X X X",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": 1
+    },
+    {
+      "advancement": 0.9230769230769231,
+      "career": null,
+      "create_legal": false,
+      "difficulty": 0,
+      "document": {
+        "advantages": [],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            null,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            null,
+            "Restoration",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": []
+      },
+      "label": "missing_skill",
+      "magicka_multiplier": null,
+      "parsed": {
+        "ok": true,
+        "skipped": [],
+        "value": {
+          "advantages": [],
+          "disadvantages": [],
+          "hp": 8,
+          "name": "Oracle fixture",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            null,
+            23,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": null
+    },
+    {
+      "advancement": null,
+      "career": null,
+      "create_legal": false,
+      "difficulty": null,
+      "document": {
+        "advantages": [],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            23
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": null,
+      "imported": {
+        "error": "A skill can only be chosen once.",
+        "ok": false
+      },
+      "label": "duplicate_skill",
+      "parsed": {
+        "error": "A skill can only be chosen once.",
+        "ok": false
+      }
+    },
+    {
+      "advancement": 0.9230769230769231,
+      "career": {
+        "abilityFlagsAndSpellPointsBitfield": 5120,
+        "advancementMultiplier": 0.9230769230769231,
+        "agility": 50,
+        "attackModifierFlags": 0,
+        "criticalWeaknessFlags": 0,
+        "endurance": 50,
+        "forbiddenMaterialsFlags": 0,
+        "hitPointsPerLevel": 8,
+        "immunityFlags": 0,
+        "intelligence": 50,
+        "lowToleranceFlags": 0,
+        "luck": 50,
+        "majorSkills": [
+          25,
+          26,
+          27
+        ],
+        "minorSkills": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "name": "Oracle fixture",
+        "personality": 50,
+        "primarySkills": [
+          22,
+          30,
+          24
+        ],
+        "rapidHealing": 0,
+        "regeneration": 0,
+        "resistanceFlags": 0,
+        "speed": 50,
+        "spellAbsorptionFlags": 0,
+        "strength": 50,
+        "unknown1": 0,
+        "weaponArmorShieldsBitfield": 0,
+        "willpower": 50
+      },
+      "create_legal": true,
+      "difficulty": 0,
+      "document": {
+        "advantages": [],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            "destruction",
+            "Hand-to-Hand",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            "Destruction",
+            "Hand-to-Hand",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": []
+      },
+      "label": "display_names",
+      "magicka_multiplier": 0.5,
+      "parsed": {
+        "ok": true,
+        "skipped": [],
+        "value": {
+          "advantages": [],
+          "disadvantages": [],
+          "hp": 8,
+          "name": "Oracle fixture",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            22,
+            30,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": 1
+    },
+    {
+      "advancement": 0.9230769230769231,
+      "career": null,
+      "create_legal": false,
+      "difficulty": 0,
+      "document": {
+        "advantages": [],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 51,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 51,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            "Destruction",
+            "Restoration",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": []
+      },
+      "label": "unbalanced_pool",
+      "magicka_multiplier": null,
+      "parsed": {
+        "ok": true,
+        "skipped": [],
+        "value": {
+          "advantages": [],
+          "disadvantages": [],
+          "hp": 8,
+          "name": "Oracle fixture",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 51,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": null
+    },
+    {
+      "advancement": 0.9230769230769231,
+      "career": {
+        "abilityFlagsAndSpellPointsBitfield": 5120,
+        "advancementMultiplier": 0.9230769230769231,
+        "agility": 50,
+        "attackModifierFlags": 0,
+        "criticalWeaknessFlags": 0,
+        "endurance": 50,
+        "forbiddenMaterialsFlags": 0,
+        "hitPointsPerLevel": 8,
+        "immunityFlags": 0,
+        "intelligence": 50,
+        "lowToleranceFlags": 0,
+        "luck": 50,
+        "majorSkills": [
+          25,
+          26,
+          27
+        ],
+        "minorSkills": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "name": "Oracle fixture",
+        "personality": 50,
+        "primarySkills": [
+          22,
+          23,
+          24
+        ],
+        "rapidHealing": 0,
+        "regeneration": 0,
+        "resistanceFlags": 0,
+        "speed": 50,
+        "spellAbsorptionFlags": 0,
+        "strength": 50,
+        "unknown1": 0,
+        "weaponArmorShieldsBitfield": 0,
+        "willpower": 50
+      },
+      "create_legal": true,
+      "difficulty": 0,
+      "document": {
+        "advantages": [],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {
+          "peasants": 2
+        },
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 2,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            "Destruction",
+            "Restoration",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": []
+      },
+      "label": "rep_unbalanced",
+      "magicka_multiplier": 0.5,
+      "parsed": {
+        "ok": true,
+        "skipped": [],
+        "value": {
+          "advantages": [],
+          "disadvantages": [],
+          "hp": 8,
+          "name": "Oracle fixture",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 2,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": 1
+    },
+    {
+      "advancement": 0.19615384615384612,
+      "career": null,
+      "create_legal": false,
+      "difficulty": -14,
+      "document": {
+        "advantages": [],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [
+          {
+            "primary": "criticalWeakness",
+            "secondary": "toFire"
+          }
+        ],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [
+          {
+            "primary": "criticalWeakness",
+            "secondary": "toFire"
+          }
+        ],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            "Destruction",
+            "Restoration",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": []
+      },
+      "label": "illegal_below_floor",
+      "magicka_multiplier": null,
+      "parsed": {
+        "ok": true,
+        "skipped": [],
+        "value": {
+          "advantages": [],
+          "disadvantages": [
+            {
+              "difficulty": -14,
+              "primary": "criticalWeakness",
+              "secondary": "toFire"
+            }
+          ],
+          "hp": 8,
+          "name": "Oracle fixture",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": null
+    },
+    {
+      "advancement": 3.3115384615384618,
+      "career": null,
+      "create_legal": false,
+      "difficulty": 46,
+      "document": {
+        "advantages": [
+          {
+            "primary": "spellAbsorption",
+            "secondary": "general"
+          },
+          {
+            "primary": "increasedMagery",
+            "secondary": "intInSpellPoints3"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 30,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [
+          {
+            "primary": "spellAbsorption",
+            "secondary": "general"
+          },
+          {
+            "primary": "increasedMagery",
+            "secondary": "intInSpellPoints3"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 30,
+        "name": "Oracle fixture",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            "Destruction",
+            "Restoration",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": []
+      },
+      "label": "illegal_above_ceiling",
+      "magicka_multiplier": null,
+      "parsed": {
+        "ok": true,
+        "skipped": [],
+        "value": {
+          "advantages": [
+            {
+              "difficulty": 14,
+              "primary": "spellAbsorption",
+              "secondary": "general"
+            },
+            {
+              "difficulty": 10,
+              "primary": "increasedMagery",
+              "secondary": "intInSpellPoints3"
+            }
+          ],
+          "disadvantages": [],
+          "hp": 30,
+          "name": "Oracle fixture",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": null
+    },
+    {
+      "advancement": 0.9230769230769231,
+      "career": {
+        "abilityFlagsAndSpellPointsBitfield": 5120,
+        "advancementMultiplier": 0.9230769230769231,
+        "agility": 50,
+        "attackModifierFlags": 0,
+        "criticalWeaknessFlags": 0,
+        "endurance": 50,
+        "forbiddenMaterialsFlags": 0,
+        "hitPointsPerLevel": 8,
+        "immunityFlags": 0,
+        "intelligence": 50,
+        "lowToleranceFlags": 0,
+        "luck": 50,
+        "majorSkills": [
+          25,
+          26,
+          27
+        ],
+        "minorSkills": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "name": "Oracle fixture",
+        "personality": 50,
+        "primarySkills": [
+          22,
+          23,
+          24
+        ],
+        "rapidHealing": 0,
+        "regeneration": 0,
+        "resistanceFlags": 0,
+        "speed": 50,
+        "spellAbsorptionFlags": 0,
+        "strength": 50,
+        "unknown1": 0,
+        "weaponArmorShieldsBitfield": 0,
+        "willpower": 50
+      },
+      "create_legal": true,
+      "difficulty": 0,
+      "document": {
+        "advantages": [
+          {
+            "primary": "fictional"
+          }
+        ],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": {
+        "advantages": [],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "daggerfall-enhanced/custom-class",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {
+          "merchants": 0,
+          "nobility": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "underworld": 0
+        },
+        "skills": {
+          "major": [
+            "Alteration",
+            "Thaumaturgy",
+            "Mysticism"
+          ],
+          "minor": [
+            "Medical",
+            "Etiquette",
+            "Streetwise",
+            "Jumping",
+            "Orcish",
+            "Harpy"
+          ],
+          "primary": [
+            "Destruction",
+            "Restoration",
+            "Illusion"
+          ]
+        },
+        "version": 1
+      },
+      "imported": {
+        "ok": true,
+        "skipped": [
+          {
+            "primary": "fictional"
+          }
+        ]
+      },
+      "label": "unknown_pick",
+      "magicka_multiplier": 0.5,
+      "parsed": {
+        "ok": true,
+        "skipped": [
+          {
+            "primary": "fictional"
+          }
+        ],
+        "value": {
+          "advantages": [],
+          "disadvantages": [],
+          "hp": 8,
+          "name": "Oracle fixture",
+          "reps": {
+            "merchants": 0,
+            "nobility": 0,
+            "peasants": 0,
+            "scholars": 0,
+            "underworld": 0
+          },
+          "skills": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "stats": {
+            "agility": 50,
+            "endurance": 50,
+            "intelligence": 50,
+            "luck": 50,
+            "personality": 50,
+            "speed": 50,
+            "strength": 50,
+            "willpower": 50
+          }
+        }
+      },
+      "starting_spell_set_index": 1
+    },
+    {
+      "advancement": null,
+      "career": null,
+      "create_legal": false,
+      "difficulty": null,
+      "document": {
+        "advantages": [],
+        "attributes": {
+          "agility": 50,
+          "endurance": 50,
+          "intelligence": 50,
+          "luck": 50,
+          "personality": 50,
+          "speed": 50,
+          "strength": 50,
+          "willpower": 50
+        },
+        "disadvantages": [],
+        "format": "wrong",
+        "hitPointsPerLevel": 8,
+        "name": "Oracle fixture",
+        "reputations": {},
+        "skills": {
+          "major": [
+            25,
+            26,
+            27
+          ],
+          "minor": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "primary": [
+            22,
+            23,
+            24
+          ]
+        },
+        "version": 1
+      },
+      "expected_document": null,
+      "imported": {
+        "error": "That is not a DFO Online class file.",
+        "ok": false
+      },
+      "label": "missing_tag",
+      "parsed": {
+        "error": "That is not a DFO Online class file.",
+        "ok": false
+      }
+    }
+  ],
+  "mode": "online_snapshot",
+  "numeric": [
+    {
+      "advancement": 0.5076923076923077,
+      "advantage": 0,
+      "difficulty": -8,
+      "disadvantage": 0,
+      "hp": 4
+    },
+    {
+      "advancement": -1.2576923076923077,
+      "advantage": 10,
+      "difficulty": -42,
+      "disadvantage": -44,
+      "hp": 4
+    },
+    {
+      "advancement": 1.026923076923077,
+      "advantage": 20,
+      "difficulty": 2,
+      "disadvantage": -10,
+      "hp": 4
+    },
+    {
+      "advancement": 0.4557692307692308,
+      "advantage": 8,
+      "difficulty": -9,
+      "disadvantage": -9,
+      "hp": 4
+    },
+    {
+      "advancement": 1.805769230769231,
+      "advantage": 32,
+      "difficulty": 17,
+      "disadvantage": -7,
+      "hp": 4
+    },
+    {
+      "advancement": 0.8192307692307692,
+      "advantage": 0,
+      "difficulty": -2,
+      "disadvantage": 0,
+      "hp": 7
+    },
+    {
+      "advancement": -0.9461538461538463,
+      "advantage": 10,
+      "difficulty": -36,
+      "disadvantage": -44,
+      "hp": 7
+    },
+    {
+      "advancement": 1.3384615384615386,
+      "advantage": 20,
+      "difficulty": 8,
+      "disadvantage": -10,
+      "hp": 7
+    },
+    {
+      "advancement": 0.7673076923076922,
+      "advantage": 8,
+      "difficulty": -3,
+      "disadvantage": -9,
+      "hp": 7
+    },
+    {
+      "advancement": 2.1173076923076923,
+      "advantage": 32,
+      "difficulty": 23,
+      "disadvantage": -7,
+      "hp": 7
+    },
+    {
+      "advancement": 0.9230769230769231,
+      "advantage": 0,
+      "difficulty": 0,
+      "disadvantage": 0,
+      "hp": 8
+    },
+    {
+      "advancement": -0.8423076923076924,
+      "advantage": 10,
+      "difficulty": -34,
+      "disadvantage": -44,
+      "hp": 8
+    },
+    {
+      "advancement": 1.4423076923076925,
+      "advantage": 20,
+      "difficulty": 10,
+      "disadvantage": -10,
+      "hp": 8
+    },
+    {
+      "advancement": 0.8711538461538462,
+      "advantage": 8,
+      "difficulty": -1,
+      "disadvantage": -9,
+      "hp": 8
+    },
+    {
+      "advancement": 2.2211538461538463,
+      "advantage": 32,
+      "difficulty": 25,
+      "disadvantage": -7,
+      "hp": 8
+    },
+    {
+      "advancement": 0.9750000000000001,
+      "advantage": 0,
+      "difficulty": 1,
+      "disadvantage": 0,
+      "hp": 9
+    },
+    {
+      "advancement": -0.7903846153846155,
+      "advantage": 10,
+      "difficulty": -33,
+      "disadvantage": -44,
+      "hp": 9
+    },
+    {
+      "advancement": 1.4942307692307693,
+      "advantage": 20,
+      "difficulty": 11,
+      "disadvantage": -10,
+      "hp": 9
+    },
+    {
+      "advancement": 0.9230769230769231,
+      "advantage": 8,
+      "difficulty": 0,
+      "disadvantage": -9,
+      "hp": 9
+    },
+    {
+      "advancement": 2.273076923076923,
+      "advantage": 32,
+      "difficulty": 26,
+      "disadvantage": -7,
+      "hp": 9
+    },
+    {
+      "advancement": 2.0653846153846156,
+      "advantage": 0,
+      "difficulty": 22,
+      "disadvantage": 0,
+      "hp": 30
+    },
+    {
+      "advancement": 0.3,
+      "advantage": 10,
+      "difficulty": -12,
+      "disadvantage": -44,
+      "hp": 30
+    },
+    {
+      "advancement": 2.5846153846153848,
+      "advantage": 20,
+      "difficulty": 32,
+      "disadvantage": -10,
+      "hp": 30
+    },
+    {
+      "advancement": 2.0134615384615384,
+      "advantage": 8,
+      "difficulty": 21,
+      "disadvantage": -9,
+      "hp": 30
+    },
+    {
+      "advancement": 3.3634615384615385,
+      "advantage": 32,
+      "difficulty": 47,
+      "disadvantage": -7,
+      "hp": 30
+    }
+  ],
+  "source": [
+    "src/ui/chargen.js#ChargenFlow.customImport",
+    "src/ui/chargen.js#ChargenFlow.customExit",
+    "src/systems/customClass.js#customClassDoc",
+    "src/systems/customClass.js#difficultyPoints"
+  ],
+  "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+  "stubs": [
+    "Empty standard-career list and deterministic zero RNG. Biography, standard-class affinity and random starting rolls are outside these vectors."
+  ]
+}

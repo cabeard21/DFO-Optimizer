@@ -1,0 +1,2189 @@
+{
+  "career_defaults": {
+    "abilityFlagsAndSpellPointsBitfield": 5120,
+    "attackModifierFlags": 0,
+    "criticalWeaknessFlags": 0,
+    "forbiddenMaterialsFlags": 0,
+    "immunityFlags": 0,
+    "lowToleranceFlags": 0,
+    "rapidHealing": 0,
+    "regeneration": 0,
+    "resistanceFlags": 0,
+    "spellAbsorptionFlags": 0,
+    "unknown1": 0,
+    "weaponArmorShieldsBitfield": 0
+  },
+  "content_hash": "293f927a36e9bdbc9504e8ed3f16582e326c9bcc5f7a8b84a241a81ae069a27d",
+  "engine_version": "class-v1",
+  "extraction_version": 1,
+  "limits": {
+    "difficulty_max": 40,
+    "difficulty_min": -12,
+    "hp_max": 30,
+    "hp_min": 4,
+    "max_picks": 7,
+    "rep_max": 10,
+    "stat_max": 75,
+    "stat_min": 10,
+    "stat_total": 400
+  },
+  "mechanics": [
+    {
+      "assumptions": [],
+      "implementation_status": "class_construction",
+      "limits": "Decodes the career bitfield. Actual rolled starting INT and spell-point recovery are separate mechanics.",
+      "live_verified": false,
+      "mechanic_id": "class.magicka_multiplier",
+      "mode": "online_snapshot",
+      "path": "src/systems/chargen.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "spellPointMultiplier",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "class_construction",
+      "limits": "Class HP and signed accepted picks, inclusive Create bounds.",
+      "live_verified": false,
+      "mechanic_id": "class.difficulty",
+      "mode": "online_snapshot",
+      "path": "src/systems/customClass.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "difficultyPoints, advancementMultiplier",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "class_construction",
+      "limits": "Class HP setting only.",
+      "live_verified": false,
+      "mechanic_id": "class.hp",
+      "mode": "online_snapshot",
+      "path": "src/systems/customClass.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "HP_MIN, HP_MAX, HP_DEFAULT",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "class_construction",
+      "limits": "Imported stat pool is 400 minus attribute sum. Generated classes use the ordinary balanced ledger. The manual pool reset can permit an overspend.",
+      "live_verified": false,
+      "mechanic_id": "class.attributes",
+      "mode": "online_snapshot",
+      "path": "src/ui/chargen.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "customImport, customSpendStat, customResetBonusPool, customExit",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "class_construction",
+      "limits": "Twelve distinct skills in 3/3/6 groups; null is a draft slot.",
+      "live_verified": false,
+      "mechanic_id": "class.skills",
+      "mode": "online_snapshot",
+      "path": "src/systems/customClass.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "parseCustomClassDoc, buildCustomCareer",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "class_construction",
+      "limits": "English display names and IDs from the snapshot.",
+      "live_verified": false,
+      "mechanic_id": "class.skill_catalog",
+      "mode": "online_snapshot",
+      "path": "src/systems/skills.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "SKILLS, SKILL_NAMES, MAGIC_SKILLS",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "class_construction",
+      "limits": "Seven picks per side; equal secondaries matter for cross-list conflicts.",
+      "live_verified": false,
+      "mechanic_id": "class.traits",
+      "mode": "online_snapshot",
+      "path": "src/systems/specialAdvantages.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "secondaryListFor, advDisAdjustment, cannotAdd, ONLY_ONE_KEYS, MAX_ITEMS",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "class_construction",
+      "limits": "Creation flags only. Healing, absorption and regeneration have order-sensitive assignments.",
+      "live_verified": false,
+      "mechanic_id": "class.career_flags",
+      "mode": "online_snapshot",
+      "path": "src/systems/specialAdvantages.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "parseCareerData",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "class_construction",
+      "limits": "English v1 class document; builder import may skip traits or admit drafts.",
+      "live_verified": false,
+      "mechanic_id": "class.file",
+      "mode": "online_snapshot",
+      "path": "src/systems/customClass.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "customClassDoc, parseCustomClassDoc",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "class_construction",
+      "limits": "Name, completed skills, balanced attribute ledger and difficulty gate on imported state.",
+      "live_verified": false,
+      "mechanic_id": "class.create",
+      "mode": "online_snapshot",
+      "path": "src/ui/chargen.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "customImport, customDifficulty, customExit",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "class_construction",
+      "limits": "Editor requires balanced reputation on close; Create does not independently check it.",
+      "live_verified": false,
+      "mechanic_id": "class.reputations",
+      "mode": "online_snapshot",
+      "path": "src/systems/customClass.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "repPointsToDistribute, REP_MAX",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "class_construction",
+      "limits": "Playable IDs, names and recorded flags. Race is external to a class file.",
+      "live_verified": false,
+      "mechanic_id": "class.races",
+      "mode": "online_snapshot",
+      "path": "src/systems/races.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "RACE_TEMPLATES",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "class_construction",
+      "limits": "A magic primary/major selects the Spellsword starting set. Qualifying for this set does not establish damage.",
+      "live_verified": false,
+      "mechanic_id": "class.start_spell_set",
+      "mode": "online_snapshot",
+      "path": "src/systems/customClass.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "customSpellSetIndex",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "unimplemented",
+      "limits": "Direct damage, saving throws, resistance and immunity outcomes await M2.",
+      "live_verified": false,
+      "mechanic_id": "pve.spell_damage",
+      "mode": "online_snapshot",
+      "path": "src/systems/spellcast.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "effect application",
+      "verification_status": "unsupported"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "unimplemented",
+      "limits": "Online regeneration behavior has no live verification or certified sustain score.",
+      "live_verified": false,
+      "mechanic_id": "pve.sp_recovery",
+      "mode": "online_snapshot",
+      "path": "src/systems/rest/rest.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "online resting",
+      "verification_status": "unsupported"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "unimplemented",
+      "limits": "Phobia combat costs across damage channels remain unscored.",
+      "live_verified": false,
+      "mechanic_id": "pve.phobia",
+      "mode": "online_snapshot",
+      "path": "src/combat/pcaao.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "attack modifiers",
+      "verification_status": "unsupported"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "unimplemented",
+      "limits": "Day-one damage, permanent progression and training reachability require subsequent evaluation.",
+      "live_verified": false,
+      "mechanic_id": "progression.training",
+      "mode": "online_snapshot",
+      "path": "src/systems/skills.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "skill advancement",
+      "verification_status": "unsupported"
+    },
+    {
+      "assumptions": [],
+      "implementation_status": "unimplemented",
+      "limits": "Career flags are preserved. Actual owned or obtainable equipment is unknown.",
+      "live_verified": false,
+      "mechanic_id": "gear.eligibility",
+      "mode": "online_snapshot",
+      "path": "src/systems/equip.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "equipment restrictions",
+      "verification_status": "unsupported"
+    }
+  ],
+  "mode": "online_snapshot",
+  "races": [
+    {
+      "flags": {
+        "criticalWeaknessFlags": 0,
+        "immunityFlags": 0,
+        "lowToleranceFlags": 0,
+        "resistanceFlags": 2,
+        "specialAbilities": 0
+      },
+      "id": 1,
+      "key": "Breton",
+      "name": "Breton"
+    },
+    {
+      "flags": {
+        "criticalWeaknessFlags": 0,
+        "immunityFlags": 0,
+        "lowToleranceFlags": 0,
+        "resistanceFlags": 0,
+        "specialAbilities": 0
+      },
+      "id": 2,
+      "key": "Redguard",
+      "name": "Redguard"
+    },
+    {
+      "flags": {
+        "criticalWeaknessFlags": 0,
+        "immunityFlags": 0,
+        "lowToleranceFlags": 0,
+        "resistanceFlags": 16,
+        "specialAbilities": 0
+      },
+      "id": 3,
+      "key": "Nord",
+      "name": "Nord"
+    },
+    {
+      "flags": {
+        "criticalWeaknessFlags": 0,
+        "immunityFlags": 0,
+        "lowToleranceFlags": 0,
+        "resistanceFlags": 0,
+        "specialAbilities": 0
+      },
+      "id": 4,
+      "key": "DarkElf",
+      "name": "Dark Elf"
+    },
+    {
+      "flags": {
+        "criticalWeaknessFlags": 0,
+        "immunityFlags": 1,
+        "lowToleranceFlags": 0,
+        "resistanceFlags": 0,
+        "specialAbilities": 0
+      },
+      "id": 5,
+      "key": "HighElf",
+      "name": "High Elf"
+    },
+    {
+      "flags": {
+        "criticalWeaknessFlags": 0,
+        "immunityFlags": 0,
+        "lowToleranceFlags": 0,
+        "resistanceFlags": 0,
+        "specialAbilities": 0
+      },
+      "id": 6,
+      "key": "WoodElf",
+      "name": "Wood Elf"
+    },
+    {
+      "flags": {
+        "criticalWeaknessFlags": 0,
+        "immunityFlags": 0,
+        "lowToleranceFlags": 0,
+        "resistanceFlags": 0,
+        "specialAbilities": 0
+      },
+      "id": 7,
+      "key": "Khajiit",
+      "name": "Khajiit"
+    },
+    {
+      "flags": {
+        "criticalWeaknessFlags": 0,
+        "immunityFlags": 0,
+        "lowToleranceFlags": 0,
+        "resistanceFlags": 0,
+        "specialAbilities": 0
+      },
+      "id": 8,
+      "key": "Argonian",
+      "name": "Argonian"
+    }
+  ],
+  "schema_version": 1,
+  "skills": [
+    {
+      "id": 0,
+      "magic": false,
+      "name": "Medical"
+    },
+    {
+      "id": 1,
+      "magic": false,
+      "name": "Etiquette"
+    },
+    {
+      "id": 2,
+      "magic": false,
+      "name": "Streetwise"
+    },
+    {
+      "id": 3,
+      "magic": false,
+      "name": "Jumping"
+    },
+    {
+      "id": 4,
+      "magic": false,
+      "name": "Orcish"
+    },
+    {
+      "id": 5,
+      "magic": false,
+      "name": "Harpy"
+    },
+    {
+      "id": 6,
+      "magic": false,
+      "name": "Giantish"
+    },
+    {
+      "id": 7,
+      "magic": false,
+      "name": "Dragonish"
+    },
+    {
+      "id": 8,
+      "magic": false,
+      "name": "Nymph"
+    },
+    {
+      "id": 9,
+      "magic": false,
+      "name": "Daedric"
+    },
+    {
+      "id": 10,
+      "magic": false,
+      "name": "Spriggan"
+    },
+    {
+      "id": 11,
+      "magic": false,
+      "name": "Centaurian"
+    },
+    {
+      "id": 12,
+      "magic": false,
+      "name": "Impish"
+    },
+    {
+      "id": 13,
+      "magic": false,
+      "name": "Lockpicking"
+    },
+    {
+      "id": 14,
+      "magic": false,
+      "name": "Mercantile"
+    },
+    {
+      "id": 15,
+      "magic": false,
+      "name": "Pickpocket"
+    },
+    {
+      "id": 16,
+      "magic": false,
+      "name": "Stealth"
+    },
+    {
+      "id": 17,
+      "magic": false,
+      "name": "Swimming"
+    },
+    {
+      "id": 18,
+      "magic": false,
+      "name": "Climbing"
+    },
+    {
+      "id": 19,
+      "magic": false,
+      "name": "Backstabbing"
+    },
+    {
+      "id": 20,
+      "magic": false,
+      "name": "Dodging"
+    },
+    {
+      "id": 21,
+      "magic": false,
+      "name": "Running"
+    },
+    {
+      "id": 22,
+      "magic": true,
+      "name": "Destruction"
+    },
+    {
+      "id": 23,
+      "magic": true,
+      "name": "Restoration"
+    },
+    {
+      "id": 24,
+      "magic": true,
+      "name": "Illusion"
+    },
+    {
+      "id": 25,
+      "magic": true,
+      "name": "Alteration"
+    },
+    {
+      "id": 26,
+      "magic": true,
+      "name": "Thaumaturgy"
+    },
+    {
+      "id": 27,
+      "magic": true,
+      "name": "Mysticism"
+    },
+    {
+      "id": 28,
+      "magic": false,
+      "name": "Short Blade"
+    },
+    {
+      "id": 29,
+      "magic": false,
+      "name": "Long Blade"
+    },
+    {
+      "id": 30,
+      "magic": false,
+      "name": "Hand-to-Hand"
+    },
+    {
+      "id": 31,
+      "magic": false,
+      "name": "Axe"
+    },
+    {
+      "id": 32,
+      "magic": false,
+      "name": "Blunt Weapon"
+    },
+    {
+      "id": 33,
+      "magic": false,
+      "name": "Archery"
+    },
+    {
+      "id": 34,
+      "magic": false,
+      "name": "Critical Strike"
+    }
+  ],
+  "snapshot_date": "2026-11-02",
+  "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+  "source_url": "https://github.com/Lattymoy/daggerfall-js-source",
+  "supported_live_version": null,
+  "traits": [
+    {
+      "conflicts": [
+        0
+      ],
+      "cost": 1,
+      "id": 0,
+      "only_one": false,
+      "primary": "acuteHearing",
+      "secondary": "",
+      "side": "advantage",
+      "writes": {
+        "abilityFlagsAndSpellPointsBitfield": {
+          "clear": 0,
+          "set": 1
+        }
+      }
+    },
+    {
+      "conflicts": [
+        1
+      ],
+      "cost": 4,
+      "id": 1,
+      "only_one": false,
+      "primary": "adrenalineRush",
+      "secondary": "",
+      "side": "advantage",
+      "writes": {
+        "abilityFlagsAndSpellPointsBitfield": {
+          "clear": 0,
+          "set": 4
+        }
+      }
+    },
+    {
+      "conflicts": [
+        2
+      ],
+      "cost": 4,
+      "id": 2,
+      "only_one": false,
+      "primary": "athleticism",
+      "secondary": "",
+      "side": "advantage",
+      "writes": {
+        "abilityFlagsAndSpellPointsBitfield": {
+          "clear": 0,
+          "set": 2
+        }
+      }
+    },
+    {
+      "conflicts": [
+        3,
+        86
+      ],
+      "cost": 6,
+      "id": 3,
+      "only_one": false,
+      "primary": "bonusToHit",
+      "secondary": "animals",
+      "side": "advantage",
+      "writes": {
+        "attackModifierFlags": {
+          "clear": 0,
+          "set": 8
+        }
+      }
+    },
+    {
+      "conflicts": [
+        4,
+        87
+      ],
+      "cost": 3,
+      "id": 4,
+      "only_one": false,
+      "primary": "bonusToHit",
+      "secondary": "daedra",
+      "side": "advantage",
+      "writes": {
+        "attackModifierFlags": {
+          "clear": 0,
+          "set": 2
+        }
+      }
+    },
+    {
+      "conflicts": [
+        5,
+        88
+      ],
+      "cost": 6,
+      "id": 5,
+      "only_one": false,
+      "primary": "bonusToHit",
+      "secondary": "humanoid",
+      "side": "advantage",
+      "writes": {
+        "attackModifierFlags": {
+          "clear": 0,
+          "set": 4
+        }
+      }
+    },
+    {
+      "conflicts": [
+        6,
+        89
+      ],
+      "cost": 6,
+      "id": 6,
+      "only_one": false,
+      "primary": "bonusToHit",
+      "secondary": "undead",
+      "side": "advantage",
+      "writes": {
+        "attackModifierFlags": {
+          "clear": 0,
+          "set": 1
+        }
+      }
+    },
+    {
+      "conflicts": [
+        7,
+        70
+      ],
+      "cost": 2,
+      "id": 7,
+      "only_one": false,
+      "primary": "expertiseIn",
+      "secondary": "axe",
+      "side": "advantage",
+      "writes": {
+        "weaponArmorShieldsBitfield": {
+          "clear": 0,
+          "set": 524288
+        }
+      }
+    },
+    {
+      "conflicts": [
+        8,
+        71
+      ],
+      "cost": 2,
+      "id": 8,
+      "only_one": false,
+      "primary": "expertiseIn",
+      "secondary": "bluntWeapon",
+      "side": "advantage",
+      "writes": {
+        "weaponArmorShieldsBitfield": {
+          "clear": 0,
+          "set": 1048576
+        }
+      }
+    },
+    {
+      "conflicts": [
+        9,
+        72
+      ],
+      "cost": 2,
+      "id": 9,
+      "only_one": false,
+      "primary": "expertiseIn",
+      "secondary": "handToHand",
+      "side": "advantage",
+      "writes": {
+        "weaponArmorShieldsBitfield": {
+          "clear": 0,
+          "set": 262144
+        }
+      }
+    },
+    {
+      "conflicts": [
+        10,
+        73
+      ],
+      "cost": 2,
+      "id": 10,
+      "only_one": false,
+      "primary": "expertiseIn",
+      "secondary": "longBlade",
+      "side": "advantage",
+      "writes": {
+        "weaponArmorShieldsBitfield": {
+          "clear": 0,
+          "set": 131072
+        }
+      }
+    },
+    {
+      "conflicts": [
+        11,
+        74
+      ],
+      "cost": 2,
+      "id": 11,
+      "only_one": false,
+      "primary": "expertiseIn",
+      "secondary": "missileWeapon",
+      "side": "advantage",
+      "writes": {
+        "weaponArmorShieldsBitfield": {
+          "clear": 0,
+          "set": 2097152
+        }
+      }
+    },
+    {
+      "conflicts": [
+        12,
+        75
+      ],
+      "cost": 2,
+      "id": 12,
+      "only_one": false,
+      "primary": "expertiseIn",
+      "secondary": "shortBlade",
+      "side": "advantage",
+      "writes": {
+        "weaponArmorShieldsBitfield": {
+          "clear": 0,
+          "set": 65536
+        }
+      }
+    },
+    {
+      "conflicts": [
+        13,
+        32,
+        42,
+        79
+      ],
+      "cost": 10,
+      "id": 13,
+      "only_one": false,
+      "primary": "immunity",
+      "secondary": "toDisease",
+      "side": "advantage",
+      "writes": {
+        "immunityFlags": {
+          "clear": 0,
+          "set": 64
+        }
+      }
+    },
+    {
+      "conflicts": [
+        14,
+        33,
+        43,
+        80
+      ],
+      "cost": 10,
+      "id": 14,
+      "only_one": false,
+      "primary": "immunity",
+      "secondary": "toFire",
+      "side": "advantage",
+      "writes": {
+        "immunityFlags": {
+          "clear": 0,
+          "set": 8
+        }
+      }
+    },
+    {
+      "conflicts": [
+        15,
+        34,
+        44,
+        81
+      ],
+      "cost": 10,
+      "id": 15,
+      "only_one": false,
+      "primary": "immunity",
+      "secondary": "toFrost",
+      "side": "advantage",
+      "writes": {
+        "immunityFlags": {
+          "clear": 0,
+          "set": 16
+        }
+      }
+    },
+    {
+      "conflicts": [
+        16,
+        35,
+        45,
+        82
+      ],
+      "cost": 10,
+      "id": 16,
+      "only_one": false,
+      "primary": "immunity",
+      "secondary": "toMagic",
+      "side": "advantage",
+      "writes": {
+        "immunityFlags": {
+          "clear": 0,
+          "set": 2
+        }
+      }
+    },
+    {
+      "conflicts": [
+        17,
+        36,
+        46,
+        83
+      ],
+      "cost": 10,
+      "id": 17,
+      "only_one": false,
+      "primary": "immunity",
+      "secondary": "toParalysis",
+      "side": "advantage",
+      "writes": {
+        "immunityFlags": {
+          "clear": 0,
+          "set": 1
+        }
+      }
+    },
+    {
+      "conflicts": [
+        18,
+        37,
+        47,
+        84
+      ],
+      "cost": 10,
+      "id": 18,
+      "only_one": false,
+      "primary": "immunity",
+      "secondary": "toPoison",
+      "side": "advantage",
+      "writes": {
+        "immunityFlags": {
+          "clear": 0,
+          "set": 4
+        }
+      }
+    },
+    {
+      "conflicts": [
+        19,
+        38,
+        48,
+        85
+      ],
+      "cost": 10,
+      "id": 19,
+      "only_one": false,
+      "primary": "immunity",
+      "secondary": "toShock",
+      "side": "advantage",
+      "writes": {
+        "immunityFlags": {
+          "clear": 0,
+          "set": 32
+        }
+      }
+    },
+    {
+      "conflicts": [
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "cost": 4,
+      "id": 20,
+      "only_one": true,
+      "primary": "increasedMagery",
+      "secondary": "intInSpellPoints15",
+      "side": "advantage",
+      "writes": {
+        "abilityFlagsAndSpellPointsBitfield": {
+          "clear": 4096,
+          "set": 3072
+        }
+      }
+    },
+    {
+      "conflicts": [
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "cost": 6,
+      "id": 21,
+      "only_one": true,
+      "primary": "increasedMagery",
+      "secondary": "intInSpellPoints175",
+      "side": "advantage",
+      "writes": {
+        "abilityFlagsAndSpellPointsBitfield": {
+          "clear": 5120,
+          "set": 2048
+        }
+      }
+    },
+    {
+      "conflicts": [
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "cost": 8,
+      "id": 22,
+      "only_one": true,
+      "primary": "increasedMagery",
+      "secondary": "intInSpellPoints2",
+      "side": "advantage",
+      "writes": {
+        "abilityFlagsAndSpellPointsBitfield": {
+          "clear": 6144,
+          "set": 1024
+        }
+      }
+    },
+    {
+      "conflicts": [
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "cost": 10,
+      "id": 23,
+      "only_one": true,
+      "primary": "increasedMagery",
+      "secondary": "intInSpellPoints3",
+      "side": "advantage",
+      "writes": {
+        "abilityFlagsAndSpellPointsBitfield": {
+          "clear": 7168,
+          "set": 0
+        }
+      }
+    },
+    {
+      "conflicts": [
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "cost": 2,
+      "id": 24,
+      "only_one": true,
+      "primary": "increasedMagery",
+      "secondary": "intInSpellPoints",
+      "side": "advantage",
+      "writes": {
+        "abilityFlagsAndSpellPointsBitfield": {
+          "clear": 3072,
+          "set": 4096
+        }
+      }
+    },
+    {
+      "conflicts": [
+        25
+      ],
+      "cost": 4,
+      "id": 25,
+      "only_one": false,
+      "primary": "rapidHealing",
+      "secondary": "general",
+      "side": "advantage",
+      "writes": {
+        "rapidHealing": {
+          "clear": 4294967291,
+          "set": 4
+        }
+      }
+    },
+    {
+      "conflicts": [
+        26
+      ],
+      "cost": 3,
+      "id": 26,
+      "only_one": false,
+      "primary": "rapidHealing",
+      "secondary": "inDarkness",
+      "side": "advantage",
+      "writes": {
+        "rapidHealing": {
+          "clear": 4294967293,
+          "set": 2
+        }
+      }
+    },
+    {
+      "conflicts": [
+        27
+      ],
+      "cost": 2,
+      "id": 27,
+      "only_one": false,
+      "primary": "rapidHealing",
+      "secondary": "inLight",
+      "side": "advantage",
+      "writes": {
+        "rapidHealing": {
+          "clear": 4294967294,
+          "set": 1
+        }
+      }
+    },
+    {
+      "conflicts": [
+        28
+      ],
+      "cost": 14,
+      "id": 28,
+      "only_one": false,
+      "primary": "regenerateHealth",
+      "secondary": "general",
+      "side": "advantage",
+      "writes": {
+        "regeneration": {
+          "clear": 4294967287,
+          "set": 8
+        }
+      }
+    },
+    {
+      "conflicts": [
+        29
+      ],
+      "cost": 10,
+      "id": 29,
+      "only_one": false,
+      "primary": "regenerateHealth",
+      "secondary": "inDarkness",
+      "side": "advantage",
+      "writes": {
+        "regeneration": {
+          "clear": 4294967293,
+          "set": 2
+        }
+      }
+    },
+    {
+      "conflicts": [
+        30
+      ],
+      "cost": 6,
+      "id": 30,
+      "only_one": false,
+      "primary": "regenerateHealth",
+      "secondary": "inLight",
+      "side": "advantage",
+      "writes": {
+        "regeneration": {
+          "clear": 4294967294,
+          "set": 1
+        }
+      }
+    },
+    {
+      "conflicts": [
+        31
+      ],
+      "cost": 2,
+      "id": 31,
+      "only_one": false,
+      "primary": "regenerateHealth",
+      "secondary": "whileImmersed",
+      "side": "advantage",
+      "writes": {
+        "regeneration": {
+          "clear": 4294967291,
+          "set": 4
+        }
+      }
+    },
+    {
+      "conflicts": [
+        13,
+        32,
+        42,
+        79
+      ],
+      "cost": 5,
+      "id": 32,
+      "only_one": false,
+      "primary": "resistance",
+      "secondary": "toDisease",
+      "side": "advantage",
+      "writes": {
+        "resistanceFlags": {
+          "clear": 0,
+          "set": 64
+        }
+      }
+    },
+    {
+      "conflicts": [
+        14,
+        33,
+        43,
+        80
+      ],
+      "cost": 5,
+      "id": 33,
+      "only_one": false,
+      "primary": "resistance",
+      "secondary": "toFire",
+      "side": "advantage",
+      "writes": {
+        "resistanceFlags": {
+          "clear": 0,
+          "set": 8
+        }
+      }
+    },
+    {
+      "conflicts": [
+        15,
+        34,
+        44,
+        81
+      ],
+      "cost": 5,
+      "id": 34,
+      "only_one": false,
+      "primary": "resistance",
+      "secondary": "toFrost",
+      "side": "advantage",
+      "writes": {
+        "resistanceFlags": {
+          "clear": 0,
+          "set": 16
+        }
+      }
+    },
+    {
+      "conflicts": [
+        16,
+        35,
+        45,
+        82
+      ],
+      "cost": 5,
+      "id": 35,
+      "only_one": false,
+      "primary": "resistance",
+      "secondary": "toMagic",
+      "side": "advantage",
+      "writes": {
+        "resistanceFlags": {
+          "clear": 0,
+          "set": 2
+        }
+      }
+    },
+    {
+      "conflicts": [
+        17,
+        36,
+        46,
+        83
+      ],
+      "cost": 5,
+      "id": 36,
+      "only_one": false,
+      "primary": "resistance",
+      "secondary": "toParalysis",
+      "side": "advantage",
+      "writes": {
+        "resistanceFlags": {
+          "clear": 0,
+          "set": 1
+        }
+      }
+    },
+    {
+      "conflicts": [
+        18,
+        37,
+        47,
+        84
+      ],
+      "cost": 5,
+      "id": 37,
+      "only_one": false,
+      "primary": "resistance",
+      "secondary": "toPoison",
+      "side": "advantage",
+      "writes": {
+        "resistanceFlags": {
+          "clear": 0,
+          "set": 4
+        }
+      }
+    },
+    {
+      "conflicts": [
+        19,
+        38,
+        48,
+        85
+      ],
+      "cost": 5,
+      "id": 38,
+      "only_one": false,
+      "primary": "resistance",
+      "secondary": "toShock",
+      "side": "advantage",
+      "writes": {
+        "resistanceFlags": {
+          "clear": 0,
+          "set": 32
+        }
+      }
+    },
+    {
+      "conflicts": [
+        39
+      ],
+      "cost": 14,
+      "id": 39,
+      "only_one": false,
+      "primary": "spellAbsorption",
+      "secondary": "general",
+      "side": "advantage",
+      "writes": {
+        "spellAbsorptionFlags": {
+          "clear": 4294967291,
+          "set": 4
+        }
+      }
+    },
+    {
+      "conflicts": [
+        40
+      ],
+      "cost": 12,
+      "id": 40,
+      "only_one": false,
+      "primary": "spellAbsorption",
+      "secondary": "inDarkness",
+      "side": "advantage",
+      "writes": {
+        "spellAbsorptionFlags": {
+          "clear": 4294967293,
+          "set": 2
+        }
+      }
+    },
+    {
+      "conflicts": [
+        41
+      ],
+      "cost": 8,
+      "id": 41,
+      "only_one": false,
+      "primary": "spellAbsorption",
+      "secondary": "inLight",
+      "side": "advantage",
+      "writes": {
+        "spellAbsorptionFlags": {
+          "clear": 4294967294,
+          "set": 1
+        }
+      }
+    },
+    {
+      "conflicts": [
+        13,
+        32,
+        42,
+        79
+      ],
+      "cost": -14,
+      "id": 42,
+      "only_one": false,
+      "primary": "criticalWeakness",
+      "secondary": "toDisease",
+      "side": "disadvantage",
+      "writes": {
+        "criticalWeaknessFlags": {
+          "clear": 0,
+          "set": 64
+        }
+      }
+    },
+    {
+      "conflicts": [
+        14,
+        33,
+        43,
+        80
+      ],
+      "cost": -14,
+      "id": 43,
+      "only_one": false,
+      "primary": "criticalWeakness",
+      "secondary": "toFire",
+      "side": "disadvantage",
+      "writes": {
+        "criticalWeaknessFlags": {
+          "clear": 0,
+          "set": 8
+        }
+      }
+    },
+    {
+      "conflicts": [
+        15,
+        34,
+        44,
+        81
+      ],
+      "cost": -14,
+      "id": 44,
+      "only_one": false,
+      "primary": "criticalWeakness",
+      "secondary": "toFrost",
+      "side": "disadvantage",
+      "writes": {
+        "criticalWeaknessFlags": {
+          "clear": 0,
+          "set": 16
+        }
+      }
+    },
+    {
+      "conflicts": [
+        16,
+        35,
+        45,
+        82
+      ],
+      "cost": -14,
+      "id": 45,
+      "only_one": false,
+      "primary": "criticalWeakness",
+      "secondary": "toMagic",
+      "side": "disadvantage",
+      "writes": {
+        "criticalWeaknessFlags": {
+          "clear": 0,
+          "set": 2
+        }
+      }
+    },
+    {
+      "conflicts": [
+        17,
+        36,
+        46,
+        83
+      ],
+      "cost": -14,
+      "id": 46,
+      "only_one": false,
+      "primary": "criticalWeakness",
+      "secondary": "toParalysis",
+      "side": "disadvantage",
+      "writes": {
+        "criticalWeaknessFlags": {
+          "clear": 0,
+          "set": 1
+        }
+      }
+    },
+    {
+      "conflicts": [
+        18,
+        37,
+        47,
+        84
+      ],
+      "cost": -14,
+      "id": 47,
+      "only_one": false,
+      "primary": "criticalWeakness",
+      "secondary": "toPoison",
+      "side": "disadvantage",
+      "writes": {
+        "criticalWeaknessFlags": {
+          "clear": 0,
+          "set": 4
+        }
+      }
+    },
+    {
+      "conflicts": [
+        19,
+        38,
+        48,
+        85
+      ],
+      "cost": -14,
+      "id": 48,
+      "only_one": false,
+      "primary": "criticalWeakness",
+      "secondary": "toShock",
+      "side": "disadvantage",
+      "writes": {
+        "criticalWeaknessFlags": {
+          "clear": 0,
+          "set": 32
+        }
+      }
+    },
+    {
+      "conflicts": [
+        49
+      ],
+      "cost": -6,
+      "id": 49,
+      "only_one": false,
+      "primary": "damage",
+      "secondary": "fromHolyPlaces",
+      "side": "disadvantage",
+      "writes": {
+        "abilityFlagsAndSpellPointsBitfield": {
+          "clear": 0,
+          "set": 32
+        }
+      }
+    },
+    {
+      "conflicts": [
+        50
+      ],
+      "cost": -10,
+      "id": 50,
+      "only_one": false,
+      "primary": "damage",
+      "secondary": "fromSunlight",
+      "side": "disadvantage",
+      "writes": {
+        "abilityFlagsAndSpellPointsBitfield": {
+          "clear": 0,
+          "set": 16
+        }
+      }
+    },
+    {
+      "conflicts": [
+        51,
+        52
+      ],
+      "cost": -7,
+      "id": 51,
+      "only_one": true,
+      "primary": "darknessPoweredMagery",
+      "secondary": "lowerMagicAbilityDaylight",
+      "side": "disadvantage",
+      "writes": {
+        "abilityFlagsAndSpellPointsBitfield": {
+          "clear": 256,
+          "set": 512
+        }
+      }
+    },
+    {
+      "conflicts": [
+        51,
+        52
+      ],
+      "cost": -10,
+      "id": 52,
+      "only_one": true,
+      "primary": "darknessPoweredMagery",
+      "secondary": "unableToUseMagicInDaylight",
+      "side": "disadvantage",
+      "writes": {
+        "abilityFlagsAndSpellPointsBitfield": {
+          "clear": 512,
+          "set": 256
+        }
+      }
+    },
+    {
+      "conflicts": [
+        53
+      ],
+      "cost": -2,
+      "id": 53,
+      "only_one": false,
+      "primary": "forbiddenArmorType",
+      "secondary": "chain",
+      "side": "disadvantage",
+      "writes": {
+        "weaponArmorShieldsBitfield": {
+          "clear": 0,
+          "set": 128
+        }
+      }
+    },
+    {
+      "conflicts": [
+        54
+      ],
+      "cost": -1,
+      "id": 54,
+      "only_one": false,
+      "primary": "forbiddenArmorType",
+      "secondary": "leather",
+      "side": "disadvantage",
+      "writes": {
+        "weaponArmorShieldsBitfield": {
+          "clear": 0,
+          "set": 64
+        }
+      }
+    },
+    {
+      "conflicts": [
+        55
+      ],
+      "cost": -5,
+      "id": 55,
+      "only_one": false,
+      "primary": "forbiddenArmorType",
+      "secondary": "plate",
+      "side": "disadvantage",
+      "writes": {
+        "weaponArmorShieldsBitfield": {
+          "clear": 0,
+          "set": 256
+        }
+      }
+    },
+    {
+      "conflicts": [
+        56
+      ],
+      "cost": -5,
+      "id": 56,
+      "only_one": false,
+      "primary": "forbiddenMaterial",
+      "secondary": "adamantium",
+      "side": "disadvantage",
+      "writes": {
+        "forbiddenMaterialsFlags": {
+          "clear": 0,
+          "set": 64
+        }
+      }
+    },
+    {
+      "conflicts": [
+        57
+      ],
+      "cost": -2,
+      "id": 57,
+      "only_one": false,
+      "primary": "forbiddenMaterial",
+      "secondary": "daedric",
+      "side": "disadvantage",
+      "writes": {
+        "forbiddenMaterialsFlags": {
+          "clear": 0,
+          "set": 512
+        }
+      }
+    },
+    {
+      "conflicts": [
+        58
+      ],
+      "cost": -7,
+      "id": 58,
+      "only_one": false,
+      "primary": "forbiddenMaterial",
+      "secondary": "dwarven",
+      "side": "disadvantage",
+      "writes": {
+        "forbiddenMaterialsFlags": {
+          "clear": 0,
+          "set": 16
+        }
+      }
+    },
+    {
+      "conflicts": [
+        59
+      ],
+      "cost": -5,
+      "id": 59,
+      "only_one": false,
+      "primary": "forbiddenMaterial",
+      "secondary": "ebony",
+      "side": "disadvantage",
+      "writes": {
+        "forbiddenMaterialsFlags": {
+          "clear": 0,
+          "set": 128
+        }
+      }
+    },
+    {
+      "conflicts": [
+        60
+      ],
+      "cost": -9,
+      "id": 60,
+      "only_one": false,
+      "primary": "forbiddenMaterial",
+      "secondary": "elven",
+      "side": "disadvantage",
+      "writes": {
+        "forbiddenMaterialsFlags": {
+          "clear": 0,
+          "set": 8
+        }
+      }
+    },
+    {
+      "conflicts": [
+        61
+      ],
+      "cost": -1,
+      "id": 61,
+      "only_one": false,
+      "primary": "forbiddenMaterial",
+      "secondary": "iron",
+      "side": "disadvantage",
+      "writes": {
+        "forbiddenMaterialsFlags": {
+          "clear": 0,
+          "set": 1
+        }
+      }
+    },
+    {
+      "conflicts": [
+        62
+      ],
+      "cost": -6,
+      "id": 62,
+      "only_one": false,
+      "primary": "forbiddenMaterial",
+      "secondary": "mithril",
+      "side": "disadvantage",
+      "writes": {
+        "forbiddenMaterialsFlags": {
+          "clear": 0,
+          "set": 32
+        }
+      }
+    },
+    {
+      "conflicts": [
+        63
+      ],
+      "cost": -3,
+      "id": 63,
+      "only_one": false,
+      "primary": "forbiddenMaterial",
+      "secondary": "orcish",
+      "side": "disadvantage",
+      "writes": {
+        "forbiddenMaterialsFlags": {
+          "clear": 0,
+          "set": 256
+        }
+      }
+    },
+    {
+      "conflicts": [
+        64
+      ],
+      "cost": -6,
+      "id": 64,
+      "only_one": false,
+      "primary": "forbiddenMaterial",
+      "secondary": "silver",
+      "side": "disadvantage",
+      "writes": {
+        "forbiddenMaterialsFlags": {
+          "clear": 0,
+          "set": 4
+        }
+      }
+    },
+    {
+      "conflicts": [
+        65
+      ],
+      "cost": -10,
+      "id": 65,
+      "only_one": false,
+      "primary": "forbiddenMaterial",
+      "secondary": "steel",
+      "side": "disadvantage",
+      "writes": {
+        "forbiddenMaterialsFlags": {
+          "clear": 0,
+          "set": 2
+        }
+      }
+    },
+    {
+      "conflicts": [
+        66
+      ],
+      "cost": -1,
+      "id": 66,
+      "only_one": false,
+      "primary": "forbiddenShieldTypes",
+      "secondary": "buckler",
+      "side": "disadvantage",
+      "writes": {
+        "weaponArmorShieldsBitfield": {
+          "clear": 0,
+          "set": 512
+        }
+      }
+    },
+    {
+      "conflicts": [
+        67
+      ],
+      "cost": -1,
+      "id": 67,
+      "only_one": false,
+      "primary": "forbiddenShieldTypes",
+      "secondary": "kiteShield",
+      "side": "disadvantage",
+      "writes": {
+        "weaponArmorShieldsBitfield": {
+          "clear": 0,
+          "set": 2048
+        }
+      }
+    },
+    {
+      "conflicts": [
+        68
+      ],
+      "cost": -1,
+      "id": 68,
+      "only_one": false,
+      "primary": "forbiddenShieldTypes",
+      "secondary": "roundShield",
+      "side": "disadvantage",
+      "writes": {
+        "weaponArmorShieldsBitfield": {
+          "clear": 0,
+          "set": 1024
+        }
+      }
+    },
+    {
+      "conflicts": [
+        69
+      ],
+      "cost": -1,
+      "id": 69,
+      "only_one": false,
+      "primary": "forbiddenShieldTypes",
+      "secondary": "towerShield",
+      "side": "disadvantage",
+      "writes": {
+        "weaponArmorShieldsBitfield": {
+          "clear": 0,
+          "set": 4096
+        }
+      }
+    },
+    {
+      "conflicts": [
+        7,
+        70
+      ],
+      "cost": -2,
+      "id": 70,
+      "only_one": false,
+      "primary": "forbiddenWeaponry",
+      "secondary": "axe",
+      "side": "disadvantage",
+      "writes": {
+        "weaponArmorShieldsBitfield": {
+          "clear": 0,
+          "set": 8
+        }
+      }
+    },
+    {
+      "conflicts": [
+        8,
+        71
+      ],
+      "cost": -2,
+      "id": 71,
+      "only_one": false,
+      "primary": "forbiddenWeaponry",
+      "secondary": "bluntWeapon",
+      "side": "disadvantage",
+      "writes": {
+        "weaponArmorShieldsBitfield": {
+          "clear": 0,
+          "set": 16
+        }
+      }
+    },
+    {
+      "conflicts": [
+        9,
+        72
+      ],
+      "cost": -2,
+      "id": 72,
+      "only_one": false,
+      "primary": "forbiddenWeaponry",
+      "secondary": "handToHand",
+      "side": "disadvantage",
+      "writes": {
+        "weaponArmorShieldsBitfield": {
+          "clear": 0,
+          "set": 4
+        }
+      }
+    },
+    {
+      "conflicts": [
+        10,
+        73
+      ],
+      "cost": -2,
+      "id": 73,
+      "only_one": false,
+      "primary": "forbiddenWeaponry",
+      "secondary": "longBlade",
+      "side": "disadvantage",
+      "writes": {
+        "weaponArmorShieldsBitfield": {
+          "clear": 0,
+          "set": 2
+        }
+      }
+    },
+    {
+      "conflicts": [
+        11,
+        74
+      ],
+      "cost": -2,
+      "id": 74,
+      "only_one": false,
+      "primary": "forbiddenWeaponry",
+      "secondary": "missileWeapon",
+      "side": "disadvantage",
+      "writes": {
+        "weaponArmorShieldsBitfield": {
+          "clear": 0,
+          "set": 32
+        }
+      }
+    },
+    {
+      "conflicts": [
+        12,
+        75
+      ],
+      "cost": -2,
+      "id": 75,
+      "only_one": false,
+      "primary": "forbiddenWeaponry",
+      "secondary": "shortBlade",
+      "side": "disadvantage",
+      "writes": {
+        "weaponArmorShieldsBitfield": {
+          "clear": 0,
+          "set": 1
+        }
+      }
+    },
+    {
+      "conflicts": [
+        76
+      ],
+      "cost": -14,
+      "id": 76,
+      "only_one": false,
+      "primary": "inabilityToRegen",
+      "secondary": "",
+      "side": "disadvantage",
+      "writes": {
+        "abilityFlagsAndSpellPointsBitfield": {
+          "clear": 0,
+          "set": 8
+        }
+      }
+    },
+    {
+      "conflicts": [
+        77,
+        78
+      ],
+      "cost": -10,
+      "id": 77,
+      "only_one": true,
+      "primary": "lightPoweredMagery",
+      "secondary": "lowerMagicAbilityDarkness",
+      "side": "disadvantage",
+      "writes": {
+        "abilityFlagsAndSpellPointsBitfield": {
+          "clear": 64,
+          "set": 128
+        }
+      }
+    },
+    {
+      "conflicts": [
+        77,
+        78
+      ],
+      "cost": -14,
+      "id": 78,
+      "only_one": true,
+      "primary": "lightPoweredMagery",
+      "secondary": "unableToUseMagicInDarkness",
+      "side": "disadvantage",
+      "writes": {
+        "abilityFlagsAndSpellPointsBitfield": {
+          "clear": 128,
+          "set": 64
+        }
+      }
+    },
+    {
+      "conflicts": [
+        13,
+        32,
+        42,
+        79
+      ],
+      "cost": -5,
+      "id": 79,
+      "only_one": false,
+      "primary": "lowTolerance",
+      "secondary": "toDisease",
+      "side": "disadvantage",
+      "writes": {
+        "lowToleranceFlags": {
+          "clear": 0,
+          "set": 64
+        }
+      }
+    },
+    {
+      "conflicts": [
+        14,
+        33,
+        43,
+        80
+      ],
+      "cost": -5,
+      "id": 80,
+      "only_one": false,
+      "primary": "lowTolerance",
+      "secondary": "toFire",
+      "side": "disadvantage",
+      "writes": {
+        "lowToleranceFlags": {
+          "clear": 0,
+          "set": 8
+        }
+      }
+    },
+    {
+      "conflicts": [
+        15,
+        34,
+        44,
+        81
+      ],
+      "cost": -5,
+      "id": 81,
+      "only_one": false,
+      "primary": "lowTolerance",
+      "secondary": "toFrost",
+      "side": "disadvantage",
+      "writes": {
+        "lowToleranceFlags": {
+          "clear": 0,
+          "set": 16
+        }
+      }
+    },
+    {
+      "conflicts": [
+        16,
+        35,
+        45,
+        82
+      ],
+      "cost": -5,
+      "id": 82,
+      "only_one": false,
+      "primary": "lowTolerance",
+      "secondary": "toMagic",
+      "side": "disadvantage",
+      "writes": {
+        "lowToleranceFlags": {
+          "clear": 0,
+          "set": 2
+        }
+      }
+    },
+    {
+      "conflicts": [
+        17,
+        36,
+        46,
+        83
+      ],
+      "cost": -5,
+      "id": 83,
+      "only_one": false,
+      "primary": "lowTolerance",
+      "secondary": "toParalysis",
+      "side": "disadvantage",
+      "writes": {
+        "lowToleranceFlags": {
+          "clear": 0,
+          "set": 1
+        }
+      }
+    },
+    {
+      "conflicts": [
+        18,
+        37,
+        47,
+        84
+      ],
+      "cost": -5,
+      "id": 84,
+      "only_one": false,
+      "primary": "lowTolerance",
+      "secondary": "toPoison",
+      "side": "disadvantage",
+      "writes": {
+        "lowToleranceFlags": {
+          "clear": 0,
+          "set": 4
+        }
+      }
+    },
+    {
+      "conflicts": [
+        19,
+        38,
+        48,
+        85
+      ],
+      "cost": -5,
+      "id": 85,
+      "only_one": false,
+      "primary": "lowTolerance",
+      "secondary": "toShock",
+      "side": "disadvantage",
+      "writes": {
+        "lowToleranceFlags": {
+          "clear": 0,
+          "set": 32
+        }
+      }
+    },
+    {
+      "conflicts": [
+        3,
+        86
+      ],
+      "cost": -4,
+      "id": 86,
+      "only_one": false,
+      "primary": "phobia",
+      "secondary": "animals",
+      "side": "disadvantage",
+      "writes": {
+        "attackModifierFlags": {
+          "clear": 0,
+          "set": 128
+        }
+      }
+    },
+    {
+      "conflicts": [
+        4,
+        87
+      ],
+      "cost": -4,
+      "id": 87,
+      "only_one": false,
+      "primary": "phobia",
+      "secondary": "daedra",
+      "side": "disadvantage",
+      "writes": {
+        "attackModifierFlags": {
+          "clear": 0,
+          "set": 32
+        }
+      }
+    },
+    {
+      "conflicts": [
+        5,
+        88
+      ],
+      "cost": -4,
+      "id": 88,
+      "only_one": false,
+      "primary": "phobia",
+      "secondary": "humanoid",
+      "side": "disadvantage",
+      "writes": {
+        "attackModifierFlags": {
+          "clear": 0,
+          "set": 64
+        }
+      }
+    },
+    {
+      "conflicts": [
+        6,
+        89
+      ],
+      "cost": -4,
+      "id": 89,
+      "only_one": false,
+      "primary": "phobia",
+      "secondary": "undead",
+      "side": "disadvantage",
+      "writes": {
+        "attackModifierFlags": {
+          "clear": 0,
+          "set": 16
+        }
+      }
+    }
+  ]
+}

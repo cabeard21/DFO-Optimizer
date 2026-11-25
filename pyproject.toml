@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools==80.9.0", "wheel==0.45.1", "Cython==3.1.6"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dfo-optimizer"
+version = "0.1.0"
+description = "Offline native class search for the pinned Daggerfall Online snapshot"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+dfo = "dfo_optimizer.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["dfo_optimizer*"]
+
+[tool.setuptools.package-data]
+dfo_optimizer = ["*.hpp", "*.pyx", "data/*", "data/**/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+
+[tool.coverage.run]
+source = ["dfo_optimizer"]
+relative_files = true
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true

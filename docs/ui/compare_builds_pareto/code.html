@@ -1,0 +1,416 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compare Builds &amp; Pareto — DFO Optimizer</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'success': '#146C2E',
+        'on-success': '#FFFFFF',
+        'success-container': '#D3F8DF',
+        'on-success-container': '#073B17',
+        'warning': '#8A5300',
+        'on-warning': '#FFFFFF',
+        'warning-container': '#FFE0B2',
+        'on-warning-container': '#4A2C00',
+        'light-primary': '#15196C',
+        'light-on-primary': '#FFFFFF',
+        'light-primary-container': '#2D3282',
+        'light-on-primary-container': '#FFFFFF',
+        'light-secondary': '#5A5C7D',
+        'light-on-secondary': '#FFFFFF',
+        'light-secondary-container': '#D6D7FE',
+        'light-on-secondary-container': '#171936',
+        'light-tertiary': '#421B00',
+        'light-on-tertiary': '#FFFFFF',
+        'light-tertiary-container': '#632C00',
+        'light-on-tertiary-container': '#FFDBC8',
+        'light-error': '#BA1A1A',
+        'light-on-error': '#FFFFFF',
+        'light-error-container': '#FFDAD6',
+        'light-on-error-container': '#410002',
+        'light-background': '#FBF8FF',
+        'light-on-background': '#1B1B20',
+        'light-surface': '#FBF8FF',
+        'light-surface-dim': '#DCD9E0',
+        'light-surface-bright': '#FFFFFF',
+        'light-surface-container-lowest': '#FFFFFF',
+        'light-surface-container-low': '#F5F2FA',
+        'light-surface-container': '#F0ECF4',
+        'light-surface-container-high': '#EAE7EF',
+        'light-surface-container-highest': '#E4E1E9',
+        'light-on-surface': '#1B1B20',
+        'light-surface-variant': '#E3E1EF',
+        'light-on-surface-variant': '#464651',
+        'light-outline': '#777682',
+        'light-outline-variant': '#C7C5D3',
+        'light-inverse-surface': '#303036',
+        'light-inverse-on-surface': '#F3EFF7',
+        'light-inverse-primary': '#BFC2FF',
+        'dark-primary': '#BFC2FF',
+        'dark-on-primary': '#212576',
+        'dark-primary-container': '#2D3282',
+        'dark-on-primary-container': '#E0E0FF',
+        'dark-secondary': '#C3C3EA',
+        'dark-on-secondary': '#2C2E4C',
+        'dark-secondary-container': '#424464',
+        'dark-on-secondary-container': '#E0E0FF',
+        'dark-tertiary': '#FFB68A',
+        'dark-on-tertiary': '#522300',
+        'dark-tertiary-container': '#632C00',
+        'dark-on-tertiary-container': '#FFDBC8',
+        'dark-error': '#FFB4AB',
+        'dark-on-error': '#690005',
+        'dark-error-container': '#93000A',
+        'dark-on-error-container': '#FFDAD6',
+        'dark-background': '#131318',
+        'dark-on-background': '#E4E1E9',
+        'dark-surface': '#131318',
+        'dark-surface-dim': '#131318',
+        'dark-surface-bright': '#39393E',
+        'dark-surface-container-lowest': '#0E0E13',
+        'dark-surface-container-low': '#1B1B20',
+        'dark-surface-container': '#1F1F25',
+        'dark-surface-container-high': '#2A292F',
+        'dark-surface-container-highest': '#35343A',
+        'dark-on-surface': '#E4E1E9',
+        'dark-surface-variant': '#464651',
+        'dark-on-surface-variant': '#C7C5D3',
+        'dark-outline': '#908F9C',
+        'dark-outline-variant': '#464651',
+        'dark-inverse-surface': '#E4E1E9',
+        'dark-inverse-on-surface': '#303036',
+        'dark-inverse-primary': '#5156A7',
+      },
+      borderRadius: {
+        'sm': '4px',
+        'DEFAULT': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '40px',
+        'page-margin': '24px',
+      },
+      fontFamily: {
+        'display': ['"Alata"', 'sans-serif'],
+        'headline': ['"Alata"', 'sans-serif'],
+        'title': ['"Instrument Sans"', 'sans-serif'],
+        'body': ['"Instrument Sans"', 'sans-serif'],
+        'label': ['"Instrument Sans"', 'sans-serif'],
+        'mono': ['"Spline Sans Mono"', 'monospace'],
+      },
+      fontSize: {
+        'display-md': ['36px', { lineHeight: '44px', letterSpacing: '-0.5px', fontWeight: '400' }],
+        'display-md-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.25px', fontWeight: '400' }],
+        'headline-lg': ['28px', { lineHeight: '36px', letterSpacing: '-0.25px', fontWeight: '400' }],
+        'headline-md': ['22px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '400' }],
+        'title-lg': ['18px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['15px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.2px', fontWeight: '600' }],
+        'mono-md': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '500' }],
+        'mono-sm': ['12px', { lineHeight: '16px', letterSpacing: '0px', fontWeight: '400' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'surface-enter': '200ms',
+        'surface-exit': '140ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Alata&amp;family=Instrument+Sans:wght@400;500;600;700&amp;family=Spline+Sans+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined, .material-symbols-rounded, .material-symbols-sharp, .material-icons { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-light-surface text-light-on-surface font-body antialiased">
+  <div class="min-h-[1024px] flex" data-stitch-vh="min-h-[1024px]===min-h-screen">
+    <!-- Persistent Left Navigation Rail -->
+    <aside class="w-60 shrink-0 min-h-[1024px] bg-light-surface-container-low border-r border-light-outline-variant flex flex-col justify-between p-4" data-stitch-vh="min-h-[1024px]===min-h-screen">
+      <div class="flex flex-col gap-6">
+        <div class="px-2 pt-1 flex flex-col gap-1">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-light-primary text-[22px]" aria-hidden="true">auto_fix_high</span>
+            <span class="font-headline text-headline-md text-light-on-surface" data-design-text-token="headline-md">DFO Optimizer</span>
+          </div>
+          <span class="font-mono text-mono-sm text-light-on-surface-variant tabular-nums" data-design-text-token="mono-sm">online_snapshot · a8f3c1e</span>
+        </div>
+
+        <nav aria-label="Primary navigation" class="flex flex-col gap-1">
+          <a href="../character-creator/CharacterCreator.html" class="flex items-center gap-3 px-3 py-2 rounded text-light-on-surface-variant hover:bg-light-surface-container hover:text-light-on-surface transition-colors duration-state-change">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">person_add</span>
+            <span class="font-label text-label-lg" data-design-text-token="label-lg">Character Creator</span>
+          </a>
+          <a href="../progression/Progression.html" class="flex items-center gap-3 px-3 py-2 rounded text-light-on-surface-variant hover:bg-light-surface-container hover:text-light-on-surface transition-colors duration-state-change">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">timeline</span>
+            <span class="font-label text-label-lg" data-design-text-token="label-lg">Progression</span>
+          </a>
+          <a href="../spell-lab/SpellLab.html" class="flex items-center gap-3 px-3 py-2 rounded text-light-on-surface-variant hover:bg-light-surface-container hover:text-light-on-surface transition-colors duration-state-change">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">bolt</span>
+            <span class="font-label text-label-lg" data-design-text-token="label-lg">Spell Lab</span>
+          </a>
+          <a href="../gear-optimizer/GearOptimizer.html" class="flex items-center gap-3 px-3 py-2 rounded text-light-on-surface-variant hover:bg-light-surface-container hover:text-light-on-surface transition-colors duration-state-change">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">shield</span>
+            <span class="font-label text-label-lg" data-design-text-token="label-lg">Gear</span>
+          </a>
+          <a href="../compare/Compare.html" aria-current="page" class="flex items-center gap-3 px-3 py-2 rounded bg-light-primary text-light-on-primary transition-colors duration-state-change">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">compare_arrows</span>
+            <span class="font-label text-label-lg" data-design-text-token="label-lg">Compare</span>
+          </a>
+          <a href="../diagnostics/Diagnostics.html" class="flex items-center gap-3 px-3 py-2 rounded text-light-on-surface-variant hover:bg-light-surface-container hover:text-light-on-surface transition-colors duration-state-change">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">terminal</span>
+            <span class="font-label text-label-lg" data-design-text-token="label-lg">Data / Diagnostics</span>
+          </a>
+        </nav>
+      </div>
+
+      <div class="p-3 rounded-md bg-light-surface-container-lowest border border-light-outline-variant flex flex-col gap-1.5">
+        <div class="flex items-center justify-between gap-2">
+          <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Active Policy</span>
+          <!-- COMPONENT: badge-status -->
+          <span data-component-id="badge-status" data-component-type="badge" data-component-variant="status" role="status" class="inline-flex items-center px-2 py-0.5 rounded-sm bg-light-secondary-container text-light-on-secondary-container">
+            <span class="font-mono text-mono-sm tabular-nums" data-design-text-token="mono-sm">0.30x</span>
+          </span>
+        </div>
+        <span class="font-title text-title-md text-light-on-surface" data-design-text-token="title-md">Dhargo PvE (-12)</span>
+        <span class="font-mono text-mono-sm text-light-on-surface-variant tabular-nums" data-design-text-token="mono-sm">30 HP · 3x INT · Solo</span>
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <div class="flex-1 flex flex-col min-w-0">
+      <header class="sticky top-0 z-10 h-16 bg-light-surface-container-lowest border-b border-light-outline-variant px-6 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3 min-w-0">
+          <h1 class="font-headline text-headline-md text-light-on-surface text-balance" data-design-text-token="headline-md">Compare Builds &amp; Pareto</h1>
+          <!-- COMPONENT: badge-success -->
+          <span data-component-id="badge-success" data-component-type="badge" data-component-variant="success" role="status" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-sm bg-success-container text-on-success-container">
+            <span class="font-label text-label-md" data-design-text-token="label-md">pareto_frontier</span>
+          </span>
+        </div>
+        <div class="flex items-center gap-3 shrink-0">
+          <!-- COMPONENT: button-secondary -->
+          <button data-component-id="button-secondary" data-component-type="button" data-component-variant="secondary" type="button" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded bg-light-surface-container-lowest text-light-on-surface border border-light-outline-variant hover:bg-light-surface-container-low focus-visible:outline focus-visible:outline-2 focus-visible:outline-light-primary transition-colors duration-state-change cursor-pointer">
+            <span class="font-label text-label-lg" data-design-text-token="label-lg">Import Snapshot</span>
+          </button>
+          <!-- COMPONENT: button-with-icon -->
+          <button data-component-id="button-with-icon" data-component-type="button" data-component-variant="with-icon" type="button" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded bg-light-primary text-light-on-primary hover:bg-light-primary-container focus-visible:outline focus-visible:outline-2 focus-visible:outline-light-primary transition-colors duration-state-change cursor-pointer">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">play_arrow</span>
+            <span class="font-label text-label-lg" data-design-text-token="label-lg">Run Optimization</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="flex-1 p-6 max-w-7xl w-full mx-auto flex flex-col gap-6">
+        <!-- Scenario & Sensitivity Strip -->
+        <section aria-label="Sensitivity profile" class="bg-light-surface-container-lowest border border-light-outline-variant rounded-md p-4 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap items-center gap-2">
+            <button type="button" class="px-3 py-1.5 rounded-sm bg-light-primary text-light-on-primary font-mono text-mono-sm cursor-pointer">sustained_dungeon</button>
+            <button type="button" class="px-3 py-1.5 rounded-sm bg-light-surface-container-low text-light-on-surface-variant hover:text-light-on-surface font-mono text-mono-sm cursor-pointer">boss_burst</button>
+            <button type="button" class="px-3 py-1.5 rounded-sm bg-light-surface-container-low text-light-on-surface-variant hover:text-light-on-surface font-mono text-mono-sm cursor-pointer">balanced_progression</button>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Ruleset Sensitivity:</span>
+            <span class="px-2.5 py-1 rounded-sm bg-success-container text-on-success-container font-mono text-mono-sm" data-design-text-token="mono-sm">Strict Live-Safe</span>
+          </div>
+        </section>
+
+        <!-- Top Row: Pareto Chart & Constraint Explanation -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          <!-- Pareto Frontier Chart (7 cols) -->
+          <!-- COMPONENT: card-elevated -->
+          <article data-component-id="card-elevated" data-component-type="card" data-component-variant="elevated" class="lg:col-span-7 h-full bg-light-surface-container-lowest border border-light-outline-variant rounded-md p-5 flex flex-col justify-between gap-4">
+            <header class="flex items-center justify-between gap-4">
+              <div>
+                <h2 class="font-title text-title-lg text-light-on-surface" data-design-text-token="title-lg">Pareto Frontier: Sustained DPS vs. Net SP/sec</h2>
+                <p class="font-body text-body-md text-light-on-surface-variant" data-design-text-token="body-md">Lv. 45 Solo PvE · 3 builds on frontier, 14 dominated</p>
+              </div>
+              <span class="font-mono text-mono-sm text-light-primary" data-design-text-token="mono-sm">n = 17</span>
+            </header>
+
+            <!-- Clean SVG Scatter Plot -->
+            <div class="w-full bg-light-surface-container-low border border-light-outline-variant rounded p-4">
+              <svg viewBox="0 0 560 220" class="w-full h-48" role="img" aria-label="Pareto frontier scatter chart comparing DPS and Net SP per second">
+                <!-- Grid lines -->
+                <line x1="48" y1="20" x2="48" y2="184" stroke="#C7C5D3" stroke-width="1"></line>
+                <line x1="48" y1="184" x2="536" y2="184" stroke="#C7C5D3" stroke-width="1"></line>
+                <line x1="48" y1="130" x2="536" y2="130" stroke="#E3E1EF" stroke-width="1" stroke-dasharray="4 4"></line>
+                <line x1="48" y1="76" x2="536" y2="76" stroke="#E3E1EF" stroke-width="1" stroke-dasharray="4 4"></line>
+
+                <!-- Pareto frontier line -->
+                <polyline points="170,42 320,64 468,108" fill="none" stroke="#15196C" stroke-width="2" stroke-dasharray="5 3"></polyline>
+
+                <!-- Dominated points -->
+                <circle cx="130" cy="115" r="4" fill="#777682"></circle>
+                <circle cx="210" cy="132" r="4" fill="#777682"></circle>
+                <circle cx="265" cy="105" r="4" fill="#777682"></circle>
+                <circle cx="350" cy="142" r="4" fill="#777682"></circle>
+                <circle cx="410" cy="150" r="4" fill="#777682"></circle>
+
+                <!-- Frontier points -->
+                <circle cx="170" cy="42" r="7" fill="#421B00"></circle>
+                <text x="182" y="46" fill="#1B1B20" font-size="11" font-family="Instrument Sans, sans-serif">High Elf Battlemage (178.4 DPS)</text>
+
+                <circle cx="320" cy="64" r="7" fill="#15196C"></circle>
+                <text x="332" y="68" fill="#15196C" font-size="11" font-weight="600" font-family="Instrument Sans, sans-serif">Breton Elementalist (164.2 DPS)</text>
+
+                <circle cx="468" cy="108" r="7" fill="#146C2E"></circle>
+                <text x="368" y="126" fill="#146C2E" font-size="11" font-family="Instrument Sans, sans-serif">Breton Spellbreaker (149.4 DPS)</text>
+
+                <!-- Axis labels -->
+                <text x="290" y="210" text-anchor="middle" fill="#464651" font-size="11" font-family="Spline Sans Mono, monospace">Net SP / sec (+0.0 to +5.0)</text>
+                <text x="16" y="102" text-anchor="middle" transform="rotate(-90 16 102)" fill="#464651" font-size="11" font-family="Spline Sans Mono, monospace">Sustained DPS</text>
+              </svg>
+            </div>
+          </article>
+
+          <!-- Constraint & Uncertainty Explanation (5 cols) -->
+          <!-- COMPONENT: card-elevated -->
+          <article data-component-id="card-elevated" data-component-type="card" data-component-variant="elevated" class="lg:col-span-5 h-full bg-light-surface-container-lowest border border-light-outline-variant rounded-md p-5 flex flex-col justify-between gap-4">
+            <header>
+              <h2 class="font-title text-title-lg text-light-on-surface" data-design-text-token="title-lg">Score Drivers &amp; Uncertainties</h2>
+              <p class="font-body text-body-md text-light-on-surface-variant" data-design-text-token="body-md">Why rankings shift between presets</p>
+            </header>
+
+            <div class="flex flex-col gap-3">
+              <div class="p-3 rounded bg-light-surface-container-low border border-light-outline-variant flex flex-col gap-1">
+                <span class="font-label text-label-md text-light-primary" data-design-text-token="label-md">Sustained Dungeon Winner</span>
+                <span class="font-body text-body-md text-light-on-surface" data-design-text-token="body-md">Breton Elementalist maintains +2.4 SP/s net sustain with 65% Magic Resist and zero rest interruptions.</span>
+              </div>
+              <div class="p-3 rounded bg-light-surface-container-low border border-light-outline-variant flex flex-col gap-1">
+                <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Boss Burst Tradeoff</span>
+                <span class="font-body text-body-md text-light-on-surface" data-design-text-token="body-md">High Elf Battlemage gains +14.2 peak DPS but drops to -0.8 SP/s after 24 seconds.</span>
+              </div>
+              <div class="p-3 rounded bg-warning-container/40 border border-light-outline-variant flex flex-col gap-1">
+                <span class="font-label text-label-md text-on-warning-container" data-design-text-token="label-md">Excluded Assumption</span>
+                <span class="font-body text-body-md text-light-on-surface" data-design-text-token="body-md">Inability to Regen SP online rest exception is disabled in Strict Live-Safe mode.</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Side-by-Side Comparison Table -->
+        <!-- COMPONENT: table-standard -->
+        <div data-component-id="table-standard" data-component-type="table" data-component-variant="standard" class="w-full bg-light-surface-container-lowest border border-light-outline-variant rounded-md overflow-hidden">
+          <div class="px-4 py-3 border-b border-light-outline-variant flex items-center justify-between">
+            <h2 class="font-title text-title-md text-light-on-surface" data-design-text-token="title-md">Side-by-Side Frontier Comparison</h2>
+            <span class="font-mono text-mono-sm text-light-on-surface-variant" data-design-text-token="mono-sm">All builds: -12 diff · 30 HP · 3x INT</span>
+          </div>
+          <table class="w-full text-left border-collapse">
+            <thead class="bg-light-surface-container-low border-b border-light-outline-variant">
+              <tr>
+                <th scope="col" class="px-4 py-2.5">
+                  <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Build</span>
+                </th>
+                <th scope="col" class="px-4 py-2.5 text-right">
+                  <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Lv.45 DPS</span>
+                </th>
+                <th scope="col" class="px-4 py-2.5 text-right">
+                  <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Dmg / SP</span>
+                </th>
+                <th scope="col" class="px-4 py-2.5 text-right">
+                  <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Net SP/s</span>
+                </th>
+                <th scope="col" class="px-4 py-2.5 text-right">
+                  <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Eff. HP</span>
+                </th>
+                <th scope="col" class="px-4 py-2.5">
+                  <span class="font-label text-label-md text-light-on-surface-variant" data-design-text-token="label-md">Binding Constraint</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-light-outline-variant">
+              <tr class="bg-light-secondary-container/30 hover:bg-light-secondary-container/50 transition-colors duration-state-change">
+                <td class="px-4 py-3">
+                  <span class="font-title text-title-md text-light-primary" data-design-text-token="title-md">Breton · Elementalist</span>
+                </td>
+                <td class="px-4 py-3 text-right tabular-nums">
+                  <span class="font-mono text-mono-md text-light-primary" data-design-text-token="mono-md">164.2</span>
+                </td>
+                <td class="px-4 py-3 text-right tabular-nums">
+                  <span class="font-mono text-mono-md text-light-on-surface" data-design-text-token="mono-md">6.58</span>
+                </td>
+                <td class="px-4 py-3 text-right tabular-nums">
+                  <span class="font-mono text-mono-md text-success" data-design-text-token="mono-md">+2.4</span>
+                </td>
+                <td class="px-4 py-3 text-right tabular-nums">
+                  <span class="font-mono text-mono-md text-light-on-surface" data-design-text-token="mono-md">412</span>
+                </td>
+                <td class="px-4 py-3">
+                  <span class="font-body text-body-md text-light-on-surface-variant" data-design-text-token="body-md">No Heavy / Daedric</span>
+                </td>
+              </tr>
+              <tr class="hover:bg-light-surface-container-low transition-colors duration-state-change">
+                <td class="px-4 py-3">
+                  <span class="font-title text-title-md text-light-on-surface" data-design-text-token="title-md">High Elf · Battlemage</span>
+                </td>
+                <td class="px-4 py-3 text-right tabular-nums">
+                  <span class="font-mono text-mono-md text-light-on-surface" data-design-text-token="mono-md">178.4</span>
+                </td>
+                <td class="px-4 py-3 text-right tabular-nums">
+                  <span class="font-mono text-mono-md text-light-on-surface" data-design-text-token="mono-md">5.94</span>
+                </td>
+                <td class="px-4 py-3 text-right tabular-nums">
+                  <span class="font-mono text-mono-md text-warning" data-design-text-token="mono-md">-0.8</span>
+                </td>
+                <td class="px-4 py-3 text-right tabular-nums">
+                  <span class="font-mono text-mono-md text-light-on-surface" data-design-text-token="mono-md">368</span>
+                </td>
+                <td class="px-4 py-3">
+                  <span class="font-body text-body-md text-light-on-surface-variant" data-design-text-token="body-md">SP Depletion @ 24s</span>
+                </td>
+              </tr>
+              <tr class="hover:bg-light-surface-container-low transition-colors duration-state-change">
+                <td class="px-4 py-3">
+                  <span class="font-title text-title-md text-light-on-surface" data-design-text-token="title-md">Breton · Spellbreaker</span>
+                </td>
+                <td class="px-4 py-3 text-right tabular-nums">
+                  <span class="font-mono text-mono-md text-light-on-surface" data-design-text-token="mono-md">149.4</span>
+                </td>
+                <td class="px-4 py-3 text-right tabular-nums">
+                  <span class="font-mono text-mono-md text-success" data-design-text-token="mono-md">7.12</span>
+                </td>
+                <td class="px-4 py-3 text-right tabular-nums">
+                  <span class="font-mono text-mono-md text-success" data-design-text-token="mono-md">+4.1</span>
+                </td>
+                <td class="px-4 py-3 text-right tabular-nums">
+                  <span class="font-mono text-mono-md text-light-on-surface" data-design-text-token="mono-md">445</span>
+                </td>
+                <td class="px-4 py-3">
+                  <span class="font-body text-body-md text-light-on-surface-variant" data-design-text-token="body-md">Cast Rate 1.50x Cap</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+  </div>
+
+
+</body></html>
