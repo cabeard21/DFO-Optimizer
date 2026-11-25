@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "actor": {
+    "has_spellbook": true,
+    "hp": 64,
+    "max_hp": 64,
+    "current_sp": 60,
+    "max_sp": 60,
+    "level": 8,
+    "speed": 50,
+    "destruction_trained": 100,
+    "destruction_live": 100,
+    "destruction_mastered": false,
+    "school_live": {
+      "restoration": 100,
+      "alteration": 100
+    },
+    "school_climb": {
+      "restoration": 100,
+      "alteration": 100
+    }
+  },
+  "scenario": {
+    "id": "three-enemy-pack",
+    "evidence": "Synthetic stationary pack on a level, unobstructed lane. Positions, HP, saves and incoming blow times are scenario inputs.",
+    "horizon_us": 15000000,
+    "enemies": [
+      {
+        "id": "pack-1",
+        "hp": 24,
+        "willpower": 40,
+        "x_mm": 1300,
+        "z_mm": 0
+      },
+      {
+        "id": "pack-2",
+        "hp": 26,
+        "willpower": 40,
+        "x_mm": 3200,
+        "z_mm": 0
+      },
+      {
+        "id": "pack-3",
+        "hp": 28,
+        "willpower": 40,
+        "x_mm": 4800,
+        "z_mm": 0
+      }
+    ],
+    "incoming": [
+      {
+        "time_us": 1200000,
+        "source": 0,
+        "damage": 18,
+        "kind": "blow"
+      },
+      {
+        "time_us": 3300000,
+        "source": 1,
+        "damage": 22,
+        "kind": "blow"
+      }
+    ]
+  },
+  "spells": [
+    {
+      "id": "wave",
+      "element": 4,
+      "range_type": 3,
+      "effects": [
+        {
+          "effect_id": "4,0",
+          "base_low": 16,
+          "base_high": 18,
+          "plus_low": 0,
+          "plus_high": 0,
+          "per_level": 2
+        }
+      ]
+    },
+    {
+      "id": "bolt",
+      "element": 4,
+      "range_type": 2,
+      "effects": [
+        {
+          "effect_id": "4,0",
+          "base_low": 10,
+          "base_high": 12,
+          "plus_low": 0,
+          "plus_high": 0,
+          "per_level": 2
+        }
+      ]
+    },
+    {
+      "id": "heal",
+      "element": 4,
+      "range_type": 0,
+      "effects": [
+        {
+          "effect_id": "10,8",
+          "base_low": 12,
+          "base_high": 12,
+          "plus_low": 0,
+          "plus_high": 0,
+          "per_level": 1
+        }
+      ]
+    }
+  ],
+  "policies": [
+    {
+      "id": "wave",
+      "rules": [
+        {
+          "spell": "wave"
+        }
+      ]
+    },
+    {
+      "id": "bolt",
+      "rules": [
+        {
+          "spell": "bolt"
+        }
+      ]
+    },
+    {
+      "id": "protect-and-wave",
+      "rules": [
+        {
+          "spell": "heal",
+          "hp_below_pct": 50
+        },
+        {
+          "spell": "wave"
+        }
+      ]
+    }
+  ],
+  "seeds": [
+    1,
+    17,
+    42,
+    4294967295
+  ]
+}

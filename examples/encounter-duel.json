@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "actor": {
+    "has_spellbook": true,
+    "hp": 64,
+    "max_hp": 64,
+    "current_sp": 60,
+    "max_sp": 60,
+    "level": 8,
+    "speed": 50,
+    "destruction_trained": 100,
+    "destruction_live": 100,
+    "destruction_mastered": false,
+    "school_live": {
+      "restoration": 100,
+      "alteration": 100
+    },
+    "school_climb": {
+      "restoration": 100,
+      "alteration": 100
+    }
+  },
+  "scenario": {
+    "id": "one-on-one-defense",
+    "evidence": "Synthetic stationary ordinary PvE opponent. The authored attack sequence contrasts a full-health physical blow and an incoming spell; PvP and boss rules do not apply.",
+    "horizon_us": 14000000,
+    "enemies": [
+      {
+        "id": "duelist",
+        "hp": 85,
+        "willpower": 65,
+        "x_mm": 1700,
+        "z_mm": 0
+      }
+    ],
+    "incoming": [
+      {
+        "time_us": 500000,
+        "source": 0,
+        "kind": "blow",
+        "damage": 75
+      },
+      {
+        "time_us": 1750000,
+        "source": 0,
+        "kind": "spell",
+        "damage": 30
+      }
+    ]
+  },
+  "spells": [
+    {
+      "id": "shield",
+      "element": 4,
+      "range_type": 0,
+      "effects": [
+        {
+          "effect_id": "35,255",
+          "base_low": 15,
+          "base_high": 15,
+          "plus_low": 0,
+          "plus_high": 0,
+          "per_level": 1,
+          "duration_base": 3,
+          "duration_increment": 0,
+          "duration_per_level": 1
+        }
+      ]
+    },
+    {
+      "id": "heal",
+      "element": 4,
+      "range_type": 0,
+      "effects": [
+        {
+          "effect_id": "10,8",
+          "base_low": 30,
+          "base_high": 30,
+          "plus_low": 0,
+          "plus_high": 0,
+          "per_level": 1
+        }
+      ]
+    },
+    {
+      "id": "touch",
+      "element": 4,
+      "range_type": 1,
+      "effects": [
+        {
+          "effect_id": "4,0",
+          "base_low": 12,
+          "base_high": 14,
+          "plus_low": 0,
+          "plus_high": 0,
+          "per_level": 2
+        }
+      ]
+    }
+  ],
+  "policies": [
+    {
+      "id": "guard",
+      "rules": [
+        {
+          "spell": "shield",
+          "shield_below": 1
+        },
+        {
+          "spell": "heal",
+          "hp_below_pct": 40
+        },
+        {
+          "spell": "touch"
+        }
+      ]
+    },
+    {
+      "id": "rush",
+      "rules": [
+        {
+          "spell": "touch"
+        }
+      ]
+    }
+  ],
+  "seeds": [
+    1,
+    17,
+    42,
+    4294967295
+  ]
+}

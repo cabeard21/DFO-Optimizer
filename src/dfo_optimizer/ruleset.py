@@ -1,16 +1,20 @@
 """Pinned offline ruleset and deterministic extraction from authenticated Git blobs."""
 import hashlib
+from contextlib import contextmanager
 from functools import lru_cache
 import json
 import os
 from pathlib import Path
 import subprocess
 import tempfile
+import shutil
+from uuid import uuid4
 
 SOURCE_SHA = "a3eb1605ea1dc391b691fe314377458a7e63e483"
 SOURCE_URL = "https://github.com/Lattymoy/daggerfall-js-source"
 DATA = Path(__file__).with_name("data")
-BUNDLE_HASH = "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886"
+BUNDLE_HASH = "d639d137937f8c42e3f26d281785defb44fb5071e9c2da179de4a8320401d5b1"
+LIFECYCLE_BUNDLE_HASH = "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886"
 COMBAT_BUNDLE_HASH = "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183"
 CLASS_BUNDLE_HASH = "293f927a36e9bdbc9504e8ed3f16582e326c9bcc5f7a8b84a241a81ae069a27d"
 MAX_BUNDLE_BYTES = 2_000_000
@@ -29,7 +33,8 @@ def _authenticate(bundle):
         raise ValueError("Unsupported ruleset schema or source revision")
     identity = bundle.get("content_hash")
     body = _json_bytes({k: v for k, v in bundle.items() if k != "content_hash"})
-    if identity not in (BUNDLE_HASH, COMBAT_BUNDLE_HASH, CLASS_BUNDLE_HASH) or hashlib.sha256(body).hexdigest() != identity:
+    if (identity not in (BUNDLE_HASH, LIFECYCLE_BUNDLE_HASH, COMBAT_BUNDLE_HASH, CLASS_BUNDLE_HASH)
+            or hashlib.sha256(body).hexdigest() != identity):
         raise ValueError("Ruleset does not match the reviewed content hash")
     return body, identity
 
@@ -48,6 +53,38 @@ def freeze_ruleset(bundle):
     return snapshot
 
 
+@lru_cache(maxsize=1)
+def _installed_rules():
+    """Private authenticated snapshot for services. Public loads stay detached."""
+    return load_ruleset()
+
+
+def _service_rules(supplied):
+    """Admit an external bundle and use a snapshot the caller cannot change."""
+    if supplied is None:
+        return _installed_rules()
+    if type(supplied) is dict and supplied.get("content_hash") == BUNDLE_HASH:
+        try:
+            from . import _native
+        except ImportError:
+            # Standalone scalar replay can authenticate a supplied bundle without
+            # loading the compiled search engine.
+            return freeze_ruleset(supplied)
+        reference = _installed_rules()
+        if _native.same_json_tree(supplied, reference):
+            return reference
+    # Includes earlier pinned releases and equivalent JSON encodings that the
+    # fast path declines. Authentication and detachment use the same bytes.
+    return freeze_ruleset(supplied)
+
+
+def _progression_service_rules(supplied):
+    snapshot = _service_rules(supplied)
+    if snapshot.get("extraction_version") not in (3, 4):
+        raise ValueError("Progression and spellbook evaluation require the lifecycle ruleset.")
+    return snapshot
+
+
 def validate_combat_ruleset(bundle):
     validate_ruleset(bundle)
     if bundle["content_hash"] == CLASS_BUNDLE_HASH:
@@ -63,8 +100,15 @@ def _installed_combat_rules():
 
 def validate_progression_ruleset(bundle):
     validate_ruleset(bundle)
-    if bundle.get("extraction_version") != 3:
+    if bundle.get("extraction_version") not in (3, 4):
         raise ValueError("Progression and spellbook evaluation require the lifecycle ruleset.")
+    return bundle
+
+
+def validate_encounter_ruleset(bundle):
+    validate_ruleset(bundle)
+    if bundle.get("extraction_version") != 4:
+        raise ValueError("Encounter evaluation requires the reviewed encounter ruleset.")
     return bundle
 
 
@@ -127,10 +171,31 @@ def materialize_pinned(source, destination: Path, lock: dict) -> None:
     (destination / "package.json").write_text('{"type":"module"}', encoding="ascii")
 
 
-def run_adapter(source, lock_file: Path, adapter: Path, args=()):
+@contextmanager
+def adapter_directory(scratch_dir=None):
+    """Create a unique adapter directory in an explicitly supplied private workspace."""
+    if scratch_dir is None:
+        scratch_dir = os.environ.get("DFO_ORACLE_SCRATCH")
+    if scratch_dir is None:
+        with tempfile.TemporaryDirectory(prefix="dfo-source-") as private:
+            yield Path(private)
+        return
+    # Named release scratch is owned by the workspace. Child processes inherit
+    # its Windows ACL and can read the authenticated inputs.
+    root = Path(scratch_dir).resolve(strict=True)
+    stage = root / ("source-" + uuid4().hex)
+    stage.mkdir(exist_ok=False)
+    try:
+        yield stage
+    finally:
+        if stage.resolve().parent != root:
+            raise ValueError("Adapter scratch directory escaped its root")
+        shutil.rmtree(stage)
+
+
+def run_adapter(source, lock_file: Path, adapter: Path, args=(), *, scratch_dir=None):
     lock = json.loads(lock_file.read_text(encoding="utf-8"))
-    with tempfile.TemporaryDirectory(prefix="dfo-source-") as scratch:
-        stage = Path(scratch)
+    with adapter_directory(scratch_dir) as stage:
         materialize_pinned(source, stage, lock)
         script = stage / "adapter.mjs"
         script.write_bytes(adapter.read_bytes())
@@ -143,28 +208,35 @@ def run_adapter(source, lock_file: Path, adapter: Path, args=()):
         return json.loads(proc.stdout)
 
 
-def _extract(source):
-    catalog = run_adapter(source, DATA / "source-lock.json", DATA / "extract.mjs")
+def _extract(source, *, compare_permanent=True, scratch_dir=None):
+    def extract(lock, adapter):
+        return run_adapter(source, DATA / lock, DATA / adapter, scratch_dir=scratch_dir)
+
+    catalog = extract("source-lock.json", "extract.mjs")
     def data(name):
         return json.loads((DATA / name).read_text(encoding="utf-8"))
 
     registry = {row["mechanic_id"]: row for row in data("mechanics.json")}
     for name in ("spell-mechanics.json", "equipment-mechanics.json",
-                 "progression-mechanics.json", "spellbook-mechanics.json"):
+                 "progression-mechanics.json", "spellbook-mechanics.json", "encounter-mechanics.json"):
         registry.update((row["mechanic_id"], row) for row in data(name))
-    spell_rules = run_adapter(source, DATA / "spell-lock.json", DATA / "spell-rules.mjs")
-    equipment = {"source_sha": SOURCE_SHA, **run_adapter(source, DATA / "equipment-lock.json", DATA / "equipment.mjs")}
-    progression = run_adapter(source, DATA / "progression-lock.json", DATA / "progression-rules.mjs")
+    spell_rules = extract("spell-lock.json", "spell-rules.mjs")
+    equipment = {"source_sha": SOURCE_SHA, **extract("equipment-lock.json", "equipment.mjs")}
+    progression = extract("progression-lock.json", "progression-rules.mjs")
+    permanent = extract("progression-lock.json", "permanent-rules.mjs")
     if (spell_rules != data("spell-rules.json") or equipment != data("equipment.json")
             or progression != data("progression-rules.json")):
         raise ValueError("Extracted catalogs differ from the reviewed data shipped in this package.")
+    if compare_permanent and permanent != data("permanent-rules.json"):
+        raise ValueError("Extracted permanent powers differ from the reviewed catalog.")
     bundle = {
-        **catalog, "schema_version": 1, "extraction_version": 3, "engine_version": "lifecycle-v1",
+        **catalog, "schema_version": 1, "extraction_version": 4, "engine_version": "encounter-v1",
         "mode": "online_snapshot", "source_url": SOURCE_URL, "source_sha": SOURCE_SHA,
         "snapshot_date": "2026-11-02", "supported_live_version": None,
         "mechanics": list(registry.values()), "spell_rules": spell_rules,
         "equipment_hash": hashlib.sha256(_json_bytes(equipment)).hexdigest(),
-        "progression_rules": progression,
+        "progression_rules": progression, "permanent_rules": permanent,
+        "encounter_paths": data("encounter-paths.json"),
     }
     return {**bundle, "content_hash": _digest(bundle)}
 

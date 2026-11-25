@@ -1,5 +1,6 @@
 #pragma once
 #include "spell_kernel.hpp"
+#include "lifecycle_encounter.hpp"
 #include <algorithm>
 #include <atomic>
 #include <chrono>
@@ -18,6 +19,7 @@ inline void mark_replayed(Cancel& token) noexcept { token.incumbent.store(true);
 struct Option { Mask requires_mask; double score; int64_t sp=0; };
 struct Stage {
     std::vector<Option> options;
+    std::vector<EncounterOption> encounters;
     std::vector<int64_t> prices;
     int64_t ceiling=0, sp_ceiling=INT64_MAX;
     int64_t remaining_debt_cap=INT64_MAX;
@@ -26,6 +28,7 @@ struct Witness {
     std::vector<int> choices;
     std::vector<Mask> bought;
     std::vector<double> scores;
+    std::vector<int> end_hp,end_sp;
     int64_t spent = 0;
 };
 struct Report {
@@ -48,6 +51,7 @@ class Search {
     Cancel& flag;
     std::vector<Mask> future_use;
     std::vector<double> max_scores;
+    std::vector<dfo_enc::Encounter> scenarios;
     Witness path;
     Report out;
 
@@ -60,8 +64,11 @@ class Search {
         ++out.nodes;
         return true;
     }
+    uint64_t resident(uint64_t points) const {
+        return fixed_bytes+points*(sizeof(Witness)+stages.size()*32+128);
+    }
     bool fits(uint64_t points) {
-        const auto bytes=fixed_bytes+points*(sizeof(Witness)+stages.size()*24+128);
+        const auto bytes=resident(points);
         if (bytes>memory_limit) {out.end=3; return false;}
         out.work_bytes=std::max(out.work_bytes, bytes);
         return true;
@@ -80,7 +87,7 @@ class Search {
     }
     // Only advance purchases which could matter. If tomorrow's offer is
     // available at an equal/lower price, deferral preserves every completion.
-    void extras(size_t s, size_t i, Mask held, Mask buys, int64_t spent,int64_t sp) {
+    void extras(size_t s, size_t i, Mask held, Mask buys, int64_t spent,int64_t sp,int hp_loss) {
         if (!step()) return;
         const auto& prices=stages[s].prices;
         while (s+1<stages.size() && i<prices.size()) {
@@ -88,17 +95,46 @@ class Search {
             const auto price=prices[i], next=stages[s+1].prices[i];
             if (!(held&bit) && (future_use[s+1]&bit) && price>=0 &&
                 price<=stages[s].ceiling-spent && (next<0 || next>price)) {
-                extras(s,i+1,held,buys,spent,sp);
-                if (!out.end) extras(s,i+1,held|bit,buys|bit,spent+price,sp);
+                extras(s,i+1,held,buys,spent,sp,hp_loss);
+                if (!out.end) extras(s,i+1,held|bit,buys|bit,spent+price,sp,hp_loss);
                 return;
             }
             ++i;
         }
         path.bought[s]=buys;
         if (s+1==stages.size()) publish(spent);
-        else visit(s+1,held,spent,std::min(stages[s].remaining_debt_cap,sp));
+        else visit(s+1,held,spent,std::min(stages[s].remaining_debt_cap,sp),hp_loss);
     }
-    void visit(size_t s, Mask held, int64_t spent,int64_t sp) {
+    bool fight(size_t s, const EncounterOption& choice, int64_t debt, int loss, double& score, int64_t& cost,
+               int& next_loss, bool& dead) {
+        if (!step()) return false;
+        const auto& initial=*choice.scenario;
+        if (loss>=initial.hp || debt>choice.caster.available_sp) return false;
+        auto& scene=scenarios[s];
+        scene.caster=choice.caster;
+        scene.wellspring_pct=choice.wellspring_pct;
+        scene.caster.available_sp-=static_cast<int>(debt);
+        scene.hp=initial.hp-loss;
+        dfo_enc::Limits limits;
+        limits.mark_incumbent=false;
+        if (node_limit && out.nodes>=node_limit) {out.end=1;return false;}
+        limits.max_events=node_limit ? node_limit-out.nodes : 0;
+        const auto occupied=resident(out.routes.size());
+        if (occupied>=memory_limit) {out.end=3;return false;}
+        limits.memory_bytes=memory_limit-occupied;
+        limits.wall_seconds=time_limit ? std::max(1e-12,time_limit-elapsed()) : 0;
+        auto result=dfo_enc::evaluate(scene,*choice.book,{choice.rules},{choice.seed},limits,flag);
+        out.work_bytes=std::max(out.work_bytes,occupied+result.work_bytes);
+        out.nodes+=result.events;
+        if (result.end) {out.end=result.end;return false;}
+        const auto& trial=result.rows.at(0).trials.at(0);
+        score=static_cast<double>(trial.damage)*1e6/scene.horizon_us;
+        cost=scene.caster.available_sp-trial.end_sp;
+        next_loss=initial.hp-trial.end_hp;
+        dead=trial.dead;
+        return true;
+    }
+    void visit(size_t s, Mask held, int64_t spent,int64_t sp,int hp_loss) {
         const Stage& stage=stages[s];
         if (spent>stage.ceiling) {++out.pruned; return;}
         // Relax resource and access constraints for every future checkpoint.
@@ -115,7 +151,7 @@ class Search {
         for (size_t choice=0;choice<stage.options.size();++choice) {
             if (!step()) return;
             const Option& option=stage.options[choice];
-            if (option.sp>stage.sp_ceiling-sp) {++out.pruned;continue;}
+            if (stage.encounters.empty() && option.sp>stage.sp_ceiling-sp) {++out.pruned;continue;}
             Mask needed=option.requires_mask&~held;
             int64_t total=spent;
             bool allowed=true;
@@ -125,9 +161,23 @@ class Search {
                 total+=price;
             }
             if (!allowed) {++out.pruned; continue;}
+            double score=option.score;
+            int64_t cost=option.sp;
+            int next_loss=hp_loss;
+            bool dead=false;
+            if (!stage.encounters.empty() && (!fight(s,stage.encounters[choice],sp,hp_loss,score,cost,next_loss,dead)
+                || (dead && s+1<stages.size()) || cost>stage.sp_ceiling-sp)) {
+                if (out.end) return;
+                ++out.pruned; continue;
+            }
             path.choices[s]=int(choice);
-            path.scores[s]=option.score;
-            extras(s,0,held|needed,needed,total,sp+option.sp);
+            path.scores[s]=score;
+            if (!stage.encounters.empty()) {
+                const auto& fight=stage.encounters[choice];
+                path.end_hp[s]=fight.scenario->hp-next_loss;
+                path.end_sp[s]=static_cast<int>(fight.caster.available_sp-sp-cost);
+            }
+            extras(s,0,held|needed,needed,total,sp+cost,next_loss);
             if (out.end) return;
         }
     }
@@ -145,10 +195,22 @@ public:
                 future_use[i]|=o.requires_mask;
                 max_scores[i]=std::max(o.score,max_scores[i]);
             }
+            if (!stages[i].encounters.empty()) {
+                max_scores[i]=std::numeric_limits<double>::infinity();
+                fixed_bytes+=scene_bytes(*stages[i].encounters.front().scenario);
+            }
             fixed_bytes+=stages[i].options.capacity()*sizeof(Option)+stages[i].prices.capacity()*8;
         }
         path.choices.resize(n); path.bought.resize(n); path.scores.resize(n);
-        if (fits(0)) visit(0,owned,0,0);
+        if (fits(0)) {
+            if (std::any_of(stages.begin(),stages.end(),[](const Stage& st){return !st.encounters.empty();})) {
+                scenarios.resize(n);
+                path.end_hp.resize(n); path.end_sp.resize(n);
+                for (size_t i=0;i<n;++i) if (!stages[i].encounters.empty())
+                    scenarios[i]=*stages[i].encounters.front().scenario;
+            }
+            visit(0,owned,0,0,0);
+        }
         return std::move(out);
     }
 };

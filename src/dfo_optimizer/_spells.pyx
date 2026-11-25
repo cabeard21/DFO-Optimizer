@@ -11,6 +11,7 @@ cdef extern from "spell_kernel.hpp" namespace "dfo_spell":
     cdef cppclass Token:
         void cancel() noexcept
         cpp_bool has_incumbent() noexcept
+        cpp_bool is_cancelled() noexcept nogil
     cdef enum Objective:
         pareto
         dps
@@ -76,6 +77,27 @@ def evaluate_batch(dict context, recipes):
         for i in range(rows.size()):
             scores[i]=evaluate_direct(c,rows[i])
     return [unpack_score(scores[i]) for i in range(rows.size())]
+
+
+def evaluate_contexts(contexts, recipe, CancelToken token=None):
+    """Evaluate one fixed spell across a bounded, ordered sensitivity series."""
+    cdef vector[Context] rows
+    cdef vector[Score] scores
+    cdef Recipe spell=prepare_recipe(recipe)
+    cdef size_t i
+    if not 1 <= len(contexts) <= 64:
+        raise ValueError("A spell curve needs 1 to 64 points")
+    for context in contexts:
+        rows.push_back(prepare_context(context))
+    scores.reserve(rows.size())
+    if token is None:
+        token=CancelToken()
+    with nogil:
+        for i in range(rows.size()):
+            if token.flag.is_cancelled():
+                break
+            scores.push_back(evaluate_direct(rows[i],spell))
+    return [unpack_score(scores[i]) for i in range(scores.size())]
 
 
 def benchmark_rows(dict context, recipes, repeats):

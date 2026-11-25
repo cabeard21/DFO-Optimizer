@@ -49,6 +49,23 @@ def test_progression_bundle_binds_extracted_mechanics():
     assert any(row["mechanic_id"] == "spell.stock_records" for row in bundle["mechanics"])
 
 
+def test_encounter_bundle_binds_the_permanent_catalog_and_mechanic_audit():
+    from dfo_optimizer.ruleset import validate_encounter_ruleset
+    bundle = validate_encounter_ruleset(load_ruleset())
+    assert bundle["permanent_rules"] == json.loads((DATA / "permanent-rules.json").read_text(encoding="utf8"))
+    rows = json.loads((DATA / "encounter-mechanics.json").read_text(encoding="utf8"))
+    assert rows and all(row in bundle["mechanics"] for row in rows)
+    assert {"progression.oghma", "progression.firmament", "encounter.firmament"} <= {
+        row["mechanic_id"] for row in rows
+    }
+    assert bundle["content_hash"] == (DATA / "encounter-release.sha256").read_text(encoding="ascii").strip()
+    assert bundle["encounter_paths"] == json.loads((DATA / "encounter-paths.json").read_text(encoding="utf8"))
+    altered = copy.deepcopy(bundle)
+    altered["permanent_rules"]["oghma"]["pool"] += 1
+    with pytest.raises(ValueError, match="hash"):
+        validate_encounter_ruleset(altered)
+
+
 def test_offline_validate_and_load_reject_corruption(tmp_path):
     bundle = load_ruleset()
     path = tmp_path / "ruleset.json"
@@ -71,6 +88,30 @@ def test_admission_authenticates_the_exact_detached_snapshot():
     assert supplied != frozen
     with pytest.raises(ValueError, match="hash"):
         freeze_ruleset(supplied)
+
+
+def test_service_admission_checks_every_json_type_and_does_not_retain_the_callers_object():
+    from dfo_optimizer.ruleset import _service_rules
+    supplied = load_ruleset()
+    rules = _service_rules(supplied)
+    assert rules == supplied and rules is not supplied
+    supplied["permanent_rules"]["oghma"]["pool"] = 30.0
+    assert type(rules["permanent_rules"]["oghma"]["pool"]) is int
+    with pytest.raises(ValueError, match="hash"):
+        _service_rules(supplied)
+    supplied = load_ruleset()
+    supplied["mechanics"][0]["live_verified"] = 0  # Equal to False in Python.
+    with pytest.raises(ValueError, match="hash"):
+        _service_rules(supplied)
+
+
+def test_native_rules_equality_is_order_independent_and_preserves_json_number_forms():
+    from dfo_optimizer import _native
+    base = {"n":[1, 0.0, False], "v":None}
+    assert _native.same_json_tree({"v":None, "n":[1, 0.0, False]}, base)
+    for different in [[1, -0.0, False], [True, 0.0, False], [1., 0.0, False], [1, 0.0, 0]]:
+        assert not _native.same_json_tree({"n":different, "v":None}, base)
+    assert not _native.same_json_tree({"n":base["n"], "another":None}, base)
 
 
 def test_reject_other_source_revision_before_execution(tmp_path):
@@ -105,3 +146,13 @@ def test_reject_output_within_reference_checkout(tmp_path):
     with pytest.raises(ValueError, match="outside"):
         build_ruleset(tmp_path, SOURCE_SHA, tmp_path / "unexpected")
     assert not (tmp_path / "unexpected").exists()
+
+
+def test_explicit_oracle_scratch_is_isolated_and_cleaned(tmp_path, monkeypatch):
+    from dfo_optimizer.ruleset import adapter_directory
+    monkeypatch.setenv("DFO_ORACLE_SCRATCH", str(tmp_path))
+    with adapter_directory() as first, adapter_directory() as second:
+        assert first.parent == second.parent == tmp_path
+        assert first != second
+        (first / "probe.json").write_bytes(b"{}")
+    assert not first.exists() and not second.exists()

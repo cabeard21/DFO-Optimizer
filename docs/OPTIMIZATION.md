@@ -1,5 +1,7 @@
 # Optimization
 
+Encounter search compares complete priority policies on the same initial state and seed panel. The reported proof applies to the submitted policies and finite trials. Event, memory, time or policy limits can terminate search early. Only completed policy trials enter the frontier. The independent replay verifies returned metrics and trace order. A fresh finite search is required to reproduce the optimality claim. [Encounter qualification](M6-M7-ACCEPTANCE.md)
+
 ## Class search
 
 The default query finds examples at the Dhargo construction floor. It uses HP 30, 3× INT Magery, all eight race IDs, a balanced all-50 class attribute vector, and one reproducible 12-skill assignment. Fixing the latter two domains keeps the first query focused on trait construction. Supply `attribute_domains` or twelve `skill_domains` to search alternatives. User-supplied skill slot order is meaningful, and all 12 selections must be distinct.

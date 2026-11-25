@@ -2,9 +2,8 @@
 import argparse
 import json
 from pathlib import Path
-from tempfile import TemporaryDirectory
 
-from dfo_optimizer.ruleset import run_adapter
+from dfo_optimizer.ruleset import run_adapter, adapter_directory
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
@@ -15,7 +14,7 @@ def generate(source):
     facts = run_adapter(source, DATA / "progression-lock.json", DATA / "progression-rules.mjs")
     base = json.loads((DATA / "progression-lock.json").read_text())
     extra = json.loads((HERE / "progression-extra-lock.json").read_text())
-    with TemporaryDirectory() as directory:
+    with adapter_directory() as directory:
         lock = Path(directory) / "combined.json"
         lock.write_text(json.dumps({**base, **extra}), encoding="utf-8")
         oracle = run_adapter(source, lock, HERE / "progression_oracle.mjs")

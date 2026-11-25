@@ -60,7 +60,10 @@ def _scoring_context(spec):
 
 def _metrics(recipe, spec, native):
     ctx = _scoring_context(spec)
-    metrics = native.evaluate(ctx, recipe)
+    return _checked_metrics(recipe, spec, ctx, native.evaluate(ctx, recipe))
+
+
+def _checked_metrics(recipe, spec, ctx, metrics):
     for name, expected in evaluate_reference(ctx, recipe).items():
         got = metrics[name]
         equal = isclose(got, expected, abs_tol=1e-12, rel_tol=1e-12) if type(expected) is float else got == expected

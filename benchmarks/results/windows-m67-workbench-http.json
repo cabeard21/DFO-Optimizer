@@ -1,0 +1,58 @@
+{
+  "platform": "Windows-10-10.0.19045-SP0",
+  "poll_seconds": 0.005,
+  "scope": "Local HTTP visibility; no browser rendering measured.",
+  "ruleset_hash": "d639d137937f8c42e3f26d281785defb44fb5071e9c2da179de4a8320401d5b1",
+  "measurements": [
+    {
+      "workload": "class",
+      "state": "completed",
+      "http_incumbent_ms": null,
+      "http_completion_ms": 30.730699996638577,
+      "service_elapsed_seconds": 0.01359779999620514,
+      "request_hash": "4ca0d355a22af4354c3449ef9b3d8ace1336367fdd34d77da8291feb9d99a0ab",
+      "result_hash": "52c6d1c14599ae1b7e91b9e6334cad8b1ce0f2cf8ec8fc36c9c98e689433e7ca",
+      "preview_runs": 1
+    },
+    {
+      "workload": "gear-owned",
+      "state": "completed",
+      "http_incumbent_ms": null,
+      "http_completion_ms": 42.37709999870276,
+      "service_elapsed_seconds": 0.02854970000043977,
+      "request_hash": "6fbf05750e98ddf5dca05830cce79ddbff8dae8c0efa9a1e276288aaf3823fdc",
+      "result_hash": "c16a4a201387786247132ca8b11d15f0f5f336d33d60609347177a6817d1b0e5",
+      "preview_runs": 1
+    },
+    {
+      "workload": "gear-budget",
+      "state": "completed",
+      "http_incumbent_ms": null,
+      "http_completion_ms": 36.09199999482371,
+      "service_elapsed_seconds": 0.011421800001699012,
+      "request_hash": "4d09a8e1ffbcbc50e1aabf8c794da48c57bb2e9e9b4206812581df73f34158e5",
+      "result_hash": "eb96bd22b8912953dfb4f7564b517bedd3655eb9cf1c34e79ad33da1f37d6877",
+      "preview_runs": 1
+    },
+    {
+      "workload": "gear-bis",
+      "state": "completed",
+      "http_incumbent_ms": 30.5168999984744,
+      "http_completion_ms": 36.87779999745544,
+      "service_elapsed_seconds": 0.015071699999680277,
+      "request_hash": "df3b333aa86173763d7af6d5caba6cfcce66e0e22ec761e92e668d54e23aeed5",
+      "result_hash": "e019e93bf8ceb299ee6e555e900cf8538a3133001a09bf493f9cb6098451288c",
+      "preview_runs": 1
+    },
+    {
+      "workload": "class-cancelled",
+      "state": "cancelled",
+      "http_incumbent_ms": 8.968100002675783,
+      "http_completion_ms": 17.059300000255462,
+      "service_elapsed_seconds": 0.009377599999425001,
+      "request_hash": "c3a7d7a6934632fd8523de7e0b7116d778cec4a865cd04b89a8bd320057a32fc",
+      "result_hash": "c068c1c8c341024e211bc544c0799c71b9c61c272f45a5583d5e6563054a2bd6",
+      "preview_runs": 2
+    }
+  ]
+}

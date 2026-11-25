@@ -3,9 +3,8 @@ import argparse
 import base64
 import json
 from pathlib import Path
-from tempfile import TemporaryDirectory
 
-from dfo_optimizer.ruleset import run_adapter
+from dfo_optimizer.ruleset import run_adapter, adapter_directory
 
 HERE = Path(__file__).resolve().parent
 EXTRA = {
@@ -17,7 +16,7 @@ EXTRA = {
 
 
 def generate(source):
-    with TemporaryDirectory() as work:
+    with adapter_directory() as work:
         lock = Path(work) / "lock.json"
         blobs = json.loads((HERE / "oracle-lock.json").read_text(encoding="utf-8"))
         lock.write_text(json.dumps({**blobs, **EXTRA}), encoding="utf-8")

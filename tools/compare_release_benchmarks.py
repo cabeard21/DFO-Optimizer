@@ -1,11 +1,13 @@
-"""Compare two local wheels on the same host using the frozen class and combat workloads."""
+"""Compare two installed wheels on the same host using identical frozen workloads."""
 import argparse
+from contextlib import contextmanager
 import hashlib
 import json
 import os
 from pathlib import Path
 from statistics import median
 import subprocess
+import sys
 import tempfile
 import venv
 
@@ -21,11 +23,23 @@ def command(executable, *args, directory, env, payload=None):
     return json.loads(process.stdout)
 
 
-def install(directory, wheel, env):
-    venv.EnvBuilder(with_pip=True).create(directory)
+@contextmanager
+def install_directory(path):
+    if path is None:
+        with tempfile.TemporaryDirectory(prefix="dfo-paired-bench-") as temporary:
+            yield Path(temporary)
+        return
+    path = path.resolve()
+    path.mkdir(parents=True, exist_ok=False)
+    yield path
+
+
+def install(directory, wheel, env, *, driver_pip=False):
+    venv.EnvBuilder(with_pip=not driver_pip).create(directory)
     bindir = directory / ("Scripts" if os.name == "nt" else "bin")
     python = bindir / ("python.exe" if os.name == "nt" else "python")
-    subprocess.run([python, "-I", "-m", "pip", "install", "--no-index", "--no-deps", wheel],
+    installer = [sys.executable, "-I", "-m", "pip", "--python", python] if driver_pip else [python, "-I", "-m", "pip"]
+    subprocess.run([*installer, "install", "--no-index", "--no-deps", "--no-cache-dir", "--no-compile", wheel],
                    check=True, cwd=directory, env=env, stdout=subprocess.DEVNULL)
     return python
 
@@ -40,7 +54,7 @@ def summarize(python, suite, directory, env):
     for name, row in report["workloads"].items():
         evidence = {k: row[k] for k in ("rows", "checksum", "nodes", "leaves", "pruned", "quality",
                                         "verified", "returned", "status", "termination", "frontier",
-                                        "eligible_trait_count") if k in row}
+                                        "final_levels", "validation", "eligible_trait_count") if k in row}
         evidence["counters"] = {k: v for k, v in row.get("counters", {}).items()
                                 if "seconds" not in k and "bytes" not in k}
         inputs = {k: row[k] for k in ("request", "context", "recipes", "input_patterns", "copies") if k in row}
@@ -89,6 +103,11 @@ def main():
     for flag in ("--before", "--after", "--output"):
         parser.add_argument(flag, type=Path, required=True)
     parser.add_argument("--repeats", type=int, default=3, help="paired runs per wheel (default 3)")
+    parser.add_argument("--work-dir", type=Path,
+                        help="create a new directory for the two isolated environments and retain them for replay; "
+                             "install offline through the invoking Python's pip")
+    parser.add_argument("--suites", nargs="+", choices=["smoke", "combat", "progression", "lifecycle"],
+                        default=["smoke", "combat"], help="baseline suites supported by both releases")
     args = parser.parse_args()
     if not 1 <= args.repeats <= 50 or args.output.suffix.lower() != ".json":
         parser.error("choose 1..50 repetitions and a JSON output path")
@@ -98,12 +117,11 @@ def main():
     env = {k: v for k, v in os.environ.items() if k.upper() != "PYTHONPATH"}
     env["PYTHONNOUSERSITE"] = "1"
     records = []
-    with tempfile.TemporaryDirectory(prefix="dfo-paired-bench-") as temporary:
-        cwd = Path(temporary)
-        pythons = {k: install(cwd / k, v, env) for k, v in wheels.items()}
+    with install_directory(args.work_dir) as cwd:
+        pythons = {k: install(cwd / k, v, env, driver_pip=args.work_dir is not None) for k, v in wheels.items()}
         for n in range(args.repeats):
             for tag in (("after", "before") if n % 2 else ("before", "after")):
-                for suite in ("smoke", "combat"):
+                for suite in dict.fromkeys(args.suites):
                     row, host = summarize(pythons[tag], suite, cwd, env)
                     records.append({"version": tag, **row})
     summaries = compare(records)

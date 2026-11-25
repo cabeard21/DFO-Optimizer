@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#181a57">
+  <title>DFO Optimizer · Workbench</title>
+  <link rel="stylesheet" href="/workbench.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#workspace">Skip to workspace</a>
+  <aside class="rail">
+    <div class="brand"><span class="mark" aria-hidden="true">✧</span><div><strong>DFO Optimizer</strong><small>Spellcasting workbench</small></div></div>
+    <nav id="navigation" aria-label="Workspaces"></nav>
+    <div class="snapshot"><span class="dot"></span> Offline snapshot<code id="source">Connecting…</code></div>
+  </aside>
+  <main id="workspace" tabindex="-1">
+    <header><div><p class="eyebrow">Daggerfall Online</p><h1 id="title">Character Creator</h1></div><button type="button" id="library">Open library</button></header>
+    <p id="status" role="status" aria-live="polite">Loading the local ruleset…</p>
+    <section id="content" aria-labelledby="title"></section>
+  </main>
+  <dialog id="drawer"><div class="dialog-head"><h2 id="dialog-title">Library</h2><button id="close" aria-label="Close dialog">Close</button></div><div id="dialog-content"></div></dialog>
+</body>
+</html>

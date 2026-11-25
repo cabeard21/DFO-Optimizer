@@ -82,10 +82,20 @@ def _members(archive):
 
 
 def _zip_input(path, slot, list_only):
-    if path.stat().st_size > MAX_ZIP_BYTES:
+    with path.open("rb") as stream:
+        return read_zip_stream(stream, slot, list_only)
+
+
+def read_zip_stream(stream, slot=None, list_only=False):
+    """Read a seekable ZIP without extracting or trusting member paths."""
+    if slot is not None and (type(slot) is not int or slot < 0):
+        raise ValueError("A slot must be a nonnegative integer")
+    stream.seek(0, 2)
+    if stream.tell() > MAX_ZIP_BYTES:
         raise ValueError("ZIP exceeds its import size limit")
+    stream.seek(0)
     try:
-        with ZipFile(path) as archive:
+        with ZipFile(stream) as archive:
             slots = _members(archive)
             if list_only:
                 if sum(s["SaveInfo.txt"].file_size for s in slots.values()) > MAX_SAVE_BYTES:

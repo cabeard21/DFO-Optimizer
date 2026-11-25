@@ -8,7 +8,7 @@ import pytest
 from dfo_optimizer import _native
 
 
-@pytest.mark.parametrize("name", ["_native", "_spells", "_gear", "_progression", "_spellbook", "_lifecycle"])
+@pytest.mark.parametrize("name", ["_native", "_spells", "_gear", "_progression", "_spellbook", "_lifecycle", "_encounter"])
 def test_each_native_kernel_is_in_the_installed_distribution(name):
     dist = metadata.distribution("dfo-optimizer")
     path = Path(import_module(f"dfo_optimizer.{name}").__file__).resolve()

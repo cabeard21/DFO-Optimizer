@@ -11,13 +11,13 @@ from .lifecycle_replay import replay_choices
 from .progression import _prepare, _route, digest, goal_met, plan_progression
 from .progression_domain import fields, integer, require
 from .progression_inputs import resolve_start
-from .ruleset import load_ruleset, validate_progression_ruleset
+from .ruleset import _progression_service_rules
 from .spellbook import pack_spell
 from .spell_request import _target
 
 
 def _rules(rules):
-    return validate_progression_ruleset(rules if rules is not None else load_ruleset())
+    return _progression_service_rules(rules)
 
 
 def _freeze(request, rules, base_dir, replan):
@@ -57,6 +57,7 @@ def _freeze(request, rules, base_dir, replan):
         "targets",
         "spellbook",
         "equipment",
+        "encounter",
         "budget_gold",
         "search",
         "sensitivity",
@@ -65,6 +66,10 @@ def _freeze(request, rules, base_dir, replan):
     integer(raw.get("schema_version", 1), "schema_version", 1, 1)
     require(raw.get("ruleset_hash", rules["content_hash"]) == rules["content_hash"], "build ruleset mismatch")
     _target(raw.get("target"))
+    if "encounter" in raw:
+        from .ruleset import validate_encounter_ruleset
+        validate_encounter_ruleset(rules)
+        require(isinstance(raw["encounter"],dict), "encounter must be an object")
     require(isinstance(raw.get("targets", {}), dict), "targets must map checkpoint numbers to targets")
     for k, v in raw.get("targets", {}).items():
         require(
@@ -205,7 +210,8 @@ def _comparison(raw, rolls):
             "budget_gold": raw.get("budget_gold"),
             "checkpoints": raw.get("checkpoints"),
             "progression": {k: v for k, v in raw["progression"].items() if k not in ("search", "description")},
-            "metric": "one-landed-hit-per-cast checkpoint DPS",
+            "metric": "one-landed-hit-per-cast checkpoint DPS" if "encounter" not in raw else "damage per encounter horizon second",
+            **({"encounter":raw["encounter"]} if "encounter" in raw else {}),
             **({"class_profiles": sorted(profiles)} if "custom" in profiles else {}),
         }
     )
@@ -219,7 +225,7 @@ def _progress(raw, start):
     }
 
 
-def _unknown(source, start):
+def _unknown(source, start, *, encounter=False):
     blockers = []
     for name in ("sp", "gold", "skills", "attributes", "mastered", "known", "career"):
         v = source.get(name)
@@ -229,7 +235,8 @@ def _unknown(source, start):
         from .character import normalize_character
 
         snapshot = normalize_character(start["character"])
-        blockers.extend(snapshot.get("unknown_mechanics", []))
+        blockers.extend(issue for issue in snapshot.get("unknown_mechanics", [])
+                        if not encounter or not issue.startswith(("arcanePath:", "martialPath:")))
         blockers.extend(snapshot["observations"].get("worn_equipment_issues", []))
         overlays = {
             "speed",
@@ -257,8 +264,21 @@ def _unknown(source, start):
     return blockers
 
 
+def _specialized(checkpoints, *, encounter):
+    for checkpoint in checkpoints:
+        state = checkpoint["state"]
+        if not encounter and (state.get("arcane_path") or state.get("martial_path")
+                              or (state.get("firmament") or {}).get("tree", {}).get("start")):
+            return True
+    return False
+
+
 def _witness(d, route, row, name, origin, seed):
     steps = replay_choices(d, row["slots"], row["policies"], row["bought"], row["scores"])
+    if "end_hp" in row or "end_sp" in row:
+        require([s["encounter"]["end_hp"] for s in steps] == row.get("end_hp") and
+                [s["encounter"]["end_sp"] for s in steps] == row.get("end_sp"),
+                "native encounter resources differ from independent event replay")
     require(steps[-1]["spent_gold"] == row["spent"], "native spending differs from replay")
     effort = route["effort"]
     return {
@@ -290,6 +310,9 @@ def _numeric(d, opts, token):
         [pack_spell(recipe) for _, recipe in d.book],
         [[d.names.index(k) for k in policy] for policy in d.scripts],
         d.owned,
+        encounters=d.encounters,
+        wellspring=[sum(line["value"] for line in it.item.get("affixes", []) if line["id"] == "wellspring")
+                    for it in d.domain.items] if d.encounters else None,
         cancel=token,
         **opts,
     )
@@ -427,7 +450,7 @@ def _run(request, rules, base_dir, replan, cancel, *, scope=None, frozen=False):
                 continue
             start = template if seed is None else {**template, "roll_seed": seed}
             source, _ = resolve_start(start, rules=rules)
-            missing = _unknown(source, start)
+            missing = _unknown(source, start, encounter="encounter" in raw)
             if missing:
                 gaps.append({"family": name, "roll_seed": seed, "kind": "unsupported", "reasons": missing})
                 term.append("unsupported")
@@ -477,16 +500,14 @@ def _run(request, rules, base_dir, replan, cancel, *, scope=None, frozen=False):
                 if limits["max_nodes"] and counters["nodes"] >= limits["max_nodes"]:
                     term.append("node_limit")
                     break
-                if any(
-                    r["state"].get("arcane_path") or r["state"].get("martial_path") for r in route["checkpoints"]
-                ):
+                if _specialized(route["checkpoints"], encounter="encounter" in raw):
                     term.append("unsupported")
                     gaps.append(
                         {
                             "family": name,
                             "roll_seed": seed,
                             "kind": "unsupported",
-                            "reasons": ["active specialization effects require combat validation"],
+                            "reasons": ["active specialization or Firmament effects require checkpoint combat validation"],
                         }
                     )
                     continue
@@ -505,7 +526,13 @@ def _run(request, rules, base_dir, replan, cancel, *, scope=None, frozen=False):
                         }
                     )
                     continue
-                d = compile_route(raw, source, route)
+                from .lifecycle_encounter import EncounterGap
+                try:
+                    d = compile_route(raw, source, route, rules, start)
+                except EncounterGap as exc:
+                    term.append("unsupported")
+                    gaps.append({"family":name, "roll_seed":seed, "kind":"unsupported", "reasons":[str(exc)]})
+                    continue
                 if not d.scripts:
                     term.append("unsupported")
                     gaps.append(
@@ -580,7 +607,10 @@ def _finish(raw, rules, rolls, rows, gaps, counters, term, first, begin, checked
         "timings": {"first_validated_seconds": first, "elapsed_seconds": perf_counter() - begin},
         "proof_scope": "Declared class, birth roll, activity, physical copy, offer, recipe, policy and checkpoint domains.",
         "assumptions": [
-            "Checkpoint DPS measures a funded finite policy on one fresh ordinary foe per landed cast.",
+            ("Checkpoint DPS measures damage per declared encounter horizon second on the fixed common seed. "
+             "Terminal mode considers purchases offered at the terminal checkpoint."
+             if "encounter" in raw else
+             "Checkpoint DPS measures a funded finite policy on one fresh ordinary foe per landed cast."),
             "Offers require supported physical properties, confirmed availability and a gold-only quote. Other currencies have zero available balance.",
             "Policy SP is reserved across checkpoints and training until an evidenced full refill. Scenario casts grant no training credit. Purchases persist.",
             "Effort uses the independently replayed actions and observed or explicitly declared opportunities.",
@@ -685,21 +715,21 @@ def _replay_build(plan, rules):
             realized = start if seed is None else {**start, "roll_seed": seed}
             ctx = _prepare(_progress(raw, realized), rules)
             require(
-                not ctx[9] and not _unknown(ctx[0].source_state, realized),
+                not ctx[9] and not _unknown(ctx[0].source_state, realized, encounter="encounter" in raw),
                 "unproved starting damage or progression observations",
             )
             cache[family, seed] = ctx
         ctx = cache[family, seed]
         route, end = _route(ctx, candidate["progression_choices"], public_choices=True)
         require(
-            not any(p["state"].get("arcane_path") or p["state"].get("martial_path") for p in route["checkpoints"]),
+            not _specialized(route["checkpoints"], encounter="encounter" in raw),
             "unsupported checkpoint specialization",
         )
         require(
             (not ctx[6]["final_stage_only"] or len(route["actions"]) == len(ctx[1])) and goal_met(end, ctx[5]),
             "incomplete lifecycle progression",
         )
-        d = compile_route(raw, ctx[0].source_state, route)
+        d = compile_route(raw, ctx[0].source_state, route, rules, start)
         w = candidate["choices"]
         expected = _witness(
             d,

@@ -1,5 +1,30 @@
 # Performance baseline
 
+## Encounter and desktop qualification
+
+The 0.4.0 Windows x64 wheel measured the following on a Ryzen 5 5600X, CPython 3.12.10 and one worker. Warm times are medians of five complete runs. The native column times compiled execution. The first replay time is measured inside the cold service process. [Full measurements and input hashes](../benchmarks/results/windows-m67-encounter.json)
+
+| Frozen workload | Policies × seeds | Events | Cold CLI | Warm service | Native | First replay | Native events/s |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Paid miss | 1 × 4 | 28 | 127.68 ms | 0.765 ms | 0.0459 ms | 3.13 ms | 610,022 |
+| Pack, exact | 3 × 4 | 258 | 132.63 ms | 2.116 ms | 0.0992 ms | 3.00 ms | 2,600,806 |
+| Pack, one policy | 1 × 4 | 64 | 126.93 ms | 0.971 ms | 0.0569 ms | 2.95 ms | 1,124,780 |
+| Two-room dungeon | 4 × 4 | 346 | 126.56 ms | 1.606 ms | 0.0948 ms | 2.95 ms | 3,649,789 |
+
+Process peak RSS was 27.76 MiB. The one-policy pack returned one of the two exact frontier points, giving 50% recall. Neither pack point cleared on any of the four seeds. The two-room frontier included a policy that cleared on two of four seeds. Its horizon-censored mean clear time was 23.125 s under a 36 s cutoff.
+
+In a single local HTTP run with 5 ms polling, the job endpoint exposed the long class search's first independently checked candidate 8.97 ms after submission and its cancelled state at 17.06 ms. The class, best-owned, budget and theoretical BIS examples completed in 30.73, 42.38, 36.09 and 36.88 ms. [HTTP observations](../benchmarks/results/windows-m67-workbench-http.json)
+
+In the full installed-wheel Chromium run, the class and three gear examples became visible 275–305 ms after clicking Run. The long class search displayed its first validated candidate at 295 ms and its cancelled state at 553 ms after the Run click. Each is one observation, and the cancellation timing includes the test edits and clicks after the preview appeared. [Chromium observations](../benchmarks/results/windows-m67-workbench-browser.json)
+
+Run `dfo benchmark --suite encounter --workers 1 --output build/encounter-benchmark.json` from the installed release wheel. This measures a fixed paid miss, the exact pack policy frontier, its one-policy bounded counterpart and a dungeon. Each warm sample must match the cold CLI result and work counters. The pack report records how many distinct objective tuples survive the tighter budget. Cold CLI latency includes Python startup, source snapshot admission and serialization. Native throughput uses kernel wall time. End-to-end throughput includes decoding and independent replay.
+
+Use `python tools/compare_release_benchmarks.py --before BEFORE_WHEEL --after AFTER_WHEEL --suites smoke combat progression lifecycle --output build/paired.json` on the same idle host. The report compares work and objective identities as well as time. Set `DFO_BROWSER_REPORT` to a local JSON path during `tools/verify_wheel.py --browser` to record click-to-visible-result times separately from service latency. [Current qualification evidence](M6-M7-ACCEPTANCE.md)
+
+The first M6 candidate took 3.64 ms for exact class search and 8.21 ms for the small exact progression search. The 0.3.0 medians were 1.87 ms and 5.69 ms on the same host. A 41-sample profile on that candidate found that freezing an explicitly supplied ruleset took 1.02 ms with the historical bundle and 4.93 ms with the larger encounter bundle. The final wheel authenticates its private default snapshot once and uses native typed equality to admit identical caller inputs. Changed inputs still go through full authentication. [First paired comparison](../benchmarks/results/windows-m67-initial-comparison.json) · [Controlled admission profile](../benchmarks/results/windows-m67-admission-profile.json) · [Admission implementation](../src/dfo_optimizer/ruleset.py)
+
+Three alternating runs per release compared 18 workloads against the installed 0.3.0 wheel on the same Windows host. Every workload reproduced its input, deterministic work and objective results across the six runs. Exact class search improved from 1.925 to 1.356 ms and bounded class search from 4.515 to 3.513 ms. Exact progression on the reduced fixture improved from 5.549 to 3.118 ms and bounded progression from 4.708 to 2.396 ms. The representative progression workload went from 1.146 to 1.194 s (+4.2%) and the lifecycle workload from 2.384 to 2.376 s (−0.3%). The largest slowdown remained below the 10% investigation threshold. Peak RSS increases ranged from 0.75% to 3.56% across the four suites, below the 20% investigation threshold. The original installed 0.3.0 wheel was verified through its recorded archive digest, installed file hashes and native library identity. [Final paired release measurements](../benchmarks/results/windows-m67-release-comparison.json)
+
 ## M0 and M1 acceptance
 
 These are serial measurements from installed, optimized CPython 3.12 wheels on an AMD Ryzen 5 5600X. Windows 10 ran on the 12-thread desktop. Alpine Linux 3.22.8 ran in a two-vCPU x86-64 VirtualBox guest on the same host. The Windows build used MSVC with strict floating point. The Alpine build used GCC 14.2 with fast math and contraction disabled.

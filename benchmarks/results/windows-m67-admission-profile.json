@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "platform": "Windows-10-10.0.19045-SP0 AMD64",
+  "cpu": "AMD Ryzen 5 5600X 6-Core Processor",
+  "python": "3.12.10",
+  "interpreter_wheel_sha256": "11f7be6ed2881503606e6d657297c9551ea4310700cedb8655cbf5f5fba17adf",
+  "scope": "One isolated 0.4.0 process using each authenticated packaged ruleset. Each metric is the median of 41 calls measured with perf_counter_ns. Class search is the smoke benchmark's exact request with its input ruleset supplied explicitly.",
+  "original_0.3.0_interpreter_and_original_input": {
+    "wheel_sha256": "1fc38c43ec001d2b9ea75ea197dbc3fd9c3b5c1ba97e5a6d1b8bff3aca0ee27d",
+    "ruleset_sha256": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
+    "load_p50_ms": 1.4618,
+    "validate_p50_ms": 0.5374,
+    "freeze_p50_ms": 1.0106,
+    "load_then_validate_p50_ms": 2.0636,
+    "class_exact_p50_ms": 1.8402
+  },
+  "verified_inputs": {
+    "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886": {
+      "shipped_bytes": 116347,
+      "canonical_bytes": 66976,
+      "load_p50_ms": 1.5716,
+      "validate_p50_ms": 0.7229,
+      "freeze_p50_ms": 1.0203,
+      "load_then_validate_p50_ms": 2.2263,
+      "class_exact_p50_ms": 1.9884
+    },
+    "18c0476bcaeb9359917cd482c8b9f6d0d61af873e907d24c2458222ad17a470d": {
+      "shipped_bytes": 270275,
+      "canonical_bytes": 152769,
+      "load_p50_ms": 5.1351,
+      "validate_p50_ms": 2.2535,
+      "freeze_p50_ms": 4.9302,
+      "load_then_validate_p50_ms": 7.557,
+      "class_exact_p50_ms": 5.943
+    }
+  }
+}

@@ -1,0 +1,576 @@
+[
+  {
+    "mechanic_id": "encounter.damage",
+    "path": "src/systems/effects.js",
+    "symbol": "applySpell,effectMagnitude",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "native_encounter",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "On confirmed hostile landings, resolve magnitude, ward, immunity and remaining saving throw in source order.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.healing",
+    "path": "src/systems/effects.js",
+    "symbol": "applySpell,runEffectRound",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "native_encounter",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Caster-only Heal Health and Regenerate read the appropriate school's earned climb. Each regeneration tick rolls a fresh magnitude.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.shield",
+    "path": "src/systems/effects.js",
+    "symbol": "applySpell,renewRounds,tickActiveEffects",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "native_encounter",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Caster-only Shield recasts top up the original pool and refresh its remaining rounds; broken pools can be replaced.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.area",
+    "path": "src/systems/spellcast.js",
+    "symbol": "sweepFoes,sphereOverlapsCapsule",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "native_encounter",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Source explosion sweep uses the living foe capsules in order, including the exact rim. Cast origin and friendly-fire eligibility remain encounter inputs.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.wellspring",
+    "path": "src/systems/loot/lootPowers.js",
+    "symbol": "lootKill,wornSum",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "native_encounter",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Worn valid jewellery Wellspring lines sum to at most 10% maximum magicka per eligible kill. The source game shares fractional carry with other magicka gifts.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.spell_defenses",
+    "path": "src/systems/effects.js",
+    "symbol": "applySpell,spellReflectionChance,spellResistanceChance",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "native_encounter",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Per-slot absorption, reflection and resistance use ordered gates. Only the first reflected slot returns the whole spell. The later original slots still resolve.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.absorption",
+    "path": "src/systems/absorption.js",
+    "symbol": "tryAbsorption,effectCastingCost,absorbRefund",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "native_encounter",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Receiver-side Destruction cost and available room precede effect, set, career and item checks. Half the aggregate absorbed spell points, floored, is credited.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.silence",
+    "path": "src/systems/effects.js",
+    "symbol": "applySpell,renewRounds",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "native_encounter",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Silence refreshes an existing duration before testing a new chance. Only new instances receive the non-magnitude saving throw.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "progression.oghma",
+    "path": "src/systems/artifactEffects.js",
+    "symbol": "hasArtifactSubtype,OGHMA_BONUS_POOL,SPECIAL_ARTIFACT_HANDLERS",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "native_progression",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Consumes one observed Oghma copy. The 30-point allocation respects earned attribute caps and clears the level-up latch. Acquiring the artifact is a separate opportunity.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "progression.firmament",
+    "path": "src/net/firmament/firmamentLaw.js",
+    "symbol": "treeFault,treeStats,pointsLeft",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "native_progression",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Additive allocations require a connected sign, observed account access, Renown and profession points. Respecs and future entitlements are outside this domain.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.firmament",
+    "path": "src/systems/firmamentPowers.js",
+    "symbol": "firmamentFold,firmamentSpellPower,firmamentSpellPierce,firmamentCastSpeed",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "native_checkpoint",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Funded awake trees can supply static spell power, pierce, cast speed and Destruction. Capacity-changing nodes require matching live pool observations. Unprojected keystones block scoring.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.path.battlemage",
+    "path": "src/systems/arcanePowers.js",
+    "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "scoped_passive",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Spellsteel reads the live positive shield pool. Aegis Bolt grants its power-cast shield from health actually lost and can raise the incumbent shield cap.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.path.trickster",
+    "path": "src/systems/arcanePowers.js",
+    "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "gated_ai",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Slip Away changes enemy targeting after the one-third HP threshold. Both concealment and the Fleeting Hold rider require enemy AI.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.path.riftwalker",
+    "path": "src/systems/arcanePowers.js",
+    "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "scoped_passive",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Between Moments adds 20 points of cast speed. Rift Lance arcs also require ordered nearby foe and sharing evidence.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.path.warden",
+    "path": "src/systems/arcanePowers.js",
+    "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "scoped_passive",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Steadfast heals a shielded, living player on a magic round. Living Aegis guard carry and guard budget require the signature combat door.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.path.wardwright",
+    "path": "src/systems/arcanePowers.js",
+    "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "scoped_passive",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Attuned Wards discounts spells made only of Alteration or Thaumaturgy effects. Prismatic Ward and incoming spell absorption require the defensive spell door.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.path.shadowcaster",
+    "path": "src/systems/arcanePowers.js",
+    "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "scoped_passive",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Unseen Strike depends on live concealment. Ordinary unconcealed casts can be resolved. Shadow Bolt and enemy detection need concealment transitions.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.path.spellbreaker",
+    "path": "src/systems/arcanePowers.js",
+    "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "scoped_passive",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Sunder reduces the Damage Health save. Unravel restores a third of actual paid magicka on damage, with separate damage and Silence schools and rolls.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.path.bloodmage",
+    "path": "src/systems/arcanePowers.js",
+    "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "scoped_passive",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Sanguine Tide derives power from missing health at the landing. The Blood Boil signature has a separate low-health hit.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.path.elementalist",
+    "path": "src/systems/arcanePowers.js",
+    "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "scoped_passive",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Conflux grants one stack per damaging cast across targets and uses strict ten-second expiry. Chain Lightning needs ordered secondary target and career evidence.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.path.seer",
+    "path": "src/systems/arcanePowers.js",
+    "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "scoped_passive",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Foresight is rolled only at a scheduled hostile blow. Psychic Lance marks and the target-specific timed pierce require the signature.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.path.lightbringer",
+    "path": "src/systems/arcanePowers.js",
+    "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "scoped_passive",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Dawn's Ward reads the game-classified undead or daedra target group. Dawnbolt has a separate eligible heal and burn rider.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.path.enchanter",
+    "path": "src/systems/arcanePowers.js",
+    "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "scoped_passive",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Glamour's Personality, Etiquette and Streetwise bonuses have no combat input in the fixed encounter. A Mind Bender refund needs a newly calmed hostile AI.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.path.necromancer",
+    "path": "src/systems/arcanePowers.js",
+    "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "scoped_passive",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Death's Due restores 5% maximum health and magicka on eligible kills. Siphon Life heals half the HP actually lost, subject to signature identity.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.path.soulbinder",
+    "path": "src/systems/arcanePowers.js",
+    "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "scoped_passive",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Soul Well restores 10% maximum magicka on eligible kills, or 20% for the caster's own active Soul Trap. Soul Lance requires the trap and its signature data.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.path.hierophant",
+    "path": "src/systems/arcanePowers.js",
+    "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "scoped_passive",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Absolution heals on a nonlethal crossing below 30% with a 180-second recovery. Sanctify's cures and resistance must be present to score its rider.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.martial.blademaster",
+    "path": "src/systems/martialPowers.js",
+    "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "outside_spell_encounter",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Flowing Steel requires a landed weapon attack. Weapon techniques and their riders require weapon actions.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.martial.warblade",
+    "path": "src/systems/martialPowers.js",
+    "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "outside_spell_encounter",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "War Rhythm changes weapon swing cadence. Weapon techniques and their riders require weapon actions.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.martial.vanguard",
+    "path": "src/systems/martialPowers.js",
+    "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "scoped_passive",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Iron Discipline reduces a marked hostile blow by 10% before Shield and carries the fractional reduction. Weapon techniques and their riders require weapon actions.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.martial.ranger",
+    "path": "src/systems/martialPowers.js",
+    "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "outside_spell_encounter",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Hunter's Instinct affects weapon attacks against beasts. Weapon techniques and their riders require weapon actions.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.martial.bladedancer",
+    "path": "src/systems/martialPowers.js",
+    "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "scoped_passive",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Dancer's Step evades one marked hostile blow in ten before the damage modifiers run. Weapon techniques and their riders require weapon actions.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.martial.bloodletter",
+    "path": "src/systems/martialPowers.js",
+    "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "scoped_passive",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Bloodlust heals 5% of maximum HP on an eligible kill through the shared fractional health credit. Weapon techniques and their riders require weapon actions.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.martial.cutthroat",
+    "path": "src/systems/martialPowers.js",
+    "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "outside_spell_encounter",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Cheap Shot affects weapon strikes against unaware opponents. Weapon techniques and their riders require weapon actions.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.martial.assassin",
+    "path": "src/systems/martialPowers.js",
+    "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "outside_spell_encounter",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Opening Strike affects the first weapon attack on each opponent. Weapon techniques and their riders require weapon actions.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.martial.shadowdancer",
+    "path": "src/systems/martialPowers.js",
+    "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "outside_spell_encounter",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Light Step changes Agility and Dodging before an observed incoming hit is resolved. Weapon techniques and their riders require weapon actions.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.martial.juggernaut",
+    "path": "src/systems/martialPowers.js",
+    "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "scoped_passive",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Stand Firm heals 20% on a nonlethal crossing below 30% HP with 180 seconds of recovery. Weapon techniques and their riders require weapon actions.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.martial.woodsman",
+    "path": "src/systems/martialPowers.js",
+    "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "outside_spell_encounter",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Tireless restores fatigue, which is outside the scored resources. Weapon techniques and their riders require weapon actions.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.martial.berserker",
+    "path": "src/systems/martialPowers.js",
+    "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "outside_spell_encounter",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Frenzy changes weapon damage and swing cadence. Weapon techniques and their riders require weapon actions.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.martial.crusader",
+    "path": "src/systems/martialPowers.js",
+    "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "outside_spell_encounter",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Purge affects weapon attacks against undead and daedra. Weapon techniques and their riders require weapon actions.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.martial.brawler",
+    "path": "src/systems/martialPowers.js",
+    "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "scoped_passive",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Grit heals 1% of maximum HP per magic round. Fatigue is outside the scored resources. Weapon techniques and their riders require weapon actions.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  },
+  {
+    "mechanic_id": "encounter.martial.windrunner",
+    "path": "src/systems/martialPowers.js",
+    "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+    "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+    "verification_status": "source_verified",
+    "implementation_status": "scoped_passive",
+    "mode": "online_snapshot",
+    "live_verified": false,
+    "limits": "Windborne adds 10 Speed before the effective Speed cap. Running and Jumping are outside the encounter. Weapon techniques and their riders require weapon actions.",
+    "assumptions": [
+      "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+    ]
+  }
+]

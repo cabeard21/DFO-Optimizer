@@ -2,6 +2,7 @@
 """Finite cross-stage purchase and checkpoint search. The traversal runs without the GIL."""
 from libc.stdint cimport int64_t, uint64_t
 from libcpp.vector cimport vector
+from ._encounter cimport PackedEncounter, freeze_scene_abi
 from math import isfinite
 include "_spell_common.pxi"
 include "spellbook.pxi"
@@ -20,6 +21,7 @@ cdef extern from "lifecycle_search.hpp" namespace "dfo_lifecycle":
         vector[int64_t] prices
         int64_t ceiling
     cdef cppclass Witness:
+        vector[int] end_hp,end_sp
         vector[int] choices
         vector[uint64_t] bought
         vector[double] scores
@@ -131,6 +133,7 @@ cdef extern from "lifecycle_combat.hpp" namespace "dfo_lifecycle":
         vector[GearOption] items
         vector[Slot] slots
         vector[vector[int]] declared
+        vector[int] wellspring
         cpp_bool automatic
     cdef cppclass CombatStage:
         Context ctx
@@ -140,6 +143,7 @@ cdef extern from "lifecycle_combat.hpp" namespace "dfo_lifecycle":
         int64_t sp_ceiling
         int64_t remaining_debt_cap
         vector[int64_t] prices
+    void set_encounter(CombatStage&,const PackedEncounter&,unsigned int) except +
     cdef cppclass JointResult:
         Report search
         vector[vector[vector[int]]] slots
@@ -182,17 +186,21 @@ cdef Physical _physical(items,slots,declared):
             g.declared.push_back([_integer(v,"loadout item",-1,len(items)-1) for v in row])
     return g
 
-def optimize_route(stages,items,slots,declared,bundles,policies,owned,*,max_nodes=0,
+def optimize_route(stages,items,slots,declared,bundles,policies,owned,*,encounters=None,wellspring=None,max_nodes=0,
                    memory_bytes=64<<20,wall_seconds=0,CancelToken cancel=None):
     cdef Physical g=_physical(items,slots,declared)
     cdef vector[CombatStage] frozen
     cdef vector[Bundle] book
     cdef vector[vector[int]] scripts
     cdef CombatStage s
+    cdef PackedEncounter scene
     cdef JointResult result
     cdef Witness w
     cdef CancelToken token=CancelToken() if cancel is None else cancel
     count=len(bundles)+len(items)
+    if wellspring is not None:
+        if len(wellspring)!=len(items): raise ValueError("missing gear recovery roll")
+        g.wellspring=[_integer(v,"Wellspring recovery percentage",0,10) for v in wellspring]
     if count>63 or not stages or len(stages)*(3+count)>1024:
         raise ValueError("lifecycle domain exceeds supported checkpoint/asset dimensions")
     for row in bundles: book.push_back(prepare_bundle(row))
@@ -210,6 +218,11 @@ def optimize_route(stages,items,slots,declared,bundles,policies,owned,*,max_node
         s.uncertain_worn=uncertain
         s.sp_ceiling=_integer(sp_ceiling,"SP reserve",0,2**53-1)
         s.remaining_debt_cap=_integer(debt_cap,"rest recovery deficit ceiling",0,2**53-1)
+        if encounters is not None:
+            if len(encounters)!=len(stages): raise ValueError("missing checkpoint encounter")
+            raw,seed=encounters[frozen.size()]
+            scene=freeze_scene_abi(raw)
+            set_encounter(s,scene,_integer(seed,"encounter seed",0,2**32-1))
         frozen.push_back(s)
     cdef uint64_t base=_integer(owned,"ownership",0,(1<<count)-1)
     cdef uint64_t nodes=_integer(max_nodes,"node limit",0,2**63-1)
@@ -224,6 +237,9 @@ def optimize_route(stages,items,slots,declared,bundles,policies,owned,*,max_node
         w=result.search.routes[i]
         routes.append({"spent":w.spent,"bought":list(w.bought),"scores":list(w.scores),
                        "slots":list(result.slots[i]),"policies":list(result.policies[i])})
+        if encounters is not None:
+            routes[-1]["end_hp"]=list(w.end_hp)
+            routes[-1]["end_sp"]=list(w.end_sp)
     return {"routes":routes,"termination":("exhausted","node_limit","time_limit","memory_limit","cancelled")[result.search.end],
             "nodes":result.search.nodes,"pruned":result.search.pruned,"leaves":result.search.leaves,
             "work_bytes":result.search.work_bytes,"evaluations":result.evaluations,"cache_hits":result.cache_hits,

@@ -20,13 +20,13 @@ class NativeBuild(build_ext):
 
 
 package = Path("src/dfo_optimizer")
-headers = sorted(str(path) for pattern in ("*.hpp", "*.pxi") for path in package.glob(pattern))
+headers = sorted(str(path) for pattern in ("*.hpp", "*.pxi", "*.pxd") for path in package.glob(pattern))
 extensions = [
     Extension(
         f"dfo_optimizer.{name}", [str(package / f"{name}.pyx")], language="c++",
         include_dirs=[str(package)], depends=headers,
     )
-    for name in ("_native", "_spells", "_gear", "_progression", "_spellbook", "_lifecycle")
+    for name in ("_native", "_spells", "_gear", "_progression", "_spellbook", "_lifecycle", "_encounter")
 ]
 setup(
     cmdclass={"build_ext": NativeBuild},

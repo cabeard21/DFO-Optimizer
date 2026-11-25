@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "actor": {
+    "has_spellbook": true,
+    "hp": 64,
+    "max_hp": 64,
+    "current_sp": 5,
+    "max_sp": 60,
+    "level": 8,
+    "speed": 50,
+    "destruction_trained": 100,
+    "destruction_live": 100,
+    "destruction_mastered": false,
+    "school_live": {
+      "restoration": 100,
+      "alteration": 100
+    },
+    "school_climb": {
+      "restoration": 100,
+      "alteration": 100
+    }
+  },
+  "scenario": {
+    "id": "paid-projectile-miss",
+    "evidence": "Synthetic stationary target at 225 m on a clear level lane. A bolt expires after eight seconds of flight.",
+    "horizon_us": 9000000,
+    "enemies": [
+      {
+        "id": "target-1",
+        "hp": 25,
+        "willpower": 40,
+        "x_mm": 225000,
+        "z_mm": 0
+      }
+    ],
+    "incoming": []
+  },
+  "spells": [
+    {
+      "id": "bolt",
+      "element": 4,
+      "range_type": 2,
+      "effects": [
+        {
+          "effect_id": "4,0",
+          "base_low": 1,
+          "base_high": 3,
+          "plus_low": 0,
+          "plus_high": 0,
+          "per_level": 2
+        }
+      ]
+    }
+  ],
+  "policies": [
+    {
+      "id": "shoot",
+      "rules": [
+        {
+          "spell": "bolt"
+        }
+      ]
+    }
+  ],
+  "seeds": [
+    1,
+    17,
+    42,
+    4294967295
+  ]
+}

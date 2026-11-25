@@ -119,6 +119,8 @@ _NEEDS = {
     "master": _CAREER | {"uses"}, "choose": {"mastered"}, "reset": {"gold"},
     "train": {"level", "skills", "uses", "minutes", "last_training", "gold", "fatigue"},
     "buy": {"gold", "known"}, "rest": _RAISE | {"last_rest"}, "check": _RAISE,
+    "oghma": {"attributes"},
+    "firmament": set(),
 }
 _COMMON = {"kind", "evidence", "real_elapsed_ms"}
 _FIELDS = {
@@ -129,6 +131,8 @@ _FIELDS = {
     "level": {"allocation", "allocation_order", "if_due"}, "master": {"skill", "if_eligible"},
     "choose": {"family", "path"}, "reset": {"family"},
     "buy": {"spell", "gold_cost", "family", "path", "record"},
+    "oghma": {"copy", "allocation", "allocation_order"},
+    "firmament": {"from", "node"},
 }
 
 
@@ -164,6 +168,8 @@ class Domain:
     trainers: dict
     temples: set
     time_model: dict
+    oghma_copies: tuple = ()
+    firmament: object = None
 
     def path(self, family, name):
         require(family in ("arcane", "martial"), "unknown specialization family")
@@ -173,9 +179,11 @@ class Domain:
         raise ValueError(f"unknown {family} path {name!r}")
 
     def compile_goal(self, g):
-        fields(g, ("level", "skills", "mastered", "attributes", "known", "arcane_path", "martial_path"), "goal")
+        fields(g, ("level", "skills", "mastered", "attributes", "known", "arcane_path", "martial_path","firmament"), "goal")
         require(g, "progression goal is empty")
         out = {}
+        if "firmament" in g:
+            out["firmament"] = self.firmament.identify(g["firmament"])
         if "level" in g:
             out["level"] = integer(g["level"], "goal level", 1, 45)
         for key, hi, cap in (("skills", 34, 200), ("attributes", 7, 100)):
@@ -246,14 +254,20 @@ class Domain:
             factor = a.get("price_factor", 1)
             require(type(factor) in (float, int) and math.isfinite(factor) and 0 < factor <= 100, "invalid price_factor")
             out["price_factor"], out["fatigue_cost"] = factor, 1980
-        elif kind == "level":
+        elif kind == "firmament":
+            out.update(self.firmament.edge(a))
+        elif kind in ("level","oghma"):
             require(("allocation" in a) != ("allocation_order" in a), "choose allocation or allocation_order")
             key = "allocation" if "allocation" in a else "allocation_order"
             require(isinstance(a[key], list) and len(a[key]) == 8, f"{key} requires eight entries")
             out[key] = [integer(v, key, 0, 7 if key == "allocation_order" else 30) for v in a[key]]
             if key == "allocation_order":
                 require(len(set(out[key])) == 8, "allocation_order must be a permutation")
-            out["if_due"] = boolean(a.get("if_due", False), "if_due")
+            if kind == "level":
+                out["if_due"] = boolean(a.get("if_due", False), "if_due")
+            else:
+                need(a.get("copy") in self.oghma_copies, "a usable Oghma artifact copy must be observed in the pack")
+                out["copy"] = self.oghma_copies.index(a["copy"])
         elif kind == "master":
             out["if_eligible"] = boolean(a.get("if_eligible", False), "if_eligible")
         if kind in ("reset", "choose") or kind == "buy" and "path" in a:

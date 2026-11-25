@@ -1,0 +1,39 @@
+{
+  "fixture": "build-encounter-reversal.json",
+  "wheel_sha256": "fcbb131fbbb050ff33bfd549fae9f582b237fb90bad801b29b29356ffc96857b",
+  "ruleset_hash": "d639d137937f8c42e3f26d281785defb44fb5071e9c2da179de4a8320401d5b1",
+  "observations": [
+    {
+      "horizon_us": 500000,
+      "casting_policy": [
+        "surge"
+      ],
+      "dps": 30.0,
+      "damage": 15,
+      "policy_sp": 89,
+      "nodes": 21,
+      "observed_seconds": 0.02615230000083102,
+      "timings": {
+        "first_validated_seconds": 0.02068600000347942,
+        "elapsed_seconds": 0.021000300002924632
+      },
+      "result_hash": "6220a90bd9469acecd08ce278ab12a92d745863051c91e306e29c2b3ac78123f"
+    },
+    {
+      "horizon_us": 20000000,
+      "casting_policy": [
+        "spark"
+      ],
+      "dps": 2.75,
+      "damage": 55,
+      "policy_sp": 209,
+      "nodes": 60,
+      "observed_seconds": 0.009354300003906246,
+      "timings": {
+        "first_validated_seconds": 0.009100199997192249,
+        "elapsed_seconds": 0.009239499995601363
+      },
+      "result_hash": "3e4377d6a311736eb4a36998d8ac5778963bb9484e903c71c547f40fbafad0e3"
+    }
+  ]
+}

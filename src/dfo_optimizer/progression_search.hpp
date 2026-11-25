@@ -13,7 +13,7 @@ struct Cancel {
     bool has_incumbent() const noexcept { return incumbent.load(std::memory_order_relaxed); }
 };
 struct Goal {
-    int level{}, arcane{-1}, martial{-1};
+    int level{}, arcane{-1}, martial{-1}, firmament{-1};
     Skills<int> skills{};
     Stats attributes{};
     u64 mastered{};
@@ -27,7 +27,8 @@ inline int missing(const State &s,const Goal &g) {
         u64 bits=g.known[i]&~s.known[i];
         while (bits) { bits&=bits-1; ++d; }
     }
-    return d+(g.arcane>=0 && g.arcane!=s.arcane_path)+(g.martial>=0 && g.martial!=s.martial_path);
+    return d+(g.arcane>=0 && g.arcane!=s.arcane_path)+(g.martial>=0 && g.martial!=s.martial_path)
+            +(g.firmament>=0 && g.firmament!=s.firmament);
 }
 struct Limits {
     u64 max_nodes{}, memory_bytes{};

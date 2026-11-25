@@ -13,10 +13,551 @@
     "unknown1": 0,
     "weaponArmorShieldsBitfield": 0
   },
-  "content_hash": "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886",
-  "engine_version": "lifecycle-v1",
+  "content_hash": "d639d137937f8c42e3f26d281785defb44fb5071e9c2da179de4a8320401d5b1",
+  "encounter_paths": [
+    {
+      "awake": "battlemage",
+      "cast_speed": 0,
+      "damage_school": 22,
+      "element": 3,
+      "id": "battlemage",
+      "index": -46101,
+      "low_hp_shielded_power": 15,
+      "name": "Aegis Bolt",
+      "pierce": 0,
+      "range_type": 2,
+      "schools": [
+        25,
+        22
+      ],
+      "shield_cost": 100,
+      "slots": [
+        {
+          "settings": {
+            "magnitudeBaseHigh": 18,
+            "magnitudeBaseLow": 10,
+            "magnitudeLevelBase": 2,
+            "magnitudeLevelHigh": 3,
+            "magnitudePerLevel": 1
+          },
+          "subType": 0,
+          "type": 4
+        }
+      ]
+    },
+    {
+      "awake": "trickster",
+      "cast_speed": 0,
+      "damage_school": 25,
+      "element": 4,
+      "id": "trickster",
+      "index": -46102,
+      "low_hp_shielded_power": 0,
+      "name": "Fleeting Hold",
+      "pierce": 0,
+      "range_type": 2,
+      "schools": [
+        25,
+        24
+      ],
+      "shield_cost": 100,
+      "slots": [
+        {
+          "settings": {
+            "chanceBase": 35,
+            "chanceMod": 2,
+            "chancePerLevel": 2,
+            "durationBase": 2,
+            "durationMod": 1,
+            "durationPerLevel": 4
+          },
+          "subType": 255,
+          "type": 0
+        }
+      ]
+    },
+    {
+      "awake": "riftwalker",
+      "cast_speed": 20,
+      "damage_school": 25,
+      "element": 4,
+      "id": "riftwalker",
+      "index": -46103,
+      "low_hp_shielded_power": 0,
+      "name": "Rift Lance",
+      "pierce": 0,
+      "range_type": 2,
+      "schools": [
+        25,
+        27
+      ],
+      "shield_cost": 100,
+      "slots": [
+        {
+          "settings": {
+            "magnitudeBaseHigh": 16,
+            "magnitudeBaseLow": 8,
+            "magnitudeLevelBase": 2,
+            "magnitudeLevelHigh": 3,
+            "magnitudePerLevel": 1
+          },
+          "subType": 0,
+          "type": 4
+        }
+      ]
+    },
+    {
+      "awake": "warden",
+      "cast_speed": 0,
+      "damage_school": 25,
+      "element": 4,
+      "id": "warden",
+      "index": -46104,
+      "low_hp_shielded_power": 0,
+      "name": "Living Aegis",
+      "pierce": 0,
+      "range_type": 0,
+      "schools": [
+        25,
+        23
+      ],
+      "shield_cost": 100,
+      "slots": [
+        {
+          "settings": {
+            "durationBase": 8,
+            "durationMod": 1,
+            "durationPerLevel": 2,
+            "magnitudeBaseHigh": 20,
+            "magnitudeBaseLow": 10,
+            "magnitudeLevelBase": 2,
+            "magnitudeLevelHigh": 3,
+            "magnitudePerLevel": 1
+          },
+          "subType": 255,
+          "type": 35
+        },
+        {
+          "settings": {
+            "magnitudeBaseHigh": 14,
+            "magnitudeBaseLow": 8,
+            "magnitudeLevelBase": 1,
+            "magnitudeLevelHigh": 2,
+            "magnitudePerLevel": 1
+          },
+          "subType": 8,
+          "type": 10
+        }
+      ]
+    },
+    {
+      "awake": "wardwright",
+      "cast_speed": 0,
+      "damage_school": 25,
+      "element": 4,
+      "id": "wardwright",
+      "index": -46105,
+      "low_hp_shielded_power": 0,
+      "name": "Prismatic Ward",
+      "pierce": 0,
+      "range_type": 0,
+      "schools": [
+        25,
+        26
+      ],
+      "shield_cost": 80,
+      "slots": [
+        {
+          "settings": {
+            "chanceBase": 25,
+            "chanceMod": 2,
+            "chancePerLevel": 2,
+            "durationBase": 10,
+            "durationMod": 2,
+            "durationPerLevel": 2
+          },
+          "subType": 0,
+          "type": 8
+        },
+        {
+          "settings": {
+            "chanceBase": 25,
+            "chanceMod": 2,
+            "chancePerLevel": 2,
+            "durationBase": 10,
+            "durationMod": 2,
+            "durationPerLevel": 2
+          },
+          "subType": 1,
+          "type": 8
+        },
+        {
+          "settings": {
+            "chanceBase": 25,
+            "chanceMod": 2,
+            "chancePerLevel": 2,
+            "durationBase": 10,
+            "durationMod": 2,
+            "durationPerLevel": 2
+          },
+          "subType": 3,
+          "type": 8
+        }
+      ]
+    },
+    {
+      "awake": "shadowcaster",
+      "cast_speed": 0,
+      "damage_school": 22,
+      "element": 4,
+      "id": "shadowcaster",
+      "index": -46106,
+      "low_hp_shielded_power": 0,
+      "name": "Shadow Bolt",
+      "pierce": 0,
+      "range_type": 2,
+      "schools": [
+        22,
+        24
+      ],
+      "shield_cost": 100,
+      "slots": [
+        {
+          "settings": {
+            "magnitudeBaseHigh": 16,
+            "magnitudeBaseLow": 8,
+            "magnitudeLevelBase": 2,
+            "magnitudeLevelHigh": 3,
+            "magnitudePerLevel": 1
+          },
+          "subType": 0,
+          "type": 4
+        }
+      ]
+    },
+    {
+      "awake": "spellbreaker",
+      "cast_speed": 0,
+      "damage_school": 22,
+      "element": 4,
+      "id": "spellbreaker",
+      "index": -46107,
+      "low_hp_shielded_power": 0,
+      "name": "Unravel",
+      "pierce": 10,
+      "range_type": 2,
+      "schools": [
+        22,
+        27
+      ],
+      "shield_cost": 100,
+      "slots": [
+        {
+          "settings": {
+            "magnitudeBaseHigh": 14,
+            "magnitudeBaseLow": 8,
+            "magnitudeLevelBase": 2,
+            "magnitudeLevelHigh": 3,
+            "magnitudePerLevel": 1
+          },
+          "subType": 0,
+          "type": 4
+        },
+        {
+          "settings": {
+            "chanceBase": 30,
+            "chanceMod": 2,
+            "chancePerLevel": 2,
+            "durationBase": 3,
+            "durationMod": 1,
+            "durationPerLevel": 4
+          },
+          "subType": 255,
+          "type": 19
+        }
+      ]
+    },
+    {
+      "awake": "bloodmage",
+      "cast_speed": 0,
+      "damage_school": 22,
+      "element": 0,
+      "id": "bloodmage",
+      "index": -46108,
+      "low_hp_shielded_power": 25,
+      "name": "Blood Boil",
+      "pierce": 0,
+      "range_type": 2,
+      "schools": [
+        22,
+        23
+      ],
+      "shield_cost": 100,
+      "slots": [
+        {
+          "settings": {
+            "magnitudeBaseHigh": 18,
+            "magnitudeBaseLow": 10,
+            "magnitudeLevelBase": 2,
+            "magnitudeLevelHigh": 3,
+            "magnitudePerLevel": 1
+          },
+          "subType": 0,
+          "type": 4
+        }
+      ]
+    },
+    {
+      "awake": "elementalist",
+      "cast_speed": 0,
+      "damage_school": 22,
+      "element": 3,
+      "id": "elementalist",
+      "index": -46109,
+      "low_hp_shielded_power": 0,
+      "name": "Chain Lightning",
+      "pierce": 0,
+      "range_type": 2,
+      "schools": [
+        22,
+        26
+      ],
+      "shield_cost": 100,
+      "slots": [
+        {
+          "settings": {
+            "magnitudeBaseHigh": 18,
+            "magnitudeBaseLow": 10,
+            "magnitudeLevelBase": 2,
+            "magnitudeLevelHigh": 3,
+            "magnitudePerLevel": 1
+          },
+          "subType": 0,
+          "type": 4
+        }
+      ]
+    },
+    {
+      "awake": "seer",
+      "cast_speed": 0,
+      "damage_school": 24,
+      "element": 4,
+      "id": "seer",
+      "index": -46110,
+      "low_hp_shielded_power": 0,
+      "name": "Psychic Lance",
+      "pierce": 0,
+      "range_type": 2,
+      "schools": [
+        24,
+        27
+      ],
+      "shield_cost": 100,
+      "slots": [
+        {
+          "settings": {
+            "magnitudeBaseHigh": 14,
+            "magnitudeBaseLow": 8,
+            "magnitudeLevelBase": 2,
+            "magnitudeLevelHigh": 3,
+            "magnitudePerLevel": 1
+          },
+          "subType": 0,
+          "type": 4
+        }
+      ]
+    },
+    {
+      "awake": "lightbringer",
+      "cast_speed": 0,
+      "damage_school": 24,
+      "element": 4,
+      "id": "lightbringer",
+      "index": -46111,
+      "low_hp_shielded_power": 0,
+      "name": "Dawnbolt",
+      "pierce": 0,
+      "range_type": 2,
+      "schools": [
+        24,
+        23
+      ],
+      "shield_cost": 100,
+      "slots": [
+        {
+          "settings": {
+            "magnitudeBaseHigh": 16,
+            "magnitudeBaseLow": 8,
+            "magnitudeLevelBase": 2,
+            "magnitudeLevelHigh": 3,
+            "magnitudePerLevel": 1
+          },
+          "subType": 0,
+          "type": 4
+        }
+      ]
+    },
+    {
+      "awake": "enchanter",
+      "cast_speed": 0,
+      "damage_school": 24,
+      "element": 4,
+      "id": "enchanter",
+      "index": -46112,
+      "low_hp_shielded_power": 0,
+      "name": "Beguile",
+      "pierce": 0,
+      "range_type": 2,
+      "schools": [
+        24,
+        26
+      ],
+      "shield_cost": 100,
+      "slots": [
+        {
+          "settings": {
+            "chanceBase": 30,
+            "chanceMod": 2,
+            "chancePerLevel": 2
+          },
+          "subType": 2,
+          "type": 33
+        },
+        {
+          "settings": {
+            "chanceBase": 30,
+            "chanceMod": 2,
+            "chancePerLevel": 2
+          },
+          "subType": 255,
+          "type": 34
+        }
+      ]
+    },
+    {
+      "awake": "necromancer",
+      "cast_speed": 0,
+      "damage_school": 23,
+      "element": 4,
+      "id": "necromancer",
+      "index": -46113,
+      "low_hp_shielded_power": 0,
+      "name": "Siphon Life",
+      "pierce": 0,
+      "range_type": 2,
+      "schools": [
+        23,
+        27
+      ],
+      "shield_cost": 100,
+      "slots": [
+        {
+          "settings": {
+            "magnitudeBaseHigh": 16,
+            "magnitudeBaseLow": 8,
+            "magnitudeLevelBase": 2,
+            "magnitudeLevelHigh": 3,
+            "magnitudePerLevel": 1
+          },
+          "subType": 0,
+          "type": 4
+        }
+      ]
+    },
+    {
+      "awake": "soulbinder",
+      "cast_speed": 0,
+      "damage_school": 27,
+      "element": 4,
+      "id": "soulbinder",
+      "index": -46114,
+      "low_hp_shielded_power": 0,
+      "name": "Soul Lance",
+      "pierce": 0,
+      "range_type": 2,
+      "schools": [
+        27,
+        26
+      ],
+      "shield_cost": 100,
+      "slots": [
+        {
+          "settings": {
+            "chanceBase": 40,
+            "chanceMod": 2,
+            "chancePerLevel": 2,
+            "durationBase": 6,
+            "durationMod": 1,
+            "durationPerLevel": 2
+          },
+          "subType": 255,
+          "type": 12
+        },
+        {
+          "settings": {
+            "magnitudeBaseHigh": 12,
+            "magnitudeBaseLow": 6,
+            "magnitudeLevelBase": 2,
+            "magnitudeLevelHigh": 3,
+            "magnitudePerLevel": 1
+          },
+          "subType": 0,
+          "type": 4
+        }
+      ]
+    },
+    {
+      "awake": "hierophant",
+      "cast_speed": 0,
+      "damage_school": 23,
+      "element": 4,
+      "id": "hierophant",
+      "index": -46115,
+      "low_hp_shielded_power": 0,
+      "name": "Sanctify",
+      "pierce": 0,
+      "range_type": 0,
+      "schools": [
+        23,
+        26
+      ],
+      "shield_cost": 100,
+      "slots": [
+        {
+          "settings": {
+            "magnitudeBaseHigh": 20,
+            "magnitudeBaseLow": 12,
+            "magnitudeLevelBase": 2,
+            "magnitudeLevelHigh": 4,
+            "magnitudePerLevel": 1
+          },
+          "subType": 8,
+          "type": 10
+        },
+        {
+          "settings": {
+            "chanceBase": 100,
+            "chanceMod": 1,
+            "chancePerLevel": 20
+          },
+          "subType": 1,
+          "type": 3
+        },
+        {
+          "settings": {
+            "chanceBase": 100,
+            "chanceMod": 1,
+            "chancePerLevel": 20
+          },
+          "subType": 0,
+          "type": 3
+        }
+      ]
+    }
+  ],
+  "engine_version": "encounter-v1",
   "equipment_hash": "2d8d9a7e5b631682880df93cbdb40c6587927af9123ac8b1646867e5407f0a85",
-  "extraction_version": 3,
+  "extraction_version": 4,
   "limits": {
     "difficulty_max": 40,
     "difficulty_min": -12,
@@ -556,9 +1097,6583 @@
       "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
       "symbol": "purchaseSpell",
       "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "native_encounter",
+      "limits": "On confirmed hostile landings, resolve magnitude, ward, immunity and remaining saving throw in source order.",
+      "live_verified": false,
+      "mechanic_id": "encounter.damage",
+      "mode": "online_snapshot",
+      "path": "src/systems/effects.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "applySpell,effectMagnitude",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "native_encounter",
+      "limits": "Caster-only Heal Health and Regenerate read the appropriate school's earned climb. Each regeneration tick rolls a fresh magnitude.",
+      "live_verified": false,
+      "mechanic_id": "encounter.healing",
+      "mode": "online_snapshot",
+      "path": "src/systems/effects.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "applySpell,runEffectRound",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "native_encounter",
+      "limits": "Caster-only Shield recasts top up the original pool and refresh its remaining rounds; broken pools can be replaced.",
+      "live_verified": false,
+      "mechanic_id": "encounter.shield",
+      "mode": "online_snapshot",
+      "path": "src/systems/effects.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "applySpell,renewRounds,tickActiveEffects",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "native_encounter",
+      "limits": "Source explosion sweep uses the living foe capsules in order, including the exact rim. Cast origin and friendly-fire eligibility remain encounter inputs.",
+      "live_verified": false,
+      "mechanic_id": "encounter.area",
+      "mode": "online_snapshot",
+      "path": "src/systems/spellcast.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "sweepFoes,sphereOverlapsCapsule",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "native_encounter",
+      "limits": "Worn valid jewellery Wellspring lines sum to at most 10% maximum magicka per eligible kill. The source game shares fractional carry with other magicka gifts.",
+      "live_verified": false,
+      "mechanic_id": "encounter.wellspring",
+      "mode": "online_snapshot",
+      "path": "src/systems/loot/lootPowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "lootKill,wornSum",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "native_encounter",
+      "limits": "Per-slot absorption, reflection and resistance use ordered gates. Only the first reflected slot returns the whole spell. The later original slots still resolve.",
+      "live_verified": false,
+      "mechanic_id": "encounter.spell_defenses",
+      "mode": "online_snapshot",
+      "path": "src/systems/effects.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "applySpell,spellReflectionChance,spellResistanceChance",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "native_encounter",
+      "limits": "Receiver-side Destruction cost and available room precede effect, set, career and item checks. Half the aggregate absorbed spell points, floored, is credited.",
+      "live_verified": false,
+      "mechanic_id": "encounter.absorption",
+      "mode": "online_snapshot",
+      "path": "src/systems/absorption.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "tryAbsorption,effectCastingCost,absorbRefund",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "native_encounter",
+      "limits": "Silence refreshes an existing duration before testing a new chance. Only new instances receive the non-magnitude saving throw.",
+      "live_verified": false,
+      "mechanic_id": "encounter.silence",
+      "mode": "online_snapshot",
+      "path": "src/systems/effects.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "applySpell,renewRounds",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "native_progression",
+      "limits": "Consumes one observed Oghma copy. The 30-point allocation respects earned attribute caps and clears the level-up latch. Acquiring the artifact is a separate opportunity.",
+      "live_verified": false,
+      "mechanic_id": "progression.oghma",
+      "mode": "online_snapshot",
+      "path": "src/systems/artifactEffects.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "hasArtifactSubtype,OGHMA_BONUS_POOL,SPECIAL_ARTIFACT_HANDLERS",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "native_progression",
+      "limits": "Additive allocations require a connected sign, observed account access, Renown and profession points. Respecs and future entitlements are outside this domain.",
+      "live_verified": false,
+      "mechanic_id": "progression.firmament",
+      "mode": "online_snapshot",
+      "path": "src/net/firmament/firmamentLaw.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "treeFault,treeStats,pointsLeft",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "native_checkpoint",
+      "limits": "Funded awake trees can supply static spell power, pierce, cast speed and Destruction. Capacity-changing nodes require matching live pool observations. Unprojected keystones block scoring.",
+      "live_verified": false,
+      "mechanic_id": "encounter.firmament",
+      "mode": "online_snapshot",
+      "path": "src/systems/firmamentPowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "firmamentFold,firmamentSpellPower,firmamentSpellPierce,firmamentCastSpeed",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "scoped_passive",
+      "limits": "Spellsteel reads the live positive shield pool. Aegis Bolt grants its power-cast shield from health actually lost and can raise the incumbent shield cap.",
+      "live_verified": false,
+      "mechanic_id": "encounter.path.battlemage",
+      "mode": "online_snapshot",
+      "path": "src/systems/arcanePowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "gated_ai",
+      "limits": "Slip Away changes enemy targeting after the one-third HP threshold. Both concealment and the Fleeting Hold rider require enemy AI.",
+      "live_verified": false,
+      "mechanic_id": "encounter.path.trickster",
+      "mode": "online_snapshot",
+      "path": "src/systems/arcanePowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "scoped_passive",
+      "limits": "Between Moments adds 20 points of cast speed. Rift Lance arcs also require ordered nearby foe and sharing evidence.",
+      "live_verified": false,
+      "mechanic_id": "encounter.path.riftwalker",
+      "mode": "online_snapshot",
+      "path": "src/systems/arcanePowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "scoped_passive",
+      "limits": "Steadfast heals a shielded, living player on a magic round. Living Aegis guard carry and guard budget require the signature combat door.",
+      "live_verified": false,
+      "mechanic_id": "encounter.path.warden",
+      "mode": "online_snapshot",
+      "path": "src/systems/arcanePowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "scoped_passive",
+      "limits": "Attuned Wards discounts spells made only of Alteration or Thaumaturgy effects. Prismatic Ward and incoming spell absorption require the defensive spell door.",
+      "live_verified": false,
+      "mechanic_id": "encounter.path.wardwright",
+      "mode": "online_snapshot",
+      "path": "src/systems/arcanePowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "scoped_passive",
+      "limits": "Unseen Strike depends on live concealment. Ordinary unconcealed casts can be resolved. Shadow Bolt and enemy detection need concealment transitions.",
+      "live_verified": false,
+      "mechanic_id": "encounter.path.shadowcaster",
+      "mode": "online_snapshot",
+      "path": "src/systems/arcanePowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "scoped_passive",
+      "limits": "Sunder reduces the Damage Health save. Unravel restores a third of actual paid magicka on damage, with separate damage and Silence schools and rolls.",
+      "live_verified": false,
+      "mechanic_id": "encounter.path.spellbreaker",
+      "mode": "online_snapshot",
+      "path": "src/systems/arcanePowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "scoped_passive",
+      "limits": "Sanguine Tide derives power from missing health at the landing. The Blood Boil signature has a separate low-health hit.",
+      "live_verified": false,
+      "mechanic_id": "encounter.path.bloodmage",
+      "mode": "online_snapshot",
+      "path": "src/systems/arcanePowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "scoped_passive",
+      "limits": "Conflux grants one stack per damaging cast across targets and uses strict ten-second expiry. Chain Lightning needs ordered secondary target and career evidence.",
+      "live_verified": false,
+      "mechanic_id": "encounter.path.elementalist",
+      "mode": "online_snapshot",
+      "path": "src/systems/arcanePowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "scoped_passive",
+      "limits": "Foresight is rolled only at a scheduled hostile blow. Psychic Lance marks and the target-specific timed pierce require the signature.",
+      "live_verified": false,
+      "mechanic_id": "encounter.path.seer",
+      "mode": "online_snapshot",
+      "path": "src/systems/arcanePowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "scoped_passive",
+      "limits": "Dawn's Ward reads the game-classified undead or daedra target group. Dawnbolt has a separate eligible heal and burn rider.",
+      "live_verified": false,
+      "mechanic_id": "encounter.path.lightbringer",
+      "mode": "online_snapshot",
+      "path": "src/systems/arcanePowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "scoped_passive",
+      "limits": "Glamour's Personality, Etiquette and Streetwise bonuses have no combat input in the fixed encounter. A Mind Bender refund needs a newly calmed hostile AI.",
+      "live_verified": false,
+      "mechanic_id": "encounter.path.enchanter",
+      "mode": "online_snapshot",
+      "path": "src/systems/arcanePowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "scoped_passive",
+      "limits": "Death's Due restores 5% maximum health and magicka on eligible kills. Siphon Life heals half the HP actually lost, subject to signature identity.",
+      "live_verified": false,
+      "mechanic_id": "encounter.path.necromancer",
+      "mode": "online_snapshot",
+      "path": "src/systems/arcanePowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "scoped_passive",
+      "limits": "Soul Well restores 10% maximum magicka on eligible kills, or 20% for the caster's own active Soul Trap. Soul Lance requires the trap and its signature data.",
+      "live_verified": false,
+      "mechanic_id": "encounter.path.soulbinder",
+      "mode": "online_snapshot",
+      "path": "src/systems/arcanePowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "scoped_passive",
+      "limits": "Absolution heals on a nonlethal crossing below 30% with a 180-second recovery. Sanctify's cures and resistance must be present to score its rider.",
+      "live_verified": false,
+      "mechanic_id": "encounter.path.hierophant",
+      "mode": "online_snapshot",
+      "path": "src/systems/arcanePowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakePathId,pathSpellPower,pathLanded,pathKill,pathHurt",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "outside_spell_encounter",
+      "limits": "Flowing Steel requires a landed weapon attack. Weapon techniques and their riders require weapon actions.",
+      "live_verified": false,
+      "mechanic_id": "encounter.martial.blademaster",
+      "mode": "online_snapshot",
+      "path": "src/systems/martialPowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "outside_spell_encounter",
+      "limits": "War Rhythm changes weapon swing cadence. Weapon techniques and their riders require weapon actions.",
+      "live_verified": false,
+      "mechanic_id": "encounter.martial.warblade",
+      "mode": "online_snapshot",
+      "path": "src/systems/martialPowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "scoped_passive",
+      "limits": "Iron Discipline reduces a marked hostile blow by 10% before Shield and carries the fractional reduction. Weapon techniques and their riders require weapon actions.",
+      "live_verified": false,
+      "mechanic_id": "encounter.martial.vanguard",
+      "mode": "online_snapshot",
+      "path": "src/systems/martialPowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "outside_spell_encounter",
+      "limits": "Hunter's Instinct affects weapon attacks against beasts. Weapon techniques and their riders require weapon actions.",
+      "live_verified": false,
+      "mechanic_id": "encounter.martial.ranger",
+      "mode": "online_snapshot",
+      "path": "src/systems/martialPowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "scoped_passive",
+      "limits": "Dancer's Step evades one marked hostile blow in ten before the damage modifiers run. Weapon techniques and their riders require weapon actions.",
+      "live_verified": false,
+      "mechanic_id": "encounter.martial.bladedancer",
+      "mode": "online_snapshot",
+      "path": "src/systems/martialPowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "scoped_passive",
+      "limits": "Bloodlust heals 5% of maximum HP on an eligible kill through the shared fractional health credit. Weapon techniques and their riders require weapon actions.",
+      "live_verified": false,
+      "mechanic_id": "encounter.martial.bloodletter",
+      "mode": "online_snapshot",
+      "path": "src/systems/martialPowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "outside_spell_encounter",
+      "limits": "Cheap Shot affects weapon strikes against unaware opponents. Weapon techniques and their riders require weapon actions.",
+      "live_verified": false,
+      "mechanic_id": "encounter.martial.cutthroat",
+      "mode": "online_snapshot",
+      "path": "src/systems/martialPowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "outside_spell_encounter",
+      "limits": "Opening Strike affects the first weapon attack on each opponent. Weapon techniques and their riders require weapon actions.",
+      "live_verified": false,
+      "mechanic_id": "encounter.martial.assassin",
+      "mode": "online_snapshot",
+      "path": "src/systems/martialPowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "outside_spell_encounter",
+      "limits": "Light Step changes Agility and Dodging before an observed incoming hit is resolved. Weapon techniques and their riders require weapon actions.",
+      "live_verified": false,
+      "mechanic_id": "encounter.martial.shadowdancer",
+      "mode": "online_snapshot",
+      "path": "src/systems/martialPowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "scoped_passive",
+      "limits": "Stand Firm heals 20% on a nonlethal crossing below 30% HP with 180 seconds of recovery. Weapon techniques and their riders require weapon actions.",
+      "live_verified": false,
+      "mechanic_id": "encounter.martial.juggernaut",
+      "mode": "online_snapshot",
+      "path": "src/systems/martialPowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "outside_spell_encounter",
+      "limits": "Tireless restores fatigue, which is outside the scored resources. Weapon techniques and their riders require weapon actions.",
+      "live_verified": false,
+      "mechanic_id": "encounter.martial.woodsman",
+      "mode": "online_snapshot",
+      "path": "src/systems/martialPowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "outside_spell_encounter",
+      "limits": "Frenzy changes weapon damage and swing cadence. Weapon techniques and their riders require weapon actions.",
+      "live_verified": false,
+      "mechanic_id": "encounter.martial.berserker",
+      "mode": "online_snapshot",
+      "path": "src/systems/martialPowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "outside_spell_encounter",
+      "limits": "Purge affects weapon attacks against undead and daedra. Weapon techniques and their riders require weapon actions.",
+      "live_verified": false,
+      "mechanic_id": "encounter.martial.crusader",
+      "mode": "online_snapshot",
+      "path": "src/systems/martialPowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "scoped_passive",
+      "limits": "Grit heals 1% of maximum HP per magic round. Fatigue is outside the scored resources. Weapon techniques and their riders require weapon actions.",
+      "live_verified": false,
+      "mechanic_id": "encounter.martial.brawler",
+      "mode": "online_snapshot",
+      "path": "src/systems/martialPowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+      "verification_status": "source_verified"
+    },
+    {
+      "assumptions": [
+        "Ordinary online PvE with explicit cast, equipped-item and target evidence. No mentoring, court, duel or PvP."
+      ],
+      "implementation_status": "scoped_passive",
+      "limits": "Windborne adds 10 Speed before the effective Speed cap. Running and Jumping are outside the encounter. Weapon techniques and their riders require weapon actions.",
+      "live_verified": false,
+      "mechanic_id": "encounter.martial.windrunner",
+      "mode": "online_snapshot",
+      "path": "src/systems/martialPowers.js",
+      "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+      "symbol": "awakeMartialId,martialEvade,martialDamageMod,martialHurt,martialRound,martialKill,martialFold",
+      "verification_status": "source_verified"
     }
   ],
   "mode": "online_snapshot",
+  "permanent_rules": {
+    "craft_ranks_per_point": 8,
+    "nodes": {
+      "mg.bt": {
+        "adjacent": [
+          "mg.start",
+          "mg.w",
+          "sh.start",
+          "sp.start"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "carry": 2
+        }
+      },
+      "mg.c1.0": {
+        "adjacent": [
+          "mg.c1.1",
+          "mg.c1.6",
+          "mg.g"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "mpPct": 2
+        }
+      },
+      "mg.c1.1": {
+        "adjacent": [
+          "mg.c1.0",
+          "mg.c1.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "mpPct": 2
+        }
+      },
+      "mg.c1.2": {
+        "adjacent": [
+          "mg.c1.1",
+          "mg.c1.3"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "mp": 8,
+          "mpRegen": 2
+        }
+      },
+      "mg.c1.3": {
+        "adjacent": [
+          "mg.c1.2",
+          "mg.c1.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "mpPct": 2
+        }
+      },
+      "mg.c1.4": {
+        "adjacent": [
+          "mg.c1.3",
+          "mg.c1.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "intelligence": 3,
+          "mp": 15
+        }
+      },
+      "mg.c1.5": {
+        "adjacent": [
+          "mg.c1.4",
+          "mg.c1.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "mpPct": 2
+        }
+      },
+      "mg.c1.6": {
+        "adjacent": [
+          "mg.c1.0",
+          "mg.c1.5"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "mpPct": 2
+        }
+      },
+      "mg.c2.0": {
+        "adjacent": [
+          "mg.c2.1",
+          "mg.r1"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "spellPower": 2
+        }
+      },
+      "mg.c2.1": {
+        "adjacent": [
+          "mg.c2.0",
+          "mg.c2.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "spellPower": 2
+        }
+      },
+      "mg.c2.2": {
+        "adjacent": [
+          "mg.c2.1",
+          "mg.c2.3",
+          "mg.c2.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "spellPower": 2
+        }
+      },
+      "mg.c2.3": {
+        "adjacent": [
+          "mg.c2.2"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "skill.Destruction": 6,
+          "spellPower": 5
+        }
+      },
+      "mg.c2.4": {
+        "adjacent": [
+          "mg.c2.2"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "spellPierce": 4,
+          "spellPower": 3
+        }
+      },
+      "mg.c3.0": {
+        "adjacent": [
+          "mg.c3.1",
+          "mg.c3.6",
+          "mg.r2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "castCost": 2
+        }
+      },
+      "mg.c3.1": {
+        "adjacent": [
+          "mg.c3.0",
+          "mg.c3.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "castCost": 2
+        }
+      },
+      "mg.c3.2": {
+        "adjacent": [
+          "mg.c3.1",
+          "mg.c3.3"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "castCost.Destruction": 6,
+          "skill.Destruction": 4
+        }
+      },
+      "mg.c3.3": {
+        "adjacent": [
+          "mg.c3.2",
+          "mg.c3.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "castCost": 2
+        }
+      },
+      "mg.c3.4": {
+        "adjacent": [
+          "mg.c3.3",
+          "mg.c3.5",
+          "mg.c5.0"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "castCost": 5
+        }
+      },
+      "mg.c3.5": {
+        "adjacent": [
+          "mg.c3.4",
+          "mg.c3.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "castCost": 2
+        }
+      },
+      "mg.c3.6": {
+        "adjacent": [
+          "mg.c3.0",
+          "mg.c3.5"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "castCost": 2
+        }
+      },
+      "mg.c4.0": {
+        "adjacent": [
+          "mg.c4.1",
+          "mg.g"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "castSpeed": 2
+        }
+      },
+      "mg.c4.1": {
+        "adjacent": [
+          "mg.c4.0",
+          "mg.c4.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "castSpeed": 2
+        }
+      },
+      "mg.c4.2": {
+        "adjacent": [
+          "mg.c4.1",
+          "mg.c4.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "castSpeed": 2
+        }
+      },
+      "mg.c4.3": {
+        "adjacent": [
+          "mg.c4.2",
+          "mg.c4.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "castSpeed": 2
+        }
+      },
+      "mg.c4.4": {
+        "adjacent": [
+          "mg.c4.3",
+          "mg.c6.0"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "castSpeed": 5,
+          "intelligence": 3
+        }
+      },
+      "mg.c5.0": {
+        "adjacent": [
+          "mg.c3.4",
+          "mg.c5.1",
+          "mg.c5.7"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "resist.fire": 3
+        }
+      },
+      "mg.c5.1": {
+        "adjacent": [
+          "mg.c5.0",
+          "mg.c5.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "resist.frost": 3
+        }
+      },
+      "mg.c5.2": {
+        "adjacent": [
+          "mg.c5.1",
+          "mg.c5.3"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "absorb": 5
+        }
+      },
+      "mg.c5.3": {
+        "adjacent": [
+          "mg.c5.2",
+          "mg.c5.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "resist.shock": 3
+        }
+      },
+      "mg.c5.4": {
+        "adjacent": [
+          "mg.c5.3",
+          "mg.c5.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "resist.fire": 5,
+          "resist.frost": 5,
+          "resist.shock": 5
+        }
+      },
+      "mg.c5.5": {
+        "adjacent": [
+          "mg.c5.4",
+          "mg.c5.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "resist.fire": 3
+        }
+      },
+      "mg.c5.6": {
+        "adjacent": [
+          "mg.c5.5",
+          "mg.c5.7"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "resist.frost": 3
+        }
+      },
+      "mg.c5.7": {
+        "adjacent": [
+          "mg.c5.0",
+          "mg.c5.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "resist.shock": 3
+        }
+      },
+      "mg.c6.0": {
+        "adjacent": [
+          "mg.c4.4",
+          "mg.c6.1",
+          "mg.c6.5"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Mysticism": 3
+        }
+      },
+      "mg.c6.1": {
+        "adjacent": [
+          "mg.c6.0",
+          "mg.c6.2"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "resist.magic": 5,
+          "skill.Thaumaturgy": 6
+        }
+      },
+      "mg.c6.2": {
+        "adjacent": [
+          "mg.c6.1",
+          "mg.c6.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Thaumaturgy": 3
+        }
+      },
+      "mg.c6.3": {
+        "adjacent": [
+          "mg.c6.2",
+          "mg.c6.4"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "killMana": 3,
+          "skill.Mysticism": 4
+        }
+      },
+      "mg.c6.4": {
+        "adjacent": [
+          "mg.c6.3",
+          "mg.c6.5"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Mysticism": 3
+        }
+      },
+      "mg.c6.5": {
+        "adjacent": [
+          "mg.c6.0",
+          "mg.c6.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Thaumaturgy": 3
+        }
+      },
+      "mg.c7.0": {
+        "adjacent": [
+          "mg.c7.1",
+          "mg.c7.4",
+          "mg.s2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.intelligence": 2
+        }
+      },
+      "mg.c7.1": {
+        "adjacent": [
+          "mg.c7.0",
+          "mg.c7.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.intelligence": 2
+        }
+      },
+      "mg.c7.2": {
+        "adjacent": [
+          "mg.c7.1",
+          "mg.c7.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.intelligence": 2
+        }
+      },
+      "mg.c7.3": {
+        "adjacent": [
+          "mg.c7.2",
+          "mg.c7.4"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "intelligence": 4,
+          "mp": 5,
+          "skill.Destruction": 3
+        }
+      },
+      "mg.c7.4": {
+        "adjacent": [
+          "mg.c7.0",
+          "mg.c7.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.intelligence": 2
+        }
+      },
+      "mg.g": {
+        "adjacent": [
+          "mg.c1.0",
+          "mg.c4.0",
+          "mg.r1",
+          "mg.s2",
+          "mg.x",
+          "rt.x"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "pct.intelligence": 3
+        }
+      },
+      "mg.k": {
+        "adjacent": [
+          "mg.k1"
+        ],
+        "kind": "keystone",
+        "ring": "combat",
+        "stats": {
+          "blowTaken": 7,
+          "castCost": 8,
+          "spellPower": 12
+        }
+      },
+      "mg.k1": {
+        "adjacent": [
+          "mg.k",
+          "mg.r2"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "castCost": 2
+        }
+      },
+      "mg.l1.0": {
+        "adjacent": [
+          "mg.l1.1",
+          "mg.l1.6",
+          "mg.lg0"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.enchanting": 2
+        }
+      },
+      "mg.l1.1": {
+        "adjacent": [
+          "mg.l1.0",
+          "mg.l1.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.enchanting": 2
+        }
+      },
+      "mg.l1.2": {
+        "adjacent": [
+          "mg.l1.1",
+          "mg.l1.3"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "xp.enchanting": 3,
+          "xp.smithing": 3
+        }
+      },
+      "mg.l1.3": {
+        "adjacent": [
+          "mg.l1.2",
+          "mg.l1.4"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.enchanting": 2
+        }
+      },
+      "mg.l1.4": {
+        "adjacent": [
+          "mg.l1.3",
+          "mg.l1.5"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "xp.enchanting": 5
+        }
+      },
+      "mg.l1.5": {
+        "adjacent": [
+          "mg.l1.4",
+          "mg.l1.6",
+          "mg.l3.0"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.enchanting": 2
+        }
+      },
+      "mg.l1.6": {
+        "adjacent": [
+          "mg.l1.0",
+          "mg.l1.5"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.enchanting": 2
+        }
+      },
+      "mg.l2.0": {
+        "adjacent": [
+          "mg.l2.1",
+          "mg.l2.6",
+          "mg.lg1"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "skillPct.Medical": 3
+        }
+      },
+      "mg.l2.1": {
+        "adjacent": [
+          "mg.l2.0",
+          "mg.l2.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "skillPct.Medical": 3
+        }
+      },
+      "mg.l2.2": {
+        "adjacent": [
+          "mg.l2.1",
+          "mg.l2.3"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "skill.Medical": 5,
+          "xp.provisioning": 3
+        }
+      },
+      "mg.l2.3": {
+        "adjacent": [
+          "mg.l2.2",
+          "mg.l2.4",
+          "mg.l4.0"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "skillPct.Medical": 3
+        }
+      },
+      "mg.l2.4": {
+        "adjacent": [
+          "mg.l2.3",
+          "mg.l2.5"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "fatigueLess": 4,
+          "skill.Medical": 8
+        }
+      },
+      "mg.l2.5": {
+        "adjacent": [
+          "mg.l2.4",
+          "mg.l2.6"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "skillPct.Medical": 3
+        }
+      },
+      "mg.l2.6": {
+        "adjacent": [
+          "mg.l2.0",
+          "mg.l2.5"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "skillPct.Medical": 3
+        }
+      },
+      "mg.l3.0": {
+        "adjacent": [
+          "mg.l1.5",
+          "mg.l3.1"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.provisioning": 3
+        }
+      },
+      "mg.l3.1": {
+        "adjacent": [
+          "mg.l3.0",
+          "mg.l3.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.provisioning": 3
+        }
+      },
+      "mg.l3.2": {
+        "adjacent": [
+          "mg.l3.1",
+          "mg.l3.3",
+          "mg.l3.4"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.provisioning": 3
+        }
+      },
+      "mg.l3.3": {
+        "adjacent": [
+          "mg.l3.2"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "xp.provisioning": 8
+        }
+      },
+      "mg.l3.4": {
+        "adjacent": [
+          "mg.l3.2"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "xp.enchanting": 2,
+          "xp.provisioning": 4
+        }
+      },
+      "mg.l4.0": {
+        "adjacent": [
+          "mg.l2.3",
+          "mg.l4.1"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.outfitting": 2,
+          "xp.smithing": 2
+        }
+      },
+      "mg.l4.1": {
+        "adjacent": [
+          "mg.l4.0",
+          "mg.l4.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.building": 2,
+          "xp.enchanting": 1
+        }
+      },
+      "mg.l4.2": {
+        "adjacent": [
+          "mg.l4.1",
+          "mg.l4.3"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.outfitting": 2,
+          "xp.smithing": 2
+        }
+      },
+      "mg.l4.3": {
+        "adjacent": [
+          "mg.l4.2",
+          "mg.l4.4"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.building": 2,
+          "xp.enchanting": 1
+        }
+      },
+      "mg.l4.4": {
+        "adjacent": [
+          "mg.l4.3"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "xp.building": 4,
+          "xp.enchanting": 2,
+          "xp.outfitting": 4,
+          "xp.provisioning": 3,
+          "xp.smithing": 4
+        }
+      },
+      "mg.la": {
+        "adjacent": [
+          "mg.lk",
+          "mg.lr2"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "xp.enchanting": 2
+        }
+      },
+      "mg.lg0": {
+        "adjacent": [
+          "mg.l1.0",
+          "mg.lg1",
+          "mg.lr1",
+          "rt.lgx"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "xp.enchanting": 1
+        }
+      },
+      "mg.lg1": {
+        "adjacent": [
+          "mg.l2.0",
+          "mg.lg0",
+          "mg.lgx",
+          "mg.lr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "xp.provisioning": 2
+        }
+      },
+      "mg.lgx": {
+        "adjacent": [
+          "mg.lg1",
+          "mg.xr2",
+          "sh.lg0"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "carry": 3
+        }
+      },
+      "mg.lk": {
+        "adjacent": [
+          "mg.la"
+        ],
+        "kind": "keystone",
+        "ring": "life",
+        "stats": {
+          "xp.building": 5,
+          "xp.enchanting": 5,
+          "xp.outfitting": 5,
+          "xp.provisioning": 5,
+          "xp.smithing": 5
+        }
+      },
+      "mg.lr1": {
+        "adjacent": [
+          "mg.lg0",
+          "mg.lg1",
+          "mg.lr2"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "xp.enchanting": 1
+        }
+      },
+      "mg.lr2": {
+        "adjacent": [
+          "mg.la",
+          "mg.lr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "skillPct.Medical": 3
+        }
+      },
+      "mg.r1": {
+        "adjacent": [
+          "mg.c2.0",
+          "mg.g",
+          "mg.r2"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "mpPct": 5
+        }
+      },
+      "mg.r2": {
+        "adjacent": [
+          "mg.c3.0",
+          "mg.k1",
+          "mg.r1"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "spellPower": 2
+        }
+      },
+      "mg.s1": {
+        "adjacent": [
+          "mg.s2",
+          "mg.start"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "pct.intelligence": 2
+        }
+      },
+      "mg.s2": {
+        "adjacent": [
+          "mg.c7.0",
+          "mg.g",
+          "mg.s1"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "pct.intelligence": 2
+        }
+      },
+      "mg.start": {
+        "adjacent": [
+          "mg.bt",
+          "mg.s1",
+          "rt.bt"
+        ],
+        "kind": "start",
+        "ring": "combat",
+        "stats": {
+          "intelligence": 2
+        }
+      },
+      "mg.w": {
+        "adjacent": [
+          "mg.bt",
+          "mg.x"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "fatigueLess": 3
+        }
+      },
+      "mg.x": {
+        "adjacent": [
+          "mg.g",
+          "mg.w",
+          "mg.xr1",
+          "sh.g"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "carry": 3
+        }
+      },
+      "mg.xr1": {
+        "adjacent": [
+          "mg.x",
+          "mg.xr2"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "fallLess": 5
+        }
+      },
+      "mg.xr2": {
+        "adjacent": [
+          "mg.lgx",
+          "mg.xr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "fatigueLess": 4
+        }
+      },
+      "rt.bt": {
+        "adjacent": [
+          "mg.start",
+          "rt.start",
+          "rt.w",
+          "sp.start"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "carry": 2
+        }
+      },
+      "rt.c1.0": {
+        "adjacent": [
+          "rt.c1.1",
+          "rt.c1.6",
+          "rt.g"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Restoration": 3
+        }
+      },
+      "rt.c1.1": {
+        "adjacent": [
+          "rt.c1.0",
+          "rt.c1.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Restoration": 3
+        }
+      },
+      "rt.c1.2": {
+        "adjacent": [
+          "rt.c1.1",
+          "rt.c1.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Restoration": 3
+        }
+      },
+      "rt.c1.3": {
+        "adjacent": [
+          "rt.c1.2",
+          "rt.c1.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Restoration": 3
+        }
+      },
+      "rt.c1.4": {
+        "adjacent": [
+          "rt.c1.3",
+          "rt.c1.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "hpRegen": 2,
+          "skill.Restoration": 6
+        }
+      },
+      "rt.c1.5": {
+        "adjacent": [
+          "rt.c1.4",
+          "rt.c1.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Restoration": 3
+        }
+      },
+      "rt.c1.6": {
+        "adjacent": [
+          "rt.c1.0",
+          "rt.c1.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "castCost.Restoration": 10,
+          "willpower": 3
+        }
+      },
+      "rt.c2.0": {
+        "adjacent": [
+          "rt.c2.1",
+          "rt.r1"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "undeadDmg": 4
+        }
+      },
+      "rt.c2.1": {
+        "adjacent": [
+          "rt.c2.0",
+          "rt.c2.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "daedraDmg": 4
+        }
+      },
+      "rt.c2.2": {
+        "adjacent": [
+          "rt.c2.1",
+          "rt.c2.3",
+          "rt.c2.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "undeadDmg": 4
+        }
+      },
+      "rt.c2.3": {
+        "adjacent": [
+          "rt.c2.2"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "daedraDmg": 5,
+          "undeadDmg": 10
+        }
+      },
+      "rt.c2.4": {
+        "adjacent": [
+          "rt.c2.2"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "daedraDmg": 10,
+          "undeadDmg": 5
+        }
+      },
+      "rt.c3.0": {
+        "adjacent": [
+          "rt.c3.1",
+          "rt.c3.6",
+          "rt.r2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "meleeDmg": 2
+        }
+      },
+      "rt.c3.1": {
+        "adjacent": [
+          "rt.c3.0",
+          "rt.c3.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "spellPower": 2
+        }
+      },
+      "rt.c3.2": {
+        "adjacent": [
+          "rt.c3.1",
+          "rt.c3.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "meleeDmg": 2
+        }
+      },
+      "rt.c3.3": {
+        "adjacent": [
+          "rt.c3.2",
+          "rt.c3.4",
+          "rt.c5.0"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "spellPower": 2
+        }
+      },
+      "rt.c3.4": {
+        "adjacent": [
+          "rt.c3.3",
+          "rt.c3.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "bluntDmg": 5,
+          "spellPower": 4
+        }
+      },
+      "rt.c3.5": {
+        "adjacent": [
+          "rt.c3.4",
+          "rt.c3.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "meleeDmg": 2
+        }
+      },
+      "rt.c3.6": {
+        "adjacent": [
+          "rt.c3.0",
+          "rt.c3.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "longDmg": 4,
+          "skill.Alteration": 5
+        }
+      },
+      "rt.c4.0": {
+        "adjacent": [
+          "rt.c4.1",
+          "rt.g"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Alteration": 3
+        }
+      },
+      "rt.c4.1": {
+        "adjacent": [
+          "rt.c4.0",
+          "rt.c4.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Alteration": 3
+        }
+      },
+      "rt.c4.2": {
+        "adjacent": [
+          "rt.c4.1",
+          "rt.c4.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Alteration": 3
+        }
+      },
+      "rt.c4.3": {
+        "adjacent": [
+          "rt.c4.2",
+          "rt.c4.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Alteration": 3
+        }
+      },
+      "rt.c4.4": {
+        "adjacent": [
+          "rt.c4.3",
+          "rt.c6.0"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "armor": 3,
+          "skill.Alteration": 5
+        }
+      },
+      "rt.c5.0": {
+        "adjacent": [
+          "rt.c3.3",
+          "rt.c5.1",
+          "rt.c5.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.willpower": 1
+        }
+      },
+      "rt.c5.1": {
+        "adjacent": [
+          "rt.c5.0",
+          "rt.c5.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.willpower": 1
+        }
+      },
+      "rt.c5.2": {
+        "adjacent": [
+          "rt.c5.1",
+          "rt.c5.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.willpower": 1
+        }
+      },
+      "rt.c5.3": {
+        "adjacent": [
+          "rt.c5.2",
+          "rt.c5.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.willpower": 1
+        }
+      },
+      "rt.c5.4": {
+        "adjacent": [
+          "rt.c5.3",
+          "rt.c5.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "resist.magic": 6,
+          "willpower": 5
+        }
+      },
+      "rt.c5.5": {
+        "adjacent": [
+          "rt.c5.4",
+          "rt.c5.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.willpower": 1
+        }
+      },
+      "rt.c5.6": {
+        "adjacent": [
+          "rt.c5.0",
+          "rt.c5.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "mp": 8,
+          "mpRegen": 2
+        }
+      },
+      "rt.c6.0": {
+        "adjacent": [
+          "rt.c4.4",
+          "rt.c6.1",
+          "rt.c6.5"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "resist.poison": 3
+        }
+      },
+      "rt.c6.1": {
+        "adjacent": [
+          "rt.c6.0",
+          "rt.c6.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "resist.magic": 3
+        }
+      },
+      "rt.c6.2": {
+        "adjacent": [
+          "rt.c6.1",
+          "rt.c6.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "resist.poison": 3
+        }
+      },
+      "rt.c6.3": {
+        "adjacent": [
+          "rt.c6.2",
+          "rt.c6.4"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "resist.poison": 10
+        }
+      },
+      "rt.c6.4": {
+        "adjacent": [
+          "rt.c6.3",
+          "rt.c6.5"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "resist.magic": 3
+        }
+      },
+      "rt.c6.5": {
+        "adjacent": [
+          "rt.c6.0",
+          "rt.c6.4"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "resist.magic": 4,
+          "spellTaken": -4
+        }
+      },
+      "rt.c7.0": {
+        "adjacent": [
+          "rt.c7.1",
+          "rt.c7.4",
+          "rt.s2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.willpower": 1
+        }
+      },
+      "rt.c7.1": {
+        "adjacent": [
+          "rt.c7.0",
+          "rt.c7.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.willpower": 1
+        }
+      },
+      "rt.c7.2": {
+        "adjacent": [
+          "rt.c7.1",
+          "rt.c7.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.willpower": 1
+        }
+      },
+      "rt.c7.3": {
+        "adjacent": [
+          "rt.c7.2",
+          "rt.c7.4"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "hpRegen": 1,
+          "resist.magic": 3,
+          "willpower": 3
+        }
+      },
+      "rt.c7.4": {
+        "adjacent": [
+          "rt.c7.0",
+          "rt.c7.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.willpower": 1
+        }
+      },
+      "rt.g": {
+        "adjacent": [
+          "rt.c1.0",
+          "rt.c4.0",
+          "rt.r1",
+          "rt.s2",
+          "rt.x",
+          "wr.x"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "pct.strength": 2,
+          "pct.willpower": 1
+        }
+      },
+      "rt.k": {
+        "adjacent": [
+          "rt.k1"
+        ],
+        "kind": "keystone",
+        "ring": "combat",
+        "stats": {
+          "hpRegen": 6,
+          "spellPower": -4,
+          "weaponDmg": -4
+        }
+      },
+      "rt.k1": {
+        "adjacent": [
+          "rt.k",
+          "rt.r2"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "undeadDmg": 4
+        }
+      },
+      "rt.l1.0": {
+        "adjacent": [
+          "rt.l1.1",
+          "rt.l1.6",
+          "rt.lg1"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "yield.herbalism": 2
+        }
+      },
+      "rt.l1.1": {
+        "adjacent": [
+          "rt.l1.0",
+          "rt.l1.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "act.herbalism": 5
+        }
+      },
+      "rt.l1.2": {
+        "adjacent": [
+          "rt.l1.1",
+          "rt.l1.3"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "yield.herbalism": 2
+        }
+      },
+      "rt.l1.3": {
+        "adjacent": [
+          "rt.l1.2",
+          "rt.l1.4",
+          "rt.l3.0"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "act.herbalism": 5
+        }
+      },
+      "rt.l1.4": {
+        "adjacent": [
+          "rt.l1.3",
+          "rt.l1.5"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "yield.herbalism": 6
+        }
+      },
+      "rt.l1.5": {
+        "adjacent": [
+          "rt.l1.4",
+          "rt.l1.6"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "yield.herbalism": 2
+        }
+      },
+      "rt.l1.6": {
+        "adjacent": [
+          "rt.l1.0",
+          "rt.l1.5"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "act.herbalism": 15,
+          "xp.herbalism": 4
+        }
+      },
+      "rt.l2.0": {
+        "adjacent": [
+          "rt.l2.1",
+          "rt.l2.6",
+          "rt.lg0"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.provisioning": 3
+        }
+      },
+      "rt.l2.1": {
+        "adjacent": [
+          "rt.l2.0",
+          "rt.l2.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.provisioning": 3
+        }
+      },
+      "rt.l2.2": {
+        "adjacent": [
+          "rt.l2.1",
+          "rt.l2.3"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.provisioning": 3
+        }
+      },
+      "rt.l2.3": {
+        "adjacent": [
+          "rt.l2.2",
+          "rt.l2.4"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.provisioning": 3
+        }
+      },
+      "rt.l2.4": {
+        "adjacent": [
+          "rt.l2.3",
+          "rt.l2.5"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "xp.provisioning": 8
+        }
+      },
+      "rt.l2.5": {
+        "adjacent": [
+          "rt.l2.4",
+          "rt.l2.6",
+          "rt.l4.0"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.provisioning": 3
+        }
+      },
+      "rt.l2.6": {
+        "adjacent": [
+          "rt.l2.0",
+          "rt.l2.5"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "fatigueLess": 6,
+          "xp.provisioning": 4
+        }
+      },
+      "rt.l3.0": {
+        "adjacent": [
+          "rt.l1.3",
+          "rt.l3.1"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "coldDegrees": 2
+        }
+      },
+      "rt.l3.1": {
+        "adjacent": [
+          "rt.l3.0",
+          "rt.l3.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "heatDegrees": 2
+        }
+      },
+      "rt.l3.2": {
+        "adjacent": [
+          "rt.l3.1",
+          "rt.l3.3",
+          "rt.l3.4"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "coldDegrees": 2
+        }
+      },
+      "rt.l3.3": {
+        "adjacent": [
+          "rt.l3.2"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "coldDegrees": 5,
+          "warmth": 2
+        }
+      },
+      "rt.l3.4": {
+        "adjacent": [
+          "rt.l3.2"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "dry": 10,
+          "heatDegrees": 6
+        }
+      },
+      "rt.l4.0": {
+        "adjacent": [
+          "rt.l2.5",
+          "rt.l4.1"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.herbalism": 4
+        }
+      },
+      "rt.l4.1": {
+        "adjacent": [
+          "rt.l4.0",
+          "rt.l4.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.herbalism": 4
+        }
+      },
+      "rt.l4.2": {
+        "adjacent": [
+          "rt.l4.1",
+          "rt.l4.3"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.herbalism": 4
+        }
+      },
+      "rt.l4.3": {
+        "adjacent": [
+          "rt.l4.2",
+          "rt.l4.4"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.herbalism": 4
+        }
+      },
+      "rt.l4.4": {
+        "adjacent": [
+          "rt.l4.3"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "xp.herbalism": 10,
+          "yield.herbalism": 3
+        }
+      },
+      "rt.la": {
+        "adjacent": [
+          "rt.lk",
+          "rt.lr2"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "act.herbalism": 5
+        }
+      },
+      "rt.lg0": {
+        "adjacent": [
+          "rt.l2.0",
+          "rt.lg1",
+          "rt.lr1",
+          "wr.lgx"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "yield.herbalism": 1
+        }
+      },
+      "rt.lg1": {
+        "adjacent": [
+          "rt.l1.0",
+          "rt.lg0",
+          "rt.lgx",
+          "rt.lr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "coldDegrees": 1
+        }
+      },
+      "rt.lgx": {
+        "adjacent": [
+          "mg.lg0",
+          "rt.lg1",
+          "rt.xr2"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "carry": 3
+        }
+      },
+      "rt.lk": {
+        "adjacent": [
+          "rt.la"
+        ],
+        "kind": "keystone",
+        "ring": "life",
+        "stats": {
+          "xp.provisioning": 5,
+          "yield.herbalism": 10
+        }
+      },
+      "rt.lr1": {
+        "adjacent": [
+          "rt.lg0",
+          "rt.lg1",
+          "rt.lr2"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "xp.herbalism": 4
+        }
+      },
+      "rt.lr2": {
+        "adjacent": [
+          "rt.la",
+          "rt.lr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "xp.provisioning": 2
+        }
+      },
+      "rt.r1": {
+        "adjacent": [
+          "rt.c2.0",
+          "rt.g",
+          "rt.r2"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Restoration": 4
+        }
+      },
+      "rt.r2": {
+        "adjacent": [
+          "rt.c3.0",
+          "rt.k1",
+          "rt.r1"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "hpRegen": 1
+        }
+      },
+      "rt.s1": {
+        "adjacent": [
+          "rt.s2",
+          "rt.start"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "pct.willpower": 2
+        }
+      },
+      "rt.s2": {
+        "adjacent": [
+          "rt.c7.0",
+          "rt.g",
+          "rt.s1"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "pct.strength": 3
+        }
+      },
+      "rt.start": {
+        "adjacent": [
+          "rt.bt",
+          "rt.s1",
+          "wr.bt"
+        ],
+        "kind": "start",
+        "ring": "combat",
+        "stats": {
+          "willpower": 2
+        }
+      },
+      "rt.w": {
+        "adjacent": [
+          "rt.bt",
+          "rt.x"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "fatigueLess": 3
+        }
+      },
+      "rt.x": {
+        "adjacent": [
+          "mg.g",
+          "rt.g",
+          "rt.w",
+          "rt.xr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "carry": 3
+        }
+      },
+      "rt.xr1": {
+        "adjacent": [
+          "rt.x",
+          "rt.xr2"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "fallLess": 5
+        }
+      },
+      "rt.xr2": {
+        "adjacent": [
+          "rt.lgx",
+          "rt.xr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "fatigueLess": 4
+        }
+      },
+      "sh.bt": {
+        "adjacent": [
+          "sh.start",
+          "sh.w",
+          "sp.start",
+          "th.start"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "carry": 2
+        }
+      },
+      "sh.c1.0": {
+        "adjacent": [
+          "sh.c1.1",
+          "sh.c1.6",
+          "sh.g"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Stealth": 3
+        }
+      },
+      "sh.c1.1": {
+        "adjacent": [
+          "sh.c1.0",
+          "sh.c1.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Stealth": 3
+        }
+      },
+      "sh.c1.2": {
+        "adjacent": [
+          "sh.c1.1",
+          "sh.c1.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Stealth": 3
+        }
+      },
+      "sh.c1.3": {
+        "adjacent": [
+          "sh.c1.2",
+          "sh.c1.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Stealth": 3
+        }
+      },
+      "sh.c1.4": {
+        "adjacent": [
+          "sh.c1.3",
+          "sh.c1.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "skill.Illusion": 4,
+          "skill.Stealth": 7
+        }
+      },
+      "sh.c1.5": {
+        "adjacent": [
+          "sh.c1.4",
+          "sh.c1.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Stealth": 3
+        }
+      },
+      "sh.c1.6": {
+        "adjacent": [
+          "sh.c1.0",
+          "sh.c1.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "evade": 2,
+          "skill.Stealth": 4
+        }
+      },
+      "sh.c2.0": {
+        "adjacent": [
+          "sh.c2.1",
+          "sh.r1"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "unawareDmg": 3
+        }
+      },
+      "sh.c2.1": {
+        "adjacent": [
+          "sh.c2.0",
+          "sh.c2.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "unawareDmg": 3
+        }
+      },
+      "sh.c2.2": {
+        "adjacent": [
+          "sh.c2.1",
+          "sh.c2.3",
+          "sh.c2.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "unawareDmg": 3
+        }
+      },
+      "sh.c2.3": {
+        "adjacent": [
+          "sh.c2.2"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "skill.Backstabbing": 6,
+          "unawareDmg": 6
+        }
+      },
+      "sh.c2.4": {
+        "adjacent": [
+          "sh.c2.2"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "killHeal": 2,
+          "unawareDmg": 4
+        }
+      },
+      "sh.c3.0": {
+        "adjacent": [
+          "sh.c3.1",
+          "sh.c3.6",
+          "sh.r2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Illusion": 3
+        }
+      },
+      "sh.c3.1": {
+        "adjacent": [
+          "sh.c3.0",
+          "sh.c3.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Illusion": 3
+        }
+      },
+      "sh.c3.2": {
+        "adjacent": [
+          "sh.c3.1",
+          "sh.c3.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Illusion": 3
+        }
+      },
+      "sh.c3.3": {
+        "adjacent": [
+          "sh.c3.2",
+          "sh.c3.4",
+          "sh.c5.0"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Illusion": 3
+        }
+      },
+      "sh.c3.4": {
+        "adjacent": [
+          "sh.c3.3",
+          "sh.c3.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "castCost.Illusion": 8,
+          "skill.Illusion": 5
+        }
+      },
+      "sh.c3.5": {
+        "adjacent": [
+          "sh.c3.4",
+          "sh.c3.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Illusion": 3
+        }
+      },
+      "sh.c3.6": {
+        "adjacent": [
+          "sh.c3.0",
+          "sh.c3.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "skill.ShortBlade": 4,
+          "spellPower": 4
+        }
+      },
+      "sh.c4.0": {
+        "adjacent": [
+          "sh.c4.1",
+          "sh.g"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.CriticalStrike": 3
+        }
+      },
+      "sh.c4.1": {
+        "adjacent": [
+          "sh.c4.0",
+          "sh.c4.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.CriticalStrike": 3
+        }
+      },
+      "sh.c4.2": {
+        "adjacent": [
+          "sh.c4.1",
+          "sh.c4.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.CriticalStrike": 3
+        }
+      },
+      "sh.c4.3": {
+        "adjacent": [
+          "sh.c4.2",
+          "sh.c4.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.CriticalStrike": 3
+        }
+      },
+      "sh.c4.4": {
+        "adjacent": [
+          "sh.c4.3",
+          "sh.c6.0"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "skill.CriticalStrike": 8,
+          "weaponDmg": 4
+        }
+      },
+      "sh.c5.0": {
+        "adjacent": [
+          "sh.c3.3",
+          "sh.c5.1",
+          "sh.c5.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "shortDmg": 3
+        }
+      },
+      "sh.c5.1": {
+        "adjacent": [
+          "sh.c5.0",
+          "sh.c5.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "shortDmg": 3
+        }
+      },
+      "sh.c5.2": {
+        "adjacent": [
+          "sh.c5.1",
+          "sh.c5.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "shortDmg": 3
+        }
+      },
+      "sh.c5.3": {
+        "adjacent": [
+          "sh.c5.2",
+          "sh.c5.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "shortDmg": 3
+        }
+      },
+      "sh.c5.4": {
+        "adjacent": [
+          "sh.c5.3",
+          "sh.c5.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "shortDmg": 6,
+          "skill.ShortBlade": 5
+        }
+      },
+      "sh.c5.5": {
+        "adjacent": [
+          "sh.c5.4",
+          "sh.c5.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "shortDmg": 3
+        }
+      },
+      "sh.c5.6": {
+        "adjacent": [
+          "sh.c5.0",
+          "sh.c5.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "skill.ShortBlade": 4,
+          "speed": 3
+        }
+      },
+      "sh.c6.0": {
+        "adjacent": [
+          "sh.c4.4",
+          "sh.c6.1",
+          "sh.c6.5"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "mpPct": 3
+        }
+      },
+      "sh.c6.1": {
+        "adjacent": [
+          "sh.c6.0",
+          "sh.c6.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.intelligence": 2
+        }
+      },
+      "sh.c6.2": {
+        "adjacent": [
+          "sh.c6.1",
+          "sh.c6.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "mpPct": 3
+        }
+      },
+      "sh.c6.3": {
+        "adjacent": [
+          "sh.c6.2",
+          "sh.c6.4"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "killMana": 3,
+          "mp": 8
+        }
+      },
+      "sh.c6.4": {
+        "adjacent": [
+          "sh.c6.3",
+          "sh.c6.5"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.intelligence": 2
+        }
+      },
+      "sh.c6.5": {
+        "adjacent": [
+          "sh.c6.0",
+          "sh.c6.4"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "resist.magic": 6,
+          "skill.Mysticism": 5
+        }
+      },
+      "sh.c7.0": {
+        "adjacent": [
+          "sh.c7.1",
+          "sh.c7.4",
+          "sh.s2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.agility": 2
+        }
+      },
+      "sh.c7.1": {
+        "adjacent": [
+          "sh.c7.0",
+          "sh.c7.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.intelligence": 2
+        }
+      },
+      "sh.c7.2": {
+        "adjacent": [
+          "sh.c7.1",
+          "sh.c7.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.agility": 2
+        }
+      },
+      "sh.c7.3": {
+        "adjacent": [
+          "sh.c7.2",
+          "sh.c7.4"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "agility": 2,
+          "intelligence": 2,
+          "skill.Stealth": 4
+        }
+      },
+      "sh.c7.4": {
+        "adjacent": [
+          "sh.c7.0",
+          "sh.c7.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.intelligence": 2
+        }
+      },
+      "sh.g": {
+        "adjacent": [
+          "mg.x",
+          "sh.c1.0",
+          "sh.c4.0",
+          "sh.r1",
+          "sh.s2",
+          "sh.x"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "pct.agility": 2,
+          "pct.intelligence": 2
+        }
+      },
+      "sh.k": {
+        "adjacent": [
+          "sh.k1"
+        ],
+        "kind": "keystone",
+        "ring": "combat",
+        "stats": {
+          "unawareDmg": 19,
+          "weaponDmg": -5
+        }
+      },
+      "sh.k1": {
+        "adjacent": [
+          "sh.k",
+          "sh.r2"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Illusion": 4
+        }
+      },
+      "sh.l1.0": {
+        "adjacent": [
+          "sh.l1.1",
+          "sh.l1.6",
+          "sh.lg1"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "skillPct.Mercantile": 3
+        }
+      },
+      "sh.l1.1": {
+        "adjacent": [
+          "sh.l1.0",
+          "sh.l1.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "skillPct.Mercantile": 3
+        }
+      },
+      "sh.l1.2": {
+        "adjacent": [
+          "sh.l1.1",
+          "sh.l1.3"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "skillPct.Mercantile": 3
+        }
+      },
+      "sh.l1.3": {
+        "adjacent": [
+          "sh.l1.2",
+          "sh.l1.4",
+          "sh.l3.0"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "skillPct.Mercantile": 3
+        }
+      },
+      "sh.l1.4": {
+        "adjacent": [
+          "sh.l1.3",
+          "sh.l1.5"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "personality": 3,
+          "skill.Mercantile": 4
+        }
+      },
+      "sh.l1.5": {
+        "adjacent": [
+          "sh.l1.4",
+          "sh.l1.6"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "skillPct.Mercantile": 3
+        }
+      },
+      "sh.l1.6": {
+        "adjacent": [
+          "sh.l1.0",
+          "sh.l1.5"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "skill.Etiquette": 4,
+          "skill.Mercantile": 3
+        }
+      },
+      "sh.l2.0": {
+        "adjacent": [
+          "sh.l2.1",
+          "sh.l2.6",
+          "sh.lg0"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "carry": 3
+        }
+      },
+      "sh.l2.1": {
+        "adjacent": [
+          "sh.l2.0",
+          "sh.l2.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "carry": 3
+        }
+      },
+      "sh.l2.2": {
+        "adjacent": [
+          "sh.l2.1",
+          "sh.l2.3"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "carry": 3
+        }
+      },
+      "sh.l2.3": {
+        "adjacent": [
+          "sh.l2.2",
+          "sh.l2.4"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "carry": 3
+        }
+      },
+      "sh.l2.4": {
+        "adjacent": [
+          "sh.l2.3",
+          "sh.l2.5"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "carry": 8
+        }
+      },
+      "sh.l2.5": {
+        "adjacent": [
+          "sh.l2.4",
+          "sh.l2.6",
+          "sh.l4.0"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "carry": 3
+        }
+      },
+      "sh.l2.6": {
+        "adjacent": [
+          "sh.l2.0",
+          "sh.l2.5"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "carry": 5,
+          "fatigueLess": 8
+        }
+      },
+      "sh.l3.0": {
+        "adjacent": [
+          "sh.l1.3",
+          "sh.l3.1"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "skillPct.Streetwise": 3
+        }
+      },
+      "sh.l3.1": {
+        "adjacent": [
+          "sh.l3.0",
+          "sh.l3.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "skillPct.Pickpocket": 3
+        }
+      },
+      "sh.l3.2": {
+        "adjacent": [
+          "sh.l3.1",
+          "sh.l3.3",
+          "sh.l3.4"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "skillPct.Streetwise": 3
+        }
+      },
+      "sh.l3.3": {
+        "adjacent": [
+          "sh.l3.2"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "skill.Mercantile": 2,
+          "skill.Streetwise": 8
+        }
+      },
+      "sh.l3.4": {
+        "adjacent": [
+          "sh.l3.2"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "skill.Lockpicking": 5,
+          "skill.Pickpocket": 8
+        }
+      },
+      "sh.l4.0": {
+        "adjacent": [
+          "sh.l2.5",
+          "sh.l4.1"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "skillPct.Etiquette": 3
+        }
+      },
+      "sh.l4.1": {
+        "adjacent": [
+          "sh.l4.0",
+          "sh.l4.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "skillPct.Etiquette": 3
+        }
+      },
+      "sh.l4.2": {
+        "adjacent": [
+          "sh.l4.1",
+          "sh.l4.3"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "skillPct.Etiquette": 3
+        }
+      },
+      "sh.l4.3": {
+        "adjacent": [
+          "sh.l4.2",
+          "sh.l4.4"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "skillPct.Etiquette": 3
+        }
+      },
+      "sh.l4.4": {
+        "adjacent": [
+          "sh.l4.3"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "personality": 3,
+          "skill.Etiquette": 6,
+          "standing": 4
+        }
+      },
+      "sh.la": {
+        "adjacent": [
+          "sh.lk",
+          "sh.lr2"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "skillPct.Mercantile": 4
+        }
+      },
+      "sh.lg0": {
+        "adjacent": [
+          "mg.lgx",
+          "sh.l2.0",
+          "sh.lg1",
+          "sh.lr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "skillPct.Mercantile": 3
+        }
+      },
+      "sh.lg1": {
+        "adjacent": [
+          "sh.l1.0",
+          "sh.lg0",
+          "sh.lgx",
+          "sh.lr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "skillPct.Streetwise": 3
+        }
+      },
+      "sh.lgx": {
+        "adjacent": [
+          "sh.lg1",
+          "sh.xr2",
+          "th.lg0"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "carry": 3
+        }
+      },
+      "sh.lk": {
+        "adjacent": [
+          "sh.la"
+        ],
+        "kind": "keystone",
+        "ring": "life",
+        "stats": {
+          "skill.Etiquette": 6,
+          "skill.Mercantile": 11
+        }
+      },
+      "sh.lr1": {
+        "adjacent": [
+          "sh.lg0",
+          "sh.lg1",
+          "sh.lr2"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "pct.personality": 2
+        }
+      },
+      "sh.lr2": {
+        "adjacent": [
+          "sh.la",
+          "sh.lr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "carry": 3
+        }
+      },
+      "sh.r1": {
+        "adjacent": [
+          "sh.c2.0",
+          "sh.g",
+          "sh.r2"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Stealth": 4
+        }
+      },
+      "sh.r2": {
+        "adjacent": [
+          "sh.c3.0",
+          "sh.k1",
+          "sh.r1"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "unawareDmg": 2
+        }
+      },
+      "sh.s1": {
+        "adjacent": [
+          "sh.s2",
+          "sh.start"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "pct.agility": 3
+        }
+      },
+      "sh.s2": {
+        "adjacent": [
+          "sh.c7.0",
+          "sh.g",
+          "sh.s1"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "pct.intelligence": 3
+        }
+      },
+      "sh.start": {
+        "adjacent": [
+          "mg.bt",
+          "sh.bt",
+          "sh.s1"
+        ],
+        "kind": "start",
+        "ring": "combat",
+        "stats": {
+          "agility": 1,
+          "intelligence": 1
+        }
+      },
+      "sh.w": {
+        "adjacent": [
+          "sh.bt",
+          "sh.x"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "fatigueLess": 3
+        }
+      },
+      "sh.x": {
+        "adjacent": [
+          "sh.g",
+          "sh.w",
+          "sh.xr1",
+          "th.g"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "carry": 3
+        }
+      },
+      "sh.xr1": {
+        "adjacent": [
+          "sh.x",
+          "sh.xr2"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "fallLess": 5
+        }
+      },
+      "sh.xr2": {
+        "adjacent": [
+          "sh.lgx",
+          "sh.xr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "fatigueLess": 4
+        }
+      },
+      "sp.start": {
+        "adjacent": [
+          "mg.bt",
+          "rt.bt",
+          "sh.bt",
+          "st.bt",
+          "th.bt",
+          "wr.bt"
+        ],
+        "kind": "start",
+        "ring": "combat",
+        "stats": {
+          "luck": 2
+        }
+      },
+      "st.bt": {
+        "adjacent": [
+          "sp.start",
+          "st.start",
+          "st.w",
+          "wr.start"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "carry": 2
+        }
+      },
+      "st.c1.0": {
+        "adjacent": [
+          "st.c1.1",
+          "st.c1.6",
+          "st.g"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "longDmg": 2
+        }
+      },
+      "st.c1.1": {
+        "adjacent": [
+          "st.c1.0",
+          "st.c1.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "longDmg": 2
+        }
+      },
+      "st.c1.2": {
+        "adjacent": [
+          "st.c1.1",
+          "st.c1.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "longDmg": 2
+        }
+      },
+      "st.c1.3": {
+        "adjacent": [
+          "st.c1.2",
+          "st.c1.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "longDmg": 2
+        }
+      },
+      "st.c1.4": {
+        "adjacent": [
+          "st.c1.3",
+          "st.c1.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "longDmg": 6,
+          "skill.LongBlade": 6
+        }
+      },
+      "st.c1.5": {
+        "adjacent": [
+          "st.c1.4",
+          "st.c1.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "longDmg": 2
+        }
+      },
+      "st.c1.6": {
+        "adjacent": [
+          "st.c1.0",
+          "st.c1.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "longDmg": 4,
+          "skill.LongBlade": 4,
+          "speed": 2
+        }
+      },
+      "st.c2.0": {
+        "adjacent": [
+          "st.c2.1",
+          "st.r1"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "meleeDmg": 2
+        }
+      },
+      "st.c2.1": {
+        "adjacent": [
+          "st.c2.0",
+          "st.c2.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "meleeDmg": 2
+        }
+      },
+      "st.c2.2": {
+        "adjacent": [
+          "st.c2.1",
+          "st.c2.3",
+          "st.c2.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "meleeDmg": 2
+        }
+      },
+      "st.c2.3": {
+        "adjacent": [
+          "st.c2.2"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "meleeDmg": 5,
+          "speed": 2
+        }
+      },
+      "st.c2.4": {
+        "adjacent": [
+          "st.c2.2"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "hp": 12,
+          "meleeDmg": 4
+        }
+      },
+      "st.c3.0": {
+        "adjacent": [
+          "st.c3.1",
+          "st.c3.6",
+          "st.r2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.endurance": 2
+        }
+      },
+      "st.c3.1": {
+        "adjacent": [
+          "st.c3.0",
+          "st.c3.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "hpPct": 3
+        }
+      },
+      "st.c3.2": {
+        "adjacent": [
+          "st.c3.1",
+          "st.c3.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.endurance": 2
+        }
+      },
+      "st.c3.3": {
+        "adjacent": [
+          "st.c3.2",
+          "st.c3.4",
+          "st.c5.0"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "hpPct": 3
+        }
+      },
+      "st.c3.4": {
+        "adjacent": [
+          "st.c3.3",
+          "st.c3.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "endurance": 5,
+          "hp": 10
+        }
+      },
+      "st.c3.5": {
+        "adjacent": [
+          "st.c3.4",
+          "st.c3.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.endurance": 2
+        }
+      },
+      "st.c3.6": {
+        "adjacent": [
+          "st.c3.0",
+          "st.c3.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "endurance": 3,
+          "hpRegen": 2
+        }
+      },
+      "st.c4.0": {
+        "adjacent": [
+          "st.c4.1",
+          "st.g"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.speed": 1
+        }
+      },
+      "st.c4.1": {
+        "adjacent": [
+          "st.c4.0",
+          "st.c4.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.speed": 1
+        }
+      },
+      "st.c4.2": {
+        "adjacent": [
+          "st.c4.1",
+          "st.c4.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.speed": 1
+        }
+      },
+      "st.c4.3": {
+        "adjacent": [
+          "st.c4.2",
+          "st.c4.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.speed": 1
+        }
+      },
+      "st.c4.4": {
+        "adjacent": [
+          "st.c4.3",
+          "st.c6.0"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "evade": 2,
+          "speed": 3
+        }
+      },
+      "st.c5.0": {
+        "adjacent": [
+          "st.c3.3",
+          "st.c5.1",
+          "st.c5.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "fistDmg": 3
+        }
+      },
+      "st.c5.1": {
+        "adjacent": [
+          "st.c5.0",
+          "st.c5.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "fistDmg": 3
+        }
+      },
+      "st.c5.2": {
+        "adjacent": [
+          "st.c5.1",
+          "st.c5.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "fistDmg": 3
+        }
+      },
+      "st.c5.3": {
+        "adjacent": [
+          "st.c5.2",
+          "st.c5.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "fistDmg": 3
+        }
+      },
+      "st.c5.4": {
+        "adjacent": [
+          "st.c5.3",
+          "st.c5.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "fistDmg": 8,
+          "skill.HandToHand": 8
+        }
+      },
+      "st.c5.5": {
+        "adjacent": [
+          "st.c5.4",
+          "st.c5.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "fistDmg": 3
+        }
+      },
+      "st.c5.6": {
+        "adjacent": [
+          "st.c5.0",
+          "st.c5.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "fistDmg": 5,
+          "skill.HandToHand": 4,
+          "strength": 3
+        }
+      },
+      "st.c6.0": {
+        "adjacent": [
+          "st.c4.4",
+          "st.c6.1",
+          "st.c6.5"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.CriticalStrike": 3
+        }
+      },
+      "st.c6.1": {
+        "adjacent": [
+          "st.c6.0",
+          "st.c6.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.CriticalStrike": 3
+        }
+      },
+      "st.c6.2": {
+        "adjacent": [
+          "st.c6.1",
+          "st.c6.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.CriticalStrike": 3
+        }
+      },
+      "st.c6.3": {
+        "adjacent": [
+          "st.c6.2",
+          "st.c6.4"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "skill.CriticalStrike": 5,
+          "weaponDmg": 4
+        }
+      },
+      "st.c6.4": {
+        "adjacent": [
+          "st.c6.3",
+          "st.c6.5"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.CriticalStrike": 3
+        }
+      },
+      "st.c6.5": {
+        "adjacent": [
+          "st.c6.0",
+          "st.c6.4"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "evade": 2,
+          "skill.Dodging": 6
+        }
+      },
+      "st.c7.0": {
+        "adjacent": [
+          "st.c7.1",
+          "st.c7.4",
+          "st.s2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.speed": 1
+        }
+      },
+      "st.c7.1": {
+        "adjacent": [
+          "st.c7.0",
+          "st.c7.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.speed": 1
+        }
+      },
+      "st.c7.2": {
+        "adjacent": [
+          "st.c7.1",
+          "st.c7.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.speed": 1
+        }
+      },
+      "st.c7.3": {
+        "adjacent": [
+          "st.c7.2",
+          "st.c7.4"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "skill.Running": 4,
+          "speed": 3
+        }
+      },
+      "st.c7.4": {
+        "adjacent": [
+          "st.c7.0",
+          "st.c7.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.speed": 1
+        }
+      },
+      "st.g": {
+        "adjacent": [
+          "st.c1.0",
+          "st.c4.0",
+          "st.r1",
+          "st.s2",
+          "st.x",
+          "th.x"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "pct.speed": 1,
+          "pct.strength": 2
+        }
+      },
+      "st.k": {
+        "adjacent": [
+          "st.k1"
+        ],
+        "kind": "keystone",
+        "ring": "combat",
+        "stats": {
+          "blowTaken": 5,
+          "meleeDmg": 9,
+          "speed": 3
+        }
+      },
+      "st.k1": {
+        "adjacent": [
+          "st.k",
+          "st.r2"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "meleeDmg": 3
+        }
+      },
+      "st.l1.0": {
+        "adjacent": [
+          "st.l1.1",
+          "st.l1.6",
+          "st.lg1"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "sailSpeed": 1
+        }
+      },
+      "st.l1.1": {
+        "adjacent": [
+          "st.l1.0",
+          "st.l1.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "sailSpeed": 1
+        }
+      },
+      "st.l1.2": {
+        "adjacent": [
+          "st.l1.1",
+          "st.l1.3"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "sailSpeed": 1
+        }
+      },
+      "st.l1.3": {
+        "adjacent": [
+          "st.l1.2",
+          "st.l1.4",
+          "st.l3.0"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "sailSpeed": 1
+        }
+      },
+      "st.l1.4": {
+        "adjacent": [
+          "st.l1.3",
+          "st.l1.5"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "sailSpeed": 3
+        }
+      },
+      "st.l1.5": {
+        "adjacent": [
+          "st.l1.4",
+          "st.l1.6"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "sailSpeed": 1
+        }
+      },
+      "st.l1.6": {
+        "adjacent": [
+          "st.l1.0",
+          "st.l1.5"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "sailSpeed": 1,
+          "skill.Swimming": 6
+        }
+      },
+      "st.l2.0": {
+        "adjacent": [
+          "st.l2.1",
+          "st.l2.6",
+          "st.lg0"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "yield.fishing": 3
+        }
+      },
+      "st.l2.1": {
+        "adjacent": [
+          "st.l2.0",
+          "st.l2.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "act.fishing": 5
+        }
+      },
+      "st.l2.2": {
+        "adjacent": [
+          "st.l2.1",
+          "st.l2.3"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "yield.fishing": 3
+        }
+      },
+      "st.l2.3": {
+        "adjacent": [
+          "st.l2.2",
+          "st.l2.4"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "act.fishing": 5
+        }
+      },
+      "st.l2.4": {
+        "adjacent": [
+          "st.l2.3",
+          "st.l2.5"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "act.fishing": 15,
+          "xp.fishing": 5
+        }
+      },
+      "st.l2.5": {
+        "adjacent": [
+          "st.l2.4",
+          "st.l2.6",
+          "st.l4.0"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "yield.fishing": 3
+        }
+      },
+      "st.l2.6": {
+        "adjacent": [
+          "st.l2.0",
+          "st.l2.5"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "yield.fishing": 8
+        }
+      },
+      "st.l3.0": {
+        "adjacent": [
+          "st.l1.3",
+          "st.l3.1"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "fatigueLess": 4
+        }
+      },
+      "st.l3.1": {
+        "adjacent": [
+          "st.l3.0",
+          "st.l3.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "fatigueLess": 4
+        }
+      },
+      "st.l3.2": {
+        "adjacent": [
+          "st.l3.1",
+          "st.l3.3",
+          "st.l3.4"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "fatigueLess": 4
+        }
+      },
+      "st.l3.3": {
+        "adjacent": [
+          "st.l3.2"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "fatigueLess": 12
+        }
+      },
+      "st.l3.4": {
+        "adjacent": [
+          "st.l3.2"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "fallLess": 10,
+          "fatigueLess": 4
+        }
+      },
+      "st.l4.0": {
+        "adjacent": [
+          "st.l2.5",
+          "st.l4.1"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "skillPct.Swimming": 3
+        }
+      },
+      "st.l4.1": {
+        "adjacent": [
+          "st.l4.0",
+          "st.l4.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "skillPct.Swimming": 3
+        }
+      },
+      "st.l4.2": {
+        "adjacent": [
+          "st.l4.1",
+          "st.l4.3"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "skillPct.Swimming": 3
+        }
+      },
+      "st.l4.3": {
+        "adjacent": [
+          "st.l4.2",
+          "st.l4.4"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "skillPct.Swimming": 3
+        }
+      },
+      "st.l4.4": {
+        "adjacent": [
+          "st.l4.3"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "sailSpeed": 1,
+          "skill.Swimming": 8,
+          "xp.fishing": 4
+        }
+      },
+      "st.la": {
+        "adjacent": [
+          "st.lk",
+          "st.lr2"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "sailSpeed": 1
+        }
+      },
+      "st.lg0": {
+        "adjacent": [
+          "st.l2.0",
+          "st.lg1",
+          "st.lr1",
+          "th.lgx"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "sailSpeed": 1
+        }
+      },
+      "st.lg1": {
+        "adjacent": [
+          "st.l1.0",
+          "st.lg0",
+          "st.lgx",
+          "st.lr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "yield.fishing": 2
+        }
+      },
+      "st.lgx": {
+        "adjacent": [
+          "st.lg1",
+          "st.xr2",
+          "wr.lg0"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "carry": 3
+        }
+      },
+      "st.lk": {
+        "adjacent": [
+          "st.la"
+        ],
+        "kind": "keystone",
+        "ring": "life",
+        "stats": {
+          "sailSpeed": 3,
+          "xp.fishing": 3
+        }
+      },
+      "st.lr1": {
+        "adjacent": [
+          "st.lg0",
+          "st.lg1",
+          "st.lr2"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "fatigueLess": 4
+        }
+      },
+      "st.lr2": {
+        "adjacent": [
+          "st.la",
+          "st.lr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "skillPct.Swimming": 3
+        }
+      },
+      "st.r1": {
+        "adjacent": [
+          "st.c2.0",
+          "st.g",
+          "st.r2"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "meleeDmg": 3
+        }
+      },
+      "st.r2": {
+        "adjacent": [
+          "st.c3.0",
+          "st.k1",
+          "st.r1"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "skillPct.LongBlade": 4
+        }
+      },
+      "st.s1": {
+        "adjacent": [
+          "st.s2",
+          "st.start"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "pct.speed": 2
+        }
+      },
+      "st.s2": {
+        "adjacent": [
+          "st.c7.0",
+          "st.g",
+          "st.s1"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "pct.strength": 3
+        }
+      },
+      "st.start": {
+        "adjacent": [
+          "st.bt",
+          "st.s1",
+          "th.bt"
+        ],
+        "kind": "start",
+        "ring": "combat",
+        "stats": {
+          "speed": 2
+        }
+      },
+      "st.w": {
+        "adjacent": [
+          "st.bt",
+          "st.x"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "fatigueLess": 3
+        }
+      },
+      "st.x": {
+        "adjacent": [
+          "st.g",
+          "st.w",
+          "st.xr1",
+          "wr.g"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "carry": 3
+        }
+      },
+      "st.xr1": {
+        "adjacent": [
+          "st.x",
+          "st.xr2"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "fallLess": 5
+        }
+      },
+      "st.xr2": {
+        "adjacent": [
+          "st.lgx",
+          "st.xr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "fatigueLess": 4
+        }
+      },
+      "th.bt": {
+        "adjacent": [
+          "sp.start",
+          "st.start",
+          "th.start",
+          "th.w"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "carry": 2
+        }
+      },
+      "th.c1.0": {
+        "adjacent": [
+          "th.c1.1",
+          "th.c1.6",
+          "th.g"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "bowDmg": 2
+        }
+      },
+      "th.c1.1": {
+        "adjacent": [
+          "th.c1.0",
+          "th.c1.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "bowDmg": 2
+        }
+      },
+      "th.c1.2": {
+        "adjacent": [
+          "th.c1.1",
+          "th.c1.3"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "agility": 3,
+          "bowDmg": 4
+        }
+      },
+      "th.c1.3": {
+        "adjacent": [
+          "th.c1.2",
+          "th.c1.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "bowDmg": 2
+        }
+      },
+      "th.c1.4": {
+        "adjacent": [
+          "th.c1.3",
+          "th.c1.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "bowDmg": 5,
+          "skill.Archery": 6
+        }
+      },
+      "th.c1.5": {
+        "adjacent": [
+          "th.c1.4",
+          "th.c1.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "bowDmg": 2
+        }
+      },
+      "th.c1.6": {
+        "adjacent": [
+          "th.c1.0",
+          "th.c1.5"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "bowDmg": 2
+        }
+      },
+      "th.c2.0": {
+        "adjacent": [
+          "th.c2.1",
+          "th.r1"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Dodging": 3
+        }
+      },
+      "th.c2.1": {
+        "adjacent": [
+          "th.c2.0",
+          "th.c2.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Dodging": 3
+        }
+      },
+      "th.c2.2": {
+        "adjacent": [
+          "th.c2.1",
+          "th.c2.3",
+          "th.c2.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Dodging": 3
+        }
+      },
+      "th.c2.3": {
+        "adjacent": [
+          "th.c2.2"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "evade": 2,
+          "skill.Dodging": 5,
+          "skill.Jumping": 5
+        }
+      },
+      "th.c2.4": {
+        "adjacent": [
+          "th.c2.2"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "evade": 2,
+          "speed": 3
+        }
+      },
+      "th.c3.0": {
+        "adjacent": [
+          "th.c3.1",
+          "th.c3.6",
+          "th.r2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Running": 3
+        }
+      },
+      "th.c3.1": {
+        "adjacent": [
+          "th.c3.0",
+          "th.c3.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.speed": 2
+        }
+      },
+      "th.c3.2": {
+        "adjacent": [
+          "th.c3.1",
+          "th.c3.3"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "endurance": 3,
+          "hpRegen": 2
+        }
+      },
+      "th.c3.3": {
+        "adjacent": [
+          "th.c3.2",
+          "th.c3.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Running": 3
+        }
+      },
+      "th.c3.4": {
+        "adjacent": [
+          "th.c3.3",
+          "th.c3.5",
+          "th.c5.0"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "skill.Running": 5,
+          "speed": 5
+        }
+      },
+      "th.c3.5": {
+        "adjacent": [
+          "th.c3.4",
+          "th.c3.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.speed": 2
+        }
+      },
+      "th.c3.6": {
+        "adjacent": [
+          "th.c3.0",
+          "th.c3.5"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Running": 3
+        }
+      },
+      "th.c4.0": {
+        "adjacent": [
+          "th.c4.1",
+          "th.g"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "beastDmg": 4
+        }
+      },
+      "th.c4.1": {
+        "adjacent": [
+          "th.c4.0",
+          "th.c4.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "beastDmg": 4
+        }
+      },
+      "th.c4.2": {
+        "adjacent": [
+          "th.c4.1",
+          "th.c4.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "beastDmg": 4
+        }
+      },
+      "th.c4.3": {
+        "adjacent": [
+          "th.c4.2",
+          "th.c4.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "beastDmg": 4
+        }
+      },
+      "th.c4.4": {
+        "adjacent": [
+          "th.c4.3",
+          "th.c6.0"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "beastDmg": 10,
+          "bowDmg": 3
+        }
+      },
+      "th.c5.0": {
+        "adjacent": [
+          "th.c3.4",
+          "th.c5.1",
+          "th.c5.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.CriticalStrike": 3
+        }
+      },
+      "th.c5.1": {
+        "adjacent": [
+          "th.c5.0",
+          "th.c5.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.CriticalStrike": 3
+        }
+      },
+      "th.c5.2": {
+        "adjacent": [
+          "th.c5.1",
+          "th.c5.3"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "agility": 2,
+          "skill.Archery": 6
+        }
+      },
+      "th.c5.3": {
+        "adjacent": [
+          "th.c5.2",
+          "th.c5.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.CriticalStrike": 3
+        }
+      },
+      "th.c5.4": {
+        "adjacent": [
+          "th.c5.3",
+          "th.c5.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "bowDmg": 4,
+          "skill.CriticalStrike": 6
+        }
+      },
+      "th.c5.5": {
+        "adjacent": [
+          "th.c5.4",
+          "th.c5.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.CriticalStrike": 3
+        }
+      },
+      "th.c5.6": {
+        "adjacent": [
+          "th.c5.0",
+          "th.c5.5"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "skillPct.CriticalStrike": 3
+        }
+      },
+      "th.c6.0": {
+        "adjacent": [
+          "th.c4.4",
+          "th.c6.1",
+          "th.c6.5"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "blowTaken": -1
+        }
+      },
+      "th.c6.1": {
+        "adjacent": [
+          "th.c6.0",
+          "th.c6.2"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "agility": 2,
+          "blowTaken": -3
+        }
+      },
+      "th.c6.2": {
+        "adjacent": [
+          "th.c6.1",
+          "th.c6.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "blowTaken": -1
+        }
+      },
+      "th.c6.3": {
+        "adjacent": [
+          "th.c6.2",
+          "th.c6.4"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "armor": 2,
+          "luck": 4
+        }
+      },
+      "th.c6.4": {
+        "adjacent": [
+          "th.c6.3",
+          "th.c6.5"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "blowTaken": -1
+        }
+      },
+      "th.c6.5": {
+        "adjacent": [
+          "th.c6.0",
+          "th.c6.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "blowTaken": -1
+        }
+      },
+      "th.c7.0": {
+        "adjacent": [
+          "th.c7.1",
+          "th.c7.4",
+          "th.s2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.agility": 2
+        }
+      },
+      "th.c7.1": {
+        "adjacent": [
+          "th.c7.0",
+          "th.c7.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.agility": 2
+        }
+      },
+      "th.c7.2": {
+        "adjacent": [
+          "th.c7.1",
+          "th.c7.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.agility": 2
+        }
+      },
+      "th.c7.3": {
+        "adjacent": [
+          "th.c7.2",
+          "th.c7.4"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "agility": 3,
+          "luck": 3
+        }
+      },
+      "th.c7.4": {
+        "adjacent": [
+          "th.c7.0",
+          "th.c7.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.agility": 2
+        }
+      },
+      "th.g": {
+        "adjacent": [
+          "sh.x",
+          "th.c1.0",
+          "th.c4.0",
+          "th.r1",
+          "th.s2",
+          "th.x"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "pct.agility": 3
+        }
+      },
+      "th.k": {
+        "adjacent": [
+          "th.k1"
+        ],
+        "kind": "keystone",
+        "ring": "combat",
+        "stats": {
+          "armor": -3,
+          "evade": 6,
+          "speed": 4
+        }
+      },
+      "th.k1": {
+        "adjacent": [
+          "th.k",
+          "th.r2"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "bowDmg": 3
+        }
+      },
+      "th.l1.0": {
+        "adjacent": [
+          "th.l1.1",
+          "th.l1.6",
+          "th.lg0"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "yield.hunting": 1
+        }
+      },
+      "th.l1.1": {
+        "adjacent": [
+          "th.l1.0",
+          "th.l1.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "yield.hunting": 1
+        }
+      },
+      "th.l1.2": {
+        "adjacent": [
+          "th.l1.1",
+          "th.l1.3"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "xp.hunting": 8
+        }
+      },
+      "th.l1.3": {
+        "adjacent": [
+          "th.l1.2",
+          "th.l1.4"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "yield.hunting": 1
+        }
+      },
+      "th.l1.4": {
+        "adjacent": [
+          "th.l1.3",
+          "th.l1.5"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "yield.hunting": 4
+        }
+      },
+      "th.l1.5": {
+        "adjacent": [
+          "th.l1.4",
+          "th.l1.6",
+          "th.l3.0"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "yield.hunting": 1
+        }
+      },
+      "th.l1.6": {
+        "adjacent": [
+          "th.l1.0",
+          "th.l1.5"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "yield.hunting": 1
+        }
+      },
+      "th.l2.0": {
+        "adjacent": [
+          "th.l2.1",
+          "th.l2.6",
+          "th.lg1"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.outfitting": 4
+        }
+      },
+      "th.l2.1": {
+        "adjacent": [
+          "th.l2.0",
+          "th.l2.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.outfitting": 4
+        }
+      },
+      "th.l2.2": {
+        "adjacent": [
+          "th.l2.1",
+          "th.l2.3"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "xp.outfitting": 5,
+          "yield.hunting": 1
+        }
+      },
+      "th.l2.3": {
+        "adjacent": [
+          "th.l2.2",
+          "th.l2.4",
+          "th.l4.0"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.outfitting": 4
+        }
+      },
+      "th.l2.4": {
+        "adjacent": [
+          "th.l2.3",
+          "th.l2.5"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "xp.outfitting": 9
+        }
+      },
+      "th.l2.5": {
+        "adjacent": [
+          "th.l2.4",
+          "th.l2.6"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.outfitting": 4
+        }
+      },
+      "th.l2.6": {
+        "adjacent": [
+          "th.l2.0",
+          "th.l2.5"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.outfitting": 4
+        }
+      },
+      "th.l3.0": {
+        "adjacent": [
+          "th.l1.5",
+          "th.l3.1"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.hunting": 3
+        }
+      },
+      "th.l3.1": {
+        "adjacent": [
+          "th.l3.0",
+          "th.l3.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.hunting": 3
+        }
+      },
+      "th.l3.2": {
+        "adjacent": [
+          "th.l3.1",
+          "th.l3.3",
+          "th.l3.4"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.hunting": 3
+        }
+      },
+      "th.l3.3": {
+        "adjacent": [
+          "th.l3.2"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "xp.hunting": 6,
+          "yield.hunting": 2
+        }
+      },
+      "th.l3.4": {
+        "adjacent": [
+          "th.l3.2"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "xp.hunting": 3,
+          "yield.hunting": 3
+        }
+      },
+      "th.l4.0": {
+        "adjacent": [
+          "th.l2.3",
+          "th.l4.1"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "skillPct.Climbing": 3
+        }
+      },
+      "th.l4.1": {
+        "adjacent": [
+          "th.l4.0",
+          "th.l4.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "fallLess": 6
+        }
+      },
+      "th.l4.2": {
+        "adjacent": [
+          "th.l4.1",
+          "th.l4.3"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "skillPct.Climbing": 3
+        }
+      },
+      "th.l4.3": {
+        "adjacent": [
+          "th.l4.2",
+          "th.l4.4"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "fallLess": 6
+        }
+      },
+      "th.l4.4": {
+        "adjacent": [
+          "th.l4.3"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "fallLess": 15,
+          "skill.Climbing": 6
+        }
+      },
+      "th.la": {
+        "adjacent": [
+          "th.lk",
+          "th.lr2"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "yield.hunting": 1
+        }
+      },
+      "th.lg0": {
+        "adjacent": [
+          "sh.lgx",
+          "th.l1.0",
+          "th.lg1",
+          "th.lr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "yield.hunting": 1
+        }
+      },
+      "th.lg1": {
+        "adjacent": [
+          "th.l2.0",
+          "th.lg0",
+          "th.lgx",
+          "th.lr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "xp.outfitting": 1
+        }
+      },
+      "th.lgx": {
+        "adjacent": [
+          "st.lg0",
+          "th.lg1",
+          "th.xr2"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "carry": 3
+        }
+      },
+      "th.lk": {
+        "adjacent": [
+          "th.la"
+        ],
+        "kind": "keystone",
+        "ring": "life",
+        "stats": {
+          "xp.hunting": 6,
+          "yield.hunting": 8
+        }
+      },
+      "th.lr1": {
+        "adjacent": [
+          "th.lg0",
+          "th.lg1",
+          "th.lr2"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "xp.hunting": 3
+        }
+      },
+      "th.lr2": {
+        "adjacent": [
+          "th.la",
+          "th.lr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "skillPct.Climbing": 3
+        }
+      },
+      "th.r1": {
+        "adjacent": [
+          "th.c2.0",
+          "th.g",
+          "th.r2"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "bowDmg": 1
+        }
+      },
+      "th.r2": {
+        "adjacent": [
+          "th.c3.0",
+          "th.k1",
+          "th.r1"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "skillPct.Dodging": 4
+        }
+      },
+      "th.s1": {
+        "adjacent": [
+          "th.s2",
+          "th.start"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "pct.agility": 2
+        }
+      },
+      "th.s2": {
+        "adjacent": [
+          "th.c7.0",
+          "th.g",
+          "th.s1"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "pct.agility": 2
+        }
+      },
+      "th.start": {
+        "adjacent": [
+          "sh.bt",
+          "th.bt",
+          "th.s1"
+        ],
+        "kind": "start",
+        "ring": "combat",
+        "stats": {
+          "agility": 2
+        }
+      },
+      "th.w": {
+        "adjacent": [
+          "th.bt",
+          "th.x"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "fatigueLess": 3
+        }
+      },
+      "th.x": {
+        "adjacent": [
+          "st.g",
+          "th.g",
+          "th.w",
+          "th.xr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "carry": 3
+        }
+      },
+      "th.xr1": {
+        "adjacent": [
+          "th.x",
+          "th.xr2"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "fallLess": 5
+        }
+      },
+      "th.xr2": {
+        "adjacent": [
+          "th.lgx",
+          "th.xr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "fatigueLess": 4
+        }
+      },
+      "wr.bt": {
+        "adjacent": [
+          "rt.start",
+          "sp.start",
+          "wr.start",
+          "wr.w"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "carry": 2
+        }
+      },
+      "wr.c1.0": {
+        "adjacent": [
+          "wr.c1.1",
+          "wr.c1.6",
+          "wr.g"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "axeDmg": 2
+        }
+      },
+      "wr.c1.1": {
+        "adjacent": [
+          "wr.c1.0",
+          "wr.c1.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "axeDmg": 2
+        }
+      },
+      "wr.c1.2": {
+        "adjacent": [
+          "wr.c1.1",
+          "wr.c1.3"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "axeDmg": 4,
+          "skill.Axe": 5,
+          "strength": 3
+        }
+      },
+      "wr.c1.3": {
+        "adjacent": [
+          "wr.c1.2",
+          "wr.c1.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "axeDmg": 2
+        }
+      },
+      "wr.c1.4": {
+        "adjacent": [
+          "wr.c1.3",
+          "wr.c1.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "axeDmg": 6,
+          "skill.Axe": 6
+        }
+      },
+      "wr.c1.5": {
+        "adjacent": [
+          "wr.c1.4",
+          "wr.c1.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "axeDmg": 2
+        }
+      },
+      "wr.c1.6": {
+        "adjacent": [
+          "wr.c1.0",
+          "wr.c1.5"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "axeDmg": 2
+        }
+      },
+      "wr.c2.0": {
+        "adjacent": [
+          "wr.c2.1",
+          "wr.r1"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "blowTaken": -1
+        }
+      },
+      "wr.c2.1": {
+        "adjacent": [
+          "wr.c2.0",
+          "wr.c2.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "blowTaken": -1
+        }
+      },
+      "wr.c2.2": {
+        "adjacent": [
+          "wr.c2.1",
+          "wr.c2.3",
+          "wr.c2.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "blowTaken": -1
+        }
+      },
+      "wr.c2.3": {
+        "adjacent": [
+          "wr.c2.2"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "armor": 3,
+          "blowTaken": -3
+        }
+      },
+      "wr.c2.4": {
+        "adjacent": [
+          "wr.c2.2"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "blowTaken": -2,
+          "hp": 10
+        }
+      },
+      "wr.c3.0": {
+        "adjacent": [
+          "wr.c3.1",
+          "wr.c3.6",
+          "wr.r2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "bluntDmg": 2
+        }
+      },
+      "wr.c3.1": {
+        "adjacent": [
+          "wr.c3.0",
+          "wr.c3.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "bluntDmg": 2
+        }
+      },
+      "wr.c3.2": {
+        "adjacent": [
+          "wr.c3.1",
+          "wr.c3.3"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "bluntDmg": 4,
+          "meleeDmg": 2,
+          "skill.BluntWeapon": 5
+        }
+      },
+      "wr.c3.3": {
+        "adjacent": [
+          "wr.c3.2",
+          "wr.c3.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "bluntDmg": 2
+        }
+      },
+      "wr.c3.4": {
+        "adjacent": [
+          "wr.c3.3",
+          "wr.c3.5",
+          "wr.c5.0"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "bluntDmg": 6,
+          "skill.BluntWeapon": 6
+        }
+      },
+      "wr.c3.5": {
+        "adjacent": [
+          "wr.c3.4",
+          "wr.c3.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "bluntDmg": 2
+        }
+      },
+      "wr.c3.6": {
+        "adjacent": [
+          "wr.c3.0",
+          "wr.c3.5"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "bluntDmg": 2
+        }
+      },
+      "wr.c4.0": {
+        "adjacent": [
+          "wr.c4.1",
+          "wr.g"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "meleeDmg": 2
+        }
+      },
+      "wr.c4.1": {
+        "adjacent": [
+          "wr.c4.0",
+          "wr.c4.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "meleeDmg": 2
+        }
+      },
+      "wr.c4.2": {
+        "adjacent": [
+          "wr.c4.1",
+          "wr.c4.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "meleeDmg": 2
+        }
+      },
+      "wr.c4.3": {
+        "adjacent": [
+          "wr.c4.2",
+          "wr.c4.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "meleeDmg": 2
+        }
+      },
+      "wr.c4.4": {
+        "adjacent": [
+          "wr.c4.3",
+          "wr.c6.0"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "meleeDmg": 5,
+          "strength": 4
+        }
+      },
+      "wr.c5.0": {
+        "adjacent": [
+          "wr.c3.4",
+          "wr.c5.1",
+          "wr.c5.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "hpPct": 2
+        }
+      },
+      "wr.c5.1": {
+        "adjacent": [
+          "wr.c5.0",
+          "wr.c5.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "hpPct": 2
+        }
+      },
+      "wr.c5.2": {
+        "adjacent": [
+          "wr.c5.1",
+          "wr.c5.3"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "endurance": 3,
+          "hp": 18
+        }
+      },
+      "wr.c5.3": {
+        "adjacent": [
+          "wr.c5.2",
+          "wr.c5.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "hpPct": 2
+        }
+      },
+      "wr.c5.4": {
+        "adjacent": [
+          "wr.c5.3",
+          "wr.c5.5"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "hp": 8,
+          "hpRegen": 3
+        }
+      },
+      "wr.c5.5": {
+        "adjacent": [
+          "wr.c5.4",
+          "wr.c5.6"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "hpPct": 2
+        }
+      },
+      "wr.c5.6": {
+        "adjacent": [
+          "wr.c5.0",
+          "wr.c5.5"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "hpPct": 2
+        }
+      },
+      "wr.c6.0": {
+        "adjacent": [
+          "wr.c4.4",
+          "wr.c6.1",
+          "wr.c6.5"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "killHeal": 1
+        }
+      },
+      "wr.c6.1": {
+        "adjacent": [
+          "wr.c6.0",
+          "wr.c6.2"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "rageDmg": 7,
+          "strength": 2
+        }
+      },
+      "wr.c6.2": {
+        "adjacent": [
+          "wr.c6.1",
+          "wr.c6.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "killHeal": 1
+        }
+      },
+      "wr.c6.3": {
+        "adjacent": [
+          "wr.c6.2",
+          "wr.c6.4"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "axeDmg": 4,
+          "killHeal": 2
+        }
+      },
+      "wr.c6.4": {
+        "adjacent": [
+          "wr.c6.3",
+          "wr.c6.5"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "killHeal": 1
+        }
+      },
+      "wr.c6.5": {
+        "adjacent": [
+          "wr.c6.0",
+          "wr.c6.4"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "killHeal": 1
+        }
+      },
+      "wr.c7.0": {
+        "adjacent": [
+          "wr.c7.1",
+          "wr.c7.4",
+          "wr.s2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.strength": 2
+        }
+      },
+      "wr.c7.1": {
+        "adjacent": [
+          "wr.c7.0",
+          "wr.c7.2"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.strength": 2
+        }
+      },
+      "wr.c7.2": {
+        "adjacent": [
+          "wr.c7.1",
+          "wr.c7.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.strength": 2
+        }
+      },
+      "wr.c7.3": {
+        "adjacent": [
+          "wr.c7.2",
+          "wr.c7.4"
+        ],
+        "kind": "notable",
+        "ring": "combat",
+        "stats": {
+          "endurance": 4,
+          "hp": 8
+        }
+      },
+      "wr.c7.4": {
+        "adjacent": [
+          "wr.c7.0",
+          "wr.c7.3"
+        ],
+        "kind": "small",
+        "ring": "combat",
+        "stats": {
+          "pct.strength": 2
+        }
+      },
+      "wr.g": {
+        "adjacent": [
+          "st.x",
+          "wr.c1.0",
+          "wr.c4.0",
+          "wr.r1",
+          "wr.s2",
+          "wr.x"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "pct.endurance": 2,
+          "pct.strength": 2
+        }
+      },
+      "wr.k": {
+        "adjacent": [
+          "wr.k1"
+        ],
+        "kind": "keystone",
+        "ring": "combat",
+        "stats": {
+          "armor": -2,
+          "rageDmg": 18
+        }
+      },
+      "wr.k1": {
+        "adjacent": [
+          "wr.k",
+          "wr.r2"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "blowTaken": -1
+        }
+      },
+      "wr.l1.0": {
+        "adjacent": [
+          "wr.l1.1",
+          "wr.l1.6",
+          "wr.lg0"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "yield.mining": 2
+        }
+      },
+      "wr.l1.1": {
+        "adjacent": [
+          "wr.l1.0",
+          "wr.l1.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "yield.mining": 2
+        }
+      },
+      "wr.l1.2": {
+        "adjacent": [
+          "wr.l1.1",
+          "wr.l1.3"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "xp.mining": 8,
+          "yield.mining": 2
+        }
+      },
+      "wr.l1.3": {
+        "adjacent": [
+          "wr.l1.2",
+          "wr.l1.4"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "yield.mining": 2
+        }
+      },
+      "wr.l1.4": {
+        "adjacent": [
+          "wr.l1.3",
+          "wr.l1.5"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "yield.mining": 6
+        }
+      },
+      "wr.l1.5": {
+        "adjacent": [
+          "wr.l1.4",
+          "wr.l1.6",
+          "wr.l3.0"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "yield.mining": 2
+        }
+      },
+      "wr.l1.6": {
+        "adjacent": [
+          "wr.l1.0",
+          "wr.l1.5"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "yield.mining": 2
+        }
+      },
+      "wr.l2.0": {
+        "adjacent": [
+          "wr.l2.1",
+          "wr.l2.6",
+          "wr.lg1"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.smithing": 3
+        }
+      },
+      "wr.l2.1": {
+        "adjacent": [
+          "wr.l2.0",
+          "wr.l2.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.smithing": 3
+        }
+      },
+      "wr.l2.2": {
+        "adjacent": [
+          "wr.l2.1",
+          "wr.l2.3"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "carry": 4,
+          "xp.smithing": 5
+        }
+      },
+      "wr.l2.3": {
+        "adjacent": [
+          "wr.l2.2",
+          "wr.l2.4",
+          "wr.l4.0"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.smithing": 3
+        }
+      },
+      "wr.l2.4": {
+        "adjacent": [
+          "wr.l2.3",
+          "wr.l2.5"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "xp.smithing": 8
+        }
+      },
+      "wr.l2.5": {
+        "adjacent": [
+          "wr.l2.4",
+          "wr.l2.6"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.smithing": 3
+        }
+      },
+      "wr.l2.6": {
+        "adjacent": [
+          "wr.l2.0",
+          "wr.l2.5"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.smithing": 3
+        }
+      },
+      "wr.l3.0": {
+        "adjacent": [
+          "wr.l1.5",
+          "wr.l3.1"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.building": 4
+        }
+      },
+      "wr.l3.1": {
+        "adjacent": [
+          "wr.l3.0",
+          "wr.l3.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.building": 4
+        }
+      },
+      "wr.l3.2": {
+        "adjacent": [
+          "wr.l3.1",
+          "wr.l3.3",
+          "wr.l3.4"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "xp.building": 4
+        }
+      },
+      "wr.l3.3": {
+        "adjacent": [
+          "wr.l3.2"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "xp.building": 10
+        }
+      },
+      "wr.l3.4": {
+        "adjacent": [
+          "wr.l3.2"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "xp.building": 6,
+          "xp.smithing": 3
+        }
+      },
+      "wr.l4.0": {
+        "adjacent": [
+          "wr.l2.3",
+          "wr.l4.1"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "yield.logging": 3
+        }
+      },
+      "wr.l4.1": {
+        "adjacent": [
+          "wr.l4.0",
+          "wr.l4.2"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "yield.logging": 3
+        }
+      },
+      "wr.l4.2": {
+        "adjacent": [
+          "wr.l4.1",
+          "wr.l4.3"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "yield.logging": 3
+        }
+      },
+      "wr.l4.3": {
+        "adjacent": [
+          "wr.l4.2",
+          "wr.l4.4"
+        ],
+        "kind": "small",
+        "ring": "life",
+        "stats": {
+          "yield.logging": 3
+        }
+      },
+      "wr.l4.4": {
+        "adjacent": [
+          "wr.l4.3"
+        ],
+        "kind": "notable",
+        "ring": "life",
+        "stats": {
+          "xp.logging": 6,
+          "yield.logging": 8
+        }
+      },
+      "wr.la": {
+        "adjacent": [
+          "wr.lk",
+          "wr.lr2"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "xp.building": 4
+        }
+      },
+      "wr.lg0": {
+        "adjacent": [
+          "st.lgx",
+          "wr.l1.0",
+          "wr.lg1",
+          "wr.lr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "yield.mining": 1
+        }
+      },
+      "wr.lg1": {
+        "adjacent": [
+          "wr.l2.0",
+          "wr.lg0",
+          "wr.lgx",
+          "wr.lr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "xp.smithing": 2
+        }
+      },
+      "wr.lgx": {
+        "adjacent": [
+          "rt.lg0",
+          "wr.lg1",
+          "wr.xr2"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "carry": 3
+        }
+      },
+      "wr.lk": {
+        "adjacent": [
+          "wr.la"
+        ],
+        "kind": "keystone",
+        "ring": "life",
+        "stats": {
+          "yield.logging": 9,
+          "yield.mining": 9
+        }
+      },
+      "wr.lr1": {
+        "adjacent": [
+          "wr.lg0",
+          "wr.lg1",
+          "wr.lr2"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "xp.mining": 4
+        }
+      },
+      "wr.lr2": {
+        "adjacent": [
+          "wr.la",
+          "wr.lr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "yield.logging": 1
+        }
+      },
+      "wr.r1": {
+        "adjacent": [
+          "wr.c2.0",
+          "wr.g",
+          "wr.r2"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "hpPct": 1
+        }
+      },
+      "wr.r2": {
+        "adjacent": [
+          "wr.c3.0",
+          "wr.k1",
+          "wr.r1"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "blowTaken": -1
+        }
+      },
+      "wr.s1": {
+        "adjacent": [
+          "wr.s2",
+          "wr.start"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "pct.strength": 3
+        }
+      },
+      "wr.s2": {
+        "adjacent": [
+          "wr.c7.0",
+          "wr.g",
+          "wr.s1"
+        ],
+        "kind": "road",
+        "ring": "combat",
+        "stats": {
+          "pct.endurance": 3
+        }
+      },
+      "wr.start": {
+        "adjacent": [
+          "st.bt",
+          "wr.bt",
+          "wr.s1"
+        ],
+        "kind": "start",
+        "ring": "combat",
+        "stats": {
+          "endurance": 1,
+          "strength": 1
+        }
+      },
+      "wr.w": {
+        "adjacent": [
+          "wr.bt",
+          "wr.x"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "fatigueLess": 3
+        }
+      },
+      "wr.x": {
+        "adjacent": [
+          "rt.g",
+          "wr.g",
+          "wr.w",
+          "wr.xr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "carry": 3
+        }
+      },
+      "wr.xr1": {
+        "adjacent": [
+          "wr.x",
+          "wr.xr2"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "fallLess": 5
+        }
+      },
+      "wr.xr2": {
+        "adjacent": [
+          "wr.lgx",
+          "wr.xr1"
+        ],
+        "kind": "road",
+        "ring": "life",
+        "stats": {
+          "fatigueLess": 4
+        }
+      }
+    },
+    "oghma": {
+      "pool": 30,
+      "subtype": 5
+    },
+    "renown_max": 50,
+    "stars_per_renown": 2,
+    "starts": [
+      "mg.start",
+      "rt.start",
+      "sh.start",
+      "sp.start",
+      "st.start",
+      "th.start",
+      "wr.start"
+    ]
+  },
   "progression_rules": {
     "creation": {
       "attributes": [

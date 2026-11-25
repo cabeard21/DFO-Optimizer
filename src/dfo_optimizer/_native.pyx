@@ -6,6 +6,7 @@ from array import array
 import cython
 from cpython.array cimport array as c_array, clone
 from libc.stdint cimport INT32_MIN, INT32_MAX, int32_t, int64_t, uint64_t
+from libc.math cimport copysign
 from libcpp cimport bool as cppbool
 from libcpp.vector cimport vector
 
@@ -52,6 +53,40 @@ cdef extern from "class_search.hpp" namespace "dfo":
 
 def build_info():
     return {"compiler": dfo_compiler().decode("ascii"), "flags": dfo_flags().decode("ascii")}
+
+
+cdef bint _same_json_tree(object value, object reference, int depth):
+    """The reference is an authenticated, finite tree of plain JSON values."""
+    cdef Py_ssize_t index
+    cdef object key, item
+    if value is reference:
+        return True
+    if depth > 64 or type(value) is not type(reference):
+        return False
+    if type(reference) is dict:
+        if len(<dict>value) != len(<dict>reference):
+            return False
+        for key, item in (<dict>value).items():
+            if type(key) is not str or key not in <dict>reference:
+                return False
+            if not _same_json_tree(item, (<dict>reference)[key], depth + 1):
+                return False
+        return True
+    if type(reference) is list:
+        if len(<list>value) != len(<list>reference):
+            return False
+        for index in range(len(<list>reference)):
+            if not _same_json_tree((<list>value)[index], (<list>reference)[index], depth + 1):
+                return False
+        return True
+    if type(reference) is float:
+        return <double>value == <double>reference and copysign(1., <double>value) == copysign(1., <double>reference)
+    return type(reference) in (int, bool, str) and value == reference
+
+
+def same_json_tree(value, reference):
+    """Compare an external JSON input with a trusted snapshot while holding the GIL."""
+    return bool(_same_json_tree(value, reference, 0))
 
 
 cdef class CancelToken:

@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "release": "0.4.0",
+  "ruleset_hash": "d639d137937f8c42e3f26d281785defb44fb5071e9c2da179de4a8320401d5b1",
+  "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+  "host": {
+    "os": "Windows-10-10.0.19045-SP0",
+    "architecture": "AMD64",
+    "cpu": "AMD Ryzen 5 5600X 6-Core Processor",
+    "logical_cpus": 12,
+    "python": "3.12.10",
+    "python_compiler": "MSC v.1943 64 bit (AMD64)"
+  },
+  "artifacts_sha256": {
+    "dfo_optimizer-0.4.0-cp312-cp312-win_amd64.whl": "fcbb131fbbb050ff33bfd549fae9f582b237fb90bad801b29b29356ffc96857b",
+    "dfo_optimizer-0.4.0.tar.gz": "b1d882fd2a31f29e1c35b03cbb84a10412c600fb5fac78747b0bbe6f55636732"
+  },
+  "verified_sdist_inputs": 226,
+  "verified_wheel_files": 154,
+  "pip_check": "passed",
+  "tests": {
+    "passed": 647,
+    "skipped": 1,
+    "errors": 0,
+    "elapsed_seconds": 49.35,
+    "coverage_percent": 91.28,
+    "statements": 6987,
+    "missed_statements": 609,
+    "skip_reason": "POSIX SIGINT delivery"
+  },
+  "oracle_checks": {
+    "class": {
+      "class_vectors": 27,
+      "numeric_vectors": 25
+    },
+    "character": {
+      "export_bytes": 9452
+    },
+    "spells": {
+      "distributions": 19,
+      "host_scenarios": 6
+    },
+    "equipment": {
+      "copies_replayed": 833
+    },
+    "progression": {
+      "specialization_pairs": 30,
+      "gameplay_cases": 90
+    },
+    "spellbook": {
+      "scenarios": 9
+    },
+    "encounter": {
+      "effects": 5,
+      "path_records": 15,
+      "area_and_listener_sequences": true
+    }
+  },
+  "benchmark_suites": {
+    "smoke": {
+      "file": "windows-m67-smoke.json",
+      "sha256": "688a2838ad0957de7f8e123011accc98e7fbaebd30da28a18e08df8e45b33bd9"
+    },
+    "combat": {
+      "file": "windows-m67-combat.json",
+      "sha256": "e798ff65468575832bf86dde522ec00a1fa728246041665ac836435eb0f771ae"
+    },
+    "progression": {
+      "file": "windows-m67-progression.json",
+      "sha256": "efc477a4e96b035441dd4153eb3e303dffd9bcddaf5527a90dd83ca06ddcbf60"
+    },
+    "lifecycle": {
+      "file": "windows-m67-lifecycle.json",
+      "sha256": "0d0fe19f29fff386db7c40770e7e16f56d98d45675801d882532122d4ca5fda2"
+    },
+    "encounter": {
+      "file": "windows-m67-encounter.json",
+      "sha256": "bb2774b9eaa853b45309d3d637574b1d78a7937d3a104120bf814b0dcf21c294"
+    }
+  },
+  "browser_observations": 5,
+  "linux_wheel_verified": false,
+  "native_coverage_measured": false,
+  "additional_measurements": {
+    "windows-m67-workbench-http.json": "8bc5510cc17fdc3b5e7116c6d621dc641ee721d2c017feed815274a5c8f3c59d",
+    "windows-m67-workbench-browser.json": "7289b50f2abff5beb26379f6ffe044a44467f67313cb586760111c08700982dd",
+    "windows-m67-horizon-reversal.json": "047200d06aeb7a6fb6d4849a10140109947c160bce1ad211c0dc5a821860ca07"
+  }
+}

@@ -18,9 +18,9 @@ cdef extern from "progression_search.hpp" namespace "dfo_progression":
         int skills[35]
         int attributes[8]
         int level, current_sum, pending_level, pending_pool
-        int arcane_path, martial_path, challenge_level
+        int arcane_path, martial_path, challenge_level, firmament
         uint64_t known[4]
-        uint64_t mastered
+        uint64_t mastered, oghma
         int64_t uses[35]
         int64_t spam_at[35]
         int64_t minutes, last_check, last_training, last_rest
@@ -44,7 +44,7 @@ cdef extern from "progression_search.hpp" namespace "dfo_progression":
         int order[8]
         int recipe[7]
     cdef cppclass Goal:
-        int level, arcane, martial
+        int level, arcane, martial, firmament
         int skills[35]
         int attributes[8]
         uint64_t mastered
@@ -75,7 +75,7 @@ cdef class CancelToken:
     def has_incumbent(self):
         return bool(self.flag.has_incumbent())
 
-KINDS = ("skip","practice","rest","check","train","master","level","choose","reset","buy")
+KINDS = ("skip","practice","rest","check","train","master","level","choose","reset","buy","oghma","firmament")
 MULTIPLIERS = (12,1,1,5,15,15,15,15,15,15,15,15,15,2,1,2,2,1,2,1,4,50,1,2,1,1,2,1,2,2,2,2,2,1,8)
 MAX_INTEGER = (1<<53)-1
 
@@ -153,6 +153,8 @@ cdef State _state(dict r):
     s.gold=_int(r["gold"],"gold")
     s.bank_gold=_int(r.get("bank_gold",0),"bank_gold")
     s.sp=_int(r["sp"],"sp")
+    s.oghma=_int(r.get("oghma_mask",0),"owned Oghma books",0,(1<<63)-1)
+    s.firmament=_int(r.get("firmament",-1),"firmament state",-1,2000000)
     s.fatigue=_int(r["fatigue"],"fatigue")
     s.arcane_path=_int(r["arcane_path"],"arcane_path",-1,255)
     s.martial_path=_int(r["martial_path"],"martial_path",-1,255)
@@ -213,13 +215,17 @@ cdef Action _action(dict a):
             v.gold_cost=_int(a["gold_cost"],"gold_cost")
     elif kind=="master":
         v.if_eligible=_flag(a.get("if_eligible",False),"if_eligible")
-    elif kind=="level":
+    elif kind in ("level","oghma"):
+        if kind=="oghma": v.first=_int(a["copy"],"artifact copy",0,62)
         v.if_due=_flag(a.get("if_due",False),"if_due")
         if "allocation_order" in a:
             v.use_order=True
             for i,x in enumerate(_ids(a["allocation_order"],"allocation_order",7,8)): v.order[i]=x
         else:
             for i,x in enumerate(_list(a["allocation"],"allocation",8)): v.allocation[i]=_int(x,"attribute delta",0,30)
+    elif kind=="firmament":
+        v.first=_int(a["firm_from"],"from tree",0,2000000)
+        v.second=_int(a["firm_to"],"to tree",0,2000000)
     elif kind=="choose":
         v.path=_int(a["path"],"path",0,255)
         v.first,v.second=_ids(a["pair"],"pair",34,2)
@@ -235,6 +241,7 @@ cdef Goal _goal(dict r):
     g.level=_int(r.get("level",0),"goal level",0,45)
     g.arcane=_int(r.get("arcane_path",-1),"goal arcane path",-1,255)
     g.martial=_int(r.get("martial_path",-1),"goal martial path",-1,255)
+    g.firmament=_int(r.get("firmament",-1),"goal firmament",-1,2000000)
     for k,v in r.get("skills",{}).items():
         i=_int(k,"goal skill id",0,34)
         g.skills[i]=_int(v,"target skill",0,200)
@@ -243,7 +250,7 @@ cdef Goal _goal(dict r):
         g.attributes[i]=_int(v,"target attribute",0,100)
     for i in _ids(r.get("mastered",[]),"goal mastered",34): g.mastered|=(<uint64_t>1)<<i
     for i in _ids(r.get("known",[]),"goal known",255): g.known[i//64]|=(<uint64_t>1)<<(i%64)
-    if set(r)-{"level","arcane_path","martial_path","skills","attributes","mastered","known"}:
+    if set(r)-{"level","arcane_path","martial_path","skills","attributes","mastered","known","firmament"}:
         raise ValueError("unknown progression goal")
     return g
 
@@ -262,6 +269,8 @@ cdef dict _path(const Path &p,dict start):
         minutes=s.minutes,last_check=s.last_check,last_training=s.last_training,last_rest=s.last_rest,
         real_ms=s.real_ms,challenge_at=s.challenge_at,challenge_level=s.challenge_level,gold=s.gold,bank_gold=s.bank_gold,sp=s.sp,
         fatigue=s.fatigue,arcane_path=s.arcane_path,martial_path=s.martial_path)
+    if "oghma_mask" in start: result["oghma_mask"]=s.oghma
+    if "firmament" in start: result["firmament"]=s.firmament
     return {"choices":list(p.choices),"state":result,"effort":{"practice":p.effort.practice,
             "rest_passes":p.effort.rest_passes,"minutes":p.effort.minutes,"spent":p.effort.spent}}
 

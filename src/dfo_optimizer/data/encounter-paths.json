@@ -1,0 +1,541 @@
+[
+  {
+    "id": "battlemage",
+    "schools": [
+      25,
+      22
+    ],
+    "name": "Aegis Bolt",
+    "index": -46101,
+    "range_type": 2,
+    "element": 3,
+    "slots": [
+      {
+        "type": 4,
+        "subType": 0,
+        "settings": {
+          "magnitudeBaseLow": 10,
+          "magnitudeBaseHigh": 18,
+          "magnitudeLevelBase": 2,
+          "magnitudeLevelHigh": 3,
+          "magnitudePerLevel": 1
+        }
+      }
+    ],
+    "damage_school": 22,
+    "awake": "battlemage",
+    "low_hp_shielded_power": 15,
+    "pierce": 0,
+    "cast_speed": 0,
+    "shield_cost": 100
+  },
+  {
+    "id": "trickster",
+    "schools": [
+      25,
+      24
+    ],
+    "name": "Fleeting Hold",
+    "index": -46102,
+    "range_type": 2,
+    "element": 4,
+    "slots": [
+      {
+        "type": 0,
+        "subType": 255,
+        "settings": {
+          "durationBase": 2,
+          "durationMod": 1,
+          "durationPerLevel": 4,
+          "chanceBase": 35,
+          "chanceMod": 2,
+          "chancePerLevel": 2
+        }
+      }
+    ],
+    "damage_school": 25,
+    "awake": "trickster",
+    "low_hp_shielded_power": 0,
+    "pierce": 0,
+    "cast_speed": 0,
+    "shield_cost": 100
+  },
+  {
+    "id": "riftwalker",
+    "schools": [
+      25,
+      27
+    ],
+    "name": "Rift Lance",
+    "index": -46103,
+    "range_type": 2,
+    "element": 4,
+    "slots": [
+      {
+        "type": 4,
+        "subType": 0,
+        "settings": {
+          "magnitudeBaseLow": 8,
+          "magnitudeBaseHigh": 16,
+          "magnitudeLevelBase": 2,
+          "magnitudeLevelHigh": 3,
+          "magnitudePerLevel": 1
+        }
+      }
+    ],
+    "damage_school": 25,
+    "awake": "riftwalker",
+    "low_hp_shielded_power": 0,
+    "pierce": 0,
+    "cast_speed": 20,
+    "shield_cost": 100
+  },
+  {
+    "id": "warden",
+    "schools": [
+      25,
+      23
+    ],
+    "name": "Living Aegis",
+    "index": -46104,
+    "range_type": 0,
+    "element": 4,
+    "slots": [
+      {
+        "type": 35,
+        "subType": 255,
+        "settings": {
+          "durationBase": 8,
+          "durationMod": 1,
+          "durationPerLevel": 2,
+          "magnitudeBaseLow": 10,
+          "magnitudeBaseHigh": 20,
+          "magnitudeLevelBase": 2,
+          "magnitudeLevelHigh": 3,
+          "magnitudePerLevel": 1
+        }
+      },
+      {
+        "type": 10,
+        "subType": 8,
+        "settings": {
+          "magnitudeBaseLow": 8,
+          "magnitudeBaseHigh": 14,
+          "magnitudeLevelBase": 1,
+          "magnitudeLevelHigh": 2,
+          "magnitudePerLevel": 1
+        }
+      }
+    ],
+    "damage_school": 25,
+    "awake": "warden",
+    "low_hp_shielded_power": 0,
+    "pierce": 0,
+    "cast_speed": 0,
+    "shield_cost": 100
+  },
+  {
+    "id": "wardwright",
+    "schools": [
+      25,
+      26
+    ],
+    "name": "Prismatic Ward",
+    "index": -46105,
+    "range_type": 0,
+    "element": 4,
+    "slots": [
+      {
+        "type": 8,
+        "subType": 0,
+        "settings": {
+          "durationBase": 10,
+          "durationMod": 2,
+          "durationPerLevel": 2,
+          "chanceBase": 25,
+          "chanceMod": 2,
+          "chancePerLevel": 2
+        }
+      },
+      {
+        "type": 8,
+        "subType": 1,
+        "settings": {
+          "durationBase": 10,
+          "durationMod": 2,
+          "durationPerLevel": 2,
+          "chanceBase": 25,
+          "chanceMod": 2,
+          "chancePerLevel": 2
+        }
+      },
+      {
+        "type": 8,
+        "subType": 3,
+        "settings": {
+          "durationBase": 10,
+          "durationMod": 2,
+          "durationPerLevel": 2,
+          "chanceBase": 25,
+          "chanceMod": 2,
+          "chancePerLevel": 2
+        }
+      }
+    ],
+    "damage_school": 25,
+    "awake": "wardwright",
+    "low_hp_shielded_power": 0,
+    "pierce": 0,
+    "cast_speed": 0,
+    "shield_cost": 80
+  },
+  {
+    "id": "shadowcaster",
+    "schools": [
+      22,
+      24
+    ],
+    "name": "Shadow Bolt",
+    "index": -46106,
+    "range_type": 2,
+    "element": 4,
+    "slots": [
+      {
+        "type": 4,
+        "subType": 0,
+        "settings": {
+          "magnitudeBaseLow": 8,
+          "magnitudeBaseHigh": 16,
+          "magnitudeLevelBase": 2,
+          "magnitudeLevelHigh": 3,
+          "magnitudePerLevel": 1
+        }
+      }
+    ],
+    "damage_school": 22,
+    "awake": "shadowcaster",
+    "low_hp_shielded_power": 0,
+    "pierce": 0,
+    "cast_speed": 0,
+    "shield_cost": 100
+  },
+  {
+    "id": "spellbreaker",
+    "schools": [
+      22,
+      27
+    ],
+    "name": "Unravel",
+    "index": -46107,
+    "range_type": 2,
+    "element": 4,
+    "slots": [
+      {
+        "type": 4,
+        "subType": 0,
+        "settings": {
+          "magnitudeBaseLow": 8,
+          "magnitudeBaseHigh": 14,
+          "magnitudeLevelBase": 2,
+          "magnitudeLevelHigh": 3,
+          "magnitudePerLevel": 1
+        }
+      },
+      {
+        "type": 19,
+        "subType": 255,
+        "settings": {
+          "durationBase": 3,
+          "durationMod": 1,
+          "durationPerLevel": 4,
+          "chanceBase": 30,
+          "chanceMod": 2,
+          "chancePerLevel": 2
+        }
+      }
+    ],
+    "damage_school": 22,
+    "awake": "spellbreaker",
+    "low_hp_shielded_power": 0,
+    "pierce": 10,
+    "cast_speed": 0,
+    "shield_cost": 100
+  },
+  {
+    "id": "bloodmage",
+    "schools": [
+      22,
+      23
+    ],
+    "name": "Blood Boil",
+    "index": -46108,
+    "range_type": 2,
+    "element": 0,
+    "slots": [
+      {
+        "type": 4,
+        "subType": 0,
+        "settings": {
+          "magnitudeBaseLow": 10,
+          "magnitudeBaseHigh": 18,
+          "magnitudeLevelBase": 2,
+          "magnitudeLevelHigh": 3,
+          "magnitudePerLevel": 1
+        }
+      }
+    ],
+    "damage_school": 22,
+    "awake": "bloodmage",
+    "low_hp_shielded_power": 25,
+    "pierce": 0,
+    "cast_speed": 0,
+    "shield_cost": 100
+  },
+  {
+    "id": "elementalist",
+    "schools": [
+      22,
+      26
+    ],
+    "name": "Chain Lightning",
+    "index": -46109,
+    "range_type": 2,
+    "element": 3,
+    "slots": [
+      {
+        "type": 4,
+        "subType": 0,
+        "settings": {
+          "magnitudeBaseLow": 10,
+          "magnitudeBaseHigh": 18,
+          "magnitudeLevelBase": 2,
+          "magnitudeLevelHigh": 3,
+          "magnitudePerLevel": 1
+        }
+      }
+    ],
+    "damage_school": 22,
+    "awake": "elementalist",
+    "low_hp_shielded_power": 0,
+    "pierce": 0,
+    "cast_speed": 0,
+    "shield_cost": 100
+  },
+  {
+    "id": "seer",
+    "schools": [
+      24,
+      27
+    ],
+    "name": "Psychic Lance",
+    "index": -46110,
+    "range_type": 2,
+    "element": 4,
+    "slots": [
+      {
+        "type": 4,
+        "subType": 0,
+        "settings": {
+          "magnitudeBaseLow": 8,
+          "magnitudeBaseHigh": 14,
+          "magnitudeLevelBase": 2,
+          "magnitudeLevelHigh": 3,
+          "magnitudePerLevel": 1
+        }
+      }
+    ],
+    "damage_school": 24,
+    "awake": "seer",
+    "low_hp_shielded_power": 0,
+    "pierce": 0,
+    "cast_speed": 0,
+    "shield_cost": 100
+  },
+  {
+    "id": "lightbringer",
+    "schools": [
+      24,
+      23
+    ],
+    "name": "Dawnbolt",
+    "index": -46111,
+    "range_type": 2,
+    "element": 4,
+    "slots": [
+      {
+        "type": 4,
+        "subType": 0,
+        "settings": {
+          "magnitudeBaseLow": 8,
+          "magnitudeBaseHigh": 16,
+          "magnitudeLevelBase": 2,
+          "magnitudeLevelHigh": 3,
+          "magnitudePerLevel": 1
+        }
+      }
+    ],
+    "damage_school": 24,
+    "awake": "lightbringer",
+    "low_hp_shielded_power": 0,
+    "pierce": 0,
+    "cast_speed": 0,
+    "shield_cost": 100
+  },
+  {
+    "id": "enchanter",
+    "schools": [
+      24,
+      26
+    ],
+    "name": "Beguile",
+    "index": -46112,
+    "range_type": 2,
+    "element": 4,
+    "slots": [
+      {
+        "type": 33,
+        "subType": 2,
+        "settings": {
+          "chanceBase": 30,
+          "chanceMod": 2,
+          "chancePerLevel": 2
+        }
+      },
+      {
+        "type": 34,
+        "subType": 255,
+        "settings": {
+          "chanceBase": 30,
+          "chanceMod": 2,
+          "chancePerLevel": 2
+        }
+      }
+    ],
+    "damage_school": 24,
+    "awake": "enchanter",
+    "low_hp_shielded_power": 0,
+    "pierce": 0,
+    "cast_speed": 0,
+    "shield_cost": 100
+  },
+  {
+    "id": "necromancer",
+    "schools": [
+      23,
+      27
+    ],
+    "name": "Siphon Life",
+    "index": -46113,
+    "range_type": 2,
+    "element": 4,
+    "slots": [
+      {
+        "type": 4,
+        "subType": 0,
+        "settings": {
+          "magnitudeBaseLow": 8,
+          "magnitudeBaseHigh": 16,
+          "magnitudeLevelBase": 2,
+          "magnitudeLevelHigh": 3,
+          "magnitudePerLevel": 1
+        }
+      }
+    ],
+    "damage_school": 23,
+    "awake": "necromancer",
+    "low_hp_shielded_power": 0,
+    "pierce": 0,
+    "cast_speed": 0,
+    "shield_cost": 100
+  },
+  {
+    "id": "soulbinder",
+    "schools": [
+      27,
+      26
+    ],
+    "name": "Soul Lance",
+    "index": -46114,
+    "range_type": 2,
+    "element": 4,
+    "slots": [
+      {
+        "type": 12,
+        "subType": 255,
+        "settings": {
+          "durationBase": 6,
+          "durationMod": 1,
+          "durationPerLevel": 2,
+          "chanceBase": 40,
+          "chanceMod": 2,
+          "chancePerLevel": 2
+        }
+      },
+      {
+        "type": 4,
+        "subType": 0,
+        "settings": {
+          "magnitudeBaseLow": 6,
+          "magnitudeBaseHigh": 12,
+          "magnitudeLevelBase": 2,
+          "magnitudeLevelHigh": 3,
+          "magnitudePerLevel": 1
+        }
+      }
+    ],
+    "damage_school": 27,
+    "awake": "soulbinder",
+    "low_hp_shielded_power": 0,
+    "pierce": 0,
+    "cast_speed": 0,
+    "shield_cost": 100
+  },
+  {
+    "id": "hierophant",
+    "schools": [
+      23,
+      26
+    ],
+    "name": "Sanctify",
+    "index": -46115,
+    "range_type": 0,
+    "element": 4,
+    "slots": [
+      {
+        "type": 10,
+        "subType": 8,
+        "settings": {
+          "magnitudeBaseLow": 12,
+          "magnitudeBaseHigh": 20,
+          "magnitudeLevelBase": 2,
+          "magnitudeLevelHigh": 4,
+          "magnitudePerLevel": 1
+        }
+      },
+      {
+        "type": 3,
+        "subType": 1,
+        "settings": {
+          "chanceBase": 100,
+          "chanceMod": 1,
+          "chancePerLevel": 20
+        }
+      },
+      {
+        "type": 3,
+        "subType": 0,
+        "settings": {
+          "chanceBase": 100,
+          "chanceMod": 1,
+          "chancePerLevel": 20
+        }
+      }
+    ],
+    "damage_school": 23,
+    "awake": "hierophant",
+    "low_hp_shielded_power": 0,
+    "pierce": 0,
+    "cast_speed": 0,
+    "shield_cost": 100
+  }
+]

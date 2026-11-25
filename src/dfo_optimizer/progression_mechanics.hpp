@@ -25,7 +25,8 @@ struct State {
     double odometer_h{}, odometer_v{};
     Stats attributes{};
     Book known{};
-    u64 mastered{};
+    u64 mastered{}, oghma{};
+    int firmament{-1};
     int level{}, current_sum{}, pending_level{-1}, pending_pool{-1};
     int arcane_path{-1}, martial_path{-1}, challenge_level{};
     i64 minutes{}, last_check{}, last_training{}, last_rest{-1}, real_ms{}, challenge_at{-1};
@@ -34,11 +35,11 @@ struct State {
         return std::tie(skills, uses, fractions, progress, attributes, known, mastered, level,
             current_sum, pending_level, pending_pool, arcane_path, martial_path, challenge_level,
             minutes, last_check, last_training, last_rest, real_ms, challenge_at, gold, bank_gold, sp, fatigue,
-            spam_recent, spam_at, move_mark, move_credit, odometer_h, odometer_v);
+            spam_recent, spam_at, move_mark, move_credit, odometer_h, odometer_v, oghma, firmament);
     }
 };
 
-enum Kind { skip, practice, rest, check, train, master, level_up, choose, reset, buy };
+enum Kind { skip, practice, rest, check, train, master, level_up, choose, reset, buy, read_oghma, allocate_star };
 struct Action {
     int kind{}, skill{}, count{1}, amount{1}, challenge_level{}, spell{-1}, roll{10};
     int family{}, path{-1}, first{}, second{}, member{-1}, bonus{}, focus{};
@@ -214,11 +215,10 @@ inline bool master_skill(State &s,const Career &c,int skill) {
     s.uses[skill]=0;
     return true;
 }
-inline bool level(State &s,const Career &c,const Action &a) {
-    if (s.pending_level!=s.level+1 || s.level>=45) return a.if_due;
+inline bool distribute(State &s,const Action &a,int pool) {
     Stats deltas=a.allocation;
     if (a.use_order) {
-        int left=s.pending_pool<0?5:s.pending_pool;
+        int left=pool;
         for (int i:a.order) { deltas[i]=std::min(left,100-s.attributes[i]); left-=deltas[i]; }
     }
     int room=0, allocated=0;
@@ -227,8 +227,13 @@ inline bool level(State &s,const Career &c,const Action &a) {
         if (s.attributes[i]+deltas[i]>100) return false;
         allocated+=deltas[i];
     }
-    if (allocated!=std::min(room,s.pending_pool<0?5:s.pending_pool)) return false;
+    if (allocated!=std::min(room,pool)) return false;
     for (int i=0;i<8;++i) s.attributes[i]+=deltas[i];
+    return true;
+}
+inline bool level(State &s,const Career &c,const Action &a) {
+    if (s.pending_level!=s.level+1 || s.level>=45) return a.if_due;
+    if (!distribute(s,a,s.pending_pool<0?5:s.pending_pool)) return false;
     ++s.level; s.pending_level=-1; s.pending_pool=-1;
     latch(s,c);
     return true;
@@ -278,6 +283,15 @@ inline bool apply(State &s,const Career &c,const Action &a,Effort &e) {
     case train: return train_skill(s,c,a,e);
     case master: return master_skill(s,c,a.skill) || a.if_eligible;
     case level_up: return level(s,c,a);
+    case read_oghma:
+        if (!(s.oghma&bit(a.first)) || !distribute(s,a,30)) return false;
+        s.oghma&=~bit(a.first);
+        s.pending_level=-1; s.pending_pool=-1;
+        return true;
+    case allocate_star:
+        if (s.firmament!=a.first) return false;
+        s.firmament=a.second;
+        return true;
     case choose:
         if (path>=0 || !mastered(s,a.first) || !mastered(s,a.second)) return false;
         path=a.path; return true;

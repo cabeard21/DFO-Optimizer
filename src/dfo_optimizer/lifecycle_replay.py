@@ -12,7 +12,8 @@ def replay_choices(d, slots, policies, bought, native_scores=None):
     require(len(d.stages) == len(slots) == len(policies) == len(bought), "incomplete lifecycle route")
     held = d.owned
     spent = 0
-    available_sp = d.states[0]["sp"]
+    available_sp = d.states[d.indices[0]]["sp"]
+    available_hp = d.states[d.indices[0]].get("hp")
     steps = []
     for n, (s, anchors, policy, acquired) in enumerate(zip(d.stages, slots, policies, bought, strict=True)):
         ctx, ceiling, prices, intel, q, worn, uncertain, sp_floor, debt_cap = s
@@ -54,13 +55,33 @@ def replay_choices(d, slots, policies, bought, native_scores=None):
         for name in names:
             idx = d.names.index(name)
             require(held >> (len(d.copies) + idx) & 1, "future spell used before acquisition")
-            scores.append(replay_spell(combat, d.book[idx][1]))
-        sp = sum(v["cost_sp"] for v in scores)
+            if not d.encounters:
+                scores.append(replay_spell(combat, d.book[idx][1]))
         before = available_sp
-        require(sp <= before, "policy exceeds spendable SP after previous casts")
-        available_sp -= sp
-        dps = sum(v["dps"] for v in scores) / len(scores)
-        require(dps > 0, "policy fails positive damage floor")
+        encounter = {}
+        if d.encounters:
+            from .lifecycle_encounter import replay_point
+            recipes = {k:r for k,(_,r) in zip(d.names,d.book,strict=True)}
+            seen = set()
+            wellspring = 0
+            for it in layout.values():
+                if it.legendary and it.legendary in seen:
+                    continue
+                seen.add(it.legendary)
+                wellspring += sum(a["value"] for a in it.item.get("affixes", []) if a["id"] == "wellspring")
+            require(not wellspring or (len(d.stages) == 1 and mods["intelligence"] == worn),
+                    "Wellspring requires verified pool capacity and fractional recovery carry")
+            dps,trial = replay_point(d.encounters[n],combat,recipes,names,available_hp,before,min(10,wellspring))
+            encounter = {"encounter": {"initial_hp": available_hp, **trial}}
+            available_sp, available_hp = trial["end_sp"], trial["end_hp"]
+            require(available_hp > 0 or n+1 == len(d.indices),"dead character entered a later encounter")
+            sp = before - available_sp
+        else:
+            sp = sum(v["cost_sp"] for v in scores)
+            require(sp <= before, "policy exceeds spendable SP after previous casts")
+            available_sp -= sp
+            dps = sum(v["dps"] for v in scores) / len(scores)
+            require(dps > 0, "policy fails positive damage floor")
         if native_scores is not None:
             require(
                 isclose(native_scores[n], dps, rel_tol=1e-10, abs_tol=1e-11),
@@ -80,6 +101,8 @@ def replay_choices(d, slots, policies, bought, native_scores=None):
                 "new_purchases": purchases,
                 "loadout": {label: layout[i].identity for label, i in d.domain.slots.items() if i in layout},
                 "casting_policy": names,
+                **encounter,
+                **({"firmament_modifiers": d.firmament[n]} if d.firmament and d.firmament[n] else {}),
                 "spellbook": [name for j, name in enumerate(d.names, len(d.copies)) if held >> j & 1],
             }
         )

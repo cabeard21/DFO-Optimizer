@@ -211,11 +211,7 @@ def _master(s, skill):
     s["uses"][skill] = 0
 
 
-def _level(s, a):
-    if a.get("if_due") and (s["pending_level"] != s["level"] + 1 or s["level"] >= 45):
-        return
-    require(s["pending_level"] == s["level"] + 1 and s["level"] < 45, "level has not been earned")
-    budget = 5 if s["pending_pool"] < 0 else s["pending_pool"]
+def _distribute(s, a, budget):
     if "allocation_order" in a:
         points = [0] * 8
         left = budget
@@ -227,7 +223,15 @@ def _level(s, a):
     require(sum(points) == min(budget, sum(100 - v for v in s["attributes"])), "incorrect attribute point spend")
     attributes = [x + d for x, d in zip(s["attributes"], points, strict=True)]
     require(all(v <= 100 for v in attributes), "attribute cap exceeded")
-    s["attributes"], s["level"] = attributes, s["level"] + 1
+    s["attributes"] = attributes
+
+
+def _level(s, a):
+    if a.get("if_due") and (s["pending_level"] != s["level"] + 1 or s["level"] >= 45):
+        return
+    require(s["pending_level"] == s["level"] + 1 and s["level"] < 45, "level has not been earned")
+    _distribute(s, a, 5 if s["pending_pool"] < 0 else s["pending_pool"])
+    s["level"] += 1
     s["pending_level"] = s["pending_pool"] = -1
     _pending(s)
 
@@ -258,6 +262,15 @@ def transition(state, action, effort):
                 s[k] = max(s[k], action["refill_" + k])
     elif kind == "level":
         _level(s, action)
+    elif kind == "oghma":
+        bit = 1 << action["copy"]
+        require(s.get("oghma_mask", 0) & bit, "Oghma artifact was already consumed")
+        _distribute(s, action, 30)
+        s["oghma_mask"] ^= bit
+        s["pending_level"] = s["pending_pool"] = -1
+    elif kind == "firmament":
+        require(s.get("firmament") == action["firm_from"], "Firmament allocation starts from a different tree")
+        s["firmament"] = action["firm_to"]
     elif kind == "master":
         try:
             _master(s, action["skill"])
@@ -303,4 +316,5 @@ def goal_met(s, goal):
             and all(s["attributes"][int(k)] >= v for k, v in goal.get("attributes", {}).items())
             and set(goal.get("mastered", ())).issubset(s["mastered"])
             and set(goal.get("known", ())).issubset(s["known"])
+            and ("firmament" not in goal or s.get("firmament") == goal["firmament"])
             and all(k not in goal or s[k] == goal[k] for k in ("arcane_path", "martial_path")))

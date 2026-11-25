@@ -52,7 +52,7 @@ jobs:
           test/systems/advancement.test.js test/systems/fb1019b_leveleven.test.js
           test/systems/fb1026d_masterthree.test.js test/systems/schools_arcane.test.js
         working-directory: vendor/dfo-source
-      - run: python tools/verify_wheel.py
+      - run: python tools/verify_wheel.py --browser
       - if: runner.os == 'Linux'
         run: python tools/verify_native_coverage.py --output build/acceptance/native-coverage.json
       - uses: actions/upload-artifact@v4

@@ -276,14 +276,18 @@ class Domain:
     names_all: list
     omitted: list
     actions: list
+    encounters: list | None = None
+    firmament: list | None = None
 
 
-def compile_route(raw, source, route):
+def compile_route(raw, source, route, rules=None, start=None):
     from .spellbook import pack_spell
 
     states = [row["state"] for row in route["checkpoints"]]
     wanted = raw.get("checkpoints")
-    if wanted is None:
+    if raw.get("encounter",{}).get("at","terminal") == "terminal" and "encounter" in raw:
+        indices = [len(states)-1]
+    elif wanted is None:
         indices = [0]
         for i in range(1, len(states)):
             if states[i]["level"] != states[i - 1]["level"] and states[i]["level"] % 5 == 0:
@@ -310,10 +314,19 @@ def compile_route(raw, source, route):
         ):
             owned |= 1 << j
     stages = []
+    firmament = []
     for ordinal, i in enumerate(indices):
         state = states[i]
         target = raw.get("targets", {}).get(str(i), raw["target"])
         ctx = context(state, target)
+        if "encounter" in raw:
+            from .firmament_combat import modifiers
+            sky = modifiers(raw["encounter"], states[0], state, rules["permanent_rules"], start)
+            ctx = {**ctx, **{k:ctx[k]+v for k,v in sky.items()}}
+            firmament.append(sky)
+        if "encounter" in raw and state.get("martial_path") == "windrunner":
+            # The M4 state has permanent attributes before the live martial and equipment fold.
+            ctx["speed"] = min(100, ctx["speed"] + 10)
         next_i = indices[ordinal + 1] if ordinal + 1 < len(indices) else i
         # Leaving funds for every intervening action includes the next checkpoint's
         # training, and covers costs paid between two reported checkpoints.
@@ -379,6 +392,11 @@ def compile_route(raw, source, route):
         )
     asset_ids = [it.identity for it in domain.items] + names
     require(len(set(asset_ids)) == len(asset_ids), "physical and spell identities collide")
+    encounters = None
+    if "encounter" in raw:
+        from .lifecycle_encounter import bind
+        encounters = bind(raw["encounter"], states, indices, stages, route["actions"], book, names, policies,
+                          source, domain, declared, rules["progression_rules"]["paths"])
     return Domain(
         source,
         states,
@@ -395,4 +413,6 @@ def compile_route(raw, source, route):
         asset_ids,
         omitted,
         route["actions"],
+        encounters,
+        firmament,
     )

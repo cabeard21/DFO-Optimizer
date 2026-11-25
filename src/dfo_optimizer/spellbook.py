@@ -172,8 +172,11 @@ def _check(points, labels, curves, context, corresponding):
 
 
 def _run(request, ruleset, token, alternate):
-    from .ruleset import validate_progression_ruleset, load_ruleset
-    rules = validate_progression_ruleset(load_ruleset() if ruleset is None else ruleset)
+    if isinstance(request, dict) and "encounter" in request:
+        from .loadout_encounter import single_checkpoint
+        return single_checkpoint(request, equipment_search=False, fixed=not alternate, ruleset=ruleset, cancel=token)
+    from .ruleset import _progression_service_rules
+    rules = _progression_service_rules(ruleset)
     raw = _object(request, "effect policy", (*SCENE, "max_casts", "policy", "spells", "exact",
                                             "maker_access", "search"))
     kind = "native_spellbook_v1"

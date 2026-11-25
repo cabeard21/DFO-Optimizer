@@ -46,6 +46,9 @@ def _command(subcommands, name, description, *, ruleset=True):
 def _parser():
     parser = argparse.ArgumentParser(prog="dfo", description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
+    ui = commands.add_parser("ui", help="Open the offline optimizer workbench")
+    ui.add_argument("--port", type=int, default=0, help="local port (default: automatically assigned)")
+    ui.add_argument("--no-browser", action="store_true", help="print the address without opening a browser")
     rules = commands.add_parser("ruleset").add_subparsers(dest="action", required=True)
     build = rules.add_parser("build", help="extract the supported source revision")
     build.add_argument("--source", required=True, type=Path)
@@ -88,6 +91,7 @@ def _parser():
     for parent, action, help_text in (
         (commands, "evaluate", "Evaluate one fixed direct spell"),
         (spell, "optimize", "Search legal Damage Health settings"),
+        (spell, "curve", "Measure a fixed spell across levels or Destruction skill values"),
         (gear, "evaluate", "Evaluate a complete loadout"),
         (gear, "optimize", "Search complete loadouts and spell settings"),
     ):
@@ -99,12 +103,19 @@ def _parser():
     builds = commands.add_parser("build").add_subparsers(dest="action", required=True)
     _command(builds, "baselines", "List verified comparison class inputs and profile exclusions")
     books = commands.add_parser("spellbook").add_subparsers(dest="action", required=True)
+    fights = commands.add_parser("encounter").add_subparsers(dest="action", required=True)
+    enemy = _command(fights, "import-enemy", "Read a local classic enemy career and observed HP", ruleset=False)
+    enemy.add_argument("--input", required=True, type=Path)
+    enemy.add_argument("--mobile-id", required=True, type=int)
+    enemy.add_argument("--hp", required=True, type=int)
     for group, action, description in (
         (progression, "plan", "Plan reachable progression from a frozen start"),
         (builds, "optimize", "Compare reachable lifecycle plans"),
         (builds, "replan", "Replan from the observed character"),
         (books, "evaluate", "Evaluate a fixed spellbook policy"),
         (books, "optimize", "Search a finite spellbook and casting policy domain"),
+        (fights, "evaluate", "Evaluate a frozen solo encounter policy"),
+        (fights, "optimize", "Search the policies of a frozen solo encounter"),
     ):
         cmd = _command(group, action, description)
         cmd.add_argument("--request", type=Path, required=True, help="request JSON, or - for stdin")
@@ -112,13 +123,13 @@ def _parser():
             cmd.add_argument("--stock-spells", type=Path, help="locally supplied classic SPELLS.STD")
             cmd.add_argument("--character", type=Path, help="use this exported save or portable character as the start")
             cmd.add_argument("--slot", type=int, help="save slot in --character")
-    for group in (progression, builds):
+    for group in (progression, builds, fights):
         replay = _command(group, "replay", "Verify the actions and checkpoints of a saved plan")
         replay.add_argument("--plan", type=Path, required=True)
     compare = _command(builds, "compare", "Compare lifecycle results under their frozen assumptions")
     compare.add_argument("--plans", type=Path, nargs="+", required=True)
     bench = _command(commands, "benchmark", "Run the serial native benchmark suite", ruleset=False)
-    bench.add_argument("--suite", choices=["foundation", "smoke", "combat", "progression", "lifecycle"], default="smoke")
+    bench.add_argument("--suite", choices=["foundation", "smoke", "combat", "progression", "lifecycle", "encounter"], default="smoke")
     bench.add_argument("--workers", type=int, choices=[1], default=1)
     return parser
 
@@ -194,9 +205,15 @@ def _combat(args, bundle):
         from . import _gear, gear
         service = gear.optimize_gear if args.action == "optimize" else gear.evaluate_gear
         factory = _gear.CancelToken
+        if "encounter" in request:
+            from . import _lifecycle
+            factory = _lifecycle.CancelToken
     else:
         from . import _spells, spells
         service = spells.evaluate_spell if args.command == "evaluate" else spells.optimize_spells
+        if args.command == "spell" and args.action == "curve":
+            from .spell_curve import evaluate_spell_curve
+            service = evaluate_spell_curve
         factory = _spells.CancelToken
     result = _interruptible_search(service, factory, request, bundle)
     return result, 130 if result.get("termination") == "cancelled" else 0
@@ -266,6 +283,9 @@ def _planning(args, bundle):
         from . import _spellbook, spellbook
         service = spellbook.evaluate_spellbook if args.action == "evaluate" else spellbook.optimize_spellbook
         factory = _spellbook.CancelToken
+        if "encounter" in request:
+            from . import _lifecycle
+            factory = _lifecycle.CancelToken
     else:
         from . import _lifecycle, lifecycle
         fn = lifecycle.replan_build if args.action == "replan" else lifecycle.optimize_build
@@ -278,6 +298,9 @@ def _dispatch(args):
     from . import ruleset
 
     if args.command == "benchmark":
+        if args.suite == "encounter":
+            from .encounter_benchmark import run_encounter_benchmark
+            return run_encounter_benchmark(), 0
         if args.suite in ("progression", "lifecycle"):
             from .planning_benchmark import run_planning_benchmark
             return run_planning_benchmark(args.suite), 0
@@ -297,7 +320,19 @@ def _dispatch(args):
     if args.command == "spell" and args.action == "stock":
         from .stock_spells import stock_records
         return {"spell_records": stock_records(args.input, args.index)}, 0
+    if args.command == "encounter" and args.action == "import-enemy":
+        from .enemy_career import import_enemy_career
+        return import_enemy_career(args.input, args.mobile_id, args.hp), 0
     bundle = ruleset.load_ruleset(args.ruleset)
+    if args.command == "encounter":
+        from .encounter import evaluate_encounter, optimize_encounter, replay_encounter
+        if args.action == "replay":
+            result = replay_encounter(_input(args.plan), ruleset=bundle)
+            return result, 0 if result.get("valid", True) else 1
+        from . import _encounter
+        service = evaluate_encounter if args.action == "evaluate" else optimize_encounter
+        result = _interruptible_search(service, _encounter.CancelToken, _input(args.request), bundle)
+        return result, 130 if result.get("termination") == "cancelled" else 0
     if args.command in ("build", "progression", "spellbook"):
         return _planning(args, bundle)
     if args.command in ("evaluate", "gear", "spell"):
@@ -351,6 +386,12 @@ def _protect_game_path(source, destination):
 def main(argv=None):
     args = _parser().parse_args(argv)
     try:
+        if args.command == "ui":
+            from .workbench import serve
+            if not 0 <= args.port <= 65535:
+                raise ValueError("Port must be between 0 and 65535.")
+            serve(port=args.port, open_browser=not args.no_browser)
+            return 0
         _protect_save(args)
         result, status = _dispatch(args)
         _write(result, getattr(args, "output", None))

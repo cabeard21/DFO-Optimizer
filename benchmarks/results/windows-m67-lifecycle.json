@@ -1,0 +1,735 @@
+{
+  "schema_version": 1,
+  "workload_version": 1,
+  "suite": "lifecycle",
+  "workers": 1,
+  "host": {
+    "os": "Windows-10-10.0.19045-SP0",
+    "architecture": "AMD64",
+    "cpu": "AMD Ryzen 5 5600X 6-Core Processor",
+    "logical_cpus": 12,
+    "python": "3.12.10",
+    "python_compiler": "MSC v.1943 64 bit (AMD64)"
+  },
+  "engine": {
+    "compiler": "MSVC 195035721",
+    "flags": "/std:c++17 /O2 /fp:strict",
+    "native": true,
+    "extension": "_native.cp312-win_amd64.pyd",
+    "binary_sha256": "de484426c11bec653e013dd1442bc5279dc5e64f6ae89e39f7461c5dff02e452",
+    "version": "0.4.0"
+  },
+  "extensions": {
+    "dfo_optimizer._progression": "37a125de1cd327dce4c6a49639c2316ad8d3eebe4477945e94612925478f430b",
+    "dfo_optimizer._spellbook": "c4205d2e24d52c135e909ead1364e91de37e5a6a802c8de6fda8603e0e711d7e",
+    "dfo_optimizer._lifecycle": "1f1f8a9fbc272c0b1fd680c22caadc6b9a24ace1238cbf36475558f062f04c72"
+  },
+  "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+  "ruleset_hash": "d639d137937f8c42e3f26d281785defb44fb5071e9c2da179de4a8320401d5b1",
+  "workloads": {
+    "reduced_exact": {
+      "request": {
+        "schema_version": 1,
+        "description": "Paired M1 class comparison on a fixed early training schedule. The vendor and the target are explicit synthetic observations.",
+        "families": [
+          {
+            "id": "Breton caster",
+            "baseline_id": "m1-breton-caster"
+          },
+          {
+            "id": "High Elf caster",
+            "baseline_id": "comparison-high-elf-caster"
+          }
+        ],
+        "roll_seeds": [
+          42,
+          97
+        ],
+        "progression": {
+          "goal": {
+            "level": 1
+          },
+          "stages": [
+            [
+              {
+                "kind": "skip"
+              },
+              {
+                "kind": "practice",
+                "skill": 22,
+                "spell": 991,
+                "count": 1,
+                "cadence_ms": 1500,
+                "evidence": "A stationary target for one landed Arcane Arrow"
+              }
+            ],
+            [
+              {
+                "kind": "check",
+                "minutes": 361,
+                "trigger": "fast_travel_arrival",
+                "fare_gold": 0,
+                "evidence": "Synthetic zero-fare travel arrival after 361 personal game minutes"
+              }
+            ]
+          ],
+          "search": {
+            "exact": true
+          }
+        },
+        "checkpoints": [
+          0,
+          2
+        ],
+        "target": {
+          "id": "ordinary synthetic target",
+          "hp": 300,
+          "willpower": 45
+        },
+        "equipment": {
+          "offers": [
+            {
+              "instance_id": "caster-ring",
+              "stages": [
+                0
+              ],
+              "item": {
+                "templateIndex": 135,
+                "group": "Jewellery",
+                "rarity": "magic",
+                "affixes": [
+                  {
+                    "id": "skill",
+                    "param": 34,
+                    "value": 8
+                  },
+                  {
+                    "id": "castSpeed",
+                    "value": 6
+                  }
+                ]
+              },
+              "acquisition": {
+                "owned": false,
+                "obtainable": true,
+                "price": {
+                  "gold": 5
+                },
+                "source": "Synthetic five-gold quote at the starting checkpoint"
+              }
+            }
+          ],
+          "loadouts": [
+            {},
+            {
+              "Ring0": "caster-ring"
+            }
+          ]
+        },
+        "spellbook": {
+          "mode": "auto_spellbook",
+          "spells": [
+            {
+              "id": "mixed-bolt",
+              "recipe": {
+                "range_type": 1,
+                "element": 4,
+                "effects": [
+                  {
+                    "effect_id": "4,0",
+                    "base_low": 2,
+                    "base_high": 3,
+                    "plus_low": 1,
+                    "plus_high": 1,
+                    "per_level": 2
+                  },
+                  {
+                    "effect_id": "5,255",
+                    "chance_base": 5,
+                    "chance_increment": 1,
+                    "chance_per_level": 2
+                  }
+                ]
+              }
+            }
+          ],
+          "maker": {
+            "source": "Synthetic access and price factor for the finite comparison",
+            "price_factor": 0.01,
+            "stages": [
+              0
+            ]
+          }
+        },
+        "search": {
+          "exact": true,
+          "wall_seconds": 0,
+          "max_nodes": 0
+        }
+      },
+      "request_hash": "2c7f90f8e4c89b1ab2f902a72041fb7a357f17ebc643b28c4c0342da8801ce3c",
+      "result_sha256": "5f35b4527e12708e8245e2f70dababe3c4e2a4339df342e8a32247d691204659",
+      "status": "optimal_proven",
+      "termination": "exhausted",
+      "counters": {
+        "nodes": 1704,
+        "pruned": 224,
+        "leaves": 376,
+        "evaluations": 96,
+        "cache_hits": 0,
+        "work_bytes": 26104,
+        "progression_nodes": 16,
+        "layouts": 16
+      },
+      "frontier": [
+        [
+          42,
+          6.053619047619049,
+          6.053619047619049,
+          0,
+          1,
+          361,
+          0
+        ],
+        [
+          42,
+          16.285669714285717,
+          16.285669714285717,
+          0,
+          1,
+          361,
+          4
+        ],
+        [
+          42,
+          17.24365028571429,
+          17.24365028571429,
+          0,
+          1,
+          361,
+          9
+        ],
+        [
+          97,
+          5.964595238095238,
+          5.964595238095238,
+          0,
+          1,
+          361,
+          0
+        ],
+        [
+          97,
+          16.04617457142857,
+          16.04617457142857,
+          0,
+          1,
+          361,
+          4
+        ],
+        [
+          97,
+          17.004155142857144,
+          17.004155142857144,
+          0,
+          1,
+          361,
+          9
+        ]
+      ],
+      "final_levels": [
+        1
+      ],
+      "validation": {
+        "routes_checked": 24
+      },
+      "cold_cli_seconds": 0.21748490000027232,
+      "warm": {
+        "samples": [
+          {
+            "wall_seconds": 0.0753703999944264,
+            "cpu_seconds": 0.0625
+          },
+          {
+            "wall_seconds": 0.05283930000587134,
+            "cpu_seconds": 0.046875
+          },
+          {
+            "wall_seconds": 0.056152600001951214,
+            "cpu_seconds": 0.0625
+          },
+          {
+            "wall_seconds": 0.05369079999945825,
+            "cpu_seconds": 0.046875
+          },
+          {
+            "wall_seconds": 0.05419180000171764,
+            "cpu_seconds": 0.0625
+          }
+        ],
+        "p50_seconds": 0.05419180000171764,
+        "p95_seconds": 0.0753703999944264
+      },
+      "nodes_per_wall_second_p50": 31443.871581050837,
+      "evaluations_per_wall_second_p50": 1771.4857228761036,
+      "first_replayed_seconds": 0.010749399996711873,
+      "first_replayed_distribution": {
+        "samples": [
+          {
+            "wall_seconds": 0.020852100002230145
+          },
+          {
+            "wall_seconds": 0.009369500003231224
+          },
+          {
+            "wall_seconds": 0.009220100000675302
+          },
+          {
+            "wall_seconds": 0.009216000005835667
+          },
+          {
+            "wall_seconds": 0.010749399996711873
+          }
+        ],
+        "p50_seconds": 0.009369500003231224,
+        "p95_seconds": 0.020852100002230145
+      },
+      "peak_rss_bytes_after_workload": 28876800
+    },
+    "reduced_bounded": {
+      "request": {
+        "schema_version": 1,
+        "description": "Paired M1 class comparison on a fixed early training schedule. The vendor and the target are explicit synthetic observations.",
+        "families": [
+          {
+            "id": "Breton caster",
+            "baseline_id": "m1-breton-caster"
+          },
+          {
+            "id": "High Elf caster",
+            "baseline_id": "comparison-high-elf-caster"
+          }
+        ],
+        "roll_seeds": [
+          42,
+          97
+        ],
+        "progression": {
+          "goal": {
+            "level": 1
+          },
+          "stages": [
+            [
+              {
+                "kind": "skip"
+              },
+              {
+                "kind": "practice",
+                "skill": 22,
+                "spell": 991,
+                "count": 1,
+                "cadence_ms": 1500,
+                "evidence": "A stationary target for one landed Arcane Arrow"
+              }
+            ],
+            [
+              {
+                "kind": "check",
+                "minutes": 361,
+                "trigger": "fast_travel_arrival",
+                "fare_gold": 0,
+                "evidence": "Synthetic zero-fare travel arrival after 361 personal game minutes"
+              }
+            ]
+          ],
+          "search": {
+            "exact": true
+          }
+        },
+        "checkpoints": [
+          0,
+          2
+        ],
+        "target": {
+          "id": "ordinary synthetic target",
+          "hp": 300,
+          "willpower": 45
+        },
+        "equipment": {
+          "offers": [
+            {
+              "instance_id": "caster-ring",
+              "stages": [
+                0
+              ],
+              "item": {
+                "templateIndex": 135,
+                "group": "Jewellery",
+                "rarity": "magic",
+                "affixes": [
+                  {
+                    "id": "skill",
+                    "param": 34,
+                    "value": 8
+                  },
+                  {
+                    "id": "castSpeed",
+                    "value": 6
+                  }
+                ]
+              },
+              "acquisition": {
+                "owned": false,
+                "obtainable": true,
+                "price": {
+                  "gold": 5
+                },
+                "source": "Synthetic five-gold quote at the starting checkpoint"
+              }
+            }
+          ],
+          "loadouts": [
+            {},
+            {
+              "Ring0": "caster-ring"
+            }
+          ]
+        },
+        "spellbook": {
+          "mode": "auto_spellbook",
+          "spells": [
+            {
+              "id": "mixed-bolt",
+              "recipe": {
+                "range_type": 1,
+                "element": 4,
+                "effects": [
+                  {
+                    "effect_id": "4,0",
+                    "base_low": 2,
+                    "base_high": 3,
+                    "plus_low": 1,
+                    "plus_high": 1,
+                    "per_level": 2
+                  },
+                  {
+                    "effect_id": "5,255",
+                    "chance_base": 5,
+                    "chance_increment": 1,
+                    "chance_per_level": 2
+                  }
+                ]
+              }
+            }
+          ],
+          "maker": {
+            "source": "Synthetic access and price factor for the finite comparison",
+            "price_factor": 0.01,
+            "stages": [
+              0
+            ]
+          }
+        },
+        "search": {
+          "exact": true,
+          "wall_seconds": 0,
+          "max_nodes": 500
+        }
+      },
+      "request_hash": "2d2c6c55702fd5c048729de9be33c7311d253a731c94c234da4b661f5380726a",
+      "result_sha256": "b901a37cf90127426a1801a45673da690507aad92b344261b380e12c7cd485b9",
+      "status": "best_found_bounded",
+      "termination": "node_limit",
+      "counters": {
+        "nodes": 500,
+        "pruned": 28,
+        "leaves": 28,
+        "evaluations": 60,
+        "cache_hits": 0,
+        "work_bytes": 26104,
+        "progression_nodes": 32,
+        "layouts": 16
+      },
+      "frontier": [
+        [
+          42,
+          6.053619047619049,
+          6.053619047619049,
+          0,
+          1,
+          361,
+          0
+        ],
+        [
+          42,
+          6.053619047619049,
+          16.285669714285717,
+          0,
+          1,
+          361,
+          4
+        ],
+        [
+          97,
+          5.964595238095238,
+          5.964595238095238,
+          0,
+          1,
+          361,
+          0
+        ],
+        [
+          97,
+          5.964595238095238,
+          16.04617457142857,
+          0,
+          1,
+          361,
+          4
+        ]
+      ],
+      "final_levels": [
+        1
+      ],
+      "validation": {
+        "routes_checked": 8
+      },
+      "cold_cli_seconds": 0.2359548000022187,
+      "warm": {
+        "samples": [
+          {
+            "wall_seconds": 0.08113760000560433,
+            "cpu_seconds": 0.078125
+          },
+          {
+            "wall_seconds": 0.07164409999677446,
+            "cpu_seconds": 0.078125
+          },
+          {
+            "wall_seconds": 0.07442119999905117,
+            "cpu_seconds": 0.078125
+          },
+          {
+            "wall_seconds": 0.08092390000092564,
+            "cpu_seconds": 0.078125
+          },
+          {
+            "wall_seconds": 0.08132879999902798,
+            "cpu_seconds": 0.078125
+          }
+        ],
+        "p50_seconds": 0.08092390000092564,
+        "p95_seconds": 0.08132879999902798
+      },
+      "nodes_per_wall_second_p50": 6178.644380637621,
+      "evaluations_per_wall_second_p50": 741.4373256765145,
+      "first_replayed_seconds": 0.05091319999337429,
+      "first_replayed_distribution": {
+        "samples": [
+          {
+            "wall_seconds": 0.05451779999566497
+          },
+          {
+            "wall_seconds": 0.0432306000002427
+          },
+          {
+            "wall_seconds": 0.04492069999832893
+          },
+          {
+            "wall_seconds": 0.04891190000489587
+          },
+          {
+            "wall_seconds": 0.05091319999337429
+          }
+        ],
+        "p50_seconds": 0.04891190000489587,
+        "p95_seconds": 0.05451779999566497
+      },
+      "peak_rss_bytes_after_workload": 29872128,
+      "quality": {
+        "exact_points": 6,
+        "bounded_points": 4,
+        "exact_points_recovered": 2,
+        "frontier_recall": 0.3333333333333333
+      }
+    },
+    "representative": {
+      "request": {
+        "schema_version": 1,
+        "description": "The creation-to-45 progression example evaluated on one fixed birth roll, the two source starter spells, and a confirmed synthetic five-gold ring offer at birth.",
+        "progression_file": "progression-creation-to-cap.json",
+        "target": {
+          "id": "ordinary stationary target",
+          "hp": 100,
+          "willpower": 50
+        },
+        "equipment": {
+          "offers": [
+            {
+              "instance_id": "caster-ring",
+              "stages": [
+                0
+              ],
+              "acquisition": {
+                "owned": false,
+                "obtainable": true,
+                "price": {
+                  "gold": 5
+                },
+                "source": "Synthetic five-gold starting quote"
+              },
+              "item": {
+                "group": "Jewellery",
+                "templateIndex": 135,
+                "rarity": "magic",
+                "affixes": [
+                  {
+                    "id": "skill",
+                    "param": 34,
+                    "value": 8
+                  },
+                  {
+                    "id": "castSpeed",
+                    "value": 6
+                  }
+                ]
+              }
+            }
+          ],
+          "loadouts": [
+            {},
+            {
+              "Ring0": "caster-ring"
+            }
+          ]
+        },
+        "spellbook": {
+          "mode": "auto_spellbook",
+          "policies": [
+            [
+              "known/990"
+            ],
+            [
+              "known/991"
+            ]
+          ]
+        },
+        "search": {
+          "exact": true,
+          "wall_seconds": 120,
+          "max_nodes": 1000000,
+          "memory_bytes": 268435456
+        }
+      },
+      "request_hash": "c892592989d055b3efe4adcc940d632e5f2901aab9f2ccc0bf051bc8bf47d4b3",
+      "result_sha256": "934d165ec1a78a781e8d09995dc882de37420e936355338633d0a0b15a14a094",
+      "status": "optimal_proven",
+      "termination": "exhausted",
+      "counters": {
+        "nodes": 20393,
+        "pruned": 3066,
+        "leaves": 3072,
+        "evaluations": 40,
+        "cache_hits": 0,
+        "work_bytes": 17228264,
+        "progression_nodes": 5889,
+        "layouts": 2
+      },
+      "frontier": [
+        [
+          null,
+          5.944333333333335,
+          11.85866666666667,
+          20.585976190476195,
+          28.105158730158735,
+          35.52976190476191,
+          42.96726190476191,
+          50.40079365079365,
+          57.8373015873016,
+          65.26190476190477,
+          72.69940476190477,
+          609465,
+          453,
+          7558200,
+          0
+        ],
+        [
+          null,
+          6.294000000000001,
+          12.493952380952384,
+          21.578071428571437,
+          29.454206349206355,
+          37.23519047619049,
+          45.02969047619049,
+          52.82003174603176,
+          60.61349206349208,
+          68.39447619047621,
+          76.18897619047621,
+          609465,
+          453,
+          7558200,
+          5
+        ]
+      ],
+      "final_levels": [
+        45
+      ],
+      "validation": {
+        "routes_checked": 2
+      },
+      "cold_cli_seconds": 2.8259190000026138,
+      "warm": {
+        "samples": [
+          {
+            "wall_seconds": 2.3210268000038923,
+            "cpu_seconds": 2.296875
+          },
+          {
+            "wall_seconds": 2.5412899000002653,
+            "cpu_seconds": 2.546875
+          },
+          {
+            "wall_seconds": 2.317241799995827,
+            "cpu_seconds": 2.3125
+          },
+          {
+            "wall_seconds": 2.328223699994851,
+            "cpu_seconds": 2.328125
+          },
+          {
+            "wall_seconds": 2.4952340999952867,
+            "cpu_seconds": 2.453125
+          }
+        ],
+        "p50_seconds": 2.328223699994851,
+        "p95_seconds": 2.5412899000002653
+      },
+      "nodes_per_wall_second_p50": 8759.038059807182,
+      "evaluations_per_wall_second_p50": 17.18047969363445,
+      "first_replayed_seconds": 2.4638354999988223,
+      "first_replayed_distribution": {
+        "samples": [
+          {
+            "wall_seconds": 2.2924753000042983
+          },
+          {
+            "wall_seconds": 2.511015900003258
+          },
+          {
+            "wall_seconds": 2.2893775000047754
+          },
+          {
+            "wall_seconds": 2.2998986999955378
+          },
+          {
+            "wall_seconds": 2.4638354999988223
+          }
+        ],
+        "p50_seconds": 2.2998986999955378,
+        "p95_seconds": 2.511015900003258
+      },
+      "peak_rss_bytes_after_workload": 163160064
+    }
+  },
+  "peak_rss_bytes": 163160064
+}

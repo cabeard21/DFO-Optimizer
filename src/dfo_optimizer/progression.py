@@ -8,7 +8,7 @@ from time import perf_counter
 
 from .progression_domain import Domain, Gap, _FIELDS, _spell_data, boolean, evidence, fields, get_recipe, integer, windows
 from .progression_replay import _cast_price, goal_met, initial_effort, require, transition
-from .ruleset import load_ruleset, validate_progression_ruleset
+from .ruleset import _progression_service_rules
 
 
 def digest(obj):
@@ -83,29 +83,39 @@ def _native_start(d):
             s[k] = [next(spare) for _ in _DEFAULTS[k]]
     s["known"] = sorted(d.spell_ids.index(i) for i in (d.source_state.get("known") or []))
     s["mastered"].sort()
+    if d.oghma_copies:
+        s["oghma_mask"] = (1 << len(d.oghma_copies)) - 1
+    if d.firmament.initial is not None:
+        s["firmament"] = d.firmament.initial
     return s
 
 
 def _compiled_windows(domain, rows):
     original, compiled, excluded = [], [], {}
     cached = {}
+    sky = domain.firmament
+    tree_active = sky.initial is not None and sky.states[sky.initial]["tree"]["start"] is not None
     for n, row in enumerate(rows):
-        if id(row) not in cached:
+        cache_key = (id(row), tree_active)
+        if cache_key not in cached:
             actions, sources, issues = [], [], []
             for index, action in enumerate(row):
                 try:
+                    if tree_active and action.get("kind") in ("practice","rest","train","check","level"):
+                        raise Gap("Firmament modifiers require a verified live projection for this activity")
                     actions.append(domain.compile_action(action))
                     sources.append(index)
                 except Gap as exc:
                     issues.append({"alternative": index, "reason": str(exc)})
-            cached[id(row)] = (actions, sources, issues)
-        actions, indices, issues = cached[id(row)]
+            cached[cache_key] = (actions, sources, issues)
+        actions, indices, issues = cached[cache_key]
         if issues:
             excluded[n] = issues
         if not actions:
             break
         original.append(indices)
         compiled.append(actions)
+        tree_active = tree_active or any(a["kind"] == "firmament" for a in actions)
     return compiled, original, excluded
 
 
@@ -148,7 +158,21 @@ def _prepare(raw, rules):
         require(all(type(v) in (float, int) and isfinite(v) and 0 <= v <= 86400 for v in rates.values()),
                 "time estimates require finite nonnegative seconds per event")
         require(rates, "time model has no rates")
-    d = Domain(start, missing, law["paths"], ids, records, trainers, set(law.get("temple_training_skills", {})), rates)
+    from .permanent_progression import Firmament
+    perm = rules.get("permanent_rules", {})
+    char = raw["start"].get("character") or {}
+    character_id = char.get("characterId") or char.get("observations",{}).get("character_id")
+    sky = Firmament(raw["start"].get("firmament"), perm, character_id)
+    if sky.initial is None and "firmament" in goal:
+        missing.add("firmament")
+    # useItem fires the Used payload after the book reader arm, including for an imported
+    # classic book whose enchantment row is preserved without the generated artifact flag.
+    books = tuple(sorted(r["instance_id"] for r in start.get("inventory", []) if perm and r["container"] == "pack"
+                         and r["item"].get("group") == "Books"
+                         and any(isinstance(e,dict) and e.get("type") == 26 and e.get("param") == perm["oghma"]["subtype"]
+                                 for e in r["item"].get("enchantments") or [])))
+    require(len(books) <= 63, "progression supports up to 63 distinct Oghma copies")
+    d = Domain(start, missing, law["paths"], ids, records, trainers, set(law.get("temple_training_skills", {})), rates, books, sky)
     goal = d.compile_goal(goal)
     compiled, original, excluded = _compiled_windows(d, rows)
     limits = _limits(raw)
@@ -168,7 +192,9 @@ def _prepare(raw, rules):
                     (recipe[3] > 0 or recipe[5] * (native_start["level"] // recipe[6]) > 0)):
                 eligible.append(_cast_price(native_start, {"recipe": recipe, "skill_bonus": start.get("skill_bonus", 0),
                                                             "focus_pct": start.get("focus_pct", 0)}))
-        if start["environmental_magery"]:
+        if sky.initial is not None and sky.states[sky.initial]["tree"]["start"]:
+            blockers.append("starting damage requires a verified live projection for the active Firmament")
+        elif start["environmental_magery"]:
             blockers.append("starting damage requires a verified environment for this career's environmental magery")
         elif ({"sp", "level", "skills", "known", "mastered"}.intersection(missing) or not eligible
                 or start.get("practice_modifiers_unknown") or start.get("has_spellbook") is not True
@@ -179,6 +205,11 @@ def _prepare(raw, rules):
 
 def _public_state(d, s):
     out = deepcopy(s)
+    if "firmament" in out:
+        out["firmament"] = deepcopy(d.firmament.states[out["firmament"]])
+    if "oghma_mask" in out:
+        mask = out.pop("oghma_mask")
+        out["oghma_remaining"] = [name for i,name in enumerate(d.oghma_copies) if mask >> i & 1]
     for k in d.missing.intersection(out):
         out[k] = None
     if out.get("known") is not None:
@@ -237,7 +268,7 @@ def _route(context, choices, *, native=None, public_choices=False):
         if (limits["retain_states"] or n+1 == len(choices) or
                 s["level"] in levels and s["level"] != prev["level"] or
                 s["mastered"] != prev["mastered"] or s["known"] != prev["known"] or
-                any(s[k] != prev[k] for k in ("arcane_path", "martial_path"))):
+                any(s.get(k) != prev.get(k) for k in ("arcane_path", "martial_path", "firmament", "oghma_mask"))):
             point(n+1)
     if native is not None:
         for key, v in s.items():
@@ -275,7 +306,7 @@ def _identity(plan):
 def plan_progression(request, *, ruleset=None, base_dir=None, cancel=None):
     from . import _progression
     tic = perf_counter()
-    rules = validate_progression_ruleset(load_ruleset() if ruleset is None else ruleset)
+    rules = _progression_service_rules(ruleset)
     raw = _freeze(request, base_dir)
     ctx = _prepare(raw, rules)
     d, rows, stages, _, excluded, goal, limits, _, start, blockers = ctx
@@ -332,7 +363,7 @@ def plan_progression(request, *, ruleset=None, base_dir=None, cancel=None):
 
 def replay_progression(document, *, ruleset=None):
     """Recreate inputs and check each public action, checkpoint, objective and saved identity."""
-    rules = validate_progression_ruleset(load_ruleset() if ruleset is None else ruleset)
+    rules = _progression_service_rules(ruleset)
     require(isinstance(document, dict) and document.get("kind") == "progression_plan"
             and document.get("schema_version") == 1, "invalid progression plan")
     require(document.get("ruleset_hash") == rules["content_hash"], "progression replay ruleset mismatch")

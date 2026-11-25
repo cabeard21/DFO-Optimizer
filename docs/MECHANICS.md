@@ -1,5 +1,7 @@
 # Mechanics and evidence
 
+For encounter timing, shield and healing rounds, conditional resource credits, specialization hooks, local enemy careers and permanent progression, consult the M6 evidence table and the checkpoint prerequisites. The individual path records identify verified source functions and scope restrictions. [M6 evidence](M6-M7-ACCEPTANCE.md) · [Build and progression mechanics](ENCOUNTER-BUILDS.md)
+
 Authority for this release is the November 2, 2026 public snapshot at `a3eb1605ea1dc391b691fe314377458a7e63e483`. Run `dfo ruleset coverage` for the machine-readable registry. Live client compatibility is unknown.
 
 | Mechanic | Snapshot evidence and application |

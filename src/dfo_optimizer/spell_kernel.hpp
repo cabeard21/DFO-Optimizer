@@ -197,6 +197,7 @@ struct Token {
     std::atomic_bool stopped{false}, incumbent{false};
     void cancel() noexcept { stopped.store(true, std::memory_order_relaxed); }
     bool has_incumbent() const noexcept { return incumbent.load(std::memory_order_relaxed); }
+    bool is_cancelled() const noexcept { return stopped.load(std::memory_order_relaxed); }
 };
 
 // Bounds are enforced by the Cython boundary and shared by native gear.

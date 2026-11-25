@@ -449,6 +449,7 @@
   "src/systems/festival/festivalRows.js": "be3e12cb60ea2c3d43de71dbe3c15d76f8e4730a",
   "src/systems/festival/soulCake.js": "b174d0510ca6e7bc1868157476a27aba86815d8d",
   "src/systems/feudLedger.js": "b1c0482475d7b4bcffd5c1ee2c8544028169c421",
+  "src/systems/firmamentPowers.js": "83c55c55feb957f38fd7fb6308b13abba8e0027b",
   "src/systems/fletching.js": "3ed9c3bbf804423f146282793453eb7febafc834",
   "src/systems/foeLootCap.js": "aacb0223cc439b7d4c5dad8fa174a19f6fe73d19",
   "src/systems/foeTitle.js": "e8b11c7ee3f1e1737a604de026bdeb4f14286098",

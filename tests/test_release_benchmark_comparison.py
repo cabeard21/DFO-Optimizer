@@ -1,5 +1,7 @@
 import importlib.util
 from pathlib import Path
+from tempfile import gettempdir
+from uuid import uuid4
 
 import pytest
 
@@ -38,3 +40,36 @@ def test_inconsistent_metrics_and_missing_workloads_are_detected():
     runs[1]["workloads"] = {}
     with pytest.raises(ValueError, match="workload"):
         tool.compare(runs)
+
+
+def test_explicit_install_directory_is_new_and_survives_for_replay():
+    module = load()
+    target = Path(gettempdir()) / f"dfo-paired-unit-{uuid4().hex}"
+    with module.install_directory(target) as directory:
+        assert directory == target.resolve()
+        (directory / "snapshot").write_text("kept")
+    try:
+        assert (target / "snapshot").read_text() == "kept"
+        with pytest.raises(FileExistsError):
+            with module.install_directory(target):
+                pytest.fail("existing install directory was reused")
+    finally:
+        (target / "snapshot").unlink()
+        target.rmdir()
+
+
+def test_explicit_offline_wheel_install_bootstraps_from_the_driver(monkeypatch):
+    module = load()
+    invoked = []
+    tmp_path = Path("hypothetical-env")
+    class Builder:
+        def __init__(self, *, with_pip):
+            assert not with_pip
+        def create(self, directory):
+            assert directory == tmp_path
+    monkeypatch.setattr(module.venv, "EnvBuilder", Builder)
+    monkeypatch.setattr(module.subprocess, "run", lambda argv, **kwargs: invoked.append(argv))
+    wheel = tmp_path / "local.whl"
+    python = module.install(tmp_path, wheel, {}, driver_pip=True)
+    assert invoked == [[module.sys.executable, "-I", "-m", "pip", "--python", python, "install",
+                        "--no-index", "--no-deps", "--no-cache-dir", "--no-compile", wheel]]

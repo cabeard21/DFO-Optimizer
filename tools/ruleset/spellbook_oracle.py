@@ -2,9 +2,8 @@
 import argparse
 import json
 from pathlib import Path
-from tempfile import TemporaryDirectory
 
-from dfo_optimizer.ruleset import run_adapter
+from dfo_optimizer.ruleset import run_adapter, adapter_directory
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
@@ -16,7 +15,7 @@ def load_source(source):
     outgoing = json.loads((HERE / "spell-extra-lock.json").read_text())
     if closure.keys() & outgoing.keys():
         raise ValueError("Conflicting source hashes in search inputs")
-    with TemporaryDirectory() as directory:
+    with adapter_directory() as directory:
         identity = Path(directory) / "lock.json"
         identity.write_text(json.dumps({**closure, **outgoing}))
         return run_adapter(source, identity, HERE / "spellbook_oracle.mjs")

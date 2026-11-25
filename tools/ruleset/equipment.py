@@ -2,9 +2,8 @@
 import argparse
 import json
 from pathlib import Path
-from tempfile import TemporaryDirectory
 
-from dfo_optimizer.ruleset import DATA, SOURCE_SHA, run_adapter
+from dfo_optimizer.ruleset import DATA, SOURCE_SHA, run_adapter, adapter_directory
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -18,7 +17,7 @@ def generate_equipment(source, *, oracle=False):
 def verify_theoretical(source):
     from dfo_optimizer.equipment import legal_catalog_items
     rows = list(legal_catalog_items({"gear": {"career": {}}}, theoretical=True))
-    with TemporaryDirectory(prefix="dfo-equipment-") as temp:
+    with adapter_directory() as temp:
         path = Path(temp) / "items.json"
         path.write_text(json.dumps(rows), encoding="ascii")
         result = run_adapter(source, DATA / "equipment-lock.json", ROOT / "tools/ruleset/equipment_legality.mjs",

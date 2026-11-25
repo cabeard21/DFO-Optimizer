@@ -176,6 +176,9 @@ class GearService:
         return self._query(request, ruleset, cancel, fixed=True)
 
     def _query(self, raw, rules, token, fixed):
+        if isinstance(raw, dict) and "encounter" in raw:
+            from .loadout_encounter import single_checkpoint
+            return single_checkpoint(raw, equipment_search=True, fixed=fixed, ruleset=rules, cancel=token)
         start = perf_counter()
         rules = _installed_combat_rules() if rules is None else validate_combat_ruleset(rules)
         if rules["equipment_hash"] != equipment.EQUIPMENT_HASH:

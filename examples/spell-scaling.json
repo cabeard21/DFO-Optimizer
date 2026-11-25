@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "caster": {
+    "level": 10, "speed": 65, "destruction_live": 75, "destruction_trained": 75,
+    "destruction_mastered": false, "current_sp": 80, "max_sp": 100
+  },
+  "target": {"id":"synthetic_unarmored_foe", "hp":60, "willpower":50},
+  "spell": {
+    "effect_id":"4,0", "element":0, "range_type":2, "base_low":2, "base_high":6,
+    "plus_low":3, "plus_high":5, "per_level":2
+  },
+  "curve": {"axis":"level", "values":[1,5,10,15,20,25,30,35,40,45]}
+}

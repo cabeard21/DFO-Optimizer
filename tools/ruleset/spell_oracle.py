@@ -2,9 +2,8 @@
 import argparse
 import json
 from pathlib import Path
-from tempfile import TemporaryDirectory
 
-from dfo_optimizer.ruleset import run_adapter
+from dfo_optimizer.ruleset import run_adapter, adapter_directory
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
@@ -18,7 +17,7 @@ def generate(source):
     extra = json.loads((HERE / "spell-extra-lock.json").read_text(encoding="utf-8"))
     if base.keys() & extra.keys():
         raise ValueError("The spell extension lock overlaps the base oracle lock")
-    with TemporaryDirectory() as directory:
+    with adapter_directory() as directory:
         lock = Path(directory) / "combined.json"
         lock.write_text(json.dumps({**base, **extra}), encoding="utf-8")
         return run_adapter(source, lock, HERE / "spell_oracle.mjs")
