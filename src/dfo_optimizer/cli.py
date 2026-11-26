@@ -105,6 +105,7 @@ def _parser():
     first = _command(builds, "recommend", "Recommend a beginner spellcaster on paired progression and combat scenarios")
     first.add_argument("--request", type=Path, help="optional beginner request JSON")
     first.add_argument("--thoroughness", choices=("quick", "standard", "thorough"))
+    first.add_argument("--require-fast-advancement", action="store_true", help="Require the fastest legal advancement (0.30x)")
     books = commands.add_parser("spellbook").add_subparsers(dest="action", required=True)
     fights = commands.add_parser("encounter").add_subparsers(dest="action", required=True)
     enemy = _command(fights, "import-enemy", "Read a local classic enemy career and observed HP", ruleset=False)
@@ -255,6 +256,8 @@ def _planning(args, bundle):
             raise ValueError("Beginner request must be a JSON object")
         if args.thoroughness:
             request = {**request, "thoroughness": args.thoroughness}
+        if args.require_fast_advancement:
+            request = {**request, "require_fast_advancement": True}
         result = _interruptible_search(recommend_build, CancelToken, request, bundle)
         return result, 130 if result["termination"] == "cancelled" else 0
     if args.action == "baselines":

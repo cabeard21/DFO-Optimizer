@@ -16,9 +16,14 @@ const metrics = [
 export function beginnerInputs(s, submit, update) {
   const thoroughness = field("Search thoroughness", select([
     ["quick","Quick"],["standard","Standard"],["thorough","Thorough"]
-  ], s.request.thoroughness, value=>update({thoroughness:value})));
+  ], s.request.thoroughness, value=>update({...s.request, thoroughness:value})));
+  const fast = el("input");
+  fast.type="checkbox";
+  fast.checked=s.request.require_fast_advancement===true;
+  fast.addEventListener("change",()=>update({...s.request, require_fast_advancement:fast.checked}));
+  const advancement=field("Require 0.30× advancement",fast);
   const controls = el("div", null, "beginner-controls");
-  controls.append(thoroughness, action("Recommend My First Spellcaster", submit, "primary"));
+  controls.append(thoroughness, advancement, action("Recommend My First Spellcaster", submit, "primary"));
   const advanced = el("a", "Set your own class and scenario constraints");
   advanced.href = "#discovery";
   const body = [el("p","Compare spellcasters in solo fights from creation to level 45. Take the selected class file and its creation checklist into the game.","intro"),

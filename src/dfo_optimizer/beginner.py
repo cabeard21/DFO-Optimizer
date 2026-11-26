@@ -40,7 +40,7 @@ class CancelToken:
 
 
 def parse_request(raw):
-    fields(raw, {"schema_version", "thoroughness", "search"}, "beginner recommendation")
+    fields(raw, {"schema_version", "thoroughness", "search", "require_fast_advancement"}, "beginner recommendation")
     integer(raw.get("schema_version", 1), "beginner request version", 1, 1)
     mode = raw.get("thoroughness", "standard")
     require(isinstance(mode, str) and mode in MODES, "Choose quick, standard or thorough")
@@ -52,8 +52,11 @@ def parse_request(raw):
     maximum = integer(budget.get("max_nodes", nodes), "max_nodes", 0, 2**53-1)
     require(maximum or seconds, "Supply a work limit or a time limit")
     memory = integer(budget.get("memory_bytes", 256 << 20), "memory_bytes", 1, 2**53-1)
+    fast = raw.get("require_fast_advancement", False)
+    require(type(fast) is bool, "require_fast_advancement must be a boolean")
     return {"schema_version": 1, "thoroughness": mode, "search": {
-        "max_nodes": maximum, "wall_seconds": seconds, "memory_bytes": memory}}
+        "max_nodes": maximum, "wall_seconds": seconds, "memory_bytes": memory},
+        **({"require_fast_advancement": True} if fast else {})}
 
 
 class _Budget:
@@ -199,7 +202,8 @@ def _run(req, *, rules, token, families=None, roll_seeds=BIRTH_SEEDS, combat_see
         allowance = min(budget.remaining(), max(1, budget.remaining() // 6), 4000000)
         roster = beginner_roster(req["thoroughness"], ruleset=rules, roll_seeds=roll_seeds,
                                  max_nodes=allowance, wall_seconds=budget.seconds(),
-                                 memory_bytes=max(1, budget.memory // 2), cancel=token.lifecycle.class_token)
+                                 memory_bytes=max(1, budget.memory // 2), cancel=token.lifecycle.class_token,
+                                 domain={"difficulty_values": [-12]} if req.get("require_fast_advancement") else None)
         budget.used["class_nodes"] = roster["counts"]["nodes"]
         families = roster["families"]
         admission = {k: v for k, v in roster.items() if k != "families"}
@@ -209,6 +213,8 @@ def _run(req, *, rules, token, families=None, roll_seeds=BIRTH_SEEDS, combat_see
     for family in families or ():
         if budget.stop():
             break
+        if req.get("require_fast_advancement") and family["compliance"]["difficulty_points"] != -12:
+            continue
         row = _evaluate(family, cache, settings, rules, budget)
         if not archive.append(row, budget.memory // 3):
             stop = "memory_limit"
@@ -279,7 +285,8 @@ def replay_recommendation(result, *, ruleset=None, cancel=None):
         families.append({"id": r["id"], "origin": r["origin"],
                          "start": {"type": "new_character", "profile": "custom", "class": r["class"], "race_id": r["race_id"]},
                          "compliance": beginner_compliance(r["class"], r["race_id"], ruleset=rules, roll_seeds=settings["roll_seeds"])})
-    checked = _run(parse_request({"search":{"wall_seconds":0, "max_nodes":200_000_000}}),
+    checked = _run(parse_request({"search":{"wall_seconds":0, "max_nodes":200_000_000},
+                                  "require_fast_advancement": result["frozen_request"].get("require_fast_advancement", False)}),
                    families=families, **params, rules=rules, token=token)
     if token.cancelled():
         return {"verified":False, "status":"cancelled", "termination":"cancelled", "result_hash":result["result_hash"]}

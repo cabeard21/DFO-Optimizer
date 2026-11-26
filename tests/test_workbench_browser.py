@@ -125,6 +125,9 @@ def test_recommend_first_spellcaster_download_and_reopen(desktop):
     from playwright.sync_api import expect
     page, url = desktop
     expect(page.get_by_label("Search thoroughness")).to_have_value("standard")
+    advancement = page.get_by_label("Require 0.30× advancement")
+    expect(advancement).not_to_be_checked()
+    advancement.check()
     page.get_by_label("Search thoroughness").select_option("quick")
     with page.expect_response(lambda r: r.url == url+"/api/jobs" and r.request.method == "POST") as submitted:
         page.get_by_role("button", name="Recommend My First Spellcaster").click()
@@ -134,6 +137,9 @@ def test_recommend_first_spellcaster_download_and_reopen(desktop):
     assert area.get_attribute("data-state") == "completed", area.inner_text()
     result = page.request.get(url+"/api/jobs/"+identifier+"/export").json()
     lead = result["recommendation"]
+    assert result["frozen_request"]["require_fast_advancement"]
+    assert lead["metrics"]["advancement_multiplier"] == 0.30
+    assert all(row["permanent"]["advancement_multiplier"] == 0.30 for row in result["comparisons"])
     expect(area.get_by_role("heading", name="Your creation checklist")).to_be_visible()
     expect(area.get_by_text("Choose your race", exact=True)).to_be_visible()
     with page.expect_download() as event:

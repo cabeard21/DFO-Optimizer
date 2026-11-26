@@ -13,10 +13,22 @@ def test_one_click_entry_and_fixed_work_reproduction():
     assert beginner.parse_request({"search": {"wall_seconds": 0, "max_nodes": 5000}})["search"]["wall_seconds"] == 0
 
 
+def test_required_fast_advancement_is_frozen_and_enforced_in_native_admission():
+    assert _parser().parse_args(["build", "recommend", "--require-fast-advancement"]).require_fast_advancement
+    token = beginner.CancelToken()
+    result = beginner.recommend_build({"require_fast_advancement": True, "thoroughness": "quick",
+                                      "search": {"max_nodes": 3_000, "wall_seconds": 0}}, cancel=token)
+    assert result["frozen_request"]["require_fast_advancement"] is True
+    assert result["diagnostics"]["admission"]["proof_scope"]["difficulty_values"] == [-12]
+    assert result["comparisons"]
+    assert all(row["permanent"]["advancement_multiplier"] == 0.30 for row in result["comparisons"])
+
+
 @pytest.mark.parametrize("raw", [
     [], {"thoroughness": "unlimited"}, {"force_plate": False}, {"search": {"max_nodes": False}},
     {"search": {"wall_seconds": float("nan")}}, {"search": {"max_nodes": 0, "wall_seconds": 0}},
     {"search": {"memory_bytes": -1}}, {"search": {"budget_gold": 100}},
+    {"require_fast_advancement": "true"},
 ])
 def test_invalid_inputs_fail_before_any_search(raw):
     with pytest.raises(ValueError):

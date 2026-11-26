@@ -32,6 +32,8 @@ dfo class export --result build/first-spellcaster.json --output build/first-spel
 
 Use `--thoroughness quick` for a smaller class panel or `--thoroughness thorough` for a longer search. Each class faces the same declared opportunities, birth rolls and enemy attacks. The comparison includes acquired weapons and armor, spell-point shortages and opportunities to heal.
 
+Select **Require 0.30× advancement** to restrict the beginner search to the fastest class advancement. On the command line, use `dfo build recommend --require-fast-advancement`.
+
 To start from the measured Standard run, select Khajiit, import the [recommended class](benchmarks/results/m9-standard-recommended.dfclass.json) and follow the [creation checklist](benchmarks/results/m9-standard-recommended-checklist.txt). Its nine compatible plate metals leave room to change equipment later. A [fast-advancing Breton](benchmarks/results/m9-fast-breton.dfclass.json) reached the same cap with about one tenth the practice in the modeled itinerary. The [comparison and qualification record](docs/M9-ACCEPTANCE.md) explains the trade-off and includes both checklists.
 
 ## Discover a spellcaster build
