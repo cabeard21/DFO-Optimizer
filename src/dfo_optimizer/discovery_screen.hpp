@@ -7,6 +7,7 @@ struct TraitFeatures {
 struct GearMasks {
     int materials{}, gear{};
 };
+#include "beginner_admission.hpp"
 struct DiscoveryConfig {
     bool exhaustive{}, stable_examples{};
     uint32_t seed{};
@@ -14,6 +15,15 @@ struct DiscoveryConfig {
     std::array<TraitFeatures, 128> features{};
     std::vector<uint32_t> rolls;
     std::vector<std::vector<GearMasks>> stages;
+    std::vector<BeginnerGate> beginner;
+    void start_beginner() { beginner.emplace_back(); }
+    void beginner_part(int weight) { beginner[0].add_part(weight); }
+    void beginner_weapon(int skill,int materials,int gear) { beginner[0].add_weapon(skill,materials,gear); }
+    void beginner_probe(int weight) { beginner[0].add_probe(weight); }
+    void beginner_probe_weapon(int skill,int materials,int gear) { beginner[0].add_probe_weapon(skill,materials,gear); }
+    void beginner_plate(int weight) { beginner[0].plate_weights.push_back(weight); }
+    void beginner_attack_cost(int index,int cost) { beginner[0].attack_costs[index]=cost; }
+    void beginner_capacity(int cap) { beginner[0].capacity.push_back(cap); }
     void trait(int id, int magery, int metal, int gear, int absorption) {
         features[id] = {magery, metal, gear, absorption};
     }
@@ -25,6 +35,8 @@ struct ScreenFeatures {
     int hp{}, absorption{}, destruction_sum{}, sp_sum{}, speed_sum{};
     std::array<int, 32> eligible{};
     bool pareto{};
+    int headroom{};
+    uint64_t backups{};
 };
 #include "discovery_frontier.hpp"
 struct DiscoveryOutput {
@@ -32,6 +44,7 @@ struct DiscoveryOutput {
     std::vector<ScreenFeatures> features;
     uint64_t unique_screened{}, attempts{};
     uint64_t pareto_overflows{}, pareto_retained{}, pareto_capacity{};
+    uint64_t beginner_admissible{}, beginner_rejections[16]{};
 };
 
 inline uint64_t scramble(uint64_t value) noexcept {
@@ -95,6 +108,9 @@ class DiscoveryScreen {
     std::vector<Seen> seen;
     std::vector<int> seen_buckets;
     int magery_quarters{}, materials{}, gear{};
+    int min_strength{};
+    std::array<bool, 6> can_cast_at_birth{};
+    uint64_t admissible{}, rejections[16]{};
     ScreenFeatures current{};
     uint64_t random_state;
     bool sampled{};
@@ -188,6 +204,7 @@ class DiscoveryScreen {
 
   public:
     uint64_t attempts{};
+    bool has_feasible() const { return cfg.beginner.empty() || admissible != 0; }
     DiscoveryScreen(const Options& options, const DiscoveryConfig& settings)
         : o(options), cfg(settings), random_state(settings.seed) {}
     size_t work_bytes() const {
@@ -203,6 +220,7 @@ class DiscoveryScreen {
                 bytes += (FeatureFrontier::capacity_for(race_slots(int(i))) + 1) * sizeof(FeaturePoint);
         if (sampling())
             bytes += 20 * sizeof(std::array<int, 66>);
+        if (!cfg.beginner.empty()) bytes+=cfg.beginner[0].bytes();
         return bytes;
     }
     void initialize() {
@@ -222,7 +240,7 @@ class DiscoveryScreen {
         for (size_t i = 0; i < o.races.size(); ++i) {
             race_index[o.races[i]] = int(i);
             if (!cfg.stable_examples)
-                frontiers[i].initialize(race_slots(int(i)), int(cfg.stages.size()));
+                frontiers[i].initialize(race_slots(int(i)), int(cfg.stages.size()),!cfg.beginner.empty());
         }
         for (int i = 11; i >= 0; --i) {
             suffix_skills[i] = suffix_skills[i + 1];
@@ -293,14 +311,34 @@ class DiscoveryScreen {
     void prepare_stats(const Candidate& c) {
         current.sp_sum = 0;
         current.speed_sum = 0;
+        min_strength=100;
+        if (!cfg.beginner.empty()) can_cast_at_birth.fill(true);
         for (const auto& t : tapes) {
             auto attrs = t.attribute_bonus;
             for (int i = 0; i < 8; ++i)
                 attrs[i] += c.attributes[i];
-            for (int point = 0; point < t.pool; ++point)
-                ++*std::min_element(attrs.begin(), attrs.end());
+            if (cfg.beginner.empty()) {
+                for (int point = 0; point < t.pool; ++point)
+                    ++*std::min_element(attrs.begin(), attrs.end());
+            } else {
+                // Same declared allocation as beginner_progression._birth.
+                int left = t.pool;
+                const int endurance = std::min({4, left, 100 - attrs[4]});
+                attrs[4] += endurance;
+                left -= endurance;
+                for (const int slot : {1, 6, 2, 4, 0, 3, 5, 7}) {
+                    const int extra = std::min(left, 100 - attrs[slot]);
+                    attrs[slot] += extra;
+                    left -= extra;
+                }
+                const int sp=attrs[1]*magery_quarters/4;
+                for (int i=0;i<6;++i)
+                    can_cast_at_birth[i] = can_cast_at_birth[i] &&
+                        cfg.beginner[0].attack_costs[(i/3)*41 + t.career[i]] <= sp;
+            }
             current.sp_sum += attrs[1] * magery_quarters / 4;
             current.speed_sum += attrs[6];
+            min_strength=std::min(min_strength,attrs[0]);
         }
     }
     void keep(const Candidate& c) {
@@ -314,6 +352,13 @@ class DiscoveryScreen {
         const uint64_t hash = identity(c);
         if (!first_visit(c, hash))
             return;
+        if (!cfg.beginner.empty()) {
+            int code=cfg.beginner[0].verdict(c,materials,gear,min_strength,current.headroom,current.backups);
+            const auto destruction=std::find(c.skills,c.skills+6,22)-c.skills;
+            if (destruction==6 || !can_cast_at_birth[destruction]) code|=8;
+            if (code) { ++rejections[code]; return; }
+            ++admissible;
+        }
         frontiers[race_index[c.race]].retain(c, current, hash);
         for (int p = buckets[hash % buckets.size()]; p >= 0; p = entries[p].next)
             if (entries[p].identity == hash && equal(c, entries[p].candidate))
@@ -356,6 +401,8 @@ class DiscoveryScreen {
     void finish(DiscoveryOutput& result) {
         result.unique_screened = sampling() ? seen.size() : result.visited.leaves;
         result.attempts = attempts;
+        result.beginner_admissible=admissible;
+        std::copy(rejections,rejections+16,result.beginner_rejections);
         result.visited.best.reserve(o.k);
         result.features.reserve(o.k);
         std::array<const FeaturePoint*, 8> shared{};

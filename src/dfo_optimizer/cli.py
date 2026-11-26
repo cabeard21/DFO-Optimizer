@@ -64,7 +64,7 @@ def _parser():
         cmd.add_argument("--race", type=int, help="external race ID")
     export = _command(classes, "export", "Write a validated v1 game class document")
     source = export.add_mutually_exclusive_group(required=True)
-    source.add_argument("--result", type=Path, help="class optimize result file")
+    source.add_argument("--result", type=Path, help="class search or beginner recommendation result")
     source.add_argument("--class", "--input", dest="document", type=Path, help="game class document")
     selection = export.add_mutually_exclusive_group()
     selection.add_argument("--class-id", help="stable candidate ID in the result")
@@ -102,6 +102,9 @@ def _parser():
     progression = commands.add_parser("progression").add_subparsers(dest="action", required=True)
     builds = commands.add_parser("build").add_subparsers(dest="action", required=True)
     _command(builds, "baselines", "List verified comparison class inputs and profile exclusions")
+    first = _command(builds, "recommend", "Recommend a beginner spellcaster on paired progression and combat scenarios")
+    first.add_argument("--request", type=Path, help="optional beginner request JSON")
+    first.add_argument("--thoroughness", choices=("quick", "standard", "thorough"))
     books = commands.add_parser("spellbook").add_subparsers(dest="action", required=True)
     fights = commands.add_parser("encounter").add_subparsers(dest="action", required=True)
     enemy = _command(fights, "import-enemy", "Read a local classic enemy career and observed HP", ruleset=False)
@@ -129,7 +132,7 @@ def _parser():
     compare = _command(builds, "compare", "Compare lifecycle results under their frozen assumptions")
     compare.add_argument("--plans", type=Path, nargs="+", required=True)
     bench = _command(commands, "benchmark", "Run the serial native benchmark suite", ruleset=False)
-    bench.add_argument("--suite", choices=["foundation", "smoke", "combat", "progression", "lifecycle", "encounter", "discovery"], default="smoke")
+    bench.add_argument("--suite", choices=["foundation", "smoke", "combat", "progression", "lifecycle", "encounter", "discovery", "beginner"], default="smoke")
     bench.add_argument("--workers", type=int, choices=[1], default=1)
     return parser
 
@@ -143,6 +146,10 @@ def _export_source(args, bundle):
     if not isinstance(result, dict) or result.get("ruleset_hash") != bundle["content_hash"]:
         raise ValueError("The search result must use the selected ruleset.")
     candidates = result.get("candidates")
+    if result.get("kind") == "beginner_recommendation":
+        rows = [result.get("recommendation"), *result.get("alternatives", [])]
+        candidates = [{"class_id": r.get("id"), "race_id": r.get("race_id"), "class_doc": r.get("class")}
+                      for r in rows if isinstance(r, dict)]
     if not isinstance(candidates, list) or any(not isinstance(c, dict) for c in candidates):
         raise ValueError("Malformed search result candidate list.")
     if args.class_id is not None:
@@ -241,6 +248,15 @@ def _protect_planning_inputs(request, directory, destination):
 def _planning(args, bundle):
     from functools import partial
     from .ruleset import validate_progression_ruleset
+    if args.action == "recommend":
+        from .beginner import CancelToken, recommend_build
+        request = {} if args.request is None else _input(args.request)
+        if not isinstance(request, dict):
+            raise ValueError("Beginner request must be a JSON object")
+        if args.thoroughness:
+            request = {**request, "thoroughness": args.thoroughness}
+        result = _interruptible_search(recommend_build, CancelToken, request, bundle)
+        return result, 130 if result["termination"] == "cancelled" else 0
     if args.action == "baselines":
         validate_progression_ruleset(bundle)
         from .build_baselines import baseline_catalog
@@ -298,6 +314,9 @@ def _dispatch(args):
     from . import ruleset
 
     if args.command == "benchmark":
+        if args.suite == "beginner":
+            from .beginner_benchmark import run_beginner_benchmark
+            return run_beginner_benchmark(), 0
         if args.suite == "discovery":
             from .discovery_benchmark import run_discovery_benchmark
             report = run_discovery_benchmark()

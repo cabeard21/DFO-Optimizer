@@ -1,0 +1,108 @@
+{
+  "version": "0.6.0",
+  "host": {
+    "os": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
+    "architecture": "x86_64",
+    "cpu": "AMD Ryzen 5 5600X 6-Core Processor",
+    "logical_cpus": 1,
+    "python": "3.12.3",
+    "python_compiler": "GCC 13.3.0"
+  },
+  "ruleset_hash": "d639d137937f8c42e3f26d281785defb44fb5071e9c2da179de4a8320401d5b1",
+  "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+  "source_archive_sha256": "768c8326d2291429d78cd58f45773473e5ddec73343ae9862e4d0200cf4fb93f",
+  "wheel": {
+    "name": "dfo_optimizer-0.6.0-cp312-cp312-linux_x86_64.whl",
+    "sha256": "44a1c3447de48c3e4a2a831ed4b8d92fef626ba292334fd58c853d94f4f60e77"
+  },
+  "tests": {
+    "passed": 860,
+    "skipped": 0,
+    "elapsed_seconds": 451.43,
+    "python_line_coverage_percent": 91.47
+  },
+  "source_checks": [
+    "Verified 196 installed files from /home/m8/release-768c8326d2291429d78cd58f45773473e5ddec73343ae9862e4d0200cf4fb93f/source/dist/dfo_optimizer-0.6.0-cp312-cp312-linux_x86_64.whl",
+    "Verified 27 class vectors and 25 numeric vectors",
+    "Verified 9452 upstream-exported bytes",
+    "Verified 19 spell distributions and 6 cast host scenarios",
+    "Verified equipment.json",
+    "Verified equipment_oracle.json",
+    "Verified 30 specialization pairs, 136 gameplay cases, and a source-created character.",
+    "Verified beginner class source fixtures",
+    "Verified 328 physical blows and 68 swing schedules."
+  ],
+  "benchmarks": {
+    "smoke": {
+      "sha256": "c120bbb3a652793fc68ae8d86910ca0bf83fa519d4904a4cb8ab157a72f3ffc6",
+      "file": "smoke.json"
+    },
+    "combat": {
+      "sha256": "1bba9dec2e5474d344c3f254d4830406a191cf756633672a2eac53e9d09d50fd",
+      "file": "combat.json"
+    },
+    "progression": {
+      "sha256": "e30671af8036f11a52156e2ca0dbfcf09b35c4f3606bd19c94f0f256e0d0a81d",
+      "file": "progression.json"
+    },
+    "lifecycle": {
+      "sha256": "a8e225c5ca1cdcf8eb9f5a7215677b4fd1a985efc965cf45cea70ce16f872a1a",
+      "file": "lifecycle.json"
+    },
+    "encounter": {
+      "sha256": "ce14362e9739c9593c5b79e00839bf6b720577306417c17f8d03efc9485eef4a",
+      "file": "encounter.json"
+    },
+    "discovery": {
+      "sha256": "57a08c2cb0170afe24d7dc2521c9ee1e298551a0979835caa13fecda5aced822",
+      "file": "discovery.json",
+      "passed": true
+    },
+    "beginner": {
+      "sha256": "fd70f4263414a97f7e59e7c9b12a2a44d13cab5dd2315bbe9b598841da63da22",
+      "file": "ubuntu-m9-beginner.json",
+      "held_out": {
+        "2": {
+          "comparisons": 3,
+          "missing_recommendations": 0,
+          "winning_metric_recovery_rate": 1.0,
+          "deterministic_winner_recovery_rate": 0.3333333333333333,
+          "mean_pareto_recall": 0.8333333333333334,
+          "worst_first_loss_by_axis": {}
+        },
+        "4": {
+          "comparisons": 3,
+          "missing_recommendations": 0,
+          "winning_metric_recovery_rate": 1.0,
+          "deterministic_winner_recovery_rate": 0.6666666666666666,
+          "mean_pareto_recall": 1.0,
+          "worst_first_loss_by_axis": {}
+        }
+      },
+      "determinism": {
+        "panel": "development",
+        "size": 2,
+        "same_ranked_result": true,
+        "same_screening": true,
+        "result_hash": "008de963c9cd5ced6f02d57992093dd7c44bce73578499f16bfa3c2a3b83d266"
+      }
+    },
+    "browser-timings": {
+      "sha256": "607fa873daa1d5cbead7cab94184b090122e17e54bb856ffcee352e55a892e3a",
+      "file": "ubuntu-m9-browser-timings.json"
+    },
+    "native-coverage": {
+      "sha256": "e26e32b628c535d67c04867341f4631bbcde7b475b841356bb5191cc2c447195",
+      "file": "ubuntu-m9-native-coverage.json",
+      "line_percent": 97.2318339100346,
+      "test_overlay": {
+        "file": "tests/test_beginner_benchmark.py",
+        "sealed_test_sha256": "eb797d93d0350e9e7b180106d16991d03b2ef198ce07d499053e9872a4f85b3c",
+        "qualified_test_sha256": "2478a0f05a8a4f1586d7ac33fc3be7e2021f00c2a0600405cf66ab9d6a1fccfd",
+        "change": "Stub installed-wheel metadata in the synthetic benchmark test. Production solver and native sources unchanged.",
+        "initial_run": "Instrumented production run passed all other tests. The synthetic orchestration test looked up package metadata absent in the development-only interpreter."
+      },
+      "tests": "552 passed"
+    }
+  }
+}

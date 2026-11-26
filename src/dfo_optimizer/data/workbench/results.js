@@ -1,4 +1,5 @@
 import {action,disclosure,el,facts,field,format,graph,metrics,nameOf,panel,pretty,replayAction,resultRows,select,table} from "./view.js";
+import {recommendationPane} from "./beginner.js";
 import {retainNumbers,stringifyDocument} from "./exact-json.js";
 
 function note(value) {
@@ -90,7 +91,7 @@ export function resultsPane(session,handlers){
   const job=session.job;
   if(!job)return panel("Results",[el("p","Run the selected request to inspect its legal results and search coverage.","empty")]);
   const completed=["completed","cancelled","failed"].includes(job.state);
-  const usePreview=Boolean(job.incumbent&&(!job.result||job.state==="cancelled"&&!resultRows(job.result).length));
+  const usePreview=Boolean(job.incumbent&&(!job.result||job.state==="cancelled"&&!job.result.recommendation&&!resultRows(job.result).length));
   const result=usePreview?job.incumbent:job.result;
   const head=[el("span",pretty(job.state),"state")];
   if(!completed)head.push(action("Cancel search",handlers.cancel));
@@ -100,6 +101,21 @@ export function resultsPane(session,handlers){
   if(session.changed)children.push(el("p","Inputs have changed since this search was submitted.","warning"));
   if(job.progress?.phase&&!job.result)children.push(el("p",pretty(job.progress.phase),"note"));
   if(!result)return panel("Search progress",children);
+  if(result.kind==="beginner_recommendation"){
+    const buttons=el("div",null,"actions");
+    const controls={...handlers,
+      exportFamily:key=>handlers.exportFamily(key,usePreview),exportChecklist:key=>handlers.exportChecklist(key,usePreview)};
+    if(usePreview){
+      children.push(el("p","First checked recommendation. The search is still comparing classes.","note"));
+      buttons.append(action("Export validated preview",handlers.exportPreview));
+    }else{
+      buttons.append(action("Save to library",handlers.save),action("Export archive",handlers.exportArchive),
+                     action("Replay result",handlers.replay));
+    }
+    const container=el("div");
+    container.append(...children,recommendationPane(result,controls,session),buttons);
+    return container;
+  }
   if(usePreview)children.push(el("p",completed?"Last independently validated preview.":"First validated result. Search is running.","note"),
     action("Export validated preview",handlers.exportPreview));
   const rows=[...resultRows(result),...(result.comparison_witnesses??[])];

@@ -10,6 +10,7 @@ using Clock = std::chrono::steady_clock;
 struct Cancel {
     std::atomic<bool> requested{false}, incumbent{false};
     void cancel() noexcept { requested.store(true,std::memory_order_relaxed); }
+    bool cancelled() const noexcept { return requested.load(std::memory_order_relaxed); }
     bool has_incumbent() const noexcept { return incumbent.load(std::memory_order_relaxed); }
 };
 struct Goal {

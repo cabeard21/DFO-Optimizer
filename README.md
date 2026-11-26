@@ -18,6 +18,22 @@ python3.12 -m venv .venv
 .venv/bin/dfo class optimize --top 1 --output build/example.json
 ```
 
+## Create your first spellcaster
+
+Run `dfo ui` and choose **Recommend My First Spellcaster**. The default comparison has a two-minute budget. Read the recommended race and starting equipment, download the game class, and follow the printable checklist when assigning your bonuses. Race is selected separately in the game. The result also explains what the character gives up and which later choices you can postpone.
+
+The same service can create, check and export the recommendation from the command line.
+
+```sh
+dfo build recommend --output build/first-spellcaster.json
+dfo build replay --plan build/first-spellcaster.json
+dfo class export --result build/first-spellcaster.json --output build/first-spellcaster.dfclass.json
+```
+
+Use `--thoroughness quick` for a smaller class panel or `--thoroughness thorough` for a longer search. Each class faces the same declared opportunities, birth rolls and enemy attacks. The comparison includes acquired weapons and armor, spell-point shortages and opportunities to heal.
+
+To start from the measured Standard run, select Khajiit, import the [recommended class](benchmarks/results/m9-standard-recommended.dfclass.json) and follow the [creation checklist](benchmarks/results/m9-standard-recommended-checklist.txt). Its nine compatible plate metals leave room to change equipment later. A [fast-advancing Breton](benchmarks/results/m9-fast-breton.dfclass.json) reached the same cap with about one tenth the practice in the modeled itinerary. The [comparison and qualification record](docs/M9-ACCEPTANCE.md) explains the trade-off and includes both checklists.
+
 ## Discover a spellcaster build
 
 Run `dfo ui` and select **Discover Spellcaster Build**. Start with the two-minute Overall PvE search, then compare funded spells, loadouts and progression effort on the same birth rolls. Each preset displays its world assumptions. The practical itinerary assumes specific access to practice, rest and purchases. The theoretical equipment preset supplies a separate finite item pool.

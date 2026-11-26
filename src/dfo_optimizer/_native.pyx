@@ -1,6 +1,7 @@
 # cython: language_level=3
 """Coarse-grained native calls. All Python conversions happen outside traversal."""
 import math
+from time import perf_counter
 from array import array
 
 import cython
@@ -58,20 +59,75 @@ cdef extern from "class_search.hpp" namespace "dfo":
         void trait(int,int,int,int,int)
         void add_stage() except +
         void item(int,int) except +
+        void start_beginner() except +
+        void beginner_part(int) except +
+        void beginner_weapon(int,int,int) except +
+        void beginner_probe(int) except +
+        void beginner_probe_weapon(int,int,int) except +
+        void beginner_plate(int) except +
+        void beginner_attack_cost(int,int) except +
+        void beginner_capacity(int) except +
     cdef cppclass ScreenFeatures:
         int hp, absorption, destruction_sum, sp_sum, speed_sum
         int eligible[32]
         cppbool pareto
+        int headroom
+        uint64_t backups
+    cdef cppclass BeginnerPanel:
+        void add(int,int,const vector[int]&,const vector[int]&,uint64_t,int,int,double) except +
+        vector[int] select(int,const vector[int]&,const CancelFlag&,double) except + nogil
     cdef cppclass DiscoveryOutput:
         Output visited
         vector[ScreenFeatures] features
         uint64_t unique_screened, attempts, pareto_overflows, pareto_retained, pareto_capacity
+        uint64_t beginner_admissible
+        uint64_t beginner_rejections[16]
     DiscoveryOutput discover(const Options&,CancelFlag&,const DiscoveryConfig&) except + nogil
     int hp_points(int hp) noexcept nogil
 
 
 def build_info():
     return {"compiler": dfo_compiler().decode("ascii"), "flags": dfo_flags().decode("ascii")}
+
+
+def beginner_panel(rows, prior, cap, CancelToken cancel=None, wall_seconds=0.0):
+    """Merge the retained outputs of disjoint class-cost searches with stable diversity."""
+    cdef BeginnerPanel panel
+    cdef vector[int] traits, skills, initial, selected
+    cdef int k = _whole(cap,1,10000,"beginner panel size")
+    cdef CancelToken token = CancelToken() if cancel is None else cancel
+    cdef double seconds=wall_seconds
+    if type(wall_seconds) not in (int,float) or not math.isfinite(seconds) or seconds<0:
+        raise ValueError("invalid panel time limit")
+    started=perf_counter()
+    if not isinstance(rows,(list,tuple)) or len(rows)>530000:
+        raise ValueError("invalid beginner panel")
+    for i,(target,row) in enumerate(rows):
+        if not (i & 255) and (token.cancelled() or (seconds and perf_counter()-started>=seconds)):
+            return []
+        target = _whole(target,-12,40,"difficulty")
+        race = _whole(row["race"],1,8,"race")
+        traits = _domain(row["traits"],0,127,"traits")
+        skills = _domain(row["skills"],0,34,"skills")
+        if traits.size()>14 or skills.size()!=12:
+            raise ValueError("invalid panel traits or skills")
+        screen = row["screen"]
+        backup = _whole(screen["usable_backup_skill_mask"],0,(1<<35)-1,"backup mask")
+        headroom = _whole(screen["minimum_headroom_units"],0,1000000,"headroom")
+        gear = _whole(sum(screen["eligible_stage_items"]),0,100000,"gear count")
+        sp = screen["mean_birth_sp"]
+        if type(sp) not in (int,float) or not 0<=sp<=300:
+            raise ValueError("invalid panel SP")
+        panel.add(target,race,traits,skills,backup,headroom,gear,sp)
+    if not isinstance(prior,(tuple,list)) or len(set(prior))!=len(prior) or len(prior)>k:
+        raise ValueError("invalid previous beginner panel")
+    for index in prior:
+        initial.push_back(_whole(index,0,len(rows)-1,"previous panel index"))
+    if seconds:
+        seconds=max(1e-12,seconds-(perf_counter()-started))
+    with nogil:
+        selected=panel.select(k,initial,token.flag,seconds)
+    return selected
 
 
 cdef bint _same_json_tree(object value, object reference, int depth):
@@ -245,13 +301,45 @@ cdef uint64_t _skill_mask(values):
     return bits
 
 
+cdef void _starter_tables(DiscoveryConfig& config, object tables) except *:
+    if not isinstance(tables,dict) or set(tables)!={"parts","probes","plate_weights","capacity","attack_costs"}:
+        raise ValueError("invalid beginner creation tables")
+    for key,size in (("parts",144),("probes",864),("plate_weights",10),("capacity",101),("attack_costs",82)):
+        if not isinstance(tables[key],(tuple,list)) or len(tables[key])!=size:
+            raise ValueError("invalid beginner table length")
+    config.start_beginner()
+    for index, cost in enumerate(tables["attack_costs"]):
+        config.beginner_attack_cost(index,_whole(cost,1,100000,"starter damage spell cost"))
+    for units in tables["plate_weights"]:
+        config.beginner_plate(_whole(units,0,1000000,"cuirass weight"))
+    for units in tables["capacity"]:
+        config.beginner_capacity(_whole(units,0,1000000,"capacity"))
+    for key in ("parts","probes"):
+        for weight,weapons in tables[key]:
+            weight = _whole(weight,0,1000000,"kit weight")
+            if key == "parts":
+                config.beginner_part(weight)
+            else:
+                config.beginner_probe(weight)
+            if not isinstance(weapons,(list,tuple)) or len(weapons)>64:
+                raise ValueError("invalid birth weapon rows")
+            for skill,material,gear in weapons:
+                skill = _whole(skill,0,34,"weapon skill")
+                material = _whole(material,0,1023,"material mask")
+                gear = _whole(gear,0,63,"weapon mask")
+                if key == "parts":
+                    config.beginner_weapon(skill,material,gear)
+                else:
+                    config.beginner_probe_weapon(skill,material,gear)
+
+
 cdef dict _discover(Options& options, CancelToken token, object raw):
     cdef DiscoveryConfig config
     cdef DiscoveryOutput output
     cdef ScreenFeatures features
     cdef size_t index
     allowed = {"exhaustive", "seed", "required_masteries", "required_skills", "roll_seeds",
-               "trait_features", "stage_items", "stable_examples"}
+               "trait_features", "stage_items", "stable_examples","beginner"}
     if not isinstance(raw, dict) or set(raw) - allowed:
         raise ValueError("invalid native discovery options")
     exhaustive = raw.get("exhaustive", False)
@@ -262,6 +350,9 @@ cdef dict _discover(Options& options, CancelToken token, object raw):
     if type(examples) is not bool:
         raise ValueError("stable_examples must be boolean")
     config.stable_examples = examples
+    if "beginner" in raw:
+        if examples: raise ValueError("beginner gates require mechanics screening")
+        _starter_tables(config,raw["beginner"])
     config.seed = _whole(raw.get("seed", 42), 0, 2**32-1, "screen seed")
     config.required_masteries = _skill_mask(raw.get("required_masteries", []))
     config.required_skills = _skill_mask(raw.get("required_skills", []))
@@ -311,6 +402,12 @@ cdef dict _discover(Options& options, CancelToken token, object raw):
             "eligible_stage_items": [features.eligible[i] for i in range(len(stages))],
             "pareto_representative": bool(features.pareto),
         }
+        if "beginner" in raw:
+            decoded["results"][index]["screen"]["minimum_headroom_units"]=features.headroom
+            decoded["results"][index]["screen"]["usable_backup_skill_mask"]=features.backups
+    if "beginner" in raw:
+        decoded["beginner_admissible"]=output.beginner_admissible
+        decoded["beginner_rejections"]=[output.beginner_rejections[i] for i in range(16)]
     decoded["unique_screened"] = output.unique_screened
     decoded["attempts"] = output.attempts
     decoded["pareto_overflows"] = output.pareto_overflows

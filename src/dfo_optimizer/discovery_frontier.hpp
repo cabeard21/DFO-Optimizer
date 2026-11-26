@@ -12,11 +12,12 @@ struct FeaturePoint {
 // here do not establish equivalence or dominance of feasible downstream builds.
 class FeatureFrontier {
     static constexpr int maximum = 64;
-    int limit{}, stages{};
+    int limit{}, stages{}, first_axis{};
     std::vector<FeaturePoint> points;
 
     static int coordinate(const ScreenFeatures& f, int axis) {
         switch (axis) {
+        case -1: return f.headroom;
         case 0:
             return f.sp_sum;
         case 1:
@@ -33,7 +34,7 @@ class FeatureFrontier {
     }
     int relation(const ScreenFeatures& candidate, const ScreenFeatures& incumbent) const {
         bool higher = false, lower = false;
-        for (int j = 0; j < 5 + stages; ++j) {
+        for (int j = first_axis; j < 5 + stages; ++j) {
             const int a = coordinate(candidate, j), b = coordinate(incumbent, j);
             higher |= a > b;
             lower |= a < b;
@@ -51,7 +52,7 @@ class FeatureFrontier {
         const size_t n = points.size();
         for (size_t i = 0; i < n; ++i)
             order[i] = i;
-        for (int axis = 0; axis < 5 + stages; ++axis) {
+        for (int axis = first_axis; axis < 5 + stages; ++axis) {
             auto value = [&](size_t i) { return coordinate(points[i].features, axis); };
             std::sort(order.begin(), order.begin() + n, [&](size_t i, size_t j) {
                 const int a = value(i), b = value(j);
@@ -76,7 +77,8 @@ class FeatureFrontier {
   public:
     uint64_t overflows{};
     static int capacity_for(int race_slots) { return std::min(maximum, (race_slots + 1) / 2); }
-    void initialize(int race_slots, int stage_count) {
+    void initialize(int race_slots, int stage_count, bool beginner=false) {
+        first_axis=beginner ? -1 : 0;
         limit = capacity_for(race_slots);
         stages = stage_count;
         points.reserve(limit + 1);

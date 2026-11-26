@@ -6,7 +6,9 @@
 #include <bitset>
 #include <chrono>
 #include <cstdint>
+#include <cstdlib>
 #include <limits>
+#include <map>
 #include <vector>
 
 namespace dfo {
@@ -149,11 +151,14 @@ template<bool discovering> class Search : private SearchMode<discovering> {
     }
 
     void keep() {
-        if (!out.leaves) out.first_seconds = elapsed();
+        if (!screen && !out.leaves) out.first_seconds = elapsed();
         current.ordinal = out.leaves++;
         if (screen) {
             screen->keep(current);
-            if (out.leaves==1) cancel.has_result.store(true,std::memory_order_relaxed);
+            if (out.first_seconds < 0 && screen->has_feasible()) {
+                out.first_seconds = elapsed();
+                cancel.has_result.store(true,std::memory_order_relaxed);
+            }
             if (screen->have_examples(out.leaves)) out.end=top_k;
             return;
         }

@@ -102,12 +102,12 @@ def _paths(raw,blockers,rules,speed):
     return PATH_IDS.get(arcane,0),MARTIAL_IDS.get(martial,0),speed
 
 
-def _actor(raw,blockers,rules):
+def _actor(raw,blockers,rules,requires_book=True):
     extras={"hp","max_hp","school_live","school_climb","school_trained","path","mastered","unsupported_effects",
-            "defense","wellspring_items","wards","known_signature_indices","martial_path","path_evidence"}
+            "defense","wellspring_items","wards","known_signature_indices","martial_path","path_evidence","physical"}
     _object(raw,"actor",set(SpellCaster.__dataclass_fields__)|extras)
     caster=_caster({k:v for k,v in raw.items() if k not in extras})
-    if caster.has_spellbook is not True:
+    if requires_book and caster.has_spellbook is not True:
         blockers.append("repeatable casting policies require an observed spellbook")
     for key in ("level","speed","current_sp","max_sp","destruction_live","climb",*MODS):
         if getattr(caster,key) is None:
@@ -145,9 +145,9 @@ def _actor(raw,blockers,rules):
                 wellspring_pct=min(10,total)),live,climb
 
 
-def _spellbook(raw,actor,live,climb,trained,blockers,catalog,owned):
+def _spellbook(raw,actor,live,climb,trained,blockers,catalog,owned,backup=False):
     ids,spells=[],[]
-    for spell in array(raw,"spells",1,256):
+    for spell in array(raw,"spells",0 if backup else 1,256):
         _object(spell,"spell",("id","effects","element","range_type","evidence","signature"))
         ids.append(label(spell.get("id"),"spell.id"))
         element=_int(spell.get("element"),"element",0,4)
@@ -231,17 +231,26 @@ def _enemies(raw,horizon,blockers):
     return results
 
 
-def _rooms(raw,actor,enemies,horizon):
+def _rooms(raw,actor,enemies,horizon,ids,spells):
     if "rooms" not in raw: return []
     if raw.get("recovery"): raise ValueError("explicit rooms require recovery at room transitions")
     rooms,labels,assigned=[],[],[]
     for i,room in enumerate(array(raw["rooms"],"rooms",1,len(enemies))):
-        _object(room,"room",("id","enemies","delay_us","rest_hp","rest_sp","evidence"))
+        _object(room,"room",("id","enemies","delay_us","rest_hp","rest_sp","heal_spell","evidence"))
         labels.append(label(room.get("id"),"room id"))
         members=[_int(j,"room enemy",0,len(enemies)-1) for j in array(room.get("enemies"),"room enemies",1,len(enemies))]
         delay=_int(room.get("delay_us",0),"room delay",0,horizon if i else 0)
         out={"enemies":members,"delay_us":delay}
         assigned.extend(members)
+        if "heal_spell" in room:
+            label(room.get("evidence"),"protected casting opportunity",2048)
+            if not delay or "rest_sp" in room or room["heal_spell"] not in ids:
+                raise ValueError("Room heal requires a positive interval and a known spell without a simultaneous refill")
+            index=ids.index(room["heal_spell"])
+            spell=spells[index]
+            if spell["range_type"]!=0 or not all(e["type"]==10 and e["subtype"]==8 for e in spell["effects"]):
+                raise ValueError("Room recovery supports immediate self Heal Health only")
+            out["heal_spell"]=index
         if {"rest_hp","rest_sp"} & set(room):
             if not delay or not {"rest_hp","rest_sp"}<=set(room): raise ValueError("room rest requires two floors and positive duration")
             label(room.get("evidence"),"protected room rest evidence",2048)
@@ -255,7 +264,7 @@ def _rooms(raw,actor,enemies,horizon):
 
 def _scenario(raw,actor,blockers,ids,spells):
     _object(raw,"scenario",("id","horizon_us","first_round_us","round_period_us","enemies","incoming",
-                            "recovery","tape","evidence","unsupported_mechanics","rooms"))
+                            "recovery","tape","evidence","unsupported_mechanics","rooms","physical","allow_wait"))
     label(raw.get("id"),"scenario.id")
     label(raw.get("evidence"),"scenario.evidence",2048)
     horizon=_int(raw.get("horizon_us"),"horizon_us",1,3_600_000_000)
@@ -263,10 +272,14 @@ def _scenario(raw,actor,blockers,ids,spells):
     incoming=[]
     for row in array(raw.get("incoming",[]),"incoming",0,100_000):
         _object(row,"incoming",("time_us","source","damage","kind","spell","evidence"))
-        if row.get("kind") not in ("blow","spell","bundle"): raise ValueError("unknown incoming kind")
+        if row.get("kind") not in ("blow","spell","bundle","melee"): raise ValueError("unknown incoming kind")
         event=dict(time_us=_int(row.get("time_us"),"incoming time_us",0,horizon),
             source=_int(row.get("source"),"incoming source",0,len(enemies)-1),kind=row["kind"])
-        if event["kind"]=="bundle":
+        if event["kind"]=="melee":
+            if "physical" not in raw or "damage" in row or "spell" in row:
+                raise ValueError("Melee requires ordinary physical actors and an unresolved swing")
+            label(row.get("evidence"),"incoming melee opportunity",2048)
+        elif event["kind"]=="bundle":
             if "damage" in row or row.get("spell") not in ids: raise ValueError("incoming bundle requires a known spell ID")
             label(row.get("evidence"),"observed enemy spell landing",2048)
             event["spell"]=ids.index(row["spell"])
@@ -301,24 +314,25 @@ def _scenario(raw,actor,blockers,ids,spells):
         blockers.append("unresolved scenario mechanic "+label(tag,"unsupported mechanic"))
     tape=[_float(v,"draw",0,1) for v in array(raw.get("tape",[]),"tape",0,100000)]
     if any(v==1 for v in tape): raise ValueError("random draw must be below one")
-    rooms=_rooms(raw,actor,enemies,horizon)
+    rooms=_rooms(raw,actor,enemies,horizon,ids,spells)
     first=_int(raw.get("first_round_us",5_000_000),"first_round_us",0,60_000_000)
     period=_int(raw.get("round_period_us",5_000_000),"round_period_us",1,60_000_000)
     if period!=5_000_000 or first>period:
         blockers.append("ordinary world magic rounds require five seconds between ticks and a phase in [0,5s]")
     return dict(**actor,horizon_us=horizon,enemies=enemies,incoming=sorted(incoming,key=lambda x:x["time_us"]),
                 **({"rooms":rooms} if rooms else {}),
+                **({"allow_wait":True} if raw.get("allow_wait") else {}),
                 recovery=sorted(rec,key=lambda x:x["time_us"]),tape=tape,
                 first_round_us=first,round_period_us=period)
 
 
-def _policies(raw,spell_ids,n):
+def _policies(raw,spell_ids,n,backup=False):
     ids,policies=[],[]
     for item in array(raw,"policies",1,65536):
         _object(item,"policy",("id","rules"))
         ids.append(label(item.get("id"),"policy.id"))
         rules=[]
-        for r in array(item.get("rules"),"priority rules",1,128):
+        for r in array(item.get("rules"),"priority rules",0 if backup else 1,128):
             _object(r,"policy rule",("spell","target","hp_below_pct","sp_below_pct","shield_below"))
             name=label(r.get("spell"),"spell reference")
             if name not in spell_ids: raise ValueError("unknown policy spell "+name)
@@ -345,13 +359,39 @@ def freeze_encounter(request,ruleset=None):
     _int(raw.get("schema_version",1),"schema_version",1,1)
     if raw.get("ruleset_hash",rules["content_hash"])!=rules["content_hash"]: raise ValueError("encounter ruleset mismatch")
     blockers=[]
-    actor,live,climb=_actor(raw.get("actor"),blockers,rules)
+    scene=raw.get("scenario")
+    if not isinstance(scene,dict): raise ValueError("scenario must be an object")
+    allow_wait=scene.get("allow_wait",False)
+    if type(allow_wait) is not bool: raise ValueError("scenario.allow_wait must be a boolean")
+    spec=scene.get("physical")
+    backup=allow_wait or isinstance(spec,dict) and spec.get("fallback") is True
+    # Hostile bundles can land without a player spellbook. Protected room heals still require one.
+    rooms=scene.get("rooms",[])
+    policies=raw.get("policies",[])
+    no_heals=isinstance(rooms,list) and not any(isinstance(room,dict) and "heal_spell" in room for room in rooms)
+    idle=backup and no_heals and isinstance(policies,list) and all(isinstance(p,dict) and p.get("rules")==[] for p in policies)
+    actor,live,climb=_actor(raw.get("actor"),blockers,rules,requires_book=raw.get("spells")!=[] and not idle)
     trained=_object(raw["actor"].get("school_trained",{}),"school_trained",("mysticism","restoration"))
     trained={k:_int(v,k,0,200) for k,v in trained.items()}
     owned=unique([_int(n,"owned signature",-(2**31),-1) for n in array(
         raw["actor"].get("known_signature_indices",[]),"owned signature indices",0,128)],"signature index")
-    ids,spells=_spellbook(raw.get("spells"),actor,live,climb,trained,blockers,rules["encounter_paths"],owned)
+    ids,spells=_spellbook(raw.get("spells"),actor,live,climb,trained,blockers,rules["encounter_paths"],owned,backup)
     scenario=_scenario(raw.get("scenario"),actor,blockers,ids,spells)
+    if spec is not None or "physical" in raw["actor"]:
+        from .physical_encounter import freeze_physical
+        physical=freeze_physical(raw["actor"].get("physical"),spec,len(scenario["enemies"]))
+        scenario["physical"]=physical
+        if physical["actors"][0]["level"]!=actor["caster"]["level"] or physical["actors"][0]["stats"][6]!=actor["caster"]["speed"]:
+            raise ValueError("Physical level and Speed must agree with the encounter actor")
+        if "defense" in raw["actor"] and physical["actors"][0]["stats"][2]!=actor["caster"]["willpower"]:
+            raise ValueError("The physical actor and spell defense must share the same Willpower")
+        for fighter,enemy in zip(physical["actors"][1:],scenario["enemies"],strict=True):
+            if (fighter["level"],fighter["stats"][2])!=(enemy["level"],enemy["willpower"]):
+                raise ValueError("The physical enemy and spell target must share the same level and Willpower")
+        if scenario["recovery"] or any("rest_sp" in room for room in scenario.get("rooms",[])):
+            blockers.append("Physical fights require owned recovery with complete fatigue and item provenance.")
+        if actor.get("martial_id"):
+            blockers.append("Ordinary weapon combat requires a reviewed active martial passive and weapon riders.")
     scenario["wards"]=freeze_wards(raw["actor"].get("wards"),scenario["horizon_us"],blockers)
     incoming=scenario["incoming"]
     if any(e["kind"]=="bundle" for e in incoming) and "defense" not in raw["actor"]:
@@ -363,7 +403,7 @@ def freeze_encounter(request,ruleset=None):
     if ("defense" not in raw["actor"] and any(s["range_type"]==4 for s in spells) and
             any(e["x_mm"]**2+e["z_mm"]**2<=4350**2 for e in scenario["enemies"])):
         blockers.append("self blast requires observed player defense")
-    policy_ids,policies=_policies(raw.get("policies"),ids,len(scenario["enemies"]))
+    policy_ids,policies=_policies(raw.get("policies"),ids,len(scenario["enemies"]),backup)
     seeds=unique([_int(v,"seed",0,2**32-1) for v in array(raw.get("seeds"),"seeds",1,65536)],"seed")
     opts=_object(raw.get("search",{}),"search",("max_policies","max_events","memory_bytes","wall_seconds","objective"))
     search={k:_int(opts.get(k,d),k,lo,hi) for k,d,lo,hi in (

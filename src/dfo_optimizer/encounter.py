@@ -35,6 +35,10 @@ def _metrics(trials,horizon):
                        ("min_hp","minimum_hp"),("min_sp","minimum_sp"),("healing","healing"),("mitigated","mitigated"),
                        ("consumables","consumables"),("rest_us","rest_us"),("spent_sp","sp_spent"),("restored_sp","sp_restored")):
         result["mean_"+name]=total(field)/n
+    if trials and "melee_damage" in trials[0]:
+        for k in ("melee_damage","melee_swings","melee_hits","incoming_swings","incoming_hits","spent_fatigue","end_fatigue"):
+            result["mean_"+k]=total(k)/n
+        result["spell_damage_per_sp"]=_ratio(total("damage")-total("melee_damage"),total("spent_sp"))
     return result
 
 
@@ -127,6 +131,13 @@ def _solve(request,ruleset,cancel,fixed):
             "timings":{"preparation_seconds":started_native-started,"native_seconds":finished_native-started_native,
                 "first_native_seconds":native.get("first_native_seconds"),"first_replayed_seconds":first,
                 "elapsed_seconds":perf_counter()-started}}
+    if ctx["scenario"].get("physical"):
+        from .physical_encounter import CORE, LAW_HASH
+        result["physical_mechanics"]={"profile":CORE,"law_sha256":LAW_HASH,
+            "geometry":"Awake stationary human class enemies, mutually visible and facing. Incoming attacks are supplied opportunities.",
+            "timeline":"Spells and ordinary swings share hands. No equipment swap. A fallback preserves positive fatigue.",
+            "scope":"Single checkpoint. Strike wear and fatigue persist across rooms. Practice has no in-fight skill-raise check."}
+        result["proof_scope"]="Declared spell and fallback policy, physical copies, render cadence, geometry, hostile opportunities and finite draw panel."
     result["result_hash"]=_identity(result)
     return result
 
@@ -144,6 +155,11 @@ def replay_encounter(result,ruleset=None):
         raise ValueError("invalid encounter result")
     if _identity(result)!=result.get("result_hash"): raise ValueError("encounter result identity mismatch")
     ctx=freeze_encounter(result.get("frozen_request"),ruleset)
+    if ctx["scenario"].get("physical"):
+        from .physical_encounter import CORE, LAW_HASH
+        receipt=result.get("physical_mechanics")
+        if not isinstance(receipt,dict) or (receipt.get("profile"),receipt.get("law_sha256"))!=(CORE,LAW_HASH):
+            raise ValueError("encounter physical law receipt mismatch")
     if ((result.get("input_hash"),result.get("source_sha"),result.get("ruleset_hash"))!=
             (_digest(ctx["raw"]),ctx["source_sha"],ctx["ruleset_hash"])):
         raise ValueError("encounter frozen input or source mismatch")

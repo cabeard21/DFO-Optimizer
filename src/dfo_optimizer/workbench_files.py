@@ -183,6 +183,17 @@ def export_job(job, query):
                    "mode":"request" if preview else job["mode"],"request":request,"request_hash":digest(request),
                    "ruleset_hash":job["ruleset_hash"],"result":result,"preview":preview}
         return {**archive,"archive_sha256":digest(archive)}, "workbench-archive.json"
+    if job["action"] == "build recommend" and ("family" in query or "checklist" in query):
+        if (set(query) - {"family", "checklist", "preview"} or "family" not in query or
+                query.get("checklist", "1") != "1" or query.get("preview", "1") != "1"):
+            raise ValueError("Choose one published recommendation")
+        rows = [result.get("recommendation"), *result.get("alternatives", [])]
+        selected = next((r for r in rows if isinstance(r,dict) and r.get("id") == query["family"]), None)
+        if not selected:
+            raise ValueError("Unknown published recommendation")
+        if "checklist" in query:
+            return selected["guide"]["text"].encode("utf-8"), "spellcaster-checklist.txt"
+        return export_class(selected["class"]), "spellcaster.dfclass.json"
     if "family" in query:
         if job["action"] != "build optimize" or query.keys() - {"family", "preview"}:
             raise ValueError("Select one family from a build result")

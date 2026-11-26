@@ -1,0 +1,95 @@
+{
+  "version": "0.6.0",
+  "host": {
+    "os": "Windows-10-10.0.19045-SP0",
+    "architecture": "AMD64",
+    "cpu": "AMD Ryzen 5 5600X 6-Core Processor",
+    "logical_cpus": 12,
+    "python": "3.12.10",
+    "python_compiler": "MSC v.1943 64 bit (AMD64)"
+  },
+  "ruleset_hash": "d639d137937f8c42e3f26d281785defb44fb5071e9c2da179de4a8320401d5b1",
+  "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+  "source_archive_sha256": "768c8326d2291429d78cd58f45773473e5ddec73343ae9862e4d0200cf4fb93f",
+  "wheel": {
+    "name": "dfo_optimizer-0.6.0-cp312-cp312-win_amd64.whl",
+    "sha256": "b5fd478c5233d613d23e1d7f1b044c3f6e34d032199a6dc25aa0f68cd99a298b"
+  },
+  "tests": {
+    "passed": 859,
+    "skipped": 1,
+    "elapsed_seconds": 341.39,
+    "python_line_coverage_percent": 91.68
+  },
+  "source_checks": [
+    "Verified 196 installed files from C:\\Users\\beard\\orca\\workspaces\\daggerfall_helper\\cornetfish\\dist\\dfo_optimizer-0.6.0-cp312-cp312-win_amd64.whl",
+    "Verified 27 class vectors and 25 numeric vectors",
+    "Verified 9452 upstream-exported bytes",
+    "Verified 19 spell distributions and 6 cast host scenarios",
+    "Verified equipment.json",
+    "Verified equipment_oracle.json",
+    "Verified 30 specialization pairs, 136 gameplay cases, and a source-created character.",
+    "Verified beginner class source fixtures",
+    "Verified 328 physical blows and 68 swing schedules."
+  ],
+  "benchmarks": {
+    "smoke": {
+      "sha256": "94acc12736a6ac1c8ea46e1e8f70aa143715d9ca2f89fa61eea22ddb9c4921cd",
+      "file": "smoke.json"
+    },
+    "combat": {
+      "sha256": "534a6e17cd907f1557a3fd97a5c70a4b72550e5a26233fb16544878a35a7e818",
+      "file": "combat.json"
+    },
+    "progression": {
+      "sha256": "244bb16561226476112ac10b117aac481ae29b5e78f184572abd702bbc23b67d",
+      "file": "progression.json"
+    },
+    "lifecycle": {
+      "sha256": "7b879a2d1777aaee98eb9439a319e99e1fb9c70de16830f55240c273cb7f24e0",
+      "file": "lifecycle.json"
+    },
+    "encounter": {
+      "sha256": "b1e1a90c05dd791ee327e20a1e49c4fef4d592f202642a9af12cd74c4f35aa43",
+      "file": "encounter.json"
+    },
+    "discovery": {
+      "sha256": "2c4b8ab05608e9b91fff569b59ebb820eb23899522e88797d1d807f512c8641b",
+      "file": "discovery.json",
+      "passed": true
+    },
+    "beginner": {
+      "sha256": "cd479f4a8e16533f3ee8e59727dd0f7c99b7bf13899d3163fa4312b2ae83049c",
+      "file": "windows-m9-beginner.json",
+      "held_out": {
+        "2": {
+          "comparisons": 3,
+          "missing_recommendations": 0,
+          "winning_metric_recovery_rate": 1.0,
+          "deterministic_winner_recovery_rate": 0.3333333333333333,
+          "mean_pareto_recall": 0.8333333333333334,
+          "worst_first_loss_by_axis": {}
+        },
+        "4": {
+          "comparisons": 3,
+          "missing_recommendations": 0,
+          "winning_metric_recovery_rate": 1.0,
+          "deterministic_winner_recovery_rate": 0.6666666666666666,
+          "mean_pareto_recall": 1.0,
+          "worst_first_loss_by_axis": {}
+        }
+      },
+      "determinism": {
+        "panel": "development",
+        "size": 2,
+        "same_ranked_result": true,
+        "same_screening": true,
+        "result_hash": "008de963c9cd5ced6f02d57992093dd7c44bce73578499f16bfa3c2a3b83d266"
+      }
+    },
+    "browser-timings": {
+      "sha256": "4a9812b20d534353ba710a850fba96917e2d812e8d245917850ba1bdd405fc9d",
+      "file": "windows-m9-browser-timings.json"
+    }
+  }
+}

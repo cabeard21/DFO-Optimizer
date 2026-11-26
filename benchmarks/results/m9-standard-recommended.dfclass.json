@@ -1,0 +1,86 @@
+{
+  "format": "daggerfall-enhanced/custom-class",
+  "version": 1,
+  "name": "DFO class",
+  "hitPointsPerLevel": 30,
+  "skills": {
+    "primary": [
+      "Restoration",
+      "Destruction",
+      "Alteration"
+    ],
+    "major": [
+      "Long Blade",
+      "Mysticism",
+      "Thaumaturgy"
+    ],
+    "minor": [
+      "Orcish",
+      "Daedric",
+      "Hand-to-Hand",
+      "Climbing",
+      "Lockpicking",
+      "Illusion"
+    ]
+  },
+  "attributes": {
+    "strength": 30,
+    "intelligence": 70,
+    "willpower": 75,
+    "agility": 75,
+    "endurance": 70,
+    "personality": 10,
+    "speed": 40,
+    "luck": 30
+  },
+  "advantages": [
+    {
+      "primary": "acuteHearing"
+    },
+    {
+      "primary": "bonusToHit",
+      "secondary": "animals"
+    },
+    {
+      "primary": "expertiseIn",
+      "secondary": "axe"
+    },
+    {
+      "primary": "expertiseIn",
+      "secondary": "bluntWeapon"
+    },
+    {
+      "primary": "expertiseIn",
+      "secondary": "handToHand"
+    },
+    {
+      "primary": "expertiseIn",
+      "secondary": "longBlade"
+    },
+    {
+      "primary": "increasedMagery",
+      "secondary": "intInSpellPoints3"
+    }
+  ],
+  "disadvantages": [
+    {
+      "primary": "forbiddenArmorType",
+      "secondary": "leather"
+    },
+    {
+      "primary": "forbiddenMaterial",
+      "secondary": "adamantium"
+    },
+    {
+      "primary": "forbiddenShieldTypes",
+      "secondary": "towerShield"
+    }
+  ],
+  "reputations": {
+    "merchants": 0,
+    "peasants": 0,
+    "scholars": 0,
+    "nobility": 0,
+    "underworld": 0
+  }
+}

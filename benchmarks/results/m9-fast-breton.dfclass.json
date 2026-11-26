@@ -1,0 +1,79 @@
+{
+  "format": "daggerfall-enhanced/custom-class",
+  "version": 1,
+  "name": "Breton spellblade",
+  "hitPointsPerLevel": 30,
+  "skills": {
+    "primary": [
+      "Destruction",
+      "Restoration",
+      "Alteration"
+    ],
+    "major": [
+      "Illusion",
+      "Mysticism",
+      "Long Blade"
+    ],
+    "minor": [
+      "Thaumaturgy",
+      "Dodging",
+      "Mercantile",
+      "Running",
+      "Medical",
+      "Lockpicking"
+    ]
+  },
+  "attributes": {
+    "strength": 50,
+    "intelligence": 65,
+    "willpower": 55,
+    "agility": 40,
+    "endurance": 55,
+    "personality": 35,
+    "speed": 60,
+    "luck": 40
+  },
+  "advantages": [
+    {
+      "primary": "increasedMagery",
+      "secondary": "intInSpellPoints3"
+    }
+  ],
+  "disadvantages": [
+    {
+      "primary": "forbiddenMaterial",
+      "secondary": "steel"
+    },
+    {
+      "primary": "forbiddenMaterial",
+      "secondary": "elven"
+    },
+    {
+      "primary": "forbiddenMaterial",
+      "secondary": "dwarven"
+    },
+    {
+      "primary": "forbiddenMaterial",
+      "secondary": "mithril"
+    },
+    {
+      "primary": "forbiddenMaterial",
+      "secondary": "silver"
+    },
+    {
+      "primary": "forbiddenMaterial",
+      "secondary": "ebony"
+    },
+    {
+      "primary": "forbiddenShieldTypes",
+      "secondary": "buckler"
+    }
+  ],
+  "reputations": {
+    "merchants": 0,
+    "peasants": 0,
+    "scholars": 0,
+    "nobility": 0,
+    "underworld": 0
+  }
+}

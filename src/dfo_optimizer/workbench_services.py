@@ -18,6 +18,7 @@ SEARCH = {
     "gear optimize": ("gear", "optimize_gear", "_gear"),
     "progression plan": ("progression", "plan_progression", "_progression"),
     "build optimize": ("lifecycle", "optimize_build", "_lifecycle"),
+    "build recommend": ("beginner", "recommend_build", "beginner"),
     "build replan": ("lifecycle", "replan_build", "_lifecycle"),
     "spellbook evaluate": ("spellbook", "evaluate_spellbook", "_spellbook"),
     "spellbook optimize": ("spellbook", "optimize_spellbook", "_spellbook"),
@@ -38,13 +39,17 @@ def module(name):
 
 
 def search_token(action, request):
+    if (action == "build replay" and request.get("kind") == "beginner_recommendation" or
+            action == "build compare" and isinstance(request.get("plans"), list) and any(
+                isinstance(p, dict) and p.get("kind") == "beginner_recommendation" for p in request["plans"])):
+        return module("beginner").CancelToken()
     if action.split()[0] in ("gear","spellbook") and "encounter" in request:
         return module("_lifecycle").CancelToken()
     return module(SEARCH[action][2]).CancelToken() if action in SEARCH else None
 
 
 def is_discovery(action, request):
-    return action == "build optimize" and (
+    return action == "build recommend" or action == "build optimize" and (
         "class_admission_strategy" in request
         or isinstance(request.get("class_search"), dict)
         and request["class_search"].get("profile") == "spellcaster_discovery_v1"
@@ -55,17 +60,19 @@ def execute(action, request, token, *, on_incumbent=None):
     if action in SEARCH:
         source, function, _ = SEARCH[action]
         if on_incumbent is not None and is_discovery(action, request):
-            return module(source).optimize_build(request, cancel=token, on_incumbent=on_incumbent)
+            return getattr(module(source), function)(request, cancel=token, on_incumbent=on_incumbent)
         return getattr(module(source), function)(request, cancel=token)
     if action in REPLAY:
         source, function = REPLAY[action]
+        if action == "build replay" and request.get("kind") == "beginner_recommendation":
+            return module(source).replay_build(request, cancel=token)
         return getattr(module(source), function)(request)
     if action == "class validate":
         return module("classes").validate_class(request.get("document", request), race=request.get("race"))
     if action == "class export":
         return module("classes").export_class(request.get("document", request))
     if action == "build compare":
-        return module("lifecycle").compare_builds(request.get("plans"))
+        return module("lifecycle").compare_builds(request.get("plans"), cancel=token)
     if action == "build baselines":
         return module("build_baselines").baseline_catalog(load_ruleset())
     if action == "ruleset coverage":
@@ -152,4 +159,4 @@ def limited_request(action, request, caps):
 
 
 def searchable(action):
-    return action.endswith("optimize") or action in ("progression plan", "build replan")
+    return action.endswith("optimize") or action in ("progression plan", "build replan", "build recommend")

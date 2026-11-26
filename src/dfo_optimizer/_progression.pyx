@@ -8,6 +8,7 @@ from math import isfinite
 cdef extern from "progression_search.hpp" namespace "dfo_progression":
     cdef cppclass Cancel:
         void cancel() noexcept
+        cpp_bool cancelled() noexcept
         cpp_bool has_incumbent() noexcept
     cdef cppclass Career:
         int group[35]
@@ -81,6 +82,8 @@ cdef class CancelToken:
     cdef Cancel flag
     def cancel(self):
         self.flag.cancel()
+    def cancelled(self):
+        return bool(self.flag.cancelled())
     def has_incumbent(self):
         return bool(self.flag.has_incumbent())
 

@@ -1,0 +1,101 @@
+{
+  "format": "daggerfall-enhanced/custom-class",
+  "version": 1,
+  "name": "DFO class",
+  "hitPointsPerLevel": 30,
+  "skills": {
+    "primary": [
+      "Illusion",
+      "Alteration",
+      "Thaumaturgy"
+    ],
+    "major": [
+      "Destruction",
+      "Axe",
+      "Restoration"
+    ],
+    "minor": [
+      "Dodging",
+      "Swimming",
+      "Short Blade",
+      "Etiquette",
+      "Dragonish",
+      "Mysticism"
+    ]
+  },
+  "attributes": {
+    "strength": 40,
+    "intelligence": 75,
+    "willpower": 30,
+    "agility": 75,
+    "endurance": 20,
+    "personality": 40,
+    "speed": 60,
+    "luck": 60
+  },
+  "advantages": [
+    {
+      "primary": "acuteHearing"
+    },
+    {
+      "primary": "adrenalineRush"
+    },
+    {
+      "primary": "bonusToHit",
+      "secondary": "humanoid"
+    },
+    {
+      "primary": "expertiseIn",
+      "secondary": "bluntWeapon"
+    },
+    {
+      "primary": "expertiseIn",
+      "secondary": "shortBlade"
+    },
+    {
+      "primary": "immunity",
+      "secondary": "toFire"
+    },
+    {
+      "primary": "increasedMagery",
+      "secondary": "intInSpellPoints3"
+    }
+  ],
+  "disadvantages": [
+    {
+      "primary": "forbiddenArmorType",
+      "secondary": "chain"
+    },
+    {
+      "primary": "forbiddenArmorType",
+      "secondary": "leather"
+    },
+    {
+      "primary": "forbiddenMaterial",
+      "secondary": "dwarven"
+    },
+    {
+      "primary": "forbiddenMaterial",
+      "secondary": "ebony"
+    },
+    {
+      "primary": "forbiddenMaterial",
+      "secondary": "mithril"
+    },
+    {
+      "primary": "forbiddenShieldTypes",
+      "secondary": "kiteShield"
+    },
+    {
+      "primary": "forbiddenShieldTypes",
+      "secondary": "towerShield"
+    }
+  ],
+  "reputations": {
+    "merchants": 0,
+    "peasants": 0,
+    "scholars": 0,
+    "nobility": 0,
+    "underworld": 0
+  }
+}

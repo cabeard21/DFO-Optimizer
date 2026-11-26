@@ -12,6 +12,17 @@ cdef extern from "spell_kernel.hpp" namespace "dfo_spell":
         cpp_bool has_incumbent() noexcept
 
 cdef extern from "encounter_kernel.hpp" namespace "dfo_enc":
+    cdef cppclass MeleeMove:
+        int skill,low,high,damage_mod,hit_mod,both,blunt,impact_us,ready_us
+    cdef cppclass ArmorPiece:
+        int condition,maximum,type,covers
+        int rows[8]
+    cdef cppclass Fighter:
+        int stats[8]
+        int level,group,index,min_metal,flags,adrenaline,dodge,crit
+        int weapon,metal,condition,maximum,repool
+        ArmorPiece armor[8]
+        MeleeMove armed,bare
     cdef cppclass Defenses:
         int absorb_chance,reflect_chance,resist_chance
         cpp_bool career_absorbs,enchant_absorbs
@@ -31,7 +42,7 @@ cdef extern from "encounter_kernel.hpp" namespace "dfo_enc":
         cpp_bool blow
     cdef cppclass Room:
         int64_t delay_us
-        int rest_hp,rest_sp
+        int rest_hp,rest_sp,heal_spell
         vector[int] enemies
         vector[Incoming] incoming
     cdef cppclass Recovery:
@@ -39,6 +50,9 @@ cdef extern from "encounter_kernel.hpp" namespace "dfo_enc":
         int hp,sp
         cpp_bool rest
     cdef cppclass Encounter:
+        vector[Fighter] fighters
+        cpp_bool backup
+        int enemy_reach_mm,fatigue
         Context caster
         Defenses wards
         int hp,max_hp,max_sp,path_id,martial_id,wellspring_pct
@@ -63,6 +77,9 @@ cdef extern from "encounter_kernel.hpp" namespace "dfo_enc":
         int64_t time_us
         int kind,target,spell,value,hp,sp,shield,target_hp
     cdef cppclass Trial:
+        cpp_bool physical
+        int melee_swings,melee_hits,incoming_swings,incoming_hits,spent_fatigue,end_fatigue
+        int64_t melee_damage
         int64_t initial_sp,spent_sp,restored_sp,damage,kills,casts,impacts
         int64_t healing,mitigated,consumables,rest_us
         int end_hp,end_sp,min_hp,min_sp
@@ -124,6 +141,54 @@ cdef Defenses pack_wards(object value):
         result.set_absorb_chances.push_back(_whole(chance,"registered absorption chance",0,100))
     return result
 
+cdef MeleeMove pack_move(object row):
+    cdef MeleeMove m
+    _sequence(row,"physical move",9,9)
+    m.skill=_whole(row[0],"weapon skill",0,100)
+    m.low=_whole(row[1],"minimum damage",0,1000)
+    m.high=_whole(row[2],"maximum damage",m.low,1000)
+    m.damage_mod=_whole(row[3],"proficiency damage",0,100)
+    m.hit_mod=_whole(row[4],"proficiency hit",0,100)
+    m.both=_whole(row[5],"two hands",0,1)
+    m.blunt=_whole(row[6],"blunt",0,1)
+    m.impact_us=_whole(row[7],"swing impact",1,10_000_000)
+    m.ready_us=_whole(row[8],"swing ready",m.impact_us,20_000_000)
+    return m
+
+cdef Fighter pack_fighter(object raw):
+    cdef Fighter f
+    cdef ArmorPiece p
+    cdef int i,j
+    _mapping(raw,"physical combatant")
+    for i,v in enumerate(_sequence(raw.get("stats"),"physical stats",8,8)):
+        f.stats[i]=_whole(v,"physical stat",0,100)
+    f.level=_whole(raw.get("level"),"physical level",1,255)
+    f.group=_whole(raw.get("group"),"physical group",-1,3)
+    f.index=_whole(raw.get("index"),"physical enemy career",-1,18)
+    f.min_metal=_whole(raw.get("min_metal"),"minimum metal",-1,9)
+    f.flags=_whole(raw.get("attack_flags"),"attack flags",0,255)
+    f.adrenaline=_whole(raw.get("adrenaline"),"adrenaline",0,1)
+    f.dodge=_whole(raw.get("dodge"),"Dodging",0,255)
+    f.crit=_whole(raw.get("crit"),"Critical Strike",0,255)
+    weapon=_sequence(raw.get("weapon"),"physical weapon",4,4)
+    f.weapon=_whole(weapon[0],"weapon template",-1,128)
+    if f.weapon!=-1 and f.weapon<113: raise ValueError("unsupported weapon")
+    f.metal=_whole(weapon[1],"weapon material",-1 if f.weapon==-1 else 0,9)
+    f.maximum=_whole(weapon[3],"maximum condition",0,1_000_000)
+    f.condition=_whole(weapon[2],"condition",0,0 if f.weapon==-1 else f.maximum)
+    f.repool=_whole(raw.get("repool",0),"legacy condition migration",0,1_000_000)
+    f.armed=pack_move(raw.get("armed"))
+    f.bare=pack_move(raw.get("bare"))
+    for i,row in enumerate(_sequence(raw.get("armor"),"armor positions",8,8)):
+        _sequence(row,"physical armor",12,12)
+        p.maximum=_whole(row[1],"armor maximum condition",0,1_000_000)
+        p.condition=_whole(row[0],"armor condition",0,p.maximum)
+        p.type=_whole(row[2],"armor type",109 if i==7 and p.condition else 0,112 if i==7 else 188)
+        p.covers=_whole(row[3],"protected locations",0,127)
+        for j in range(8): p.rows[j]=_whole(row[4+j],"reduction ratio percent",0,100)
+        f.armor[i]=p
+    return f
+
 cdef Encounter pack_scenario(dict raw):
     cdef Encounter e
     cdef Foe f
@@ -132,6 +197,14 @@ cdef Encounter pack_scenario(dict raw):
     cdef Recovery rv
     cdef int64_t previous
     e.caster=prepare_context(raw["caster"])
+    if "physical" in raw:
+        phys=_mapping(raw["physical"],"physical scene")
+        e.backup=_boolean(phys.get("fallback"),"backup melee")
+        e.fatigue=_whole(phys.get("fatigue"),"current physical fatigue",0,2**30)
+        e.enemy_reach_mm=_whole(phys.get("enemy_reach_mm"),"enemy reach",1,10000)
+        size=len(_sequence(raw.get("enemies"),"physical targets",1,256))+1
+        for fighter in _sequence(phys.get("actors"),"physical actors",size,size):
+            e.fighters.push_back(pack_fighter(fighter))
     e.wards=pack_wards(raw.get("wards",{}))
     e.max_hp=_whole(raw.get("max_hp"),"max_hp",1,2000000000)
     e.hp=_whole(raw.get("hp"),"hp",1,e.max_hp)
@@ -170,6 +243,9 @@ cdef Encounter pack_scenario(dict raw):
             raise ValueError("room rest needs paired resource floors and a positive delay")
         room.rest_hp=_whole(wave["rest_hp"],"room rest HP",0,e.max_hp) if "rest_hp" in wave else -1
         room.rest_sp=_whole(wave["rest_sp"],"room rest SP",0,e.max_sp) if "rest_sp" in wave else -1
+        room.heal_spell=_whole(wave.get("heal_spell",-1),"protected heal spell",-1,8191)
+        if room.heal_spell>=0 and (not room.delay_us or room.rest_sp>=0):
+            raise ValueError("Room heal requires an interval without a simultaneous refill")
         for idx in _sequence(wave.get("enemies"),"room partition",1,e.enemies.size()):
             _whole(idx,"room partition index",0,e.enemies.size()-1)
             if owner[idx]!=-1: raise ValueError("duplicate enemy in room partition")
@@ -188,11 +264,15 @@ cdef Encounter pack_scenario(dict raw):
         lower=room_previous[room_id] if e.rooms.size() else max(0,previous)
         inc.time_us=_whole(row.get("time_us"),"incoming timestamp",lower,e.horizon_us)
         previous=inc.time_us
-        if row.get("kind") not in ("blow","spell","bundle"):
+        if row.get("kind") not in ("blow","spell","bundle","melee"):
             raise ValueError("invalid incoming hit kind")
         if row["kind"]=="bundle":
             inc.damage=0
             inc.spell=_whole(row.get("spell"),"incoming spell index",0,8191)
+        elif row["kind"]=="melee":
+            if not e.fighters.size(): raise ValueError("incoming melee needs a verified physical actor panel")
+            inc.damage=0
+            inc.spell=-2
         else:
             inc.spell=-1
             inc.damage=_whole(row.get("damage"),"incoming damage",0,2_000_000_000)
@@ -266,7 +346,7 @@ cdef Spell pack_action(object row):
     return s
 
 _EVENTS=("click","release","impact","round","incoming","kill","death","miss","wait","restore",
-         "absorbed","reflected","resisted","room")
+         "absorbed","reflected","resisted","room","melee_start","melee_impact","melee_miss","enemy_melee_impact","enemy_melee_miss")
 _STOPS=("exhausted","event_limit","time_limit","memory_limit","cancelled")
 
 cdef dict trial_dict(const Trial& t):
@@ -276,7 +356,10 @@ cdef dict trial_dict(const Trial& t):
     for i in range(t.trace.size()):
         e=t.trace[i]
         events.append((e.time_us,_EVENTS[e.kind],e.target,e.spell,e.value,e.hp,e.sp,e.shield,e.target_hp))
-    return {"initial_sp":t.initial_sp,"spent_sp":t.spent_sp,"restored_sp":t.restored_sp,
+    physical = ({"melee_damage":t.melee_damage,"melee_swings":t.melee_swings,"melee_hits":t.melee_hits,
+                 "incoming_swings":t.incoming_swings,"incoming_hits":t.incoming_hits,
+                 "spent_fatigue":t.spent_fatigue,"end_fatigue":t.end_fatigue} if t.physical else {})
+    return {**physical,"initial_sp":t.initial_sp,"spent_sp":t.spent_sp,"restored_sp":t.restored_sp,
             "healing":t.healing,"mitigated":t.mitigated,"consumables":t.consumables,"rest_us":t.rest_us,
             "damage":t.damage,"kills":t.kills,"casts":t.casts,"impacts":t.impacts,
             "end_hp":t.end_hp,"end_sp":t.end_sp,"min_hp":t.min_hp,"min_sp":t.min_sp,
@@ -312,7 +395,8 @@ def evaluate(dict scenario,spells,policies,seeds,*,trace=False,max_events=0,memo
         raise ValueError("invalid time budget")
     if wall_seconds: deadline=perf_counter()+wall_seconds
     if token.requested: return no_work("cancelled")
-    _sequence(spells,"spells",1,8192)
+    minimum_rules=0 if scenario.get("allow_wait") is True or scenario.get("physical",{}).get("fallback") is True else 1
+    _sequence(spells,"spells",minimum_rules,8192)
     _sequence(policies,"policies",1,65536)
     _sequence(seeds,"seeds",1,65536)
     minimum=(sizeof(Encounter)+sizeof(Spell)*len(spells)+sizeof(uint32_t)*len(seeds)+
@@ -322,7 +406,8 @@ def evaluate(dict scenario,spells,policies,seeds,*,trace=False,max_events=0,memo
     # Reject an oversized packed candidate domain before duplicating its input
     # into native storage. The evaluator then measures actual vector capacities.
     for p in policies:
-        minimum+=sizeof(Rule)*len(_sequence(p,"rules",1,128))
+        minimum+=sizeof(Rule)*len(_sequence(p,"rules",minimum_rules,128))
+    minimum+=2*sizeof(Fighter)*len(scenario.get("physical",{}).get("actors",()))
     for spell in spells:
         minimum+=sizeof(Effect)*len(_sequence(_mapping(spell,"spell").get("effects"),"effects",1,3))
     if minimum>limits.memory_bytes: return no_work("memory_limit")
@@ -336,7 +421,7 @@ def evaluate(dict scenario,spells,policies,seeds,*,trace=False,max_events=0,memo
         if token.requested: return no_work("cancelled")
         if deadline and perf_counter()>=deadline: return no_work("time_limit")
         rules.clear()
-        for value in _sequence(p,"rules",1,128):
+        for value in _sequence(p,"rules",minimum_rules,128):
             _mapping(value,"rule")
             r.spell=_whole(value.get("spell"),"spell index",0,actions.size()-1)
             r.target=_whole(value.get("target",-1),"target index",-1,enc.enemies.size()-1)

@@ -18,7 +18,7 @@ inline uint64_t scene_bytes(const dfo_enc::Encounter& scene) {
     uint64_t bytes=sizeof(scene)+scene.enemies.size()*sizeof(dfo_enc::Foe)+
         scene.incoming.size()*sizeof(dfo_enc::Incoming)+scene.recovery.size()*sizeof(dfo_enc::Recovery)+
         scene.tape.size()*sizeof(double)+scene.rooms.size()*sizeof(dfo_enc::Room)+
-        scene.wards.set_absorb_chances.size()*sizeof(int);
+        scene.wards.set_absorb_chances.size()*sizeof(int)+scene.fighters.size()*sizeof(dfo_enc::Fighter);
     for (const auto& foe:scene.enemies) bytes+=foe.wards.set_absorb_chances.size()*sizeof(int);
     for (const auto& room:scene.rooms)
         bytes+=room.enemies.size()*sizeof(int)+room.incoming.size()*sizeof(dfo_enc::Incoming);

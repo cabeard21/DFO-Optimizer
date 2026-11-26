@@ -1,5 +1,6 @@
 """Single-witness encounter replay with an independent chronological event queue."""
 from heapq import heapify, heappop, heappush
+from copy import deepcopy
 from math import ceil, hypot
 
 from . import encounter_advanced_reference as powers
@@ -57,7 +58,7 @@ _DEFENSE={"willpower":0,"resistant":0,"immune":0,"low_tolerance":0,"critical_wea
 
 
 class _Replay:
-    def __init__(self,scene,spells,policy,seed,trace):
+    def __init__(self,scene,spells,policy,seed,trace,max_trace_events=None):
         self.s,self.spells,self.policy=scene,spells,policy
         self.c=scene["caster"]
         self.rng=Draws(seed,scene.get("tape",()))
@@ -82,8 +83,13 @@ class _Replay:
         self.between_rooms=False
         self.active=set(self.rooms[0]["enemies"])
         self.trace=trace
+        self.max_trace_events=max_trace_events
         self.out=dict(initial_sp=self.sp,spent_sp=0,restored_sp=0,damage=0,kills=0,
             casts=0,impacts=0,min_hp=self.hp,min_sp=self.sp,healing=0,mitigated=0,consumables=0,rest_us=0,trace=[])
+        self.fighters=deepcopy(scene.get("physical",{}).get("actors",[]))
+        if self.fighters:
+            self.out.update(melee_damage=0,melee_swings=0,melee_hits=0,incoming_swings=0,incoming_hits=0,
+                            spent_fatigue=0,end_fatigue=scene["physical"]["fatigue"])
         self.room_attacks()
         for i,item in enumerate(scene.get("recovery",())):
             self.schedule(item["time_us"],1,i,"restore",item)
@@ -103,11 +109,15 @@ class _Replay:
             return
         self.between_rooms=True
         self.active=set()
-        self.queue=[e for e in self.queue if e[3] not in ("decision","release","arrive","incoming")]
+        self.queue=[e for e in self.queue if e[3] not in ("decision","release","arrive","incoming","melee")]
         heapify(self.queue)
         self.decision_at=None
         self.room+=1
-        self.schedule(self.now+self.rooms[self.room]["delay_us"],-1,0,"room",None)
+        opens=self.now+self.rooms[self.room]["delay_us"]
+        self.schedule(opens,-1,0,"room",None)
+        heal=self.rooms[self.room].get("heal_spell")
+        if heal is not None and max(self.now,self.ready_at)<opens:
+            self.schedule(max(self.now,self.ready_at),4,0,"protected_heal",(heal,opens))
 
     def open_room(self):
         room=self.rooms[self.room]
@@ -127,10 +137,27 @@ class _Replay:
             self.decision_at=max(self.now,self.ready_at)
             self.schedule(self.decision_at,4,0,"decision",None)
 
+    def protected_heal(self,index,opens):
+        cost=self.spells[index]["cost_sp"]
+        if self.hp>=self.s["max_hp"] or cost>self.sp or (cost and self.silence[0]>=0):
+            return
+        rate=min(2,max(.5,1+(self.c["speed"]-50)/200+(self.c["cast_speed_pct"]+powers.path_speed(self.path.id))/100))
+        release=self.now+ceil(200000/rate)
+        if release>=opens:
+            return
+        self.ready_at=self.now+ceil(700000/rate)
+        self.sp-=cost
+        self.out["spent_sp"]+=cost
+        self.out["casts"]+=1
+        self.schedule(release,3,self.out["casts"],"release",(index,-1,self.out["casts"],cost))
+        self.note("click",-1,index,cost)
+
     def note(self,kind,t=-1,i=-1,value=0):
         self.out["min_hp"]=min(self.out["min_hp"],self.hp)
         self.out["min_sp"]=min(self.out["min_sp"],self.sp)
         if self.trace:
+            if self.max_trace_events is not None and len(self.out["trace"]) >= self.max_trace_events:
+                raise MemoryError("Encounter replay exceeds its trace allowance")
             self.out["trace"].append([self.now,kind,t,i,value,self.hp,self.sp,self.shield,
                                       self.hp if t<0 else self.hps[t]])
 
@@ -223,7 +250,59 @@ class _Replay:
             self.schedule(self.decision_at,4,0,"decision",None)
             self.note("click",t,i,cost)
             return
+        if self.fighters and self.s["physical"]["fallback"] and self.out["end_fatigue"]>8:
+            t=next((j for j in sorted(self.active) if self.hps[j] and self.flight_distance(j)<=2500),None)
+            actor=self.fighters[0]
+            move=actor["armed"] if actor["weapon"][2] else actor["bare"]
+            impact,ready=(self.now+delta for delta in move[-2:])
+            overlap=any(r["kind"]=="rest" and self.now<r["time_us"] and r["time_us"]-r["duration_us"]<=ready
+                        for r in self.s.get("recovery",()))
+            if t is not None and not overlap:
+                self.out["melee_swings"]+=1
+                self.schedule(impact,3,2**31,"melee",t)
+                self.ready_at=self.decision_at=ready
+                self.schedule(ready,4,0,"decision",None)
+                self.note("melee_start",t,value=move[-1])
+                return
         self.note("wait")
+
+    def melee(self,t,outgoing):
+        from .physical_reference import melee_blow
+        if outgoing:
+            self.out["spent_fatigue"]+=8
+            self.out["end_fatigue"]-=8
+        if not self.hps[t]: return
+        if not outgoing: self.out["incoming_swings"]+=1
+        prefix="melee" if outgoing else "enemy_melee"
+        if self.flight_distance(t)>(2500 if outgoing else self.s["physical"]["enemy_reach_mm"]):
+            self.note(prefix+"_miss",t)
+            return
+        player,enemy=self.fighters[0],self.fighters[t+1]
+        sides=((player,self.hp,self.s["max_hp"]),(enemy,self.hps[t],self.enemies[t]["hp"]))
+        (a,ah,am),(d,dh,dm)=sides if outgoing else reversed(sides)
+        amount,hit,part=melee_blow(a,d,outgoing,ah,am,dh,dm,self.rng)
+        self.out["melee_hits" if outgoing else "incoming_hits"]+=int(hit)
+        if outgoing:
+            loss=min(amount,self.hps[t])
+            self.hps[t]-=loss
+            self.out["damage"]+=loss
+            self.out["melee_damage"]+=loss
+        else:
+            before=self.hp
+            if amount>0: self.hurt(amount,True)
+            loss=before-self.hp
+        self.note(prefix+("_impact" if hit else "_miss"),t,part,loss)
+        if outgoing and not self.hps[t]:
+            self.finish_kill(t,-1,self.enemies[t].get("kill_eligible",True))
+
+    def finish_kill(self,t,spell,credited):
+        self.out["kills"]+=1
+        pre=self.hp,self.sp
+        self.hp,self.sp=powers.path_kill(self.path,credited,self.enemies[t].get("trapped",False),
+                                         self.hp,self.s["max_hp"],self.sp,self.s["max_sp"])
+        self.sp=powers.gear_kill(self.path,self.s.get("wellspring_pct",0),credited,self.sp,self.s["max_sp"])
+        self.gains(*pre)
+        self.note("kill",t,spell)
 
     def heal(self,e,spell):
         raw=_amount(e,self.c["level"],self.rng)
@@ -321,16 +400,9 @@ class _Replay:
         if t>=0: self.out["damage"]+=took
         self.note("impact",t,i,took)
         if t>=0 and before and not self.hps[t]:
-            self.out["kills"]+=1
             enemy=self.enemies[t]
-            pre=self.hp,self.sp
             credited=enemy.get("kill_eligible",True) and (origin<0 or returned)
-            self.hp,self.sp=powers.path_kill(self.path,credited,enemy.get("trapped",False),
-                                              self.hp,self.s["max_hp"],self.sp,self.s["max_sp"])
-            self.sp=powers.gear_kill(self.path,self.s.get("wellspring_pct",0),credited,
-                                     self.sp,self.s["max_sp"])
-            self.gains(*pre)
-            self.note("kill",t,i)
+            self.finish_kill(t,i,credited)
         if origin<0 and t>=0 and took>0:
             powers.path_landed(self.path,self.now/1000,cast,took)
             if s.get("signature"):
@@ -394,12 +466,15 @@ class _Replay:
                 t=data["source"]
                 if self.hps[t]:
                     before=self.hp
-                    if data["kind"]=="bundle": self.landed(-1,(data["spell"],-1,0,0),t)
+                    if data["kind"]=="melee": self.melee(t,False)
+                    elif data["kind"]=="bundle": self.landed(-1,(data["spell"],-1,0,0),t)
                     else: self.hurt(data["damage"],data["kind"]=="blow")
-                    self.note("incoming",t,data.get("spell",-1),before-self.hp)
+                    if data["kind"]!="melee": self.note("incoming",t,data.get("spell",-1),before-self.hp)
+            elif kind=="melee": self.melee(data,True)
             elif kind=="room": self.open_room()
             elif kind=="round": self.round()
             elif kind=="restore": self.recover(data)
+            elif kind=="protected_heal": self.protected_heal(*data)
             else: self.flight(kind,data)
             self.clear_room()
             self.wake()
@@ -408,5 +483,5 @@ class _Replay:
                 "end_us":self.now,"draws":self.rng.cursor}
 
 
-def simulate_trial(scenario,spells,policy,seed,trace=False,poll=None):
-    return _Replay(scenario,spells,policy,seed,trace).run(poll)
+def simulate_trial(scenario,spells,policy,seed,trace=False,poll=None,max_trace_events=None):
+    return _Replay(scenario,spells,policy,seed,trace,max_trace_events).run(poll)

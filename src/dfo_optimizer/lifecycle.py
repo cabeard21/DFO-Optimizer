@@ -688,9 +688,12 @@ def replan_build(request, ruleset=None, *, base_dir=None, cancel=None):
 
 
 
-def replay_build(plan, *, ruleset=None):
+def replay_build(plan, *, ruleset=None, cancel=None):
     """Check the serialized witnesses and identity. Search optimality requires a new search."""
     rules = _rules(ruleset)
+    if isinstance(plan, dict) and plan.get("kind") == "beginner_recommendation":
+        from .beginner import replay_recommendation
+        return replay_recommendation(plan, ruleset=rules, cancel=cancel)
     try:
         from .lifecycle_archive import replay_document
         return replay_document(plan, rules)
@@ -698,9 +701,20 @@ def replay_build(plan, *, ruleset=None):
         raise ValueError("malformed lifecycle witness or frozen request") from exc
 
 
-def compare_builds(plans, *, ruleset=None):
+def compare_builds(plans, *, ruleset=None, cancel=None):
     rules = _rules(ruleset)
     require(isinstance(plans, list) and len(plans) >= 2, "compare needs at least two plans")
+    if any(isinstance(p, dict) and p.get("kind") == "beginner_recommendation" for p in plans):
+        require(all(isinstance(p, dict) and p.get("kind") == "beginner_recommendation" for p in plans)
+                and len({p.get("comparison_hash") for p in plans}) == 1,
+                "Beginner comparisons require identical beginner scenarios and paired rolls")
+        for p in plans:
+            checked = replay_build(p, ruleset=rules, cancel=cancel)
+            if checked.get("termination") == "cancelled":
+                return checked
+        return {"kind": "beginner_comparison", "comparison_hash": plans[0]["comparison_hash"],
+                "recommendations": [{"result_hash": p["result_hash"], "selection": p["recommendation"]}
+                                    for p in plans]}
     for p in plans:
         replay_build(p, ruleset=rules)
     require(

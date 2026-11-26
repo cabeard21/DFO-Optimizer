@@ -127,7 +127,7 @@ def _compiled_windows(domain, rows):
     return compiled, original, excluded
 
 
-def _prepare(raw, rules):
+def _prepare(raw, rules, *, max_windows=100_000):
     from .progression_inputs import resolve_start
     fields(raw, _REQUEST, "frozen progression request")
     require(isinstance(raw.get("start"), dict) and "character_file" not in raw["start"],
@@ -168,7 +168,7 @@ def _prepare(raw, rules):
         start["focus_pct"] = caster.get("focus_pct") or 0
     goal = raw.get("goal")
     require(isinstance(goal, dict), "provide progression goal")
-    rows = windows(raw)
+    rows = windows(raw, max_windows=max_windows)
     law = rules["progression_rules"]
     ids, records, stacks = _request_assets(start, rows, goal)
     missing = set(missing) | {k for k, v in start.items() if v is None}
@@ -274,7 +274,8 @@ def _same(a, b):
 def _joint_state(d, s):
     """Fields needed across activity windows for a prospective lifecycle route."""
     out = {k: s[k] for k in ("level", "sp", "hp", "max_hp", "max_sp", "gold", "attributes", "skills",
-                              "mastered", "minutes", "pending_level", "pending_pool", "current_sum", "allocation_policy")}
+                              "mastered", "minutes", "pending_level", "pending_pool", "current_sum", "allocation_policy",
+                              "fatigue", "max_fatigue")}
     if not s["hp_known"]:
         out["hp"] = None
     out["known"] = [d.spell_ids[i] for i in s["known"]]
@@ -286,7 +287,7 @@ def _joint_state(d, s):
     return out
 
 
-def _route(context, choices, *, native=None, public_choices=False, lifecycle=False):
+def _route(context, choices, *, native=None, public_choices=False, lifecycle=False, stop=None):
     d, rows, compiled, original, _, _, limits, levels, start, _ = context
     require(isinstance(choices, list) and len(choices) <= len(compiled), "invalid route length")
     s, effort = start, initial_effort()
@@ -297,6 +298,9 @@ def _route(context, choices, *, native=None, public_choices=False, lifecycle=Fal
         checkpoints.append({"stage": i, "state": project(d, s), "effort": dict(effort)})
     point(0)
     for n, selected in enumerate(choices):
+        if stop and (n & 63) == 0 and (reason := stop()):
+            from .progression_batches import ReplayInterrupted
+            raise ReplayInterrupted(reason, n, s["level"])
         integer(selected, "route alternative")
         if public_choices:
             require(selected in original[n], f"unavailable alternative at stage {n+1}")
@@ -320,6 +324,9 @@ def _route(context, choices, *, native=None, public_choices=False, lifecycle=Fal
                 s["mastered"] != prev["mastered"] or s["known"] != prev["known"] or
                 any(s.get(k) != prev.get(k) for k in ("arcane_path", "martial_path", "firmament", "oghma_mask"))):
             point(n+1)
+    if stop and (reason := stop()):
+        from .progression_batches import ReplayInterrupted
+        raise ReplayInterrupted(reason, len(indices), s["level"])
     if native is not None:
         for key, v in s.items():
             if key not in native["state"] or not _same(v, native["state"][key]):
@@ -353,22 +360,35 @@ def _identity(plan):
     return digest(json.loads(json.dumps(identity)))
 
 
-def plan_progression(request, *, ruleset=None, base_dir=None, cancel=None, _lifecycle=False):
+def plan_progression(request, *, ruleset=None, base_dir=None, cancel=None, _lifecycle=False,
+                     _checkpoint_prefix=False, _deadline=None):
     from . import _progression
+    from .progression_batches import ReplayInterrupted, interrupted_report, search_fixed, stop_reason
     tic = perf_counter()
     rules = _progression_service_rules(ruleset)
     raw = _freeze(request, base_dir)
-    ctx = _prepare(raw, rules)
+    ctx = _prepare(raw, rules, max_windows=200_000 if _checkpoint_prefix else 100_000)
     d, rows, stages, _, excluded, goal, limits, _, start, blockers = ctx
     before_search = perf_counter()
     stats = {"results": [], "prefix": {"choices": []}, "termination": "unsupported"}
-    if not blockers:
+    stop = (lambda: stop_reason(cancel, _deadline)) if _checkpoint_prefix else None
+    if not blockers and _checkpoint_prefix and stages:
+        if reason := stop():
+            return interrupted_report(reason, {}, "before_search", 0, start["level"], raw["goal"]["level"])
+        budget = limits if _deadline is None else {**limits, "wall_seconds":max(1e-12, _deadline-perf_counter())}
+        stats = search_fixed(start, stages, goal, budget, cancel)
+    elif not blockers:
         stats = _progression.search(start, stages, goal, cancel=cancel, **limits)
     searched_at = perf_counter()
     first, routes = None, []
+    counters = {k:v for k,v in stats.items() if k not in ("results", "prefix", "termination")}
     if not blockers:
         for row in stats["results"]:
-            route, end = _route(ctx, row["choices"], native=row, lifecycle=_lifecycle)
+            try:
+                route, end = _route(ctx, row["choices"], native=row, lifecycle=_lifecycle, stop=stop)
+            except ReplayInterrupted as exc:
+                return interrupted_report(exc.reason, counters, "independent_replay", exc.stage,
+                                          exc.level, raw["goal"]["level"])
             if not goal_met(end, goal):
                 raise RuntimeError("native route missed its progression goal")
             if limits["final_stage_only"] and len(route["choices"]) != len(rows):
@@ -383,6 +403,12 @@ def plan_progression(request, *, ruleset=None, base_dir=None, cancel=None, _life
             # its first omitted edge from the native prefix without materializing
             # a per-window public archive on every exploratory trial.
             prefix, end = stats["prefix"], stats["prefix"]["state"]
+            if _checkpoint_prefix and any(1 < level <= end["level"] for level in ctx[7]):
+                try:
+                    prefix, end = _route(ctx, prefix["choices"], native=prefix, lifecycle=True, stop=stop)
+                except ReplayInterrupted as exc:
+                    return interrupted_report(exc.reason, counters, "independent_replay", exc.stage,
+                                              exc.level, raw["goal"]["level"])
         else:
             prefix, end = _route(ctx, stats["prefix"]["choices"], native=stats["prefix"] if not blockers else None)
     term = stats["termination"]
@@ -396,9 +422,12 @@ def plan_progression(request, *, ruleset=None, base_dir=None, cancel=None, _life
     else:
         status = "infeasible_proven" if exact else "no_feasible_found"
     gap = None if routes else _first_gap(ctx, prefix, end)
-    counters = {k:v for k,v in stats.items() if k not in ("results", "prefix", "termination")}
+    if gap and _checkpoint_prefix:
+        gap = {**gap, "reached_level":end["level"], "requested_level":raw["goal"]["level"],
+               "current_skill_sum":end["current_sum"]}
     if _lifecycle:
         return {"status": status, "exact": exact, "termination": term, "routes": routes,
+                **({"verified_prefix": prefix} if _checkpoint_prefix and prefix and "checkpoints" in prefix else {}),
                 "first_gap": gap, "excluded_actions": excluded, "counters": counters}
     plan = {"kind": "progression_plan", "schema_version": 1, "engine": "native-cython-cpp17",
             "source_sha": rules["source_sha"], "ruleset_hash": rules["content_hash"],

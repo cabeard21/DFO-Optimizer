@@ -48,7 +48,7 @@ def _indices(obj, name, hi, max_value):
     return result
 
 
-def windows(raw):
+def windows(raw, *, max_windows=100_000):
     sources = [k for k in ("stages", "activities", "cycles") if k in raw]
     require(len(sources) == 1, "provide one of stages, activities, cycles")
     if "activities" in raw:
@@ -61,12 +61,12 @@ def windows(raw):
             fields(cycle, ("repeat", "windows"), "cycle")
             n = integer(cycle.get("repeat", 1), "repeat", 1, 100_000)
             w = cycle.get("windows")
-            require(isinstance(w, list) and 0 < len(w) and len(w)*n + len(rows) <= 100_000,
+            require(isinstance(w, list) and 0 < len(w) and len(w)*n + len(rows) <= max_windows,
                     "invalid cycle windows or too many stages")
             rows += w * n
     else:
         rows = raw["stages"]
-    require(isinstance(rows, list) and len(rows) <= 100_000, "stages must be a bounded list")
+    require(isinstance(rows, list) and len(rows) <= max_windows, "stages must be a bounded list")
     require(all(isinstance(w, list) and 0 < len(w) <= 4096 for w in rows), "each stage needs alternatives")
     require(sum(map(len, rows)) <= 1_000_000, "too many progression alternatives")
     return rows

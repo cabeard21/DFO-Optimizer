@@ -1,12 +1,13 @@
 import {views,el,action,select,field,panel,disclosure,facts,table,pretty,replayAction} from "./view.js";
 import {editors,importedClass} from "./editor.js";
+import {beginnerInputs,recommendationPane} from "./beginner.js";
 import {discoveryEditor} from "./discovery-editor.js";
 import {resultsPane,comparePane} from "./results.js";
 import {parseDocument,retainNumbers,stringifyDocument} from "./exact-json.js";
 
 const byId=id=>document.getElementById(id);
 const sessions=new Map(), compare={};
-let meta,library,view="creator";
+let meta,library,view="beginner";
 const session=()=>sessions.get(view);
 const status=(message,error=false)=>{byId("status").textContent=message;byId("status").dataset.error=String(error);};
 function notifyError(error){status(error.message||String(error),true);}
@@ -35,7 +36,7 @@ function dialog(title,children){
 byId("close").addEventListener("click",()=>byId("drawer").close());
 function getSession(key){
   if(!sessions.has(key))sessions.set(key,{operation:null,example:null,request:null,job:null,index:0,changed:false,load:0,
-    mode:key==="discovery"?"request":library?.preferences?.mode??"request"});
+    mode:["beginner","discovery"].includes(key)?"request":library?.preferences?.mode??"request"});
   return sessions.get(key);
 }
 async function loadExample(s,operation,example){
@@ -162,6 +163,11 @@ function inspectSaved(item){
       byId("drawer").close();location.hash=key;await navigate();
     })));
   }
+  if(item.result?.kind==="beginner_recommendation"&&item.ruleset_hash===meta.ruleset_hash) {
+    const file=(family,checklist)=>location.assign("/api/library/export?"+new URLSearchParams(
+      {id:item.id,family,...(checklist?{checklist:"1"}:{})}));
+    children.push(recommendationPane(item.result,{exportFamily:key=>file(key,false),exportChecklist:key=>file(key,true)}));
+  }
   const savedReplay=replayAction(item.result);
   if(savedReplay)children.push(action("Verify saved result",guarded(async()=>{
     const replay=await runAndWait(savedReplay,{library_result:item.id});
@@ -205,10 +211,12 @@ function drawResults(){
   const job=s.job,link=query=>location.assign("/api/jobs/"+encodeURIComponent(job.id)+"/export"+query);
   area.dataset.jobId=job?.id??"";
   area.dataset.state=job?.state??"";
+  if(view==="beginner"&&!job){area.replaceChildren();return;}
   area.replaceChildren(resultsPane(s,{
     refresh:drawResults,cancel:guarded(async()=>{s.job={...await post("jobs/"+job.id+"/cancel",{}),example:job.example};drawResults();}),
     catalog:meta.catalog, save:guarded(()=>saveJob(s)),exportClass:i=>link("?index="+i),
-    exportFamily:name=>link("?family="+encodeURIComponent(name)),exportResult:()=>link(""),exportArchive:()=>link("?archive=1"),
+    exportFamily:(name,preview=false)=>link("?"+new URLSearchParams({family:name,...(preview?{preview:"1"}:{})})),
+    exportChecklist:(name,preview=false)=>link("?"+new URLSearchParams({family:name,checklist:"1",...(preview?{preview:"1"}:{})})),exportResult:()=>link(""),exportArchive:()=>link("?archive=1"),
     exportPreview:()=>link("?archive=1&preview=1"),
     replay:guarded(async()=>{const replay=await runAndWait(replayAction(job.result),{job_result:job.id});
       if(replay.error)throw Error(replay.error);dialog("Replay verification",[facts(replay.result)]);})
@@ -287,6 +295,7 @@ function render(){
   byId("title").textContent=views[view].name;document.title=views[view].name+" · DFO Optimizer";
   for(const a of byId("navigation").children){if(a.hash==="#"+view)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");}
   const content=byId("content"),s=session();
+  content.classList.toggle("beginner-flow",view==="beginner");
   if(view==="compare"){content.replaceChildren(comparePane(library.items,compare,render,meta));return;}
   if(view==="diagnostics"){
     const coverage=meta.coverage;
@@ -300,12 +309,21 @@ function render(){
       })]));return;
   }
   if(!s?.request){content.replaceChildren(el("p","Loading request…","note"));return;}
+  if(view==="beginner"){
+    const inputs=beginnerInputs(s,guarded(()=>submit(s)),next=>{
+      s.request=next;s.source=null;s.changed=Boolean(s.job);if(s.job)drawResults();
+    });
+    const out=el("div");out.id="result-area";out.className="beginner-results";
+    content.replaceChildren(inputs,out);drawResults();return;
+  }
   const columns=el("div",null,"columns"),out=el("div");out.id="result-area";
   columns.append(searchEditor(s),out);content.replaceChildren(columns);drawResults();
 }
 function noteOf(value){return typeof value==="string"?value:value==null?"—":JSON.stringify(value);}
 async function navigate(){
-  const key=location.hash.slice(1);view=Object.hasOwn(views,key)?key:"creator";const s=getSession(view);render();
+  const key=location.hash.slice(1);view=Object.hasOwn(views,key)?key:"beginner";const s=getSession(view);
+  if(view==="beginner"&&!s.request)Object.assign(s,{request:{thoroughness:"standard"},operation:"Recommend My First Spellcaster",mode:"request"});
+  render();
   if(views[view].operations&&!s.request){
     const [name,[,example]]=Object.entries(views[view].operations)[0];await loadExample(s,name,example);
   }else status("");

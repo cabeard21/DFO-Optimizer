@@ -194,7 +194,7 @@ def _circuit(spec, note, chosen, practices, cadence, challenge):
     return windows
 
 
-def bind_itinerary(progression, start, rules):
+def bind_itinerary(progression, start, rules, *, max_cycles=4000):
     """Expand the common opportunity policy after the family and roll are fixed."""
     spec = fields(
         progression["itinerary"],
@@ -218,7 +218,7 @@ def bind_itinerary(progression, start, rules):
         "choose one progression itinerary",
     )
     integer(spec.get("version"), "itinerary version", 1, 1)
-    repeats = integer(spec.get("cycles"), "training circuits", 1, 4000)
+    repeats = integer(spec.get("cycles"), "training circuits", 1, max_cycles)
     cadence = integer(spec.get("cadence_ms"), "itinerary cadence", 1400, 1_000_000)
     challenge = integer(spec.get("challenge_level"), "practice challenge", 0, 2000)
     factor = spec.get("maker_price_factor")

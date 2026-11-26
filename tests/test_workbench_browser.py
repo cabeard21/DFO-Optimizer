@@ -35,6 +35,7 @@ def observations():
 def observe_search(page):
     page.evaluate("""() => {
       const times = window.dfoSearchTiming = {start:null,preview_ms:null,final_ms:null};
+      document.getElementById("content").dataset.timingComplete="false";
       function click(event){
         if (!event.target.closest("button")?.textContent.startsWith("Run ")) return;
         times.start=performance.now(); document.removeEventListener("click",click,true);
@@ -47,6 +48,7 @@ def observe_search(page):
           times.preview_ms=performance.now()-times.start;
         if(["completed","failed","cancelled"].includes(area?.querySelector(".state")?.textContent)){
           times.final_ms=performance.now()-times.start; changes.disconnect();
+          document.getElementById("content").dataset.timingComplete="true";
         }
       });
       changes.observe(document.getElementById("content"),{subtree:true,childList:true});
@@ -54,7 +56,8 @@ def observe_search(page):
 
 
 def record(entries,page,name,result):
-    page.wait_for_function("window.dfoSearchTiming.final_ms !== null")
+    from playwright.sync_api import expect
+    expect(page.locator("#content")).to_have_attribute("data-timing-complete","true")
     timings = page.evaluate("window.dfoSearchTiming")
     entries.append({"workload":name,"visible_preview_ms":timings["preview_ms"],"visible_final_ms":timings["final_ms"],
                     "result_hash":result.get("result_hash"),"status":result.get("status"),
@@ -90,7 +93,7 @@ def desktop(browser,tmp_path):
                 and not req.url.startswith(server.url+"/") else None)
         try:
             page.goto(server.url)
-            expect(page.get_by_role("button",name="Run class search")).to_be_visible()
+            expect(page.get_by_role("button",name="Recommend My First Spellcaster")).to_be_visible()
             yield page, server.url
             assert errors == []
             assert external == []
@@ -116,6 +119,54 @@ def upload(page,button,file):
 
 def json_file(name,value):
     return {"name":name,"mimeType":"application/json","buffer":json.dumps(value).encode()}
+
+
+def test_recommend_first_spellcaster_download_and_reopen(desktop):
+    from playwright.sync_api import expect
+    page, url = desktop
+    expect(page.get_by_label("Search thoroughness")).to_have_value("standard")
+    page.get_by_label("Search thoroughness").select_option("quick")
+    with page.expect_response(lambda r: r.url == url+"/api/jobs" and r.request.method == "POST") as submitted:
+        page.get_by_role("button", name="Recommend My First Spellcaster").click()
+    identifier = submitted.value.json()["id"]
+    area = page.locator(f'#result-area[data-job-id="{identifier}"]')
+    expect(area).to_have_attribute("data-state", re.compile("completed|failed|cancelled"), timeout=300_000)
+    assert area.get_attribute("data-state") == "completed", area.inner_text()
+    result = page.request.get(url+"/api/jobs/"+identifier+"/export").json()
+    lead = result["recommendation"]
+    expect(area.get_by_role("heading", name="Your creation checklist")).to_be_visible()
+    expect(area.get_by_text("Choose your race", exact=True)).to_be_visible()
+    with page.expect_download() as event:
+        area.get_by_role("button", name="Download game class").click()
+    assert event.value.suggested_filename.endswith(".dfclass.json")
+    assert json.loads(event.value.path().read_bytes()) == lead["class"]
+    with page.expect_download() as event:
+        area.get_by_role("button", name="Download checklist").click()
+    assert event.value.path().read_text(encoding="utf-8") == lead["guide"]["text"]
+    # Intercept only the native print dialog, then inspect the exact document sent to print.
+    page.evaluate("window.print=()=>{}")
+    area.get_by_role("button", name="Print checklist").click()
+    page.emulate_media(media="print")
+    expect(page.locator("#print-checklist")).to_be_visible()
+    expect(page.locator("#navigation")).to_be_hidden()
+    page.evaluate("window.dispatchEvent(new Event('afterprint'))")
+    page.emulate_media(media="screen")
+    if result["alternatives"]:
+        area.get_by_label("View a build").select_option("1")
+        alternate=result["alternatives"][0]
+        assert download(page,"Download game class") == alternate["class"]
+        with page.expect_download() as selected:
+            area.get_by_role("button",name="Download checklist").click()
+        assert selected.value.path().read_text(encoding="utf-8") == alternate["guide"]["text"]
+    if result["sensitivity"]:
+        expect(area.get_by_role("heading",name="How the choice changes")).to_be_visible()
+    area.get_by_role("button", name="Replay result").click()
+    expect(page.get_by_role("dialog").get_by_text("verified",exact=True)).to_be_visible(timeout=180_000)
+    page.get_by_role("button", name="Close dialog").click()
+    area.get_by_role("button", name="Save to library").click()
+    page.get_by_role("button", name="Open library").click()
+    page.get_by_role("button", name="Inspect").first.click()
+    expect(page.get_by_role("dialog").get_by_role("button", name="Download checklist")).to_be_visible()
 
 
 def test_guided_spellcaster_discovery_and_class_comparison(desktop):
@@ -308,6 +359,7 @@ def test_edit_uploaded_request_saved_character_and_reopened_archive(desktop):
 def test_cancel_before_feasibility_and_after_replayed_incumbent(desktop,observations):
     from playwright.sync_api import expect
     page,url = desktop
+    page.get_by_role("link", name="Character Creator", exact=True).click()
     # A real native worker occupies the only slot, making pre-feasible
     # cancellation of the visible job independent of host execution speed.
     running = page.request.post(url+"/api/jobs",data={"action":"class optimize","request":LONG}).json()

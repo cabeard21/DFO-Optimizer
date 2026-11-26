@@ -28,6 +28,63 @@ The service reports native work and revalidates each finalist independently thro
 
 ## Spellcaster discovery
 
+### Beginner class admission
+
+The beginner workflow commits to one race and one ordered game class before drawing birth attributes or
+forking scenarios. Its manual Breton and High Elf classes pass the pinned creator's import and Create
+checks. A race control uses the Breton document unchanged on a High Elf. A material control retains the
+Breton race and replaces the five-point Adamantium prohibition with the five-point Ebony prohibition.
+The benchmark's explicit finite domains exclude these controls.
+
+The production profile sets class HP to 30, Magery to 3× Intelligence and requires unrestricted day/night
+casting. It checks simultaneous eligibility for three primary, two major and one minor magic school
+mastery. It also requires at least one owned, affordable direct-damage spell on every paired birth.
+Destruction in major grants Arcane Arrow. Primary also grants Minor Shock. The pinned
+`calculateCastCost` table covers each raw birth skill. Certification checks the owned record and release
+price using the independent progression evaluator. A character who starts with only healing or utility
+may pass game creation while failing the beginner caster profile.
+Slower advancement settings enter the same downstream evaluation as 0.30× classes. The default
+sampler places a melee skill among the six starting-kit skills. It excludes phobias and disease
+vulnerability by preference. Explicit trait domains can include them. High-risk disadvantages, reduced
+magic, elemental or paralysis saves, the plate prohibition and unverified SP-regeneration loss fail the
+profile. Disease vulnerability and phobias in an imported class remain visible to the player.
+
+The native kernel counts admissible physical copies after applying item material, armor and weapon masks,
+matching a trained melee skill and checking condition. It replays kit-table weights in integer units of
+1/400 kg. Capacity uses realized Strength after birth allocation. A candidate must carry its pack,
+gold and one compatible plain cuirass on every paired birth. The hypothetical cuirass is the lightest
+compatible material available in the theoretical catalog. A report names it so an Ebony assumption is
+visible. This test grants no item. Six source-generated equipment probes cover male and female characters
+on constant 0.1, 0.5 and 0.9 kit tapes. An unreviewed mod weapon cannot establish a backup. The ordinary
+lifecycle still uses the declared male 0.5 kit. Mixed RNG streams, biography rewards and acquisition
+remain outside these certificates.
+
+The per-family catalog report covers 180 weapon template–metal encodings, 143 armor template–material
+encodings and 91 other wearable forms in the reviewed equipment catalog. It records accepted and rejected
+material codes for each template, including the code-to-name table. These are class equip checks before
+gender-specific wear, vendor availability, pricing, ownership and the acquired loadout. The
+plate/weapon material count requires at least one reviewed career backup weapon type and an equippable
+plain cuirass in the same metal.
+
+Quick, Standard and Thorough request 4, 24 and 100 discoveries in addition to the two authored controls
+and two authored baselines. When budgets permit, each larger panel retains the earlier panel in order.
+Each disjoint integer difficulty slice receives at most 18,000 class nodes by default. Quick samples
+−12, −11, −8, 0 and 16. Standard samples 21 slices and Thorough samples all 53. The default stat grid is
+10, 20, 30, 40, 50, 60, 70 and 75 with the exact 400-point ledger. All eight races enter each slice.
+The native frontier observes paired birth SP, speed, Destruction, capacity left after the kit and cuirass,
+absorption and catalog compatibility. A native merge preserves different race/trait/group/usable-weapon
+signatures first. It prefers the lowest-cost endpoint and neighboring cost for the first two slots, then
+alternates actual birth SP with catalog breadth. These are admission choices. Final recommendations
+use independently replayed scenarios. The report distinguishes visited nodes, unique creator-legal
+classes screened, kit-certified candidates, admitted discoveries and evaluated builds. Exhaustion and
+complete admission apply only to a named finite domain. A zero-result bounded screen leaves feasibility
+open. A proven conflict may include a one-edit alternative with a named, already certified witness.
+
+Regenerate the fixed probes with
+`python tools/ruleset/beginner_classes.py --source vendor/dfo-source --check`.
+
+### General spellcaster discovery
+
 Select `spellcaster_discovery_v1` for a prospective class search. The default fixes HP at 30, Magery at 3× INT and difficulty at −12 (0.30×). It admits all eight races and the eligible trait catalog under the safety and casting settings above. Requiring simultaneous eligibility for six school masteries places three schools in primary, two in major and one in minor. Earning mastery still requires skill 100 and a free slot. Skill order affects which birth draws go to each school. The solver preserves the twelve ordered positions. Birth and progression replay use those positions for starting skills, spell selection and subsequent training opportunities.
 
 The initial bounded search uses the configured coarse grid for each attribute and balances the editor's 400 points. Exhaustive mode uses the full declared domains. Adaptive lifecycle search can widen the panel and try the adjacent allowed attribute values around a replayed family while fixing its other class decisions. Every pass consumes the shared lifecycle budget. Its report identifies the domain, stopping reason and any neighborhood center.
