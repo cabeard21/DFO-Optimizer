@@ -2,8 +2,10 @@
 
 import hashlib
 import json
+from time import perf_counter
 
 from .class_document import FORMAT, REPUTATIONS
+from .discovery_request import DiscoveryRequest
 from .classes import disallowed_trait, validate_class_snapshot
 from .native import require_native
 from .ruleset import _service_rules
@@ -60,7 +62,7 @@ def _traits(request, rules):
 
     rows = [(r["id"], int(r["side"] == "disadvantage"), r["cost"], tuple(r["conflicts"]),
              r["id"] in required, ORDER_SENSITIVE.get(r["primary"], 0))
-            for r in sorted(allowed, key=order)]
+            for r in sorted(allowed, key=(lambda r: r["id"]) if isinstance(request, DiscoveryRequest) else order)]
     return rows, required, excluded
 
 
@@ -80,6 +82,12 @@ def _compile(request, rules):
         "require_magic": request.require_magic_school,
         "magic_skills": tuple(r["id"] for r in rules["skills"] if r["magic"]),
     }
+    if isinstance(request, DiscoveryRequest):
+        from .discovery_features import packed_features
+        config = packed_features(request, rules)
+        kwargs.update(discovery=config, objective="examples", stop_after_top=False)
+        if not config["exhaustive"]:
+            kwargs["attributes"] = request.coarse_attributes
     return kwargs, required, excluded, reason
 
 
@@ -111,18 +119,20 @@ def _domain_check(row, req, eligible, required):
     )
 
 
-def _finalists(rows, request, rules, native_request, required):
+def _finalists(rows, request, rules, native_request, required, stop_reason=None):
     traits = {r["id"]: r for r in rules["traits"]}
     skills = {r["id"]: r for r in rules["skills"]}
     eligible = {r[0] for r in native_request["traits"]}
     found = []
     seen = set()
     for row in rows:
+        if stop_reason and stop_reason():
+            break
         if not _domain_check(row, request, eligible, required):
             raise RuntimeError("Native finalist failed independent candidate-domain validation")
         doc = _game_doc(row, traits, skills)
         check = validate_class_snapshot(
-            doc, ruleset=rules, race=row["race"], profile=request.profile,
+            doc, ruleset=rules, race=row["race"], profile="custom" if isinstance(request, DiscoveryRequest) else request.profile,
             hp_lock=None, magery_lock=request.magicka_multiplier,
             require_magic_school=request.require_magic_school,
             difficulty_target=request.difficulty_points, **_policy(request),
@@ -141,7 +151,35 @@ def _finalists(rows, request, rules, native_request, required):
             "objective_value": doc["attributes"]["intelligence"] if request.objective == "max_intelligence" else None,
             "warnings": check["warnings"], "unsupported_mechanics": check["unsupported_mechanics"],
         })
+        if isinstance(request, DiscoveryRequest):
+            from .discovery_features import certified_features
+            found[-1]["screening_features"] = certified_features(
+                doc, row["race"], check, row["screen"], request, rules)
+            found[-1]["unsupported_mechanics"] = [
+                k for k in check["unsupported_mechanics"] if k not in
+                ("pve.spell_damage", "progression.training", "gear.eligibility")]
     return found
+
+
+def validate_discovery_document(query, doc, race, rules):
+    """Recheck an archived admission without rerunning the heuristic generator."""
+    from .class_document import parse_document
+    from .discovery_features import mastery_eligible
+    spec = parse_request(query, rules)
+    if not isinstance(spec, DiscoveryRequest):
+        raise ValueError("expected a discovery profile")
+    draft, skipped = parse_document(doc,rules)
+    rows, required, _ = _traits(spec,rules)
+    packed = {"hp":draft.hp, "race":race, "skills":draft.skills, "attributes":draft.attributes,
+              "traits":draft.advantages + draft.disadvantages}
+    report = validate_class_snapshot(doc,ruleset=rules,race=race,profile="custom",hp_lock=None,
+        magery_lock=spec.magicka_multiplier,require_magic_school=spec.require_magic_school,
+        difficulty_target=spec.difficulty_points,**_policy(spec))
+    if (skipped or not report["profile_legal"] or not _domain_check(packed,spec,{r[0] for r in rows},required)
+            or not set(spec.required_skills) <= set(draft.skills)
+            or not mastery_eligible(draft.skills,spec.required_masteries,rules["progression_rules"]["limits"]["mastery_slots"])):
+        raise ValueError("class violates frozen discovery domain")
+    return report
 
 
 def _status(termination, has_candidates):
@@ -154,16 +192,32 @@ def _status(termination, has_candidates):
 
 def optimize_classes(request=None, *, ruleset=None, cancel=None):
     """Run an explicit finite-domain search under the pinned online snapshot."""
+    started = perf_counter()
     engine = require_native()
     rules = _service_rules(ruleset)
     spec = parse_request(request, rules)
     native_request, required, excluded, conflict = _compile(spec, rules)
-    if conflict:
-        raw = {"results": [], "termination": "constraint_conflict", "nodes": 0, "pruned": 0,
+    practical = isinstance(spec, DiscoveryRequest)
+    deadline = started + spec.wall_seconds if practical and spec.wall_seconds else None
+
+    def interrupted():
+        if cancel is not None and cancel.cancelled():
+            return "cancelled"
+        return "time_limit" if deadline and perf_counter() >= deadline else None
+
+    stop = interrupted() if practical else None
+    if deadline:
+        native_request["wall_seconds"] = max(1e-12, deadline-perf_counter())
+    if conflict or stop:
+        raw = {"results": [], "termination": stop or "constraint_conflict", "nodes": 0, "pruned": 0,
                "leaves": 0, "work_bytes": 0, "first_feasible_seconds": None}
     else:
         raw = engine.search_classes(**native_request, cancel=cancel)
-    candidates = _finalists(raw["results"], spec, rules, native_request, required)
+    candidates = _finalists(raw["results"], spec, rules, native_request, required,
+                            interrupted if practical else None)
+    fully_enumerated = raw["termination"] in ("constraint_conflict","exhausted")
+    if practical and len(candidates) < len(raw["results"]):
+        raw["termination"] = interrupted() or "time_limit"
     scope = {
         **spec.snapshot(), "eligible_trait_ids": sorted(row[0] for row in native_request["traits"]),
         "effective_required_trait_ids": sorted(required), "excluded_traits": excluded,
@@ -173,14 +227,37 @@ def optimize_classes(request=None, *, ruleset=None, cancel=None):
         "claim": "class construction at the pinned snapshot",
     }
     status = _status(raw["termination"], bool(candidates))
-    input_hash = _digest([ENGINE, rules["content_hash"], spec.snapshot()])
+    engine_name = ENGINE
+    unsupported = ["starting practical damage", "training route feasibility",
+                   "combat and progression ranking", "live-server equivalence"]
+    if isinstance(spec, DiscoveryRequest):
+        from .discovery_features import discovery_evidence
+        engine_name = "spellcaster-discovery-v1"
+        raw.setdefault("unique_screened", 0)
+        enumerated = bool(raw["termination"] == "constraint_conflict"
+                          or native_request["discovery"]["exhaustive"] and fully_enumerated)
+        admitted = enumerated and raw["leaves"] == len(candidates) and not (
+            raw["termination"] in ("time_limit","cancelled"))
+        scope.update(enumeration_complete=enumerated, admission_complete=admitted,
+                     mechanics_evidence=discovery_evidence(rules),
+                     ordering="native deterministic screening panel",
+                     screening_frontier="Race-partitioned Pareto representatives and diversity slots. "
+                         "Screening considers paired birth SP, speed, Destruction, HP, absorption eligibility "
+                         "and class compatibility for each submitted gear pool. Truncation affects admission.",
+                     claim="Creator eligibility and paired birth screening on the stated finite domain. "
+                           "Lifecycle performance requires independent progression and combat replay.")
+        if not admitted and status == "optimal_proven":
+            status = "best_found_bounded"
+        if not enumerated and status == "infeasible_proven":
+            status = "no_feasible_found"
+        unsupported = ["live-server equivalence"]
+    input_hash = _digest([engine_name, rules["content_hash"], spec.snapshot()])
     return {
-        "schema_version": 1, "engine": ENGINE, "source_sha": rules["source_sha"],
+        "schema_version": 1, "engine": engine_name, "source_sha": rules["source_sha"],
         "ruleset_hash": rules["content_hash"], "input_hash": input_hash,
         "result_hash": _digest([input_hash, status, raw["termination"], candidates]),
         "proof_scope": scope, "status": status, "termination": raw["termination"], "candidates": candidates,
         "counters": {k: v for k, v in raw.items() if k not in ("termination", "results")},
         "validation": {"finalists_checked": len(candidates), "checker": "independent class and domain replay"},
-        "unsupported_mechanics": ["starting practical damage", "training route feasibility",
-                                  "combat and progression ranking", "live-server equivalence"],
+        "unsupported_mechanics": unsupported,
     }

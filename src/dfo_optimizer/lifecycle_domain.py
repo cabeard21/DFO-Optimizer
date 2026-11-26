@@ -110,7 +110,8 @@ def record_recipe(record):
 def book_domain(config, source, actions):
     from .spellbook import pack_spell
 
-    config = fields(config, {"spells", "policies", "mode", "maker", "include_known"}, "spellbook")
+    config = fields(config, {"spells", "policies", "mode", "maker", "include_known", "allow_unarmed_start"}, "spellbook")
+    require(type(config.get("allow_unarmed_start", False)) is bool, "allow_unarmed_start must be boolean")
     include = config.get("include_known", True)
     require(type(include) is bool, "include_known must be boolean")
     found = {}
@@ -278,6 +279,8 @@ class Domain:
     actions: list
     encounters: list | None = None
     firmament: list | None = None
+    objective: str = "legacy"
+    encounter_gaps: tuple = ()
 
 
 def compile_route(raw, source, route, rules=None, start=None):
@@ -301,6 +304,9 @@ def compile_route(raw, source, route, rules=None, start=None):
             "checkpoints must include the actual start and final progression stage",
         )
     names, book, policies, maker, omitted = book_domain(raw.get("spellbook", {}), source, route["actions"])
+    if (raw.get("spellbook", {}).get("allow_unarmed_start") and source.get("boundary") == "creation"
+            and len(indices) > 1 and indices[0] == 0 and "encounter" not in raw):
+        policies = [*policies, []]
     domain, copies, slots, declared, windows, cap = gear_domain(raw.get("equipment", {}), source)
     owned = sum(1 << i for i, it in enumerate(domain.items) if it.owned)
     starting_known = {
@@ -363,6 +369,8 @@ def compile_route(raw, source, route, rules=None, start=None):
         debt_cap = 2**53 - 1
         for j in range(i + 1, next_i + 1):
             action = route["actions"][j - 1]
+            if action["kind"] == "rest" and action.get("recovery") == "full_bed":
+                debt_cap = 0
             if action["kind"] == "rest" and action.get("refill_sp") is not None:
                 floor = action["refill_sp"]
                 maximum = source["max_sp"]
@@ -393,10 +401,12 @@ def compile_route(raw, source, route, rules=None, start=None):
     asset_ids = [it.identity for it in domain.items] + names
     require(len(set(asset_ids)) == len(asset_ids), "physical and spell identities collide")
     encounters = None
+    encounter_gaps = ()
     if "encounter" in raw:
         from .lifecycle_encounter import bind
-        encounters = bind(raw["encounter"], states, indices, stages, route["actions"], book, names, policies,
-                          source, domain, declared, rules["progression_rules"]["paths"])
+        encounters, slots, declared, policies, encounter_gaps = bind(
+            raw["encounter"], states, indices, stages, route["actions"], book, names, policies,
+            source, domain, slots, declared, rules)
     return Domain(
         source,
         states,
@@ -415,4 +425,5 @@ def compile_route(raw, source, route, rules=None, start=None):
         route["actions"],
         encounters,
         firmament,
+        raw.get("objective", "legacy"), tuple(encounter_gaps),
     )

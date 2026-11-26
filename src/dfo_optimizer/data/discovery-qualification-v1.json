@@ -1,0 +1,3408 @@
+{
+  "schema_version": 1,
+  "panels": {
+    "development": [
+      {
+        "name": "burst",
+        "designated_reference": false,
+        "request": {
+          "schema_version": 1,
+          "description": "Finite comparison of an inexpensive touch spell and a heavier mixed spell. The 500 ms burst allows one hit. Extend the same encounter to 20 seconds for the sustained panel.",
+          "roll_seeds": [
+            11
+          ],
+          "progression": {
+            "goal": {
+              "level": 1
+            },
+            "stages": [],
+            "search": {
+              "exact": true
+            }
+          },
+          "target": {
+            "id": "training foe",
+            "hp": 300,
+            "willpower": 0
+          },
+          "equipment": {
+            "loadouts": [
+              {}
+            ]
+          },
+          "spellbook": {
+            "include_known": false,
+            "policies": [
+              [
+                "spark"
+              ],
+              [
+                "surge"
+              ]
+            ],
+            "spells": [
+              {
+                "id": "spark",
+                "recipe": {
+                  "range_type": 1,
+                  "element": 4,
+                  "effects": [
+                    {
+                      "effect_id": "4,0",
+                      "base_low": 5,
+                      "base_high": 5,
+                      "plus_low": 1,
+                      "plus_high": 1,
+                      "per_level": 20
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "surge",
+                "recipe": {
+                  "range_type": 1,
+                  "element": 4,
+                  "effects": [
+                    {
+                      "effect_id": "4,0",
+                      "base_low": 15,
+                      "base_high": 15,
+                      "plus_low": 1,
+                      "plus_high": 1,
+                      "per_level": 20
+                    },
+                    {
+                      "effect_id": "5,255",
+                      "chance_base": 2,
+                      "chance_increment": 1,
+                      "chance_per_level": 20
+                    }
+                  ]
+                }
+              }
+            ],
+            "maker": {
+              "source": "Synthetic confirmed access to a Spell Maker for both recipes",
+              "price_factor": 0.01,
+              "stages": [
+                0
+              ]
+            }
+          },
+          "encounter": {
+            "at": "terminal",
+            "seed": 42,
+            "evidence": "Both policies face the same stationary foe with the same starting pool and draw tape.",
+            "scenario": {
+              "id": "stationary training foe",
+              "evidence": "Controlled in-range landed casts with a frozen upper-quantile variate panel",
+              "horizon_us": 500000,
+              "enemies": [
+                {
+                  "id": "training foe",
+                  "hp": 300,
+                  "willpower": 0,
+                  "x_mm": 0,
+                  "z_mm": 0
+                }
+              ],
+              "tape": [
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9
+              ]
+            }
+          },
+          "search": {
+            "max_nodes": 1000000,
+            "wall_seconds": 120,
+            "memory_bytes": 268435456
+          },
+          "objective": "encounter_damage",
+          "class_search": {
+            "profile": "spellcaster_discovery_v1",
+            "trait_ids": [
+              23,
+              56,
+              58,
+              59,
+              60,
+              61,
+              62,
+              64,
+              65
+            ],
+            "skill_domains": [
+              [
+                22,
+                25
+              ],
+              [
+                23
+              ],
+              [
+                24
+              ],
+              [
+                22,
+                25
+              ],
+              [
+                26
+              ],
+              [
+                14
+              ],
+              [
+                27
+              ],
+              [
+                1
+              ],
+              [
+                2
+              ],
+              [
+                3
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ]
+            ],
+            "attribute_domains": {
+              "strength": [
+                30,
+                40,
+                50
+              ],
+              "intelligence": [
+                50,
+                60,
+                70
+              ],
+              "willpower": [
+                50
+              ],
+              "agility": [
+                50
+              ],
+              "endurance": [
+                50
+              ],
+              "personality": [
+                50
+              ],
+              "speed": [
+                50,
+                60,
+                70
+              ],
+              "luck": [
+                50
+              ]
+            },
+            "race_ids": [
+              1,
+              5
+            ],
+            "top_k": 8
+          },
+          "class_admission_strategy": "adaptive"
+        }
+      },
+      {
+        "name": "progression",
+        "designated_reference": false,
+        "request": {
+          "schema_version": 1,
+          "description": "Two funded encounters share a single confirmed starting SP pool. The stronger two-cast mixed policy can be used at either encounter.",
+          "roll_seeds": [
+            4,
+            29
+          ],
+          "progression": {
+            "goal": {
+              "level": 1
+            },
+            "stages": [
+              [
+                {
+                  "kind": "skip"
+                }
+              ]
+            ],
+            "search": {
+              "exact": true
+            }
+          },
+          "checkpoints": [
+            0,
+            1
+          ],
+          "target": {
+            "id": "ordinary target at both checkpoints",
+            "hp": 300,
+            "willpower": 45
+          },
+          "equipment": {
+            "loadouts": [
+              {}
+            ]
+          },
+          "spellbook": {
+            "policies": [
+              [
+                "known/991"
+              ],
+              [
+                "mixed-bolt",
+                "mixed-bolt"
+              ]
+            ],
+            "spells": [
+              {
+                "id": "mixed-bolt",
+                "recipe": {
+                  "range_type": 1,
+                  "element": 4,
+                  "effects": [
+                    {
+                      "effect_id": "4,0",
+                      "base_low": 2,
+                      "base_high": 3,
+                      "plus_low": 1,
+                      "plus_high": 1,
+                      "per_level": 2
+                    },
+                    {
+                      "effect_id": "5,255",
+                      "chance_base": 5,
+                      "chance_increment": 1,
+                      "chance_per_level": 2
+                    }
+                  ]
+                }
+              }
+            ],
+            "maker": {
+              "source": "Frozen synthetic starting maker quote and availability",
+              "price_factor": 0.01,
+              "stages": [
+                0
+              ]
+            }
+          },
+          "search": {
+            "max_nodes": 1000000,
+            "wall_seconds": 120,
+            "memory_bytes": 268435456
+          },
+          "objective": "pareto",
+          "class_search": {
+            "profile": "spellcaster_discovery_v1",
+            "trait_ids": [
+              23,
+              56,
+              58,
+              59,
+              60,
+              61,
+              62,
+              64,
+              65
+            ],
+            "skill_domains": [
+              [
+                22,
+                25
+              ],
+              [
+                23
+              ],
+              [
+                24
+              ],
+              [
+                22,
+                25
+              ],
+              [
+                26
+              ],
+              [
+                14
+              ],
+              [
+                27
+              ],
+              [
+                1
+              ],
+              [
+                2
+              ],
+              [
+                3
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ]
+            ],
+            "attribute_domains": {
+              "strength": [
+                30,
+                40,
+                50
+              ],
+              "intelligence": [
+                50,
+                60,
+                70
+              ],
+              "willpower": [
+                50
+              ],
+              "agility": [
+                50
+              ],
+              "endurance": [
+                50
+              ],
+              "personality": [
+                50
+              ],
+              "speed": [
+                50,
+                60,
+                70
+              ],
+              "luck": [
+                50
+              ]
+            },
+            "race_ids": [
+              1,
+              5
+            ],
+            "top_k": 8
+          },
+          "class_admission_strategy": "adaptive"
+        }
+      }
+    ],
+    "qualify": [
+      {
+        "name": "checkpoint_reversal",
+        "designated_reference": true,
+        "request": {
+          "schema_version": 1,
+          "description": "Two funded encounters share a single confirmed starting SP pool. The stronger two-cast mixed policy can be used at either encounter.",
+          "roll_seeds": [
+            42
+          ],
+          "progression": {
+            "goal": {
+              "level": 1
+            },
+            "stages": [
+              [
+                {
+                  "kind": "skip"
+                }
+              ]
+            ],
+            "search": {
+              "exact": true
+            }
+          },
+          "checkpoints": [
+            0,
+            1
+          ],
+          "target": {
+            "id": "ordinary target at both checkpoints",
+            "hp": 300,
+            "willpower": 45
+          },
+          "equipment": {
+            "loadouts": [
+              {}
+            ]
+          },
+          "spellbook": {
+            "policies": [
+              [
+                "known/990"
+              ],
+              [
+                "mixed-bolt",
+                "mixed-bolt"
+              ]
+            ],
+            "spells": [
+              {
+                "id": "mixed-bolt",
+                "recipe": {
+                  "range_type": 1,
+                  "element": 4,
+                  "effects": [
+                    {
+                      "effect_id": "4,0",
+                      "base_low": 2,
+                      "base_high": 3,
+                      "plus_low": 1,
+                      "plus_high": 1,
+                      "per_level": 2
+                    },
+                    {
+                      "effect_id": "5,255",
+                      "chance_base": 5,
+                      "chance_increment": 1,
+                      "chance_per_level": 2
+                    }
+                  ]
+                }
+              }
+            ],
+            "maker": {
+              "source": "Frozen synthetic starting maker quote and availability",
+              "price_factor": 0.01,
+              "stages": [
+                0
+              ]
+            }
+          },
+          "search": {
+            "max_nodes": 1000000,
+            "wall_seconds": 120,
+            "memory_bytes": 268435456
+          },
+          "objective": "overall_pve",
+          "class_search": {
+            "profile": "spellcaster_discovery_v1",
+            "trait_ids": [
+              23,
+              56,
+              58,
+              59,
+              60,
+              61,
+              62,
+              64,
+              65
+            ],
+            "skill_domains": [
+              [
+                22
+              ],
+              [
+                23
+              ],
+              [
+                24
+              ],
+              [
+                25
+              ],
+              [
+                26
+              ],
+              [
+                14
+              ],
+              [
+                27
+              ],
+              [
+                1
+              ],
+              [
+                2
+              ],
+              [
+                3
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ]
+            ],
+            "attribute_domains": {
+              "strength": [
+                30,
+                40,
+                50
+              ],
+              "intelligence": [
+                50,
+                60,
+                70
+              ],
+              "willpower": [
+                50
+              ],
+              "agility": [
+                50
+              ],
+              "endurance": [
+                50
+              ],
+              "personality": [
+                50
+              ],
+              "speed": [
+                50,
+                60,
+                70
+              ],
+              "luck": [
+                50
+              ]
+            },
+            "race_ids": [
+              1,
+              5
+            ],
+            "top_k": 8
+          },
+          "class_admission_strategy": "adaptive"
+        }
+      },
+      {
+        "name": "burst",
+        "designated_reference": true,
+        "request": {
+          "schema_version": 1,
+          "description": "Finite comparison of an inexpensive touch spell and a heavier mixed spell. The 500 ms burst allows one hit. Extend the same encounter to 20 seconds for the sustained panel.",
+          "roll_seeds": [
+            42
+          ],
+          "progression": {
+            "goal": {
+              "level": 1
+            },
+            "stages": [],
+            "search": {
+              "exact": true
+            }
+          },
+          "target": {
+            "id": "training foe",
+            "hp": 300,
+            "willpower": 0
+          },
+          "equipment": {
+            "loadouts": [
+              {}
+            ]
+          },
+          "spellbook": {
+            "include_known": false,
+            "policies": [
+              [
+                "spark"
+              ],
+              [
+                "surge"
+              ]
+            ],
+            "spells": [
+              {
+                "id": "spark",
+                "recipe": {
+                  "range_type": 1,
+                  "element": 4,
+                  "effects": [
+                    {
+                      "effect_id": "4,0",
+                      "base_low": 5,
+                      "base_high": 5,
+                      "plus_low": 1,
+                      "plus_high": 1,
+                      "per_level": 20
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "surge",
+                "recipe": {
+                  "range_type": 1,
+                  "element": 4,
+                  "effects": [
+                    {
+                      "effect_id": "4,0",
+                      "base_low": 15,
+                      "base_high": 15,
+                      "plus_low": 1,
+                      "plus_high": 1,
+                      "per_level": 20
+                    },
+                    {
+                      "effect_id": "5,255",
+                      "chance_base": 2,
+                      "chance_increment": 1,
+                      "chance_per_level": 20
+                    }
+                  ]
+                }
+              }
+            ],
+            "maker": {
+              "source": "Synthetic confirmed access to a Spell Maker for both recipes",
+              "price_factor": 0.01,
+              "stages": [
+                0
+              ]
+            }
+          },
+          "encounter": {
+            "at": "terminal",
+            "seed": 42,
+            "evidence": "Both policies face the same stationary foe with the same starting pool and draw tape.",
+            "scenario": {
+              "id": "stationary training foe",
+              "evidence": "Controlled in-range landed casts with a frozen upper-quantile variate panel",
+              "horizon_us": 500000,
+              "enemies": [
+                {
+                  "id": "training foe",
+                  "hp": 300,
+                  "willpower": 0,
+                  "x_mm": 0,
+                  "z_mm": 0
+                }
+              ],
+              "tape": [
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9
+              ]
+            }
+          },
+          "search": {
+            "max_nodes": 1000000,
+            "wall_seconds": 120,
+            "memory_bytes": 268435456
+          },
+          "objective": "encounter_damage",
+          "class_search": {
+            "profile": "spellcaster_discovery_v1",
+            "trait_ids": [
+              23,
+              56,
+              58,
+              59,
+              60,
+              61,
+              62,
+              64,
+              65
+            ],
+            "skill_domains": [
+              [
+                22,
+                25
+              ],
+              [
+                23
+              ],
+              [
+                24
+              ],
+              [
+                22,
+                25
+              ],
+              [
+                26
+              ],
+              [
+                14
+              ],
+              [
+                27
+              ],
+              [
+                1
+              ],
+              [
+                2
+              ],
+              [
+                3
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ]
+            ],
+            "attribute_domains": {
+              "strength": [
+                30,
+                40,
+                50
+              ],
+              "intelligence": [
+                50,
+                60,
+                70
+              ],
+              "willpower": [
+                50
+              ],
+              "agility": [
+                50
+              ],
+              "endurance": [
+                50
+              ],
+              "personality": [
+                50
+              ],
+              "speed": [
+                50,
+                60,
+                70
+              ],
+              "luck": [
+                50
+              ]
+            },
+            "race_ids": [
+              1,
+              5
+            ],
+            "top_k": 8
+          },
+          "class_admission_strategy": "adaptive"
+        }
+      },
+      {
+        "name": "sustained",
+        "designated_reference": true,
+        "request": {
+          "schema_version": 1,
+          "description": "Finite comparison of an inexpensive touch spell and a heavier mixed spell. The 500 ms burst allows one hit. Extend the same encounter to 20 seconds for the sustained panel.",
+          "roll_seeds": [
+            42
+          ],
+          "progression": {
+            "goal": {
+              "level": 1
+            },
+            "stages": [],
+            "search": {
+              "exact": true
+            }
+          },
+          "target": {
+            "id": "training foe",
+            "hp": 300,
+            "willpower": 0
+          },
+          "equipment": {
+            "loadouts": [
+              {}
+            ]
+          },
+          "spellbook": {
+            "include_known": false,
+            "policies": [
+              [
+                "spark"
+              ],
+              [
+                "surge"
+              ]
+            ],
+            "spells": [
+              {
+                "id": "spark",
+                "recipe": {
+                  "range_type": 1,
+                  "element": 4,
+                  "effects": [
+                    {
+                      "effect_id": "4,0",
+                      "base_low": 5,
+                      "base_high": 5,
+                      "plus_low": 1,
+                      "plus_high": 1,
+                      "per_level": 20
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "surge",
+                "recipe": {
+                  "range_type": 1,
+                  "element": 4,
+                  "effects": [
+                    {
+                      "effect_id": "4,0",
+                      "base_low": 15,
+                      "base_high": 15,
+                      "plus_low": 1,
+                      "plus_high": 1,
+                      "per_level": 20
+                    },
+                    {
+                      "effect_id": "5,255",
+                      "chance_base": 2,
+                      "chance_increment": 1,
+                      "chance_per_level": 20
+                    }
+                  ]
+                }
+              }
+            ],
+            "maker": {
+              "source": "Synthetic confirmed access to a Spell Maker for both recipes",
+              "price_factor": 0.01,
+              "stages": [
+                0
+              ]
+            }
+          },
+          "encounter": {
+            "at": "terminal",
+            "seed": 42,
+            "evidence": "Both policies face the same stationary foe with the same starting pool and draw tape.",
+            "scenario": {
+              "id": "stationary training foe",
+              "evidence": "Controlled in-range landed casts with a frozen upper-quantile variate panel",
+              "horizon_us": 20000000,
+              "enemies": [
+                {
+                  "id": "training foe",
+                  "hp": 300,
+                  "willpower": 0,
+                  "x_mm": 0,
+                  "z_mm": 0
+                }
+              ],
+              "tape": [
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9
+              ]
+            }
+          },
+          "search": {
+            "max_nodes": 1000000,
+            "wall_seconds": 120,
+            "memory_bytes": 268435456
+          },
+          "objective": "encounter_damage",
+          "class_search": {
+            "profile": "spellcaster_discovery_v1",
+            "trait_ids": [
+              23,
+              56,
+              58,
+              59,
+              60,
+              61,
+              62,
+              64,
+              65
+            ],
+            "skill_domains": [
+              [
+                22,
+                25
+              ],
+              [
+                23
+              ],
+              [
+                24
+              ],
+              [
+                22,
+                25
+              ],
+              [
+                26
+              ],
+              [
+                14
+              ],
+              [
+                27
+              ],
+              [
+                1
+              ],
+              [
+                2
+              ],
+              [
+                3
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ]
+            ],
+            "attribute_domains": {
+              "strength": [
+                30,
+                40,
+                50
+              ],
+              "intelligence": [
+                50,
+                60,
+                70
+              ],
+              "willpower": [
+                50
+              ],
+              "agility": [
+                50
+              ],
+              "endurance": [
+                50
+              ],
+              "personality": [
+                50
+              ],
+              "speed": [
+                50,
+                60,
+                70
+              ],
+              "luck": [
+                50
+              ]
+            },
+            "race_ids": [
+              1,
+              5
+            ],
+            "top_k": 8
+          },
+          "class_admission_strategy": "adaptive"
+        }
+      },
+      {
+        "name": "progression",
+        "designated_reference": false,
+        "request": {
+          "schema_version": 1,
+          "description": "Two funded encounters share a single confirmed starting SP pool. The stronger two-cast mixed policy can be used at either encounter.",
+          "roll_seeds": [
+            13,
+            67,
+            149,
+            227
+          ],
+          "progression": {
+            "goal": {
+              "level": 1
+            },
+            "stages": [
+              [
+                {
+                  "kind": "skip"
+                }
+              ]
+            ],
+            "search": {
+              "exact": true
+            }
+          },
+          "checkpoints": [
+            0,
+            1
+          ],
+          "target": {
+            "id": "ordinary target at both checkpoints",
+            "hp": 300,
+            "willpower": 45
+          },
+          "equipment": {
+            "loadouts": [
+              {}
+            ]
+          },
+          "spellbook": {
+            "policies": [
+              [
+                "known/991"
+              ],
+              [
+                "mixed-bolt",
+                "mixed-bolt"
+              ]
+            ],
+            "spells": [
+              {
+                "id": "mixed-bolt",
+                "recipe": {
+                  "range_type": 1,
+                  "element": 4,
+                  "effects": [
+                    {
+                      "effect_id": "4,0",
+                      "base_low": 2,
+                      "base_high": 3,
+                      "plus_low": 1,
+                      "plus_high": 1,
+                      "per_level": 2
+                    },
+                    {
+                      "effect_id": "5,255",
+                      "chance_base": 5,
+                      "chance_increment": 1,
+                      "chance_per_level": 2
+                    }
+                  ]
+                }
+              }
+            ],
+            "maker": {
+              "source": "Frozen synthetic starting maker quote and availability",
+              "price_factor": 0.01,
+              "stages": [
+                0
+              ]
+            }
+          },
+          "search": {
+            "max_nodes": 1000000,
+            "wall_seconds": 120,
+            "memory_bytes": 268435456
+          },
+          "objective": "endgame_damage",
+          "class_search": {
+            "profile": "spellcaster_discovery_v1",
+            "trait_ids": [
+              23,
+              56,
+              58,
+              59,
+              60,
+              61,
+              62,
+              64,
+              65
+            ],
+            "skill_domains": [
+              [
+                22,
+                25
+              ],
+              [
+                23
+              ],
+              [
+                24
+              ],
+              [
+                22,
+                25
+              ],
+              [
+                26
+              ],
+              [
+                14
+              ],
+              [
+                27
+              ],
+              [
+                1
+              ],
+              [
+                2
+              ],
+              [
+                3
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ]
+            ],
+            "attribute_domains": {
+              "strength": [
+                30,
+                40,
+                50
+              ],
+              "intelligence": [
+                50,
+                60,
+                70
+              ],
+              "willpower": [
+                50
+              ],
+              "agility": [
+                50
+              ],
+              "endurance": [
+                50
+              ],
+              "personality": [
+                50
+              ],
+              "speed": [
+                50,
+                60,
+                70
+              ],
+              "luck": [
+                50
+              ]
+            },
+            "race_ids": [
+              1,
+              5
+            ],
+            "top_k": 8
+          },
+          "class_admission_strategy": "adaptive"
+        }
+      },
+      {
+        "name": "offered_staff",
+        "designated_reference": false,
+        "request": {
+          "schema_version": 1,
+          "description": "Two funded encounters share a single confirmed starting SP pool. The stronger two-cast mixed policy can be used at either encounter.",
+          "roll_seeds": [
+            18,
+            71,
+            153,
+            229
+          ],
+          "progression": {
+            "goal": {
+              "level": 1
+            },
+            "stages": [
+              [
+                {
+                  "kind": "skip"
+                }
+              ]
+            ],
+            "search": {
+              "exact": true
+            }
+          },
+          "checkpoints": [
+            0,
+            1
+          ],
+          "target": {
+            "id": "ordinary target at both checkpoints",
+            "hp": 300,
+            "willpower": 45
+          },
+          "equipment": {
+            "offers": [
+              {
+                "instance_id": "conditional-enchanted-staff",
+                "stages": [
+                  0,
+                  1
+                ],
+                "acquisition": {
+                  "owned": false,
+                  "obtainable": true,
+                  "price": {
+                    "gold": 1
+                  },
+                  "source": "Hypothetical one-gold quote for an ebony staff with two declared magic rolls."
+                },
+                "item": {
+                  "group": "Weapons",
+                  "templateIndex": 115,
+                  "material": 7,
+                  "rarity": "magic",
+                  "affixes": [
+                    {
+                      "id": "skill",
+                      "param": 0,
+                      "value": 8
+                    },
+                    {
+                      "id": "castSpeed",
+                      "value": 3
+                    }
+                  ]
+                }
+              }
+            ],
+            "loadouts": [
+              {},
+              {
+                "RightHand": "conditional-enchanted-staff"
+              }
+            ]
+          },
+          "spellbook": {
+            "policies": [
+              [
+                "known/991"
+              ],
+              [
+                "mixed-bolt",
+                "mixed-bolt"
+              ]
+            ],
+            "spells": [
+              {
+                "id": "mixed-bolt",
+                "recipe": {
+                  "range_type": 1,
+                  "element": 4,
+                  "effects": [
+                    {
+                      "effect_id": "4,0",
+                      "base_low": 2,
+                      "base_high": 3,
+                      "plus_low": 1,
+                      "plus_high": 1,
+                      "per_level": 2
+                    },
+                    {
+                      "effect_id": "5,255",
+                      "chance_base": 5,
+                      "chance_increment": 1,
+                      "chance_per_level": 2
+                    }
+                  ]
+                }
+              }
+            ],
+            "maker": {
+              "source": "Frozen synthetic starting maker quote and availability",
+              "price_factor": 0.01,
+              "stages": [
+                0
+              ]
+            }
+          },
+          "search": {
+            "max_nodes": 1000000,
+            "wall_seconds": 120,
+            "memory_bytes": 268435456
+          },
+          "objective": "endgame_damage",
+          "class_search": {
+            "profile": "spellcaster_discovery_v1",
+            "trait_ids": [
+              23,
+              56,
+              58,
+              59,
+              60,
+              61,
+              62,
+              64,
+              65
+            ],
+            "skill_domains": [
+              [
+                22,
+                25
+              ],
+              [
+                23
+              ],
+              [
+                24
+              ],
+              [
+                22,
+                25
+              ],
+              [
+                26
+              ],
+              [
+                14
+              ],
+              [
+                27
+              ],
+              [
+                1
+              ],
+              [
+                2
+              ],
+              [
+                3
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ]
+            ],
+            "attribute_domains": {
+              "strength": [
+                30,
+                40,
+                50
+              ],
+              "intelligence": [
+                50,
+                60,
+                70
+              ],
+              "willpower": [
+                50
+              ],
+              "agility": [
+                50
+              ],
+              "endurance": [
+                50
+              ],
+              "personality": [
+                50
+              ],
+              "speed": [
+                50,
+                60,
+                70
+              ],
+              "luck": [
+                50
+              ]
+            },
+            "race_ids": [
+              1,
+              5
+            ],
+            "top_k": 8
+          },
+          "class_admission_strategy": "adaptive"
+        }
+      },
+      {
+        "name": "sustained",
+        "designated_reference": false,
+        "request": {
+          "schema_version": 1,
+          "description": "Finite comparison of an inexpensive touch spell and a heavier mixed spell. The 500 ms burst allows one hit. Extend the same encounter to 20 seconds for the sustained panel.",
+          "roll_seeds": [
+            21,
+            79,
+            163,
+            239
+          ],
+          "progression": {
+            "goal": {
+              "level": 1
+            },
+            "stages": [],
+            "search": {
+              "exact": true
+            }
+          },
+          "target": {
+            "id": "training foe",
+            "hp": 300,
+            "willpower": 0
+          },
+          "equipment": {
+            "loadouts": [
+              {}
+            ]
+          },
+          "spellbook": {
+            "include_known": false,
+            "policies": [
+              [
+                "spark"
+              ],
+              [
+                "surge"
+              ]
+            ],
+            "spells": [
+              {
+                "id": "spark",
+                "recipe": {
+                  "range_type": 1,
+                  "element": 4,
+                  "effects": [
+                    {
+                      "effect_id": "4,0",
+                      "base_low": 5,
+                      "base_high": 5,
+                      "plus_low": 1,
+                      "plus_high": 1,
+                      "per_level": 20
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "surge",
+                "recipe": {
+                  "range_type": 1,
+                  "element": 4,
+                  "effects": [
+                    {
+                      "effect_id": "4,0",
+                      "base_low": 15,
+                      "base_high": 15,
+                      "plus_low": 1,
+                      "plus_high": 1,
+                      "per_level": 20
+                    },
+                    {
+                      "effect_id": "5,255",
+                      "chance_base": 2,
+                      "chance_increment": 1,
+                      "chance_per_level": 20
+                    }
+                  ]
+                }
+              }
+            ],
+            "maker": {
+              "source": "Synthetic confirmed access to a Spell Maker for both recipes",
+              "price_factor": 0.01,
+              "stages": [
+                0
+              ]
+            }
+          },
+          "encounter": {
+            "at": "terminal",
+            "seed": 42,
+            "evidence": "Both policies face the same stationary foe with the same starting pool and draw tape.",
+            "scenario": {
+              "id": "stationary training foe",
+              "evidence": "Controlled in-range landed casts with a frozen upper-quantile variate panel",
+              "horizon_us": 20000000,
+              "enemies": [
+                {
+                  "id": "training foe",
+                  "hp": 300,
+                  "willpower": 0,
+                  "x_mm": 0,
+                  "z_mm": 0
+                }
+              ],
+              "tape": [
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9
+              ]
+            }
+          },
+          "search": {
+            "max_nodes": 1000000,
+            "wall_seconds": 120,
+            "memory_bytes": 268435456
+          },
+          "objective": "damage_per_sp",
+          "class_search": {
+            "profile": "spellcaster_discovery_v1",
+            "trait_ids": [
+              23,
+              56,
+              58,
+              59,
+              60,
+              61,
+              62,
+              64,
+              65
+            ],
+            "skill_domains": [
+              [
+                22,
+                25
+              ],
+              [
+                23
+              ],
+              [
+                24
+              ],
+              [
+                22,
+                25
+              ],
+              [
+                26
+              ],
+              [
+                14
+              ],
+              [
+                27
+              ],
+              [
+                1
+              ],
+              [
+                2
+              ],
+              [
+                3
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ]
+            ],
+            "attribute_domains": {
+              "strength": [
+                30,
+                40,
+                50
+              ],
+              "intelligence": [
+                50,
+                60,
+                70
+              ],
+              "willpower": [
+                50
+              ],
+              "agility": [
+                50
+              ],
+              "endurance": [
+                50
+              ],
+              "personality": [
+                50
+              ],
+              "speed": [
+                50,
+                60,
+                70
+              ],
+              "luck": [
+                50
+              ]
+            },
+            "race_ids": [
+              1,
+              5
+            ],
+            "top_k": 8
+          },
+          "class_admission_strategy": "adaptive"
+        }
+      },
+      {
+        "name": "resistance",
+        "designated_reference": false,
+        "request": {
+          "schema_version": 1,
+          "description": "Finite comparison of an inexpensive touch spell and a heavier mixed spell. The 500 ms burst allows one hit. Extend the same encounter to 20 seconds for the sustained panel.",
+          "roll_seeds": [
+            24,
+            83,
+            167,
+            241
+          ],
+          "progression": {
+            "goal": {
+              "level": 1
+            },
+            "stages": [],
+            "search": {
+              "exact": true
+            }
+          },
+          "target": {
+            "id": "training foe",
+            "hp": 300,
+            "willpower": 0
+          },
+          "equipment": {
+            "loadouts": [
+              {}
+            ]
+          },
+          "spellbook": {
+            "include_known": false,
+            "policies": [
+              [
+                "spark"
+              ],
+              [
+                "surge"
+              ]
+            ],
+            "spells": [
+              {
+                "id": "spark",
+                "recipe": {
+                  "range_type": 1,
+                  "element": 4,
+                  "effects": [
+                    {
+                      "effect_id": "4,0",
+                      "base_low": 5,
+                      "base_high": 5,
+                      "plus_low": 1,
+                      "plus_high": 1,
+                      "per_level": 20
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "surge",
+                "recipe": {
+                  "range_type": 1,
+                  "element": 4,
+                  "effects": [
+                    {
+                      "effect_id": "4,0",
+                      "base_low": 15,
+                      "base_high": 15,
+                      "plus_low": 1,
+                      "plus_high": 1,
+                      "per_level": 20
+                    },
+                    {
+                      "effect_id": "5,255",
+                      "chance_base": 2,
+                      "chance_increment": 1,
+                      "chance_per_level": 20
+                    }
+                  ]
+                }
+              }
+            ],
+            "maker": {
+              "source": "Synthetic confirmed access to a Spell Maker for both recipes",
+              "price_factor": 0.01,
+              "stages": [
+                0
+              ]
+            }
+          },
+          "encounter": {
+            "at": "terminal",
+            "seed": 42,
+            "evidence": "Both policies face the same stationary foe with the same starting pool and draw tape.",
+            "scenario": {
+              "id": "stationary training foe",
+              "evidence": "Controlled in-range landed casts with a frozen upper-quantile variate panel",
+              "horizon_us": 20000000,
+              "enemies": [
+                {
+                  "id": "training foe",
+                  "hp": 300,
+                  "willpower": 100,
+                  "x_mm": 0,
+                  "z_mm": 0
+                }
+              ],
+              "tape": [
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9
+              ]
+            }
+          },
+          "search": {
+            "max_nodes": 1000000,
+            "wall_seconds": 120,
+            "memory_bytes": 268435456
+          },
+          "objective": "encounter_damage",
+          "class_search": {
+            "profile": "spellcaster_discovery_v1",
+            "trait_ids": [
+              23,
+              56,
+              58,
+              59,
+              60,
+              61,
+              62,
+              64,
+              65
+            ],
+            "skill_domains": [
+              [
+                22,
+                25
+              ],
+              [
+                23
+              ],
+              [
+                24
+              ],
+              [
+                22,
+                25
+              ],
+              [
+                26
+              ],
+              [
+                14
+              ],
+              [
+                27
+              ],
+              [
+                1
+              ],
+              [
+                2
+              ],
+              [
+                3
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ]
+            ],
+            "attribute_domains": {
+              "strength": [
+                30,
+                40,
+                50
+              ],
+              "intelligence": [
+                50,
+                60,
+                70
+              ],
+              "willpower": [
+                50
+              ],
+              "agility": [
+                50
+              ],
+              "endurance": [
+                50
+              ],
+              "personality": [
+                50
+              ],
+              "speed": [
+                50,
+                60,
+                70
+              ],
+              "luck": [
+                50
+              ]
+            },
+            "race_ids": [
+              1,
+              5
+            ],
+            "top_k": 8
+          },
+          "class_admission_strategy": "adaptive"
+        }
+      },
+      {
+        "name": "pack",
+        "designated_reference": false,
+        "request": {
+          "schema_version": 1,
+          "description": "Finite comparison of an inexpensive touch spell and a heavier mixed spell. The 500 ms burst allows one hit. Extend the same encounter to 20 seconds for the sustained panel.",
+          "roll_seeds": [
+            31,
+            89,
+            173,
+            251
+          ],
+          "progression": {
+            "goal": {
+              "level": 1
+            },
+            "stages": [],
+            "search": {
+              "exact": true
+            }
+          },
+          "target": {
+            "id": "training foe",
+            "hp": 300,
+            "willpower": 0
+          },
+          "equipment": {
+            "loadouts": [
+              {}
+            ]
+          },
+          "spellbook": {
+            "include_known": false,
+            "policies": [
+              [
+                "spark"
+              ],
+              [
+                "surge"
+              ]
+            ],
+            "spells": [
+              {
+                "id": "spark",
+                "recipe": {
+                  "range_type": 1,
+                  "element": 4,
+                  "effects": [
+                    {
+                      "effect_id": "4,0",
+                      "base_low": 5,
+                      "base_high": 5,
+                      "plus_low": 1,
+                      "plus_high": 1,
+                      "per_level": 20
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "surge",
+                "recipe": {
+                  "range_type": 1,
+                  "element": 4,
+                  "effects": [
+                    {
+                      "effect_id": "4,0",
+                      "base_low": 15,
+                      "base_high": 15,
+                      "plus_low": 1,
+                      "plus_high": 1,
+                      "per_level": 20
+                    },
+                    {
+                      "effect_id": "5,255",
+                      "chance_base": 2,
+                      "chance_increment": 1,
+                      "chance_per_level": 20
+                    }
+                  ]
+                }
+              }
+            ],
+            "maker": {
+              "source": "Synthetic confirmed access to a Spell Maker for both recipes",
+              "price_factor": 0.01,
+              "stages": [
+                0
+              ]
+            }
+          },
+          "encounter": {
+            "at": "terminal",
+            "seed": 42,
+            "evidence": "Both policies face the same stationary foe with the same starting pool and draw tape.",
+            "scenario": {
+              "id": "stationary training foe",
+              "evidence": "Controlled in-range landed casts with a frozen upper-quantile variate panel",
+              "horizon_us": 20000000,
+              "enemies": [
+                {
+                  "id": "training foe",
+                  "hp": 300,
+                  "willpower": 0,
+                  "x_mm": 0,
+                  "z_mm": 0
+                },
+                {
+                  "id": "second comparison foe",
+                  "hp": 300,
+                  "willpower": 0,
+                  "x_mm": 0,
+                  "z_mm": 0
+                }
+              ],
+              "tape": [
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9
+              ]
+            }
+          },
+          "search": {
+            "max_nodes": 1000000,
+            "wall_seconds": 120,
+            "memory_bytes": 268435456
+          },
+          "objective": "encounter_damage",
+          "class_search": {
+            "profile": "spellcaster_discovery_v1",
+            "trait_ids": [
+              23,
+              56,
+              58,
+              59,
+              60,
+              61,
+              62,
+              64,
+              65
+            ],
+            "skill_domains": [
+              [
+                22,
+                25
+              ],
+              [
+                23
+              ],
+              [
+                24
+              ],
+              [
+                22,
+                25
+              ],
+              [
+                26
+              ],
+              [
+                14
+              ],
+              [
+                27
+              ],
+              [
+                1
+              ],
+              [
+                2
+              ],
+              [
+                3
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ]
+            ],
+            "attribute_domains": {
+              "strength": [
+                30,
+                40,
+                50
+              ],
+              "intelligence": [
+                50,
+                60,
+                70
+              ],
+              "willpower": [
+                50
+              ],
+              "agility": [
+                50
+              ],
+              "endurance": [
+                50
+              ],
+              "personality": [
+                50
+              ],
+              "speed": [
+                50,
+                60,
+                70
+              ],
+              "luck": [
+                50
+              ]
+            },
+            "race_ids": [
+              1,
+              5
+            ],
+            "top_k": 8
+          },
+          "class_admission_strategy": "adaptive"
+        }
+      },
+      {
+        "name": "hostile_spell",
+        "designated_reference": false,
+        "request": {
+          "schema_version": 1,
+          "description": "Finite comparison of an inexpensive touch spell and a heavier mixed spell. The 500 ms burst allows one hit. Extend the same encounter to 20 seconds for the sustained panel.",
+          "roll_seeds": [
+            33,
+            91
+          ],
+          "progression": {
+            "goal": {
+              "level": 1
+            },
+            "stages": [],
+            "search": {
+              "exact": true
+            }
+          },
+          "target": {
+            "id": "training foe",
+            "hp": 300,
+            "willpower": 0
+          },
+          "equipment": {
+            "loadouts": [
+              {}
+            ]
+          },
+          "spellbook": {
+            "include_known": false,
+            "policies": [
+              [
+                "spark"
+              ],
+              [
+                "surge"
+              ]
+            ],
+            "spells": [
+              {
+                "id": "spark",
+                "recipe": {
+                  "range_type": 1,
+                  "element": 4,
+                  "effects": [
+                    {
+                      "effect_id": "4,0",
+                      "base_low": 5,
+                      "base_high": 5,
+                      "plus_low": 1,
+                      "plus_high": 1,
+                      "per_level": 20
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "surge",
+                "recipe": {
+                  "range_type": 1,
+                  "element": 4,
+                  "effects": [
+                    {
+                      "effect_id": "4,0",
+                      "base_low": 15,
+                      "base_high": 15,
+                      "plus_low": 1,
+                      "plus_high": 1,
+                      "per_level": 20
+                    },
+                    {
+                      "effect_id": "5,255",
+                      "chance_base": 2,
+                      "chance_increment": 1,
+                      "chance_per_level": 20
+                    }
+                  ]
+                }
+              }
+            ],
+            "maker": {
+              "source": "Synthetic confirmed access to a Spell Maker for both recipes",
+              "price_factor": 0.01,
+              "stages": [
+                0
+              ]
+            }
+          },
+          "encounter": {
+            "at": "terminal",
+            "seed": 42,
+            "scenario": {
+              "id": "shaman duel",
+              "evidence": "Pinned Orc and Orc Shaman base rows with authored HP, Willpower, geometry, incoming spell, and timings. No inter-room healing or consumables.",
+              "horizon_us": 36000000,
+              "enemies": [
+                {
+                  "id": "Orc Shaman",
+                  "level": 13,
+                  "hp": 32,
+                  "evidence": "src/characters/enemy/enemyBasics.js VANILLA_ENEMY_BASICS[21]: level 13, HP 18\u00e2\u20ac\u201c74, physical damage 2\u00e2\u20ac\u201c20; this encounter selects 32 HP and assumes one fixed spell arrival.",
+                  "willpower": 40,
+                  "x_mm": 1700,
+                  "z_mm": 0
+                }
+              ],
+              "incoming": [
+                {
+                  "time_us": 1750000,
+                  "source": 0,
+                  "kind": "bundle",
+                  "spell": "shaman-bolt",
+                  "evidence": "Authored hostile spell arrival, fixed across prospective classes."
+                }
+              ]
+            },
+            "evidence": "Prospective ordinary PvE, fixed stationary positions, authored target rolls, attack schedule and common seed.",
+            "environment": "darkness",
+            "hostile_spells": [
+              {
+                "id": "shaman-bolt",
+                "recipe": {
+                  "range_type": 2,
+                  "element": 0,
+                  "effects": [
+                    {
+                      "effect_id": "4,0",
+                      "base_low": 1,
+                      "base_high": 1,
+                      "plus_low": 2,
+                      "plus_high": 2,
+                      "per_level": 1
+                    }
+                  ]
+                },
+                "evidence": "Hypothetical Damage Health bolt. The pinned Orc Shaman career supplies the identity and base level."
+              }
+            ]
+          },
+          "search": {
+            "max_nodes": 1000000,
+            "wall_seconds": 120,
+            "memory_bytes": 268435456
+          },
+          "objective": "survivability",
+          "class_search": {
+            "profile": "spellcaster_discovery_v1",
+            "trait_ids": [
+              23,
+              58,
+              59,
+              60,
+              61,
+              62,
+              64,
+              65,
+              80,
+              82
+            ],
+            "skill_domains": [
+              [
+                22,
+                25
+              ],
+              [
+                23
+              ],
+              [
+                24
+              ],
+              [
+                22,
+                25
+              ],
+              [
+                26
+              ],
+              [
+                14
+              ],
+              [
+                27
+              ],
+              [
+                1
+              ],
+              [
+                2
+              ],
+              [
+                3
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ]
+            ],
+            "attribute_domains": {
+              "strength": [
+                30,
+                40,
+                50
+              ],
+              "intelligence": [
+                50,
+                60,
+                70
+              ],
+              "willpower": [
+                50
+              ],
+              "agility": [
+                50
+              ],
+              "endurance": [
+                50
+              ],
+              "personality": [
+                50
+              ],
+              "speed": [
+                50,
+                60,
+                70
+              ],
+              "luck": [
+                50
+              ]
+            },
+            "race_ids": [
+              1,
+              5
+            ],
+            "top_k": 8
+          },
+          "class_admission_strategy": "adaptive"
+        }
+      },
+      {
+        "name": "earned_levels",
+        "designated_reference": false,
+        "request": {
+          "schema_version": 1,
+          "description": "Compare ordinary creation rolls and the first earned level gains. Conditional opportunities and quotes are hypothetical. Gear compares the declared physical copies and layouts. The target and spell access are editable scenario assumptions.",
+          "class_admission_strategy": "adaptive",
+          "class_search": {
+            "profile": "spellcaster_discovery_v1",
+            "trait_ids": [
+              23,
+              56,
+              58,
+              59,
+              60,
+              61,
+              62,
+              64,
+              65
+            ],
+            "skill_domains": [
+              [
+                22,
+                25
+              ],
+              [
+                23
+              ],
+              [
+                24
+              ],
+              [
+                22,
+                25
+              ],
+              [
+                26
+              ],
+              [
+                14
+              ],
+              [
+                27
+              ],
+              [
+                1
+              ],
+              [
+                2
+              ],
+              [
+                3
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ]
+            ],
+            "attribute_domains": {
+              "strength": [
+                50
+              ],
+              "intelligence": [
+                50
+              ],
+              "willpower": [
+                50
+              ],
+              "agility": [
+                50
+              ],
+              "endurance": [
+                50
+              ],
+              "personality": [
+                50
+              ],
+              "speed": [
+                50
+              ],
+              "luck": [
+                50
+              ]
+            },
+            "race_ids": [
+              1,
+              3
+            ],
+            "top_k": 8
+          },
+          "objective": "endgame_damage",
+          "roll_seeds": [
+            5,
+            109
+          ],
+          "target": {
+            "id": "hypothetical ordinary stationary opponent",
+            "hp": 100,
+            "willpower": 50
+          },
+          "equipment": {
+            "offers": [
+              {
+                "instance_id": "offer-133-39",
+                "item": {
+                  "affixes": [
+                    {
+                      "id": "skill",
+                      "param": 22,
+                      "value": 9
+                    },
+                    {
+                      "id": "skill",
+                      "param": 16,
+                      "value": 7
+                    }
+                  ],
+                  "group": "Jewellery",
+                  "name": "Amulet of Practice",
+                  "rarity": "magic",
+                  "templateIndex": 133
+                },
+                "acquisition": {
+                  "owned": false,
+                  "obtainable": true,
+                  "price": {
+                    "gold": 10
+                  },
+                  "source": "Hypothetical availability and gold quote. Pinned tier6_pile_level45_luck50 template 133, seed 39."
+                }
+              },
+              {
+                "instance_id": "offer-113-44",
+                "item": {
+                  "affixes": [
+                    {
+                      "id": "skill",
+                      "param": 0,
+                      "value": 8
+                    },
+                    {
+                      "id": "castSpeed",
+                      "value": 3
+                    }
+                  ],
+                  "group": "Weapons",
+                  "material": 1,
+                  "name": "Dagger of Practice",
+                  "rarity": "magic",
+                  "templateIndex": 113
+                },
+                "acquisition": {
+                  "owned": false,
+                  "obtainable": true,
+                  "price": {
+                    "gold": 12
+                  },
+                  "source": "Hypothetical availability and gold quote. Pinned tier6_pile_level45_luck50 template 113, seed 44."
+                }
+              },
+              {
+                "instance_id": "offer-103-226",
+                "item": {
+                  "affixes": [
+                    {
+                      "id": "stat",
+                      "param": "speed",
+                      "value": 2
+                    }
+                  ],
+                  "group": "Armor",
+                  "material": 0,
+                  "name": "Gauntlets of the Hare",
+                  "rarity": "magic",
+                  "templateIndex": 103
+                },
+                "acquisition": {
+                  "owned": false,
+                  "obtainable": true,
+                  "price": {
+                    "gold": 15
+                  },
+                  "source": "Hypothetical availability and gold quote. Pinned tier6_pile_level45_luck50 template 103, seed 226."
+                }
+              }
+            ],
+            "loadouts": [
+              {},
+              {
+                "Amulet0": "offer-133-39"
+              },
+              {
+                "RightHand": "offer-113-44"
+              },
+              {
+                "Amulet0": "offer-133-39",
+                "RightHand": "offer-113-44"
+              },
+              {
+                "Gloves": "offer-103-226"
+              },
+              {
+                "Amulet0": "offer-133-39",
+                "Gloves": "offer-103-226"
+              },
+              {
+                "RightHand": "offer-113-44",
+                "Gloves": "offer-103-226"
+              },
+              {
+                "Amulet0": "offer-133-39",
+                "RightHand": "offer-113-44",
+                "Gloves": "offer-103-226"
+              }
+            ]
+          },
+          "spellbook": {
+            "include_known": true,
+            "mode": "auto_spellbook",
+            "spells": [
+              {
+                "id": "Apprentice touch",
+                "recipe": {
+                  "range_type": 1,
+                  "element": 4,
+                  "effects": [
+                    {
+                      "effect_id": "4,0",
+                      "base_low": 1,
+                      "base_high": 1,
+                      "plus_low": 1,
+                      "plus_high": 1,
+                      "per_level": 1
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "Scaling flame",
+                "recipe": {
+                  "range_type": 2,
+                  "element": 0,
+                  "effects": [
+                    {
+                      "effect_id": "4,0",
+                      "base_low": 1,
+                      "base_high": 1,
+                      "plus_low": 2,
+                      "plus_high": 2,
+                      "per_level": 1
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "Close circle",
+                "recipe": {
+                  "range_type": 3,
+                  "element": 2,
+                  "effects": [
+                    {
+                      "effect_id": "4,0",
+                      "base_low": 1,
+                      "base_high": 1,
+                      "plus_low": 1,
+                      "plus_high": 1,
+                      "per_level": 2
+                    }
+                  ]
+                }
+              }
+            ],
+            "maker": {
+              "source": "Hypothetical access to an ordinary Spell Maker at every scored checkpoint. The price factor is explicit and purchases use actual gold.",
+              "price_factor": 1.0
+            },
+            "allow_unarmed_start": true
+          },
+          "search": {
+            "max_nodes": 1000000,
+            "wall_seconds": 120,
+            "memory_bytes": 268435456
+          },
+          "progression": {
+            "goal": {
+              "level": 2
+            },
+            "require_starting_damage": false,
+            "itinerary": {
+              "version": 1,
+              "cycles": 12,
+              "cadence_ms": 60000,
+              "challenge_level": 34,
+              "maker_price_factor": 1.0,
+              "cache_gold": 160,
+              "allocation_order": [
+                1,
+                6,
+                4,
+                2,
+                0,
+                3,
+                5,
+                7
+              ],
+              "alternate_allocation_orders": [
+                [
+                  6,
+                  1,
+                  4,
+                  2,
+                  0,
+                  3,
+                  5,
+                  7
+                ]
+              ],
+              "mastery_priority": [],
+              "evidence": "Conditional school practice with repeated eligible targets, successful qualifying actions, safe full nights in beds, and no harm or additional income. Each incoming challenge is authored, not a population estimate. Cadence, Spell Maker access and one identified gold cache are hypothetical. Training uses only funded casts. Select different opportunities to test sensitivity."
+            }
+          }
+        }
+      },
+      {
+        "name": "offered_staff",
+        "designated_reference": false,
+        "request": {
+          "schema_version": 1,
+          "description": "Two funded encounters share a single confirmed starting SP pool. The stronger two-cast mixed policy can be used at either encounter.",
+          "roll_seeds": [
+            36,
+            97,
+            179,
+            257
+          ],
+          "progression": {
+            "goal": {
+              "level": 1
+            },
+            "stages": [
+              [
+                {
+                  "kind": "skip"
+                }
+              ]
+            ],
+            "search": {
+              "exact": true
+            }
+          },
+          "checkpoints": [
+            0,
+            1
+          ],
+          "target": {
+            "id": "ordinary target at both checkpoints",
+            "hp": 300,
+            "willpower": 45
+          },
+          "equipment": {
+            "offers": [
+              {
+                "instance_id": "conditional-enchanted-staff",
+                "stages": [
+                  0,
+                  1
+                ],
+                "acquisition": {
+                  "owned": false,
+                  "obtainable": true,
+                  "price": {
+                    "gold": 1
+                  },
+                  "source": "Hypothetical one-gold quote for an ebony staff with two declared magic rolls."
+                },
+                "item": {
+                  "group": "Weapons",
+                  "templateIndex": 115,
+                  "material": 7,
+                  "rarity": "magic",
+                  "affixes": [
+                    {
+                      "id": "skill",
+                      "param": 0,
+                      "value": 8
+                    },
+                    {
+                      "id": "castSpeed",
+                      "value": 3
+                    }
+                  ]
+                }
+              }
+            ],
+            "loadouts": [
+              {},
+              {
+                "RightHand": "conditional-enchanted-staff"
+              }
+            ]
+          },
+          "spellbook": {
+            "policies": [
+              [
+                "known/991"
+              ],
+              [
+                "mixed-bolt",
+                "mixed-bolt"
+              ]
+            ],
+            "spells": [
+              {
+                "id": "mixed-bolt",
+                "recipe": {
+                  "range_type": 1,
+                  "element": 4,
+                  "effects": [
+                    {
+                      "effect_id": "4,0",
+                      "base_low": 2,
+                      "base_high": 3,
+                      "plus_low": 1,
+                      "plus_high": 1,
+                      "per_level": 2
+                    },
+                    {
+                      "effect_id": "5,255",
+                      "chance_base": 5,
+                      "chance_increment": 1,
+                      "chance_per_level": 2
+                    }
+                  ]
+                }
+              }
+            ],
+            "maker": {
+              "source": "Frozen synthetic starting maker quote and availability",
+              "price_factor": 0.01,
+              "stages": [
+                0
+              ]
+            }
+          },
+          "search": {
+            "max_nodes": 1000000,
+            "wall_seconds": 120,
+            "memory_bytes": 268435456
+          },
+          "objective": "pareto",
+          "class_search": {
+            "profile": "spellcaster_discovery_v1",
+            "trait_ids": [
+              23,
+              56,
+              58,
+              59,
+              60,
+              61,
+              62,
+              64,
+              65
+            ],
+            "skill_domains": [
+              [
+                22,
+                25
+              ],
+              [
+                23
+              ],
+              [
+                24
+              ],
+              [
+                22,
+                25
+              ],
+              [
+                26
+              ],
+              [
+                14
+              ],
+              [
+                27
+              ],
+              [
+                1
+              ],
+              [
+                2
+              ],
+              [
+                3
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ]
+            ],
+            "attribute_domains": {
+              "strength": [
+                30,
+                40,
+                50
+              ],
+              "intelligence": [
+                50,
+                60,
+                70
+              ],
+              "willpower": [
+                50
+              ],
+              "agility": [
+                50
+              ],
+              "endurance": [
+                50
+              ],
+              "personality": [
+                50
+              ],
+              "speed": [
+                50,
+                60,
+                70
+              ],
+              "luck": [
+                50
+              ]
+            },
+            "race_ids": [
+              1,
+              5
+            ],
+            "top_k": 8
+          },
+          "class_admission_strategy": "adaptive"
+        }
+      }
+    ]
+  }
+}

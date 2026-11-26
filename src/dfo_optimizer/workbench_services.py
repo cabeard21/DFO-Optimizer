@@ -43,9 +43,19 @@ def search_token(action, request):
     return module(SEARCH[action][2]).CancelToken() if action in SEARCH else None
 
 
-def execute(action, request, token):
+def is_discovery(action, request):
+    return action == "build optimize" and (
+        "class_admission_strategy" in request
+        or isinstance(request.get("class_search"), dict)
+        and request["class_search"].get("profile") == "spellcaster_discovery_v1"
+    )
+
+
+def execute(action, request, token, *, on_incumbent=None):
     if action in SEARCH:
         source, function, _ = SEARCH[action]
+        if on_incumbent is not None and is_discovery(action, request):
+            return module(source).optimize_build(request, cancel=token, on_incumbent=on_incumbent)
         return getattr(module(source), function)(request, cancel=token)
     if action in REPLAY:
         source, function = REPLAY[action]
@@ -76,6 +86,14 @@ def inline_only(value):
 
 
 def read_example(name):
+    if name.startswith("discovery-"):
+        from .discovery_presets import discovery_preset, preset_catalog
+        key = name.removeprefix("discovery-")
+        if key not in {row["id"] for row in preset_catalog()}:
+            raise KeyError("Unknown discovery preset")
+        value = discovery_preset(key)
+        inline_only(value)
+        return value
     directory = shared_data("examples")
     examples = {p.stem: p for p in directory.glob("*.json")}
     if name not in examples:
@@ -97,15 +115,24 @@ def read_example(name):
 
 
 def metadata():
-    from .build_baselines import baseline_catalog
+    from .build_baselines import baseline_catalog, resolve_family_baseline
+    from .discovery_presets import preset_catalog
+    from .lifecycle_objectives import OBJECTIVES
     from .equipment import equipment_catalog
     rules = load_ruleset()
+    baselines = baseline_catalog(rules)["baselines"]
     slots = {key:value for key,value in equipment_catalog()["slots"].items() if 0 <= value <= 26}
     return {"ruleset_hash": rules["content_hash"], "source_sha":rules["source_sha"], "mode":rules["mode"],
             "engine":rules["engine_version"], "actions":list(ACTIONS),
             "examples":sorted(p.stem for p in shared_data("examples").glob("*.json")),
-            "modes":MODES, "catalog":{"slots":slots,**{k:rules[k] for k in ("races","skills","traits","limits")}},
-            "baselines":baseline_catalog(rules)["baselines"], "coverage":coverage(rules)}
+            "discovery_presets":preset_catalog(), "modes":MODES,
+            "catalog":{"slots":slots,**{k:rules[k] for k in ("races","skills","traits","limits")},
+                       "objective_definitions":OBJECTIVES,
+                       "caster_races":{r["id"]:r["race_id"] for r in baselines
+                                       if r["id"] in ("m1-breton-caster","comparison-high-elf-caster")},
+                       "caster_classes":{key:resolve_family_baseline(key,rules)["class"] for key in
+                                         ("m1-breton-caster","comparison-high-elf-caster")}},
+            "baselines":baselines, "coverage":coverage(rules)}
 
 
 def limited_request(action, request, caps):

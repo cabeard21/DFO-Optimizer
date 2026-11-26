@@ -8,6 +8,7 @@ import math
 
 from .lifecycle_domain import catalog, compile_route
 from .lifecycle_replay import replay_choices
+from .lifecycle_objectives import OBJECTIVES, check_native_metrics, ranking_coordinates, validate_objective
 from .progression import _prepare, _route, digest, goal_met, plan_progression
 from .progression_domain import fields, integer, require
 from .progression_inputs import resolve_start
@@ -50,6 +51,8 @@ def _freeze(request, rules, base_dir, replan):
         "description",
         "families",
         "class_search",
+        "class_admission_strategy",
+        "objective",
         "roll_seeds",
         "progression",
         "checkpoints",
@@ -65,6 +68,7 @@ def _freeze(request, rules, base_dir, replan):
     raw = deepcopy(fields(request, allowed, "build request"))
     integer(raw.get("schema_version", 1), "schema_version", 1, 1)
     require(raw.get("ruleset_hash", rules["content_hash"]) == rules["content_hash"], "build ruleset mismatch")
+    validate_objective(raw)
     _target(raw.get("target"))
     if "encounter" in raw:
         from .ruleset import validate_encounter_ruleset
@@ -83,6 +87,8 @@ def _freeze(request, rules, base_dir, replan):
     if "budget_gold" in raw:
         integer(raw["budget_gold"], "gold ceiling", 0, 2**53 - 1)
     require("class_search" in raw or "families" in raw, "build requires class families or a native class search")
+    from .lifecycle_admission import strategy
+    strategy(raw)
     if replan:
         require(
             "class_search" not in raw
@@ -127,36 +133,15 @@ def _controls(raw):
     }
 
 
-def _admit_classes(raw, rules, token):
-    from .search import optimize_classes
+def _admit_classes(raw, rules, token, limits, begin, frozen):
+    from .lifecycle_admission import ClassAdmission, diagnostic_panel, strategy
 
-    if "class_search" not in raw:
-        return raw
-    query = raw["class_search"]
-    require(isinstance(query, dict), "class_search must be an object")
-    result = optimize_classes({**query, "objective": "examples"}, ruleset=rules, cancel=token.class_token)
-    bounded = result["status"] not in ("optimal_proven", "infeasible_proven") or result["counters"].get(
-        "leaves", 0
-    ) > len(result["candidates"])
-    admitted = [
-        {"id": c["class_id"], "start": {"type": "new_character", "class": c["class_doc"], "race_id": c["race_id"]}}
-        for c in result["candidates"]
-    ]
-    return {
-        **raw,
-        "class_admission": {
-            "families": admitted,
-            "bounded": bounded,
-            "status": result["status"],
-            "termination": result["termination"],
-            "result_hash": result["result_hash"],
-            "limits": {
-                k: result["proof_scope"][k]
-                for k in ("max_nodes", "memory_bytes", "wall_seconds", "top_k", "exact")
-            },
-            "counters": {k: result["counters"][k] for k in ("nodes", "pruned", "leaves")},
-        },
-    }
+    if strategy(raw):
+        request = {k: v for k, v in raw.items() if k != "class_admission"}
+        admission = ClassAdmission(request, rules, token, limits, begin)
+        admission.initial()
+        return admission.freeze(), admission
+    return (raw if frozen else diagnostic_panel(raw, rules, token)), None
 
 
 def _families(raw, rules):
@@ -202,6 +187,7 @@ def _comparison(raw, rolls):
     return digest(
         {
             "target": raw["target"],
+            **({"objective": raw["objective"]} if raw.get("objective", "legacy") != "legacy" else {}),
             "targets": raw.get("targets", {}),
             "rolls": rolls,
             "realized_starts": fixed,
@@ -212,16 +198,20 @@ def _comparison(raw, rolls):
             "progression": {k: v for k, v in raw["progression"].items() if k not in ("search", "description")},
             "metric": "one-landed-hit-per-cast checkpoint DPS" if "encounter" not in raw else "damage per encounter horizon second",
             **({"encounter":raw["encounter"]} if "encounter" in raw else {}),
-            **({"class_profiles": sorted(profiles)} if "custom" in profiles else {}),
+            **({"class_profiles": sorted(profiles)} if "custom" in profiles and raw.get("objective", "legacy") == "legacy" else {}),
         }
     )
 
 
-def _progress(raw, start):
+def _progress(raw, start, rules=None):
+    progression = raw["progression"]
+    if "itinerary" in progression:
+        from .discovery_presets import bind_itinerary
+        progression = bind_itinerary(progression, start, rules)
     return {
-        **raw["progression"],
+        **progression,
         "start": start,
-        "search": {"final_stage_only": True, **raw["progression"].get("search", {}), "retain_states": True},
+        "search": {"final_stage_only": True, **progression.get("search", {}), "retain_states": True},
     }
 
 
@@ -275,6 +265,7 @@ def _specialized(checkpoints, *, encounter):
 
 def _witness(d, route, row, name, origin, seed):
     steps = replay_choices(d, row["slots"], row["policies"], row["bought"], row["scores"])
+    check_native_metrics(row, steps, d.objective)
     if "end_hp" in row or "end_sp" in row:
         require([s["encounter"]["end_hp"] for s in steps] == row.get("end_hp") and
                 [s["encounter"]["end_sp"] for s in steps] == row.get("end_sp"),
@@ -311,6 +302,7 @@ def _numeric(d, opts, token):
         [[d.names.index(k) for k in policy] for policy in d.scripts],
         d.owned,
         encounters=d.encounters,
+        objective=d.objective,
         wellspring=[sum(line["value"] for line in it.item.get("affixes", []) if line["id"] == "wellspring")
                     for it in d.domain.items] if d.encounters else None,
         cancel=token,
@@ -322,7 +314,7 @@ def _group(row, explicit):
     return row["roll_seed"], tuple(p["stage"] if explicit else p["level"] for p in row["checkpoints"])
 
 
-def _rank(rows, explicit):
+def _rank(rows, explicit, objective="legacy", cap_witnesses=None):
     from . import _lifecycle
 
     groups = defaultdict(list)
@@ -331,18 +323,17 @@ def _rank(rows, explicit):
     keep = []
     cap = []
     for members in groups.values():
-        coords = [
-            [
-                *(s["dps"] for s in r["checkpoints"]),
-                -r["effort"]["practice"],
-                -r["effort"]["rest_passes"],
-                -r["effort"]["minutes"],
-                -r["total_spent_gold"],
-            ]
-            for r in members
-        ]
-        keep.extend(members[j] for j in _lifecycle.frontier_indices(coords))
+        coords = [ranking_coordinates(r, objective) for r in members]
+        indices = _lifecycle.frontier_indices(coords)
+        # A free cast or unfinished fight has no denominator or eligible ending pool.
+        if objective in ("damage_per_sp", "resource_sustain"):
+            indices = [j for j in indices if coords[j][0] >= 0]
+        keep.extend(members[j] for j in indices)
         best = max(r["checkpoints"][-1]["dps"] for r in members)
+        if cap_witnesses is not None:
+            selected = set(indices)
+            cap_witnesses.extend(r for i, r in enumerate(members)
+                                 if i not in selected and r["checkpoints"][-1]["dps"] == best)
         cap.extend(
             {
                 "family": r["family"],
@@ -402,28 +393,36 @@ def _id(plan):
                 "final_checkpoint_only",
                 "roll_spread",
                 "gaps",
+                *(("sensitivity_budget",) if "sensitivity_budget" in plan else ()),
+                *(("objective", "final_checkpoint_witnesses") if "objective" in plan else ()),
+                *(("class_admission",) if "class_admission" in plan else ()),
+                *(("family_comparisons", "comparison_witnesses") if "family_comparisons" in plan else ()),
+                *(("paired_family_frontier",) if "paired_family_frontier" in plan else ()),
             )
         }
     )
 
 
-def _run(request, rules, base_dir, replan, cancel, *, scope=None, frozen=False):
+def _run(request, rules, base_dir, replan, cancel, *, scope=None, frozen=False, on_incumbent=None):
     from . import _lifecycle
 
     begin = perf_counter()
     token = cancel if cancel is not None else _lifecycle.CancelToken()
     if scope is None:
-        raw = request if frozen else _admit_classes(_freeze(request, rules, base_dir, replan), rules, token)
+        raw = request if frozen else _freeze(request, rules, base_dir, replan)
         limits = _controls(raw)
+        raw, admission = _admit_classes(raw, rules, token, limits, begin, frozen)
         families, truncated = _families(raw, rules)
         rolls = _rolls(raw, families)
-        if limits["max_nodes"] and len(families) * len(rolls) > 1:
+        prospective = raw.get("objective", "legacy") != "legacy" and rolls != [None]
+        if admission is not None or prospective or limits["max_nodes"] and len(families) * len(rolls) > 1:
             from .lifecycle_refinement import refine_families
 
             def search_family(family, seed, allocation):
-                return _run(raw, rules, base_dir, replan, cancel, scope=(raw, allocation, [family], [seed]))
+                return _run(raw, rules, base_dir, replan, token, scope=(raw, allocation, [family], [seed]))
 
-            return refine_families(raw, rules, families, rolls, limits, truncated, cancel, begin, search_family)
+            return refine_families(raw, rules, families, rolls, limits, truncated, token, begin, search_family,
+                                   admission=admission, on_incumbent=on_incumbent)
     else:
         raw, limits, families, rolls = scope
         truncated = False
@@ -455,7 +454,7 @@ def _run(request, rules, base_dir, replan, cancel, *, scope=None, frozen=False):
                 gaps.append({"family": name, "roll_seed": seed, "kind": "unsupported", "reasons": missing})
                 term.append("unsupported")
                 continue
-            pquery = _progress(raw, start)
+            pquery = _progress(raw, start, rules)
             search = pquery["search"]
             if limits["wall_seconds"]:
                 search["wall_seconds"] = (
@@ -468,7 +467,8 @@ def _run(request, rules, base_dir, replan, cancel, *, scope=None, frozen=False):
                     break
                 search["max_nodes"] = min(remaining, search.get("max_nodes") or remaining)
             search["memory_bytes"] = min(limits["memory_bytes"], search.get("memory_bytes", 64 << 20))
-            planned = plan_progression(pquery, ruleset=rules, cancel=token.progression_token)
+            internal = {"_lifecycle": True} if raw.get("class_admission", {}).get("strategy") or pquery.get("project_creation_vitals") else {}
+            planned = plan_progression(pquery, ruleset=rules, cancel=token.progression_token, **internal)
             work = planned["counters"].get("nodes", 0)
             counters["nodes"] += work
             counters["progression_nodes"] += work
@@ -533,6 +533,12 @@ def _run(request, rules, base_dir, replan, cancel, *, scope=None, frozen=False):
                     term.append("unsupported")
                     gaps.append({"family":name, "roll_seed":seed, "kind":"unsupported", "reasons":[str(exc)]})
                     continue
+                if d.encounter_gaps:
+                    term.append("unsupported")
+                    gaps.append({"family":name, "roll_seed":seed, "kind":"unsupported_options",
+                                 "reasons":list(d.encounter_gaps)})
+                    if not d.scripts:
+                        continue
                 if not d.scripts:
                     term.append("unsupported")
                     gaps.append(
@@ -565,12 +571,22 @@ def _run(request, rules, base_dir, replan, cancel, *, scope=None, frozen=False):
                     if first is None:
                         first = perf_counter() - begin
                         token.mark_replayed()
-    return _finish(raw, rules, rolls, rows, gaps, counters, term, first, begin, len(rows))
+    return _finish(raw, rules, rolls, rows, gaps, counters, term, first, begin, len(rows),
+                   internal=scope is not None and bool(raw.get("class_admission", {}).get("strategy")))
 
 
-def _finish(raw, rules, rolls, rows, gaps, counters, term, first, begin, checked):
-    kept, cap = _rank(rows, "checkpoints" in raw)
+def _finish(raw, rules, rolls, rows, gaps, counters, term, first, begin, checked, *, internal=False):
+    objective = raw.get("objective", "legacy")
+    cap_witnesses = None if objective == "legacy" else []
+    kept, cap = _rank(rows, "checkpoints" in raw, objective, cap_witnesses)
     termination = "cancelled" if "cancelled" in term else next(iter(term), "exhausted")
+    measured = {"termination": termination, "stopping_reasons": sorted(set(term)), "candidates": kept,
+                "gaps": gaps, "counters": counters, "validation": {"routes_checked": checked},
+                "timings": {"first_validated_seconds": first, "elapsed_seconds": perf_counter() - begin}}
+    if cap_witnesses is not None:
+        measured["final_checkpoint_witnesses"] = cap_witnesses
+    if internal:
+        return measured
     status = (
         "cancelled"
         if termination == "cancelled"
@@ -584,6 +600,8 @@ def _finish(raw, rules, rolls, rows, gaps, counters, term, first, begin, checked
         if term
         else ("optimal_proven" if rows else "infeasible_proven")
     )
+    if rows and not kept and termination != "cancelled":
+        status = "no_defined_objective"
     plan = {
         "schema_version": 1,
         "kind": "lifecycle",
@@ -596,15 +614,9 @@ def _finish(raw, rules, rolls, rows, gaps, counters, term, first, begin, checked
         "paired_rolls": rolls,
         "status": status,
         "exact": not term,
-        "termination": termination,
-        "stopping_reasons": sorted(set(term)),
-        "candidates": kept,
+        **measured,
         "roll_spread": _spread(rows, rolls),
         "final_checkpoint_only": cap,
-        "gaps": gaps,
-        "counters": counters,
-        "validation": {"routes_checked": checked},
-        "timings": {"first_validated_seconds": first, "elapsed_seconds": perf_counter() - begin},
         "proof_scope": "Declared class, birth roll, activity, physical copy, offer, recipe, policy and checkpoint domains.",
         "assumptions": [
             ("Checkpoint DPS measures damage per declared encounter horizon second on the fixed common seed. "
@@ -616,6 +628,8 @@ def _finish(raw, rules, rolls, rows, gaps, counters, term, first, begin, checked
             "Effort uses the independently replayed actions and observed or explicitly declared opportunities.",
         ],
     }
+    if raw.get("objective", "legacy") != "legacy":
+        plan["objective"] = {"id": objective, "definition": OBJECTIVES[objective]}
     plan["families"] = plan["roll_spread"]
     plan["budget_scope"] = (
         "Lifecycle nodes cover progression and joint combat. Native class admission has its own reported limits."
@@ -624,8 +638,19 @@ def _finish(raw, rules, rolls, rows, gaps, counters, term, first, begin, checked
     return plan
 
 
-def _sensitivity(raw, rules, base_dir, replan, cancel):
-    plan = _run(raw, rules, base_dir, replan, cancel)
+def _sensitivity(raw, rules, base_dir, replan, cancel, on_incumbent=None):
+    if isinstance(raw, dict) and raw.get("sensitivity"):
+        from .lifecycle_admission import strategy
+        if strategy(raw):
+            from .discovery_sensitivity import run_variants
+
+            def run(query, *, on_incumbent=None):
+                return _run(query, rules, base_dir, replan, cancel, on_incumbent=on_incumbent)
+
+            plan = run_variants(raw, run, cancel, on_incumbent)
+            plan["result_hash"] = _id(plan)
+            return plan
+    plan = _run(raw, rules, base_dir, replan, cancel, on_incumbent=on_incumbent)
     config = fields(raw.get("sensitivity", {}), {"budget_gold", "max_nodes"}, "sensitivity")
     if config:
         report = []
@@ -653,111 +678,22 @@ def _sensitivity(raw, rules, base_dir, replan, cancel):
     return plan
 
 
-def optimize_build(request, ruleset=None, *, base_dir=None, cancel=None):
-    return _sensitivity(request, _rules(ruleset), base_dir, False, cancel)
+def optimize_build(request, ruleset=None, *, base_dir=None, cancel=None, on_incumbent=None):
+    return _sensitivity(request, _rules(ruleset), base_dir, False, cancel, on_incumbent)
 
 
 def replan_build(request, ruleset=None, *, base_dir=None, cancel=None):
     return _sensitivity(request, _rules(ruleset), base_dir, True, cancel)
 
 
-def _replay_build(plan, rules):
-    require(isinstance(plan, dict) and plan.get("kind") == "lifecycle", "invalid lifecycle plan")
-    require(
-        plan.get("ruleset_hash") == rules["content_hash"] and plan.get("source_sha") == rules["source_sha"],
-        "lifecycle ruleset mismatch",
-    )
-    require(
-        plan.get("schema_version") == 1
-        and plan.get("engine") == "native-cython-cpp17"
-        and isinstance(plan.get("frozen_request"), dict)
-        and isinstance(plan.get("candidates"), list)
-        and all(isinstance(row, dict) for row in plan["candidates"]),
-        "invalid lifecycle witness envelope",
-    )
-    stops = plan.get("stopping_reasons")
-    exact = plan.get("exact")
-    status = plan.get("status")
-    require(
-        type(exact) is bool
-        and isinstance(stops, list)
-        and all(isinstance(s, str) for s in stops)
-        and exact == (not stops)
-        and (plan["termination"] == "exhausted") == exact
-        and (exact or plan["termination"] in stops),
-        "inconsistent lifecycle proof metadata",
-    )
-    require(
-        status == ("optimal_proven" if plan["candidates"] else "infeasible_proven")
-        if exact
-        else status in ("cancelled", "unsupported", "best_found_bounded", "no_feasible_found"),
-        "inconsistent lifecycle status",
-    )
-    raw = plan["frozen_request"]
-    require(
-        digest(raw) == plan.get("input_hash") and _id(plan) == plan.get("result_hash"),
-        "lifecycle result hash mismatch",
-    )
-    families, _ = _families(raw, rules)
-    rolls = _rolls(raw, families)
-    require(
-        plan["comparison_hash"] == _comparison(raw, rolls) and plan["paired_rolls"] == rolls,
-        "lifecycle comparison mismatch",
-    )
-    family_map = {n: (s, o, r) for n, s, o, r in families}
-    cache = {}
-    for candidate in plan["candidates"]:
-        family, seed = candidate["family"], candidate["roll_seed"]
-        require(family in family_map and seed in rolls, "unrecognized class/roll")
-        start, origin, reason = family_map[family]
-        require(reason is None, "class violates the frozen profile")
-        if (family, seed) not in cache:
-            realized = start if seed is None else {**start, "roll_seed": seed}
-            ctx = _prepare(_progress(raw, realized), rules)
-            require(
-                not ctx[9] and not _unknown(ctx[0].source_state, realized, encounter="encounter" in raw),
-                "unproved starting damage or progression observations",
-            )
-            cache[family, seed] = ctx
-        ctx = cache[family, seed]
-        route, end = _route(ctx, candidate["progression_choices"], public_choices=True)
-        require(
-            not _specialized(route["checkpoints"], encounter="encounter" in raw),
-            "unsupported checkpoint specialization",
-        )
-        require(
-            (not ctx[6]["final_stage_only"] or len(route["actions"]) == len(ctx[1])) and goal_met(end, ctx[5]),
-            "incomplete lifecycle progression",
-        )
-        d = compile_route(raw, ctx[0].source_state, route, rules, start)
-        w = candidate["choices"]
-        expected = _witness(
-            d,
-            route,
-            {
-                **w,
-                "scores": [s["dps"] for s in candidate["checkpoints"]],
-                "spent": candidate["total_spent_gold"] - route["effort"]["spent"],
-            },
-            family,
-            origin,
-            seed,
-        )
-        require(expected == candidate, "lifecycle replay differs from exported plan")
-    return {
-        "validated": True,
-        "valid": True,
-        "optimality_reproved": False,
-        "routes_checked": len(plan["candidates"]),
-        "result_hash": plan["result_hash"],
-    }
 
 
 def replay_build(plan, *, ruleset=None):
     """Check the serialized witnesses and identity. Search optimality requires a new search."""
     rules = _rules(ruleset)
     try:
-        return _replay_build(plan, rules)
+        from .lifecycle_archive import replay_document
+        return replay_document(plan, rules)
     except (KeyError, TypeError, IndexError, AttributeError, OverflowError) as exc:
         raise ValueError("malformed lifecycle witness or frozen request") from exc
 
@@ -771,13 +707,20 @@ def compare_builds(plans, *, ruleset=None):
         len({p["comparison_hash"] for p in plans}) == 1,
         "build comparison needs the same targets, rolls and objectives",
     )
-    rows = [{**r, "plan_index": i} for i, p in enumerate(plans) for r in p["candidates"]]
-    keep, cap = _rank(rows, "checkpoints" in plans[0]["frozen_request"])
+    rows = [{**r, "plan_index": i} for i, p in enumerate(plans)
+            for r in (*p["candidates"], *p.get("final_checkpoint_witnesses", []))]
+    reference = plans[0]["frozen_request"]
+    keep, cap = _rank(rows, "checkpoints" in reference, reference.get("objective", "legacy"))
+    paired = {}
+    if all("paired_family_frontier" in p for p in plans):
+        from .lifecycle_family_frontier import compare_paired
+        paired["paired_family_frontier"] = compare_paired(plans)
     return {
         "same_comparison": True,
         "ruleset_hash": rules["content_hash"],
         "candidates": keep,
         "final_checkpoint_only": cap,
+        **paired,
         "comparisons": [
             {"result_hash": p["result_hash"], "status": p["status"], "roll_spread": p["roll_spread"]}
             for p in plans

@@ -92,7 +92,7 @@ def main():
             commands.append([python, ROOT / "tools" / "ruleset" / script, "--source", env["DFO_SOURCE"], "--check"])
         commands.append([python, "-m", "pytest", ROOT / "tests", "--cov=dfo_optimizer",
                          "--cov-config", ROOT / "pyproject.toml", "--cov-report=term-missing"])
-        for suite in ("smoke", "combat", "progression", "lifecycle", "encounter"):
+        for suite in ("smoke", "combat", "progression", "lifecycle", "encounter", "discovery"):
             commands.append([bindir / ("dfo.exe" if os.name == "nt" else "dfo"), "benchmark",
                              "--suite", suite, "--workers", "1", "--output", output / f"{suite}.json"])
         failed = []

@@ -118,6 +118,73 @@ def json_file(name,value):
     return {"name":name,"mimeType":"application/json","buffer":json.dumps(value).encode()}
 
 
+def test_guided_spellcaster_discovery_and_class_comparison(desktop):
+    from playwright.sync_api import expect
+    page, url = desktop
+    def discover():
+        with page.expect_response(lambda r:r.url==url+"/api/jobs" and r.request.method=="POST") as submitted:
+            page.get_by_role("button", name="Discover builds", exact=True).click()
+        identifier = submitted.value.json()["id"]
+        result_area = page.locator(f'#result-area[data-job-id="{identifier}"]')
+        expect(result_area).to_have_attribute("data-state", re.compile("completed|failed|cancelled"),timeout=150_000)
+        assert result_area.get_attribute("data-state") == "completed", page.locator("#status").inner_text()
+    page.get_by_role("link", name="Discover Spellcaster Build", exact=True).click()
+    expect(page.get_by_label("Optimization objective")).to_be_visible()
+    page.get_by_label("Scenario preset").select_option("discovery-theoretical_endgame")
+    expect(page.get_by_role("status")).to_have_text("Loaded discovery-theoretical_endgame.")
+    page.get_by_label("Scenario preset").select_option("discovery-early")
+    expect(page.get_by_role("status")).to_have_text("Loaded discovery-early.")
+    original = download(page, "Export request")
+    effort = page.get_by_label("Search thoroughness")
+    expect(effort).to_have_value("standard")
+    effort.select_option("quick")
+    quick = download(page,"Export request")
+    assert quick["search"]["wall_seconds"] == 30 and quick["search"]["max_nodes"] < original["search"]["max_nodes"]
+    assert quick["class_search"]["top_k"] < original["class_search"]["top_k"]
+    assert quick["class_admission_strategy"] == original["class_admission_strategy"]
+    effort.select_option("thorough")
+    thorough = download(page,"Export request")
+    assert thorough["search"]["wall_seconds"] == 600 and thorough["search"]["max_nodes"] > original["search"]["max_nodes"]
+    assert thorough["class_search"]["top_k"] > original["class_search"]["top_k"]
+    effort.select_option("standard")
+    assert download(page,"Export request") == original
+    page.get_by_text("Class decisions", exact=True).click()
+    page.get_by_label("Required class health").fill("30")
+    page.get_by_label("Required class health").press("Tab")
+    discover()
+    result = download(page, "Export result")
+    assert result["kind"] == "lifecycle" and result["candidates"], result.get("gaps")
+    doc = download(page, "Export game class")
+    assert page.request.post(url+"/api/import/class", data=doc).json()["value"]["create_legal"]
+    archive = download(page, "Export archive")
+    assert archive["request"]["class_search"]["profile"] == "spellcaster_discovery_v1"
+    page.get_by_role("button", name="Replay result", exact=True).click()
+    page.wait_for_function("""() => document.querySelector('#status[data-error=true]') ||
+        document.querySelector('#drawer[open] #dialog-title')?.textContent==='Replay verification'""", timeout=120_000)
+    assert page.locator("#status").get_attribute("data-error") != "true", page.locator("#status").inner_text()
+    page.get_by_role("button", name="Close dialog").click()
+    upload(page, "Compare a game class", json_file("discovered.json", doc))
+    page.get_by_label("Race for imported class").select_option(label="Breton")
+    page.get_by_role("button", name="Add comparison", exact=True).click()
+    page.get_by_text("Progression assumptions", exact=True).click()
+    page.get_by_label("Hypothetical gold cache after birth").fill("165")
+    page.get_by_label("Hypothetical gold cache after birth").press("Tab")
+    frozen = download(page, "Export request")
+    assert frozen["progression"]["itinerary"]["cache_gold"] == 165
+    assert any(f.get("start", {}).get("class") == doc for f in frozen["families"])
+    page.get_by_text("Comparison classes", exact=True).click()
+    page.get_by_label("High Elf caster", exact=True).check()
+    page.get_by_label("Optimization objective").select_option("damage_per_sp")
+    discover()
+    result_area = page.locator("#result-area")
+    imported = next(f["id"] for f in frozen["families"] if f.get("start", {}).get("class")==doc)
+    comparison_row = result_area.get_by_role("row").filter(has_text=imported)
+    expect(comparison_row.first).to_be_visible(timeout=150_000)
+    expect(result_area.get_by_text("comparison-high-elf-caster", exact=True).first).to_be_visible()
+    comparison_row.first.get_by_role("button", name=re.compile("^Seed ")).first.click()
+    assert download(page, "Export game class") == doc
+
+
 def test_navigation_search_export_library_and_mismatch(desktop,observations):
     from playwright.sync_api import expect
     from dfo_optimizer.search import optimize_classes

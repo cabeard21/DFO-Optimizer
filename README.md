@@ -18,6 +18,23 @@ python3.12 -m venv .venv
 .venv/bin/dfo class optimize --top 1 --output build/example.json
 ```
 
+## Discover a spellcaster build
+
+Run `dfo ui` and select **Discover Spellcaster Build**. Start with the two-minute Overall PvE search, then compare funded spells, loadouts and progression effort on the same birth rolls. Each preset displays its world assumptions. The practical itinerary assumes specific access to practice, rest and purchases. The theoretical equipment preset supplies a separate finite item pool.
+
+Start with all eight races and an ordered skill assignment that can eventually master all six schools. Lock a permanent choice only if you want it enforced. The seven-material Breton and its High Elf race variant are optional comparison inputs. To compare a custom class, import its game JSON and select its race. Exporting a recommendation downloads the game class document. Save the archive to keep its race, assumptions and replayable route.
+
+The CLI uses the same services. The class command screens creation choices. The build command evaluates their progression and performance.
+
+```sh
+dfo class optimize --profile spellcaster_discovery_v1 --top 24 --output build/class-panel.json
+dfo build optimize --request examples/build-discovery-demo.json --output build/discovery.json
+dfo build replay --plan build/discovery.json
+dfo benchmark --suite discovery --workers 1 --output build/discovery-quality.json
+```
+
+The result reports class enumeration, admission and downstream completion separately. An early result can be replayed while the search continues. A complete paired comparison covers each listed birth seed. See the [M8 qualification record](docs/M8-ACCEPTANCE.md) for measured recovery, demonstration inputs and platform evidence.
+
 ## Use the installed CLI
 
 With the environment activated, the following commands export the first candidate, validate its actual game document, and reproduce a small exact search.

@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "release": "0.5.0",
+  "host": {
+    "os": "Windows-10-10.0.19045-SP0",
+    "architecture": "AMD64",
+    "cpu": "AMD Ryzen 5 5600X 6-Core Processor",
+    "logical_cpus": 12,
+    "python": "3.12.10",
+    "python_compiler": "MSC v.1943 64 bit (AMD64)"
+  },
+  "ruleset_hash": "d639d137937f8c42e3f26d281785defb44fb5071e9c2da179de4a8320401d5b1",
+  "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+  "qualification_source_archive_sha256": "4c2498f89febf5f4524169a3ca41cfe403cbe60054b8d0121bbb3a2276b7ef6f",
+  "wheel": {
+    "file": "dfo_optimizer-0.5.0-cp312-cp312-win_amd64.whl",
+    "sha256": "d9d8ab4618312fe3d2c15e7cfd3fca443d6fac91d4ebb4506eed58cb45b2b3f3"
+  },
+  "verified_wheel_files": 172,
+  "tests": {
+    "passed": 757,
+    "skipped": 1,
+    "seconds": 271.02,
+    "coverage_percent": 91.02
+  },
+  "oracles": {
+    "class": 27,
+    "numeric": 25,
+    "character_export_bytes": 9452,
+    "spell_distributions": 19,
+    "spell_cast_hosts": 6,
+    "equipment_copies": 833,
+    "progression_specialization_pairs": 30,
+    "progression_gameplay_cases": 136,
+    "spellbook_scenarios": 9,
+    "encounter_effects": 5,
+    "encounter_paths": 15
+  },
+  "qualification": {
+    "smoke": {
+      "file": "build/m8-qualified-det/smoke.json",
+      "sha256": "594dfcf233c52111f8bd3db602fb6045cacf5103377cf67426be13eab5be8357",
+      "quality": null
+    },
+    "combat": {
+      "file": "build/m8-qualified-det/combat.json",
+      "sha256": "2500e50fd485e42a99e0818cbee39a65ab722967caaac6b60eb4223a99332b94",
+      "quality": null
+    },
+    "progression": {
+      "file": "build/m8-qualified-det/progression.json",
+      "sha256": "f527ddf7ee2464fcf17d3813cba5accf8f468228b573704451cdd4b4801eef51",
+      "quality": null
+    },
+    "lifecycle": {
+      "file": "build/m8-qualified-det/lifecycle.json",
+      "sha256": "d54a475d6f0182f13a952c5d6bdc34e2c7cd67ecae548a78c943a21c919d1d3d",
+      "quality": null
+    },
+    "encounter": {
+      "file": "build/m8-qualified-det/encounter.json",
+      "sha256": "a23e81db50a020c1bb686e293f2b8b511d05f2796f56aba94b3c8c14a15a85df",
+      "quality": null
+    },
+    "discovery": {
+      "file": "C:/Users/beard/orca/workspaces/daggerfall_helper/cornetfish/benchmarks/results/windows-m8-discovery.json",
+      "sha256": "e80580a1b05e87adb87b4f7bc1c85ed08224f685edec7191218304343d83bd1c",
+      "quality": {
+        "designated_recovery": 1.0,
+        "scalar_recovery": 1,
+        "mean_regret": 0.0,
+        "worst_regret": 0.0,
+        "pareto_recall": 1.0,
+        "targets": {
+          "designated_recovery": 1.0,
+          "scalar_recovery": 0.95,
+          "mean_regret": 0.005,
+          "worst_regret": 0.02,
+          "pareto_recall": 0.9
+        },
+        "passed": true,
+        "per_roll_passed": true,
+        "paired_family": {
+          "designated_recovery": 1.0,
+          "scalar_recovery": 1,
+          "mean_regret": 0.0,
+          "worst_regret": 0.0,
+          "pareto_recall": 1.0,
+          "targets": {
+            "designated_recovery": 1.0,
+            "scalar_recovery": 0.95,
+            "mean_regret": 0.005,
+            "worst_regret": 0.02,
+            "pareto_recall": 0.9
+          },
+          "passed": true
+        }
+      }
+    },
+    "browser-timings": {
+      "file": "C:/Users/beard/orca/workspaces/daggerfall_helper/cornetfish/benchmarks/results/windows-m8-browser-timings.json",
+      "sha256": "07da9d999067b86a67f66174b19583e90bb1ca55f481106721c132ec9ce816c3",
+      "quality": null
+    }
+  }
+}

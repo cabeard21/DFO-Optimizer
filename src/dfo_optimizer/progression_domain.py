@@ -72,8 +72,10 @@ def windows(raw):
     return rows
 
 
-def _spell_data(s, rows, goal):
+def _request_assets(s, rows, goal):
     records = {}
+    gold_stacks = {}
+    policy_orders = None
     ids = set(s.get("known") or s.get("known_indices") or [])
     for record in s.get("spell_records") or (s.get("spells") or {}).get("records", []):
         if type(record.get("index")) is int:
@@ -83,8 +85,21 @@ def _spell_data(s, rows, goal):
         if id(window) in seen:
             continue
         seen.add(id(window))
+        if any(isinstance(a,dict) and "allocation_policy" in a for a in window):
+            require(all(isinstance(a,dict) and a.get("kind")=="level" and "allocation_policy" in a for a in window)
+                    and [a["allocation_policy"] for a in window] == list(range(len(window))),
+                    "allocation policies must be distinct level alternatives starting at zero")
+            orders = [a.get("allocation_order") for a in window]
+            require(policy_orders is None or policy_orders==orders, "allocation policy orders must stay consistent")
+            require(all(order not in orders[:i] for i,order in enumerate(orders)), "duplicate allocation policy order")
+            policy_orders = orders
         for action in window:
             require(isinstance(action, dict), "action must be an object")
+            if action.get("kind") == "collect_gold":
+                copy = action.get("copy")
+                amount = integer(action.get("amount"), "gold stack count", 1, 2**31-1)
+                require(isinstance(copy,str) and 0 < len(copy.strip()) <= 256, "invalid gold stack identity")
+                require(gold_stacks.setdefault(copy,amount) == amount, "conflicting size for one gold stack")
             if "spell" in action:
                 ids.add(_spell_id(action["spell"]))
             if action.get("kind") == "buy" and "record" in action:
@@ -97,7 +112,8 @@ def _spell_data(s, rows, goal):
     require(isinstance(known_goal, list), "goal known must be a list")
     ids.update(_spell_id(i) for i in known_goal)
     require(len(ids) <= 256, "native spell domain supports up to 256 game indices")
-    return sorted(ids), records
+    require(len(gold_stacks) <= 63, "up to 63 distinct gold stacks per itinerary")
+    return sorted(ids), records, tuple(sorted(gold_stacks))
 
 
 class Gap(ValueError):
@@ -121,18 +137,20 @@ _NEEDS = {
     "buy": {"gold", "known"}, "rest": _RAISE | {"last_rest"}, "check": _RAISE,
     "oghma": {"attributes"},
     "firmament": set(),
+    "collect_gold": {"gold"},
 }
 _COMMON = {"kind", "evidence", "real_elapsed_ms"}
 _FIELDS = {
-    "skip": set(), "check": {"minutes", "trigger", "fare_gold"}, "rest": {"refill_sp", "refill_fatigue", "site"},
+    "skip": set(), "check": {"minutes", "trigger", "fare_gold"}, "rest": {"refill_sp", "refill_fatigue", "site", "recovery"},
     "train": {"skill", "guild", "member", "roll", "price_factor"},
     "practice": {"skill", "spell", "cadence_ms", "challenge_level", "count", "minutes", "until_skill",
-                 "activity", "horizontal_m", "vertical_m", "fatigue_cost"},
-    "level": {"allocation", "allocation_order", "if_due"}, "master": {"skill", "if_eligible"},
+                 "activity", "horizontal_m", "vertical_m", "fatigue_cost", "until_spent"},
+    "level": {"allocation", "allocation_order", "if_due", "allocation_policy"}, "master": {"skill", "if_eligible"},
     "choose": {"family", "path"}, "reset": {"family"},
     "buy": {"spell", "gold_cost", "family", "path", "record"},
     "oghma": {"copy", "allocation", "allocation_order"},
     "firmament": {"from", "node"},
+    "collect_gold": {"copy", "amount"},
 }
 
 
@@ -170,6 +188,7 @@ class Domain:
     time_model: dict
     oghma_copies: tuple = ()
     firmament: object = None
+    gold_stacks: tuple = ()
 
     def path(self, family, name):
         require(family in ("arcane", "martial"), "unknown specialization family")
@@ -206,7 +225,7 @@ class Domain:
         fields(a, _COMMON | _FIELDS[kind], kind)
         out = {"kind": kind}
         deps = set(_NEEDS[kind])
-        if kind in ("practice", "rest", "check", "train", "buy"):
+        if kind in ("practice", "rest", "check", "train", "buy", "collect_gold"):
             need(isinstance(a.get("evidence"), str) and a["evidence"].strip(), f"missing {kind} opportunity evidence")
             evidence(a["evidence"])
         if "real_elapsed_ms" in a:
@@ -218,6 +237,10 @@ class Domain:
             need(self.source_state.get("chargen_done") is True, "skill checks require completed chargen")
         if kind == "practice":
             out.update(self.practice(a, deps))
+        elif kind == "collect_gold":
+            need("hp_roll_state" in self.source_state, "a hypothetical gold stack requires prospective creation")
+            out["copy"] = self.gold_stacks.index(a["copy"])
+            out["amount"] = a["amount"]
         elif kind == "check":
             need(a.get("trigger") in ("short_rest_end", "fast_travel_arrival"),
                  "skill check requires an observed completed short rest or arrival")
@@ -232,6 +255,14 @@ class Domain:
                 need(integer(a["fare_gold"], "total travel fare") == 0,
                      "paid travel requires separate coin-only and total-fare affordability")
         elif kind == "rest":
+            if "recovery" in a:
+                require(a["recovery"] == "full_bed" and a.get("site") == "bed"
+                        and not {"refill_sp", "refill_fatigue"}.intersection(a),
+                        "full_bed recovery requires a full-priced uninterrupted bed")
+                need("hp_roll_state" in self.source_state, "full_bed requires prospective creation vitals")
+                flags = self.source_state["career"]["abilityFlagsAndSpellPointsBitfield"]
+                need(not flags & 8, "unverified inability to regenerate spell points")
+                out["full_bed"] = True
             for k, cap in (("refill_sp", "max_sp"), ("refill_fatigue", "max_fatigue")):
                 if k in a:
                     n = integer(a[k], k)
@@ -265,6 +296,10 @@ class Domain:
                 require(len(set(out[key])) == 8, "allocation_order must be a permutation")
             if kind == "level":
                 out["if_due"] = boolean(a.get("if_due", False), "if_due")
+                if "allocation_policy" in a:
+                    need("hp_roll_state" in self.source_state, "allocation policies require a prospective itinerary")
+                    require(out["if_due"] and key == "allocation_order", "a policy requires if_due and an allocation order")
+                    out["allocation_policy"] = integer(a["allocation_policy"], "allocation policy", 0, 3)
             else:
                 need(a.get("copy") in self.oghma_copies, "a usable Oghma artifact copy must be observed in the pack")
                 out["copy"] = self.oghma_copies.index(a["copy"])
@@ -316,23 +351,32 @@ class Domain:
             game_id = a["spell"]
             record = self.records.get(game_id)
             need(record is not None, f"unresolved game spell record {game_id}")
+            from .progression_practice import release_cost
             recipe = get_recipe(record)
-            need(recipe is not None and skill == 22 and
-                 not any(row.get("signature") == game_id for row in self.path_rows),
-                 "unsupported practice spell effect or school")
+            if recipe is not None and skill == 22:
+                out["recipe"] = recipe
+            else:
+                cost = release_cost(record, skill)
+                need(cost is not None, "unsupported practice spell effect or school")
+                need("hp_roll_state" in self.source_state, "school practice requires prospective creation vitals")
+                out.update(cost)
+            need(not any(row.get("signature") == game_id for row in self.path_rows),
+                 "signature practice requires its verified active path")
             need(self.source_state.get("has_spellbook") is True, "casting requires a spellbook")
             need(out["cadence_ms"] >= 1400,
                  "repeated cast cadence must allow the slowest supported casting recovery")
             need(not self.source_state.get("practice_modifiers_unknown"), "unverified spell cost modifiers")
-            out.update(spell=self.spell_ids.index(game_id), recipe=recipe,
+            out.update(spell=self.spell_ids.index(game_id), until_spent=boolean(a.get("until_spent", False), "until_spent"),
                        skill_bonus=self.source_state.get("skill_bonus", 0),
                        focus_pct=self.source_state.get("focus_pct", 0))
         else:
             require("spell" not in a, "nonmagic practice cannot use a spell")
             activities = {"polite_conversation": (1,), "blunt_conversation": (2,), "failed_pacification": range(4, 13),
+                          "missed_melee_attack": (20,),
                           "lockpick_attempt": (13,), "completed_trade": (14,), "pickpocket_attempt": (15,),
                           "stealth_check": (16,), "motion": (3, 17, 18, 21)}
             activity = a.get("activity")
+            require("until_spent" not in a, "until_spent applies only to a paid spell release")
             require(activity is None or isinstance(activity, str), "practice activity must be a string")
             need(skill in activities.get(activity, ()), "no verified gameplay tally for this skill and activity")
             if a.get("activity") == "motion":

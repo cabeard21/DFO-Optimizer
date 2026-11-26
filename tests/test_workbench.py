@@ -79,6 +79,53 @@ def test_class_export_and_real_zip_import(site):
     assert selected["value"]["schema_version"] == 2
 
 
+def test_discovery_presets_and_export_of_selected_lifecycle_family(site):
+    _, meta = call(site, "/api/meta")
+    assert "early" in {row["id"] for row in meta["discovery_presets"]}
+    _, practical = call(site, "/api/examples/discovery-early")
+    assert practical["class_search"]["profile"] == "spellcaster_discovery_v1"
+    assert call(site, "/api/examples/discovery-unknown")[0] == 404
+    _, job = call(site, "/api/jobs", {"action":"build optimize", "source":{"example":"build-lifecycle"}})
+    result = finish(site, job["id"])["result"]
+    selected = result["candidates"][0]["family"]
+    from urllib.parse import urlencode
+    url = "/api/jobs/"+job["id"]+"/export?"
+    status, document = call(site, url+urlencode({"family":selected}))
+    assert status == 200 and document == meta["catalog"]["caster_classes"]["m1-breton-caster"]
+    assert call(site, url+"family=unknown")[0] == 400
+    assert call(site, url+"family=unknown&index=0")[0] == 400
+    _, saved = call(site,"/api/library/item",{"job_id":job["id"],"label":"Paired casters"})
+    saved_url = "/api/library/export?"+urlencode({"id":saved["items"][0]["id"],"family":selected})
+    assert call(site,saved_url) == (200,document)
+
+
+def test_discovery_incumbent_uses_one_budget(site, monkeypatch):
+    from threading import Event
+    from dfo_optimizer import workbench_jobs
+
+    _, request = call(site, "/api/examples/discovery-early")
+    released = Event()
+    calls = []
+    def execute(action, frozen, token, *, on_incumbent):
+        calls.append(frozen)
+        checked = {"kind":"lifecycle", "status":"best_found_bounded", "candidates":[{"validated":True}]}
+        on_incumbent(checked)
+        assert released.wait(5)
+        return {**checked, "status":"cancelled" if token.cancelled() else "best_found_bounded"}
+
+    monkeypatch.setattr(workbench_jobs,"execute",execute)
+    try:
+        _, job = call(site, "/api/jobs", {"action":"build optimize","request":request})
+        partial = finish(site, job["id"], lambda r: r["incumbent"] is not None)
+        assert partial["incumbent_request"] == request
+        assert partial["progress"]["preview_nodes"] == partial["progress"]["preview_runs"] == 0
+        call(site, "/api/jobs/"+job["id"]+"/cancel", {})
+    finally:
+        released.set()
+    done = finish(site, job["id"])
+    assert calls == [request] and done["state"] == "cancelled" and done["result"]["candidates"]
+
+
 def test_upload_and_archive_preserve_exact_json_values(site):
     from dfo_optimizer.workbench_jobs import digest
     raw = b'{"large":9007199254740993,"weight":1.0}'

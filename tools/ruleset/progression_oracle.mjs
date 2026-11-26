@@ -1,9 +1,12 @@
 // Online page and fixed random draws take the place of the browser and its RNG.
 // All tally, settling, training, birth and specialization outputs come from game exports.
-import {rollStats, rollSkills, spendPoolLowest, applyCharacter} from './src/systems/chargen.js';
+import {rollStats, rollSkills, spendPoolLowest, applyCharacter, defineLiveMaxMagicka, defineLiveMaxHealth} from './src/systems/chargen.js';
 import {buildCustomCareer} from './src/systems/customClass.js';
 import {STAT_KEYS_ORDER} from './src/systems/statMods.js';
-import {assignSkillSpellbook, assignSkillEquipment} from './src/systems/roleplayRealismItems/rriKits.js';
+import {assignSkillSpellbook, assignSkillEquipment, RRI_SPELLS} from './src/systems/roleplayRealismItems/rriKits.js';
+import {calculateCastCost, castSchool} from './src/systems/spellcost.js';
+import {setRenownLayer} from './src/systems/renownLayer.js';
+import {goldStack, takeOneInto} from './src/systems/inventory.js';
 import {levelUpSkillSum, tallySkill} from './src/systems/skills.js';
 import {skillUsesForAdvancement, SKILL_ADVANCEMENT_MULTIPLIER, raiseSkills, checkForLevelUp,
         applyLevelUp, bonusPoolFor, raisePriceLevel} from './src/systems/advancement.js';
@@ -14,7 +17,7 @@ import {pathChoices, choosePath} from './src/systems/arcanePaths.js';
 import {signatureOffers} from './src/systems/signatureSpells.js';
 import {resetSpec} from './src/systems/specReset.js';
 import {trainSkill, tooSkilledToTrain, trainingTooSoon} from './src/systems/guild/guildServiceActions.js';
-import {nightDue} from './src/systems/rest/restAct.js';
+import {nightDue, topUpRest} from './src/systems/rest/restAct.js';
 globalThis.location = {search:'?online'};
 const emit=console.log.bind(console);
 console.log=console.error.bind(console);
@@ -89,5 +92,42 @@ applyLevelUp(capped,(a,n)=>{a.intelligence+=n;},()=>.5,pool);
 capped.skillUses[0]=100000;
 raiseSkills(capped,actor.lastSkillCheckTime+361,()=>.5,()=>{});
 add('post_cap',{},{owed,pool,level:capped.level,minor:capped.skills[0],ready:capped.readyToLevelUp});
+for (const id of [991,995,993,992,997,998]) {
+  const spell=Object.values(RRI_SPELLS).find(s=>s.index===id);
+  for (const raw of [1,35,100,150,200]) {
+    const e=clone(), school=castSchool(e,spell,spell.effects[0]);
+    e.skills[school]=raw;
+    if (raw>=100) e.masteredSkills=[school];
+    add('school_release',{id,raw,school},calculateCastCost(spell,e,{online:true,portMods:false}).sp);
+  }
+}
+for (const rollSeed of [0,42,0xffffffff]) {
+  const vitals=clone();
+  vitals.career.hitPointsPerLevel=30;
+  vitals.career.abilityFlagsAndSpellPointsBitfield=0;
+  Object.assign(vitals,{level:1,maxHealth:55,health:37,magicka:12});
+  vitals.stats.endurance=48;
+  vitals.stats.intelligence=65;
+  defineLiveMaxHealth(vitals);
+  defineLiveMaxMagicka(vitals);
+  setRenownLayer(vitals,1);
+  let value=rollSeed;
+  for (let level=2;level<=5;level++) {
+    vitals.readyToLevelUp=true;
+    const input={level,hp_roll_state:value};
+    applyLevelUp(vitals,(stats,n)=>{stats.endurance+=2; stats.intelligence+=n-2;},()=>{
+      value=(Math.imul(1664525,value)+1013904223)>>>0; return value / 4294967296;
+    },5);
+    add('level_vitals',{rollSeed,...input},{raw_max_hp:vitals.rawMaxHealth,max_hp:vitals.maxHealth,
+      hp:vitals.health,max_sp:vitals.maxMagicka,sp:vitals.magicka,hp_roll_state:value});
+  }
+  topUpRest(vitals,'bed',null);
+  add('full_bed',{rollSeed},{hp:vitals.health,sp:vitals.magicka});
+}
+const collector={goldPieces:18,items:[]}, coins=goldStack(321), container=[coins];
+takeOneInto(collector,container,coins);
+const repeated=takeOneInto(collector,container,coins);
+add('collect_gold',{gold:18,amount:321},{gold:collector.goldPieces,remaining:container.length,
+  repeated:repeated!==null,pack_items:collector.items.length});
 emit(JSON.stringify({source_sha:'a3eb1605ea1dc391b691fe314377458a7e63e483',birth,events}));
 

@@ -75,7 +75,7 @@ def _parser():
         "to the selected output with status cancelled and exits with code 130."
     )
     optimize.add_argument("--request", type=Path, help="request JSON, or - for stdin")
-    optimize.add_argument("--profile", choices=["dhargo_pve"])
+    optimize.add_argument("--profile", choices=["dhargo_pve", "spellcaster_discovery_v1"])
     optimize.add_argument("--top", type=int, help="override the requested number of results")
     characters = commands.add_parser("character").add_subparsers(dest="action", required=True)
     for action in ("slots", "import"):
@@ -129,7 +129,7 @@ def _parser():
     compare = _command(builds, "compare", "Compare lifecycle results under their frozen assumptions")
     compare.add_argument("--plans", type=Path, nargs="+", required=True)
     bench = _command(commands, "benchmark", "Run the serial native benchmark suite", ruleset=False)
-    bench.add_argument("--suite", choices=["foundation", "smoke", "combat", "progression", "lifecycle", "encounter"], default="smoke")
+    bench.add_argument("--suite", choices=["foundation", "smoke", "combat", "progression", "lifecycle", "encounter", "discovery"], default="smoke")
     bench.add_argument("--workers", type=int, choices=[1], default=1)
     return parser
 
@@ -298,6 +298,10 @@ def _dispatch(args):
     from . import ruleset
 
     if args.command == "benchmark":
+        if args.suite == "discovery":
+            from .discovery_benchmark import run_discovery_benchmark
+            report = run_discovery_benchmark()
+            return report, 0 if report["quality"]["passed"] else 1
         if args.suite == "encounter":
             from .encounter_benchmark import run_encounter_benchmark
             return run_encounter_benchmark(), 0

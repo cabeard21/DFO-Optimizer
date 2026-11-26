@@ -1,5 +1,259 @@
 {
   "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+  "prospective_defenses": {
+    "saves": [
+      {
+        "raceId": 1,
+        "career": {},
+        "willpower": 50,
+        "chances": [
+          55,
+          55,
+          55,
+          55,
+          85
+        ]
+      },
+      {
+        "raceId": 1,
+        "career": {
+          "resistanceFlags": 2
+        },
+        "willpower": 50,
+        "chances": [
+          55,
+          55,
+          55,
+          55,
+          100
+        ]
+      },
+      {
+        "raceId": 1,
+        "career": {
+          "immunityFlags": 2,
+          "criticalWeaknessFlags": 2
+        },
+        "willpower": 50,
+        "chances": [
+          55,
+          55,
+          55,
+          55,
+          100
+        ]
+      },
+      {
+        "raceId": 1,
+        "career": {
+          "lowToleranceFlags": 16,
+          "criticalWeaknessFlags": 2
+        },
+        "willpower": 50,
+        "chances": [
+          55,
+          30,
+          55,
+          55,
+          35
+        ]
+      },
+      {
+        "raceId": 3,
+        "career": {},
+        "willpower": 50,
+        "chances": [
+          55,
+          85,
+          55,
+          55,
+          55
+        ]
+      },
+      {
+        "raceId": 3,
+        "career": {
+          "resistanceFlags": 2
+        },
+        "willpower": 50,
+        "chances": [
+          55,
+          85,
+          55,
+          55,
+          80
+        ]
+      },
+      {
+        "raceId": 3,
+        "career": {
+          "immunityFlags": 2,
+          "criticalWeaknessFlags": 2
+        },
+        "willpower": 50,
+        "chances": [
+          55,
+          85,
+          55,
+          55,
+          100
+        ]
+      },
+      {
+        "raceId": 3,
+        "career": {
+          "lowToleranceFlags": 16,
+          "criticalWeaknessFlags": 2
+        },
+        "willpower": 50,
+        "chances": [
+          55,
+          60,
+          55,
+          55,
+          5
+        ]
+      },
+      {
+        "raceId": 5,
+        "career": {},
+        "willpower": 50,
+        "chances": [
+          55,
+          55,
+          55,
+          55,
+          55
+        ]
+      },
+      {
+        "raceId": 5,
+        "career": {
+          "resistanceFlags": 2
+        },
+        "willpower": 50,
+        "chances": [
+          55,
+          55,
+          55,
+          55,
+          80
+        ]
+      },
+      {
+        "raceId": 5,
+        "career": {
+          "immunityFlags": 2,
+          "criticalWeaknessFlags": 2
+        },
+        "willpower": 50,
+        "chances": [
+          55,
+          55,
+          55,
+          55,
+          100
+        ]
+      },
+      {
+        "raceId": 5,
+        "career": {
+          "lowToleranceFlags": 16,
+          "criticalWeaknessFlags": 2
+        },
+        "willpower": 50,
+        "chances": [
+          55,
+          30,
+          55,
+          55,
+          5
+        ]
+      },
+      {
+        "raceId": 8,
+        "career": {},
+        "willpower": 50,
+        "chances": [
+          55,
+          55,
+          55,
+          55,
+          55
+        ]
+      },
+      {
+        "raceId": 8,
+        "career": {
+          "resistanceFlags": 2
+        },
+        "willpower": 50,
+        "chances": [
+          55,
+          55,
+          55,
+          55,
+          80
+        ]
+      },
+      {
+        "raceId": 8,
+        "career": {
+          "immunityFlags": 2,
+          "criticalWeaknessFlags": 2
+        },
+        "willpower": 50,
+        "chances": [
+          55,
+          55,
+          55,
+          55,
+          100
+        ]
+      },
+      {
+        "raceId": 8,
+        "career": {
+          "lowToleranceFlags": 16,
+          "criticalWeaknessFlags": 2
+        },
+        "willpower": 50,
+        "chances": [
+          55,
+          30,
+          55,
+          55,
+          5
+        ]
+      }
+    ],
+    "absorption": [
+      {
+        "flags": 0,
+        "outdoors_day": false,
+        "indoors_day": false,
+        "outdoors_night": false
+      },
+      {
+        "flags": 1,
+        "outdoors_day": true,
+        "indoors_day": false,
+        "outdoors_night": false
+      },
+      {
+        "flags": 2,
+        "outdoors_day": false,
+        "indoors_day": true,
+        "outdoors_night": true
+      },
+      {
+        "flags": 4,
+        "outdoors_day": true,
+        "indoors_day": true,
+        "outdoors_night": true
+      }
+    ]
+  },
   "effects": [
     {
       "effect_id": "4,0",

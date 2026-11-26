@@ -3,4 +3,5 @@ recursive-include docs *.md
 recursive-include tests *.py *.json *.md *.zip
 recursive-include tools *.py *.mjs *.json
 recursive-include benchmarks *.json
+include benchmarks/results/windows-m8-discovery-demo.zip
 recursive-include examples *.json

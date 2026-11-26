@@ -91,6 +91,9 @@ def parse_request(raw, rules):
     request = {} if raw is None else raw
     if not isinstance(request, Mapping):
         raise ValueError("class search request must be a JSON object")
+    if request.get("profile") == "spellcaster_discovery_v1":
+        from .discovery_request import discovery_request
+        return discovery_request(request, rules)
     unknown = set(request).difference(INPUT_KEYS)
     if unknown:
         raise ValueError("unknown class search field(s): " + ", ".join(sorted(map(str, unknown))))

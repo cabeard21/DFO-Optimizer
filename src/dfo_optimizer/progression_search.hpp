@@ -179,6 +179,72 @@ class Search {
             if (report.end) return;
         }
     }
+    size_t policy_count() const {
+        // Once bound, each policy has one possible continuation at a level
+        // window. Other multi-choice domains use the general search.
+        size_t count=1;
+        for (const auto &row:stages) {
+            if (row.empty()) return 0;
+            if (row.size()==1) continue;
+            if (row.size()>4 || (count>1 && count!=row.size())) return 0;
+            for (size_t i=0;i<row.size();++i)
+                if (row[i].kind!=level_up || row[i].allocation_policy!=int(i) || !row[i].if_due) return 0;
+            count=row.size();
+        }
+        return count;
+    }
+    void accept_itinerary(const Path &path) {
+        ++report.leaves;
+        if (!limits.retain_states) {
+            for (const auto &p:report.results) if (p.effort.dominates(path.effort)) return;
+            auto &paths=report.results;
+            paths.erase(std::remove_if(paths.begin(),paths.end(),[&](const auto &p) {
+                return path.effort.dominates(p.effort);
+            }),paths.end());
+        }
+        report.results.push_back(path);
+        if (report.first_seconds<0) report.first_seconds=elapsed();
+        cancel.incumbent.store(true,std::memory_order_relaxed);
+    }
+    Report follow_itinerary(const State &start, size_t count) {
+        report.prefix={start,{},{}};
+        if (cancel.requested.load(std::memory_order_relaxed)) report.end=4;
+        for (size_t lane=0;lane<count && !report.end;++lane) {
+            // Revisited prefixes consume nodes. At most four fixed policies are
+            // possible, and the memory used by each retained path is bounded.
+            Path path{start,{},{}};
+            const auto max_path=sizeof(Path)+stages.size()*sizeof(int);
+            if (!fits(input_bytes+(report.results.size()+4)*max_path)) break;
+            path.choices.reserve(stages.size());
+            bool split=false;
+            while (!report.end) {
+                const auto depth=path.choices.size();
+                if ((!limits.final_stage_only || depth==stages.size()) && !missing(path.state,goal)) {
+                    accept_itinerary(path); break;
+                }
+                if (depth==stages.size()) { ++report.leaves; break; }
+                if (stopped()) break;
+                const auto &row=stages[depth];
+                int index=0;
+                if (row.size()>1) {
+                    if (path.state.allocation_policy>=0) index=path.state.allocation_policy;
+                    else if (path.state.pending_level==path.state.level+1 && path.state.level<45) {
+                        index=int(lane); split=true;
+                    }
+                }
+                ++report.nodes;
+                auto next=path.state;
+                auto cost=path.effort;
+                if (size_t(index)>=row.size() || !apply(next,career,row[index],cost)) { ++report.pruned; break; }
+                path.state=next; path.effort=cost; path.choices.push_back(index);
+            }
+            if (path.choices.size()>report.prefix.choices.size() || (path.choices.size()==report.prefix.choices.size()
+                    && missing(path.state,goal)<missing(report.prefix.state,goal)))
+                report.prefix=std::move(path);
+            if (!split) break; // no policy decision was reached
+        }
+        return std::move(report);
+    }
 public:
     Search(const Career &c,const Stages &st,const Goal &g,const Limits &l,Cancel &token):
         career(c),stages(st),goal(g),limits(l),cancel(token) {}
@@ -187,6 +253,10 @@ public:
         for (const auto &row:stages) {
             input_bytes+=row.size()*sizeof(Action);
             if (row.size()>1 && !limits.retain_states) cache=true;
+        }
+        if (career.hp_setting) {
+            auto count=policy_count();
+            if (count) return follow_itinerary(start,count);
         }
         arena.push_back(Node{start,{},-1,-1,0,missing(start,goal)});
         if (cancel.requested.load(std::memory_order_relaxed)) report.end=4;

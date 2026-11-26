@@ -1,5 +1,6 @@
 import {views,el,action,select,field,panel,disclosure,facts,table,pretty,replayAction} from "./view.js";
 import {editors,importedClass} from "./editor.js";
+import {discoveryEditor} from "./discovery-editor.js";
 import {resultsPane,comparePane} from "./results.js";
 import {parseDocument,retainNumbers,stringifyDocument} from "./exact-json.js";
 
@@ -34,7 +35,7 @@ function dialog(title,children){
 byId("close").addEventListener("click",()=>byId("drawer").close());
 function getSession(key){
   if(!sessions.has(key))sessions.set(key,{operation:null,example:null,request:null,job:null,index:0,changed:false,load:0,
-    mode:library?.preferences?.mode??"request"});
+    mode:key==="discovery"?"request":library?.preferences?.mode??"request"});
   return sessions.get(key);
 }
 async function loadExample(s,operation,example){
@@ -43,7 +44,8 @@ async function loadExample(s,operation,example){
   try{
     const request=await api("examples/"+encodeURIComponent(example));
     if(s.load!==ticket)return;
-    Object.assign(s,{operation,example,request,source:{example},changed:Boolean(s.job)});
+    Object.assign(s,{operation,example,request,source:{example},changed:Boolean(s.job),
+      discoveryBudget:example.startsWith("discovery-")?{nodes:request.search.max_nodes,panel:request.class_search.top_k}:null});
     if(s===session()){status("Loaded "+example+".");render();}
   }finally{
     if(s.load===ticket)s.loading=false;
@@ -147,14 +149,15 @@ function inspectSaved(item){
   children.push(facts({action:item.action,status:item.result?.status,ruleset:item.ruleset_hash?.slice(0,12)}));
   if(item.request&&item.action){
     children.push(action("Open frozen request",guarded(async()=>{
-      const match=Object.entries(views).find(([,v])=>Object.values(v.operations||{}).some(([op])=>op===item.action));
+      const isDiscovery=item.request?.class_search?.profile==="spellcaster_discovery_v1";
+      const match=Object.entries(views).find(([key,v])=>(key!=="discovery"||isDiscovery)&&Object.values(v.operations||{}).some(([op])=>op===item.action));
       if(!match)throw Error("No editor for this operation.");
       const [key,config]=match,s=getSession(key);
       const gearMode={owned_only:"Best owned",owned_plus_budget:"Budget upgrades",available_catalog:"Available catalog",
         theoretical_bis:"Theoretical BIS"}[item.request.mode];
       const operation=key==="gear"&&gearMode?gearMode:Object.keys(config.operations).find(name=>config.operations[name][0]===item.action);
       if(s.submitting)throw Error("Finish or cancel the current search before opening another request.");
-      s.load++; Object.assign(s,{operation,request:item.request,source:{library_request:item.id},
+      s.load++; Object.assign(s,{operation,request:item.request,source:{library_request:item.id},discoveryBudget:null,
         example:item.label,job:null,index:0,changed:false});
       byId("drawer").close();location.hash=key;await navigate();
     })));
@@ -188,7 +191,7 @@ async function submit(s){
   if(!s.request)throw Error("Load a request first.");
   const controls=[...byId("content").querySelectorAll("input,textarea,select")];
   if(controls.some(node=>!node.reportValidity()))return;
-  s.submitting=true;s.changed=false;s.index=0;
+  s.submitting=true;s.changed=false;s.index=0;s.selectedBuild=null;
   const frozen=s.request,name=currentAction(s),example=s.example;
   try{
     const input=s.source?{source:s.source}:{request:frozen};
@@ -200,9 +203,12 @@ async function submit(s){
 function drawResults(){
   const s=session(),area=byId("result-area");if(!area||!s)return;
   const job=s.job,link=query=>location.assign("/api/jobs/"+encodeURIComponent(job.id)+"/export"+query);
+  area.dataset.jobId=job?.id??"";
+  area.dataset.state=job?.state??"";
   area.replaceChildren(resultsPane(s,{
     refresh:drawResults,cancel:guarded(async()=>{s.job={...await post("jobs/"+job.id+"/cancel",{}),example:job.example};drawResults();}),
-    save:guarded(()=>saveJob(s)),exportClass:i=>link("?index="+i),exportResult:()=>link(""),exportArchive:()=>link("?archive=1"),
+    catalog:meta.catalog, save:guarded(()=>saveJob(s)),exportClass:i=>link("?index="+i),
+    exportFamily:name=>link("?family="+encodeURIComponent(name)),exportResult:()=>link(""),exportArchive:()=>link("?archive=1"),
     exportPreview:()=>link("?archive=1&preview=1"),
     replay:guarded(async()=>{const replay=await runAndWait(replayAction(job.result),{job_result:job.id});
       if(replay.error)throw Error(replay.error);dialog("Replay verification",[facts(replay.result)]);})
@@ -212,14 +218,16 @@ function searchEditor(s){
   const config=views[view],chosen=config.operations[s.operation],stage=el("div"),advanced=el("textarea",null,"mono");
   const scope=el("div",null,"scenario-band");
   const operation=select(Object.keys(config.operations).map(k=>[k,k]),s.operation,guarded(v=>loadExample(s,v,config.operations[v][1])));
-  const examples=examplesFor(chosen[0],chosen[1]);
+  const discovery=view==="discovery";
+  const presets=new Map(meta.discovery_presets.map(p=>["discovery-"+p.id,p]));
+  const examples=discovery?[...presets.keys()]:examplesFor(chosen[0],chosen[1]);
   if(!examples.includes(s.example))examples.unshift(s.example);
-  const chooseExample=select(examples.map(v=>[v,v]),s.example,guarded(v=>loadExample(s,s.operation,v)));
+  const chooseExample=select(examples.map(v=>[v,presets.get(v)?.label||v]),s.example,guarded(v=>loadExample(s,s.operation,v)));
   function update(next,initial=false){
     s.request=retainNumbers(s.request,next);if(!initial)s.source=null;s.changed=Boolean(s.job);
     advanced.value=stringifyDocument(next,2);advanced.setCustomValidity("");
     const opened=new Set([...stage.querySelectorAll("details[open] > summary")].map(n=>n.textContent));
-    stage.replaceChildren(...editors(view,next,meta.catalog,update));
+    stage.replaceChildren(...(discovery?discoveryEditor(next,meta.catalog,update,s.discoveryBudget):editors(view,next,meta.catalog,update)));
     const tags=view==="creator"?["Difficulty "+(next.difficulty_points??-12),
       "HP "+(next.hp_values??[30]).join(" / "),"Magery "+(next.magicka_multiplier===null?"unlocked":(next.magicka_multiplier??3)+"× INT")]:
       [next.mode, next.scenario?.id||next.target?.id, next.budget?.gold!=null?next.budget.gold+" gold":null,
@@ -238,11 +246,11 @@ function searchEditor(s){
     catch(e){advanced.setCustomValidity(e.message);advanced.reportValidity();}
   });
   const raw=el("details");raw.append(el("summary","Full request JSON"),field("Frozen request inputs",advanced));
-  const run=action("Run "+(view==="creator"?"class search":view==="gear"?"gear search":s.operation.toLowerCase()),guarded(()=>submit(s)),"primary");
+  const run=action(discovery?"Discover builds":"Run "+(view==="creator"?"class search":view==="gear"?"gear search":s.operation.toLowerCase()),guarded(()=>submit(s)),"primary");
   const inputs=el("div",null,"actions");
   inputs.append(filePicker("Open request",".json",async file=>{
     const {value,upload_id}=await readUpload("request",file);
-    s.load++;s.loading=false;s.example=file.name;update(value);s.source={upload:upload_id};render();
+    s.load++;s.loading=false;s.example=file.name;s.discoveryBudget=null;update(value);s.source={upload:upload_id};render();
   }),
     action("Export request",()=>exportRequest(s)));
   if(view==="creator")inputs.append(filePicker("Import game class",".json",async file=>{
@@ -251,18 +259,35 @@ function searchEditor(s){
     }
     update(importedClass(value.normalized,meta.catalog,s.request));status("Imported "+value.normalized.name+". Class choices are locked.");
   }));
+  if(discovery)inputs.append(filePicker("Compare a game class",".json",async file=>{
+    const {value}=await readUpload("class",file);
+    if(!value.normalized||!value.create_legal||value.skipped?.length){
+      dialog("Class validation",[disclosure("Validation details",value)]);return;
+    }
+    const doc=value.normalized;
+    let raceId=meta.catalog.races[0].id;
+    const picker=select(meta.catalog.races.map(r=>[String(r.id),r.name]),String(raceId),v=>{raceId=Number(v);});
+    dialog("Compare a game class",[field("Race for imported class",picker),action("Add comparison",guarded(()=>{
+      const families=s.request.families??[],race=meta.catalog.races.find(r=>r.id===raceId);
+      const base=doc.name+" · "+race.name;
+      let id=base;
+      for(let i=2;families.some(f=>f.id===id);i++)id=base+" ("+i+")";
+      update({...s.request,families:[...families,{id,start:{type:"new_character",profile:"custom",race_id:raceId,class:doc}}]});
+      byId("drawer").close();status("Added "+id+" to the paired comparison.");
+    }))]);
+  }));
   if(["gear","spells","progression"].includes(view))inputs.append(filePicker("Import character",".zip,.txt,.json",file=>importCharacter(file,s)));
   const mode=select(Object.keys(meta.modes).map(k=>[k,k==="request"?"Use request limits":pretty(k)]),s.mode,v=>{
     s.mode=v;if(s.job){s.changed=true;drawResults();}
   });
-  return panel("Search inputs",[field("Operation",operation),field("Example",chooseExample),scope,stage,raw,
-    field("Search limits",mode),run,inputs]);
+  return panel("Search inputs",[...(discovery?[]:[field("Operation",operation)]),field(discovery?"Scenario preset":"Example",chooseExample),scope,stage,raw,
+    ...(discovery?[]:[field("Search limits",mode)]),run,inputs]);
 }
 function render(){
   byId("title").textContent=views[view].name;document.title=views[view].name+" · DFO Optimizer";
   for(const a of byId("navigation").children){if(a.hash==="#"+view)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");}
   const content=byId("content"),s=session();
-  if(view==="compare"){content.replaceChildren(comparePane(library.items,compare,render));return;}
+  if(view==="compare"){content.replaceChildren(comparePane(library.items,compare,render,meta));return;}
   if(view==="diagnostics"){
     const coverage=meta.coverage;
     content.replaceChildren(panel("Ruleset and engine",[facts({source:meta.source_sha,ruleset:meta.ruleset_hash,

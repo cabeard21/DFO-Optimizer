@@ -6,7 +6,7 @@ from math import isclose, isfinite
 from pathlib import Path
 from time import perf_counter
 
-from .progression_domain import Domain, Gap, _FIELDS, _spell_data, boolean, evidence, fields, get_recipe, integer, windows
+from .progression_domain import Domain, Gap, _FIELDS, _request_assets, boolean, evidence, fields, get_recipe, integer, windows
 from .progression_replay import _cast_price, goal_met, initial_effort, require, transition
 from .ruleset import _progression_service_rules
 
@@ -17,7 +17,8 @@ def digest(obj):
 
 
 _REQUEST = {"schema_version", "ruleset_hash", "start", "stages", "activities", "cycles", "max_events", "goal",
-            "search", "checkpoints", "require_starting_damage", "description", "time_model"}
+            "search", "checkpoints", "require_starting_damage", "description", "time_model",
+            "project_creation_vitals", "level_hp_seed"}
 
 
 def _freeze(request, base_dir):
@@ -85,8 +86,15 @@ def _native_start(d):
     s["mastered"].sort()
     if d.oghma_copies:
         s["oghma_mask"] = (1 << len(d.oghma_copies)) - 1
+    if d.gold_stacks:
+        s["collected_gold"] = 0
     if d.firmament.initial is not None:
         s["firmament"] = d.firmament.initial
+    if "hp_roll_state" in d.source_state:
+        s["allocation_policy"] = -1
+        for key in ("hp_roll_state", "hp_setting", "magery_quarters", "fatigue_multiplier",
+                    "raw_max_hp", "max_hp", "hp", "hp_known", "career_regeneration", "max_sp", "max_fatigue"):
+            s[key] = d.source_state[key]
     return s
 
 
@@ -128,6 +136,22 @@ def _prepare(raw, rules):
     start, missing = resolve_start(raw["start"], rules=rules)
     flags = (start.get("career") or {}).get("abilityFlagsAndSpellPointsBitfield", 0)
     start["environmental_magery"] = bool(flags & 0x3C0)
+    if boolean(raw.get("project_creation_vitals", False), "project_creation_vitals"):
+        from .classes import MAGERY
+        require(raw["start"]["type"] == "new_character", "creation vitals require a new character")
+        require(not start["environmental_magery"], "creation vitals require verified environmental magery")
+        seed = raw.get("level_hp_seed", raw["start"].get("roll_seed"))
+        seed = integer(seed, "paired level_hp_seed for realized birth rolls", 0, 2**32-1)
+        # An independent, reproducible branch of the birth RNG tape. The first
+        # 56 draws are reserved for birth even if a user supplies realized rolls.
+        for _ in range(56):
+            seed = (1664525 * seed + 1013904223) & 0xffffffff
+        start = {**start, "hp_roll_state": seed, "raw_max_hp": start["max_hp"],
+                 "hp_known": True, "career_regeneration": bool(start["career"].get("regeneration")),
+                 "magery_quarters": int(MAGERY.get((flags & 0x1c00) >> 8, 1) * 4),
+                 "fatigue_multiplier": rules["progression_rules"]["creation"]["fatigue_multiplier"]}
+    elif "level_hp_seed" in raw:
+        raise ValueError("level_hp_seed requires project_creation_vitals")
     if raw["start"].get("type") == "current_character":
         from .character import normalize_character
         imported = normalize_character(raw["start"]["character"])
@@ -146,7 +170,7 @@ def _prepare(raw, rules):
     require(isinstance(goal, dict), "provide progression goal")
     rows = windows(raw)
     law = rules["progression_rules"]
-    ids, records = _spell_data(start, rows, goal)
+    ids, records, stacks = _request_assets(start, rows, goal)
     missing = set(missing) | {k for k, v in start.items() if v is None}
     trainers = dict(law["training_skills"])
     trainers.update(law.get("temple_training_skills", {}))
@@ -172,7 +196,7 @@ def _prepare(raw, rules):
                          and any(isinstance(e,dict) and e.get("type") == 26 and e.get("param") == perm["oghma"]["subtype"]
                                  for e in r["item"].get("enchantments") or [])))
     require(len(books) <= 63, "progression supports up to 63 distinct Oghma copies")
-    d = Domain(start, missing, law["paths"], ids, records, trainers, set(law.get("temple_training_skills", {})), rates, books, sky)
+    d = Domain(start, missing, law["paths"], ids, records, trainers, set(law.get("temple_training_skills", {})), rates, books, sky, stacks)
     goal = d.compile_goal(goal)
     compiled, original, excluded = _compiled_windows(d, rows)
     limits = _limits(raw)
@@ -181,6 +205,8 @@ def _prepare(raw, rules):
     levels = {integer(i, "checkpoint", 1, 45) for i in checkpoint_levels}
     native_start = _native_start(d)
     blockers = [f"missing goal observation {k}" for k in sorted(set(goal).intersection(missing))]
+    if "hp_roll_state" in start and rows and flags & (16 | 32):
+        blockers.append("career environmental damage requires a verified itinerary exposure and survival transition")
     positive = boolean(raw.get("require_starting_damage", raw["start"].get("type") == "new_character"),
                        "require_starting_damage")
     if positive:
@@ -210,6 +236,9 @@ def _public_state(d, s):
     if "oghma_mask" in out:
         mask = out.pop("oghma_mask")
         out["oghma_remaining"] = [name for i,name in enumerate(d.oghma_copies) if mask >> i & 1]
+    if "collected_gold" in out:
+        mask = out.pop("collected_gold")
+        out["collected_gold_copies"] = [name for i,name in enumerate(d.gold_stacks) if mask >> i & 1]
     for k in d.missing.intersection(out):
         out[k] = None
     if out.get("known") is not None:
@@ -217,7 +246,12 @@ def _public_state(d, s):
     for key in ("arcane_path", "martial_path"):
         v = out[key]
         out[key] = d.path_rows[v]["id"] if v is not None and v >= 0 else None
-    for key in ("max_sp", "hp", "max_hp", "max_fatigue", "race_id", "has_spellbook"):
+    out.update(race_id=d.source_state.get("race_id"), has_spellbook=d.source_state.get("has_spellbook"))
+    if "hp_roll_state" in s:
+        if not s["hp_known"]:
+            out["hp"] = None
+        return out
+    for key in ("max_sp", "hp", "max_hp", "max_fatigue"):
         out[key] = d.source_state.get(key)
     if s["level"] != d.source_state.get("level") or s["attributes"] != d.source_state.get("attributes"):
         # The source level-up HP roll and live resource overlays require separate evidence.
@@ -237,14 +271,30 @@ def _same(a, b):
     return a == b
 
 
-def _route(context, choices, *, native=None, public_choices=False):
+def _joint_state(d, s):
+    """Fields needed across activity windows for a prospective lifecycle route."""
+    out = {k: s[k] for k in ("level", "sp", "hp", "max_hp", "max_sp", "gold", "attributes", "skills",
+                              "mastered", "minutes", "pending_level", "pending_pool", "current_sum", "allocation_policy")}
+    if not s["hp_known"]:
+        out["hp"] = None
+    out["known"] = [d.spell_ids[i] for i in s["known"]]
+    for key in ("arcane_path", "martial_path"):
+        v = s[key]
+        out[key] = d.path_rows[v]["id"] if v >= 0 else None
+    if "firmament" in s:
+        out["firmament"] = d.firmament.states[s["firmament"]]
+    return out
+
+
+def _route(context, choices, *, native=None, public_choices=False, lifecycle=False):
     d, rows, compiled, original, _, _, limits, levels, start, _ = context
     require(isinstance(choices, list) and len(choices) <= len(compiled), "invalid route length")
     s, effort = start, initial_effort()
     actions, indices, checkpoints = [], [], []
     seconds = 0. if d.time_model else None
+    project = _joint_state if lifecycle and "hp_roll_state" in start else _public_state
     def point(i):
-        checkpoints.append({"stage": i, "state": _public_state(d, s), "effort": dict(effort)})
+        checkpoints.append({"stage": i, "state": project(d, s), "effort": dict(effort)})
     point(0)
     for n, selected in enumerate(choices):
         integer(selected, "route alternative")
@@ -303,7 +353,7 @@ def _identity(plan):
     return digest(json.loads(json.dumps(identity)))
 
 
-def plan_progression(request, *, ruleset=None, base_dir=None, cancel=None):
+def plan_progression(request, *, ruleset=None, base_dir=None, cancel=None, _lifecycle=False):
     from . import _progression
     tic = perf_counter()
     rules = _progression_service_rules(ruleset)
@@ -318,7 +368,7 @@ def plan_progression(request, *, ruleset=None, base_dir=None, cancel=None):
     first, routes = None, []
     if not blockers:
         for row in stats["results"]:
-            route, end = _route(ctx, row["choices"], native=row)
+            route, end = _route(ctx, row["choices"], native=row, lifecycle=_lifecycle)
             if not goal_met(end, goal):
                 raise RuntimeError("native route missed its progression goal")
             if limits["final_stage_only"] and len(route["choices"]) != len(rows):
@@ -328,7 +378,13 @@ def plan_progression(request, *, ruleset=None, base_dir=None, cancel=None):
                 first = perf_counter() - tic
     prefix = end = None
     if not routes:
-        prefix, end = _route(ctx, stats["prefix"]["choices"], native=stats["prefix"] if not blockers else None)
+        if _lifecycle and not blockers:
+            # The joint planner publishes no partial progression route. Diagnose
+            # its first omitted edge from the native prefix without materializing
+            # a per-window public archive on every exploratory trial.
+            prefix, end = stats["prefix"], stats["prefix"]["state"]
+        else:
+            prefix, end = _route(ctx, stats["prefix"]["choices"], native=stats["prefix"] if not blockers else None)
     term = stats["termination"]
     exact = term == "exhausted" and not excluded and not blockers
     if term == "cancelled":
@@ -339,11 +395,16 @@ def plan_progression(request, *, ruleset=None, base_dir=None, cancel=None):
         status = "unsupported"
     else:
         status = "infeasible_proven" if exact else "no_feasible_found"
+    gap = None if routes else _first_gap(ctx, prefix, end)
+    counters = {k:v for k,v in stats.items() if k not in ("results", "prefix", "termination")}
+    if _lifecycle:
+        return {"status": status, "exact": exact, "termination": term, "routes": routes,
+                "first_gap": gap, "excluded_actions": excluded, "counters": counters}
     plan = {"kind": "progression_plan", "schema_version": 1, "engine": "native-cython-cpp17",
             "source_sha": rules["source_sha"], "ruleset_hash": rules["content_hash"],
             "input_hash": digest(raw), "frozen_request": raw, "status": status, "exact": exact,
             "termination": term, "routes": routes, "prefix": prefix if not routes else None,
-            "first_gap": None if routes else _first_gap(ctx, prefix, end),
+            "first_gap": gap,
             "excluded_actions": excluded, "missing_observations": sorted(d.missing), "goal_blockers": blockers,
             "proof_scope": "Online snapshot and declared finite opportunities, rolls, stage order and resource evidence.",
             "effort_scope": "Practice actions include trainer sessions. Personal game minutes and qualifying raise passes "
@@ -354,9 +415,18 @@ def plan_progression(request, *, ruleset=None, base_dir=None, cancel=None):
             "wall_time_to_train_seconds": routes[0]["wall_time_to_train_seconds"] if routes else None,
             "next_decision": next(iter((routes[0] if routes else prefix)["actions"]), None),
             "validation": {"finalists_checked": len(routes), "prefix_checked": not bool(routes)},
-            "counters": {k:v for k,v in stats.items() if k not in ("results", "prefix", "termination")},
+            "counters": counters,
             "timings": {"first_replayed_seconds": first, "native_seconds": searched_at-before_search,
                         "replay_seconds": perf_counter()-searched_at, "elapsed_seconds": perf_counter()-tic}}
+    if "hp_roll_state" in d.source_state:
+        plan["resource_scope"] += (
+            " Prospective ordinary creation assumes an active online level floor, no Renown bonuses, no worn or "
+            "temporary capacity modifiers and no passive resource gains. A seeded HP roll uses pre-allocation "
+            "Endurance. The online floor uses post-allocation Endurance. A full-priced uninterrupted bed fills "
+            "HP, SP and fatigue. School practice counts paid physical releases on the declared opportunities. "
+            "Self-heal practice requires full HP. An injured carrier of passive career regeneration has "
+            "unknown current HP after elapsed time until a full bed reestablishes it."
+        )
     plan["result_hash"] = _identity(plan)
     return plan
 

@@ -1,6 +1,6 @@
 # cython: language_level=3
 """Convert a finite, frozen online progression schedule to one native search."""
-from libc.stdint cimport uint64_t, int64_t
+from libc.stdint cimport uint32_t, uint64_t, int64_t
 from libcpp cimport bool as cpp_bool
 from libcpp.vector cimport vector
 from math import isfinite
@@ -13,14 +13,20 @@ cdef extern from "progression_search.hpp" namespace "dfo_progression":
         int group[35]
         int multipliers[35]
         int reflexes, starting_sum
+        int hp_setting, magery_quarters, fatigue_multiplier
+        cpp_bool career_regeneration
         double advancement
     cdef cppclass State:
         int skills[35]
         int attributes[8]
         int level, current_sum, pending_level, pending_pool
+        int allocation_policy
+        uint32_t hp_roll_state
+        cpp_bool hp_known
+        int raw_max_hp, max_hp, hp, max_sp, max_fatigue
         int arcane_path, martial_path, challenge_level, firmament
         uint64_t known[4]
-        uint64_t mastered, oghma
+        uint64_t mastered, oghma, collected_gold
         int64_t uses[35]
         int64_t spam_at[35]
         int64_t minutes, last_check, last_training, last_rest
@@ -39,6 +45,9 @@ cdef extern from "progression_search.hpp" namespace "dfo_progression":
         int64_t refill_sp, refill_fatigue
         double price_factor
         cpp_bool recipe_set, if_due, if_eligible, use_order, movement, short_rest
+        cpp_bool until_spent, full_bed, self_heal
+        int component_gold, range_multiplier_twice
+        int allocation_policy
         double horizontal_m, vertical_m
         int allocation[8]
         int order[8]
@@ -75,7 +84,7 @@ cdef class CancelToken:
     def has_incumbent(self):
         return bool(self.flag.has_incumbent())
 
-KINDS = ("skip","practice","rest","check","train","master","level","choose","reset","buy","oghma","firmament")
+KINDS = ("skip","practice","rest","check","train","master","level","choose","reset","buy","oghma","firmament","collect_gold")
 MULTIPLIERS = (12,1,1,5,15,15,15,15,15,15,15,15,15,2,1,2,2,1,2,1,4,50,1,2,1,1,2,1,2,2,2,2,2,1,8)
 MAX_INTEGER = (1<<53)-1
 
@@ -118,6 +127,11 @@ cdef Career _career(dict row):
     c.advancement=_float(row["advancement_multiplier"],"advancement_multiplier",.01,10.)
     c.reflexes=_int(row["reflexes"],"reflexes",0,4)
     c.starting_sum=_int(row["starting_sum"],"starting_sum",0,840)
+    if "hp_roll_state" in row:
+        c.career_regeneration=_flag(row.get("career_regeneration",False),"career_regeneration")
+        c.hp_setting=_int(row["hp_setting"],"hp_setting",4,30)
+        c.magery_quarters=_int(row["magery_quarters"],"magery_quarters",2,12)
+        c.fatigue_multiplier=_int(row["fatigue_multiplier"],"fatigue_multiplier",1,1000)
     return c
 
 cdef State _state(dict r):
@@ -127,6 +141,16 @@ cdef State _state(dict r):
     for k in ("spam_recent","spam_at","move_mark","move_credit"):
         if k in r: _list(r[k],k,35)
     s.real_ms=_int(r.get("real_ms",0),"real_ms")
+    s.allocation_policy=_int(r.get("allocation_policy",-1),"allocation_policy",-1,3)
+    s.collected_gold=_int(r.get("collected_gold",0),"collected_gold",0,(1<<63)-1)
+    if "hp_roll_state" in r:
+        s.hp_roll_state=_int(r["hp_roll_state"],"hp_roll_state",0,0xffffffff)
+        s.hp_known=_flag(r.get("hp_known",True),"hp_known")
+        s.raw_max_hp=_int(r["raw_max_hp"],"raw_max_hp",1,10000000)
+        s.max_hp=_int(r["max_hp"],"max_hp",s.raw_max_hp,10000000)
+        s.hp=_int(r["hp"],"hp",0,s.max_hp)
+        s.max_sp=_int(r["max_sp"],"max_sp",0,10000000)
+        s.max_fatigue=_int(r["max_fatigue"],"max_fatigue",0,10000000)
     s.odometer_h=_float(r.get("odometer_h",0.),"odometer_h")
     s.odometer_v=_float(r.get("odometer_v",0.),"odometer_v")
     for i in range(35):
@@ -174,6 +198,7 @@ cdef Action _action(dict a):
     if kind in ("choose","reset") or (kind=="buy" and a.get("path",-1)>=0):
         v.family=_family(a)
     if kind=="practice":
+        v.until_spent=_flag(a.get("until_spent",False),"until_spent")
         v.fatigue_cost=_int(a.get("fatigue_cost",0),"practice fatigue_cost",0,1<<30)
         v.count=_int(a.get("count",1),"count",1,100000)
         v.amount=_int(a.get("amount",1),"amount",1,20000)
@@ -196,12 +221,22 @@ cdef Action _action(dict a):
             if v.skill!=22 or v.spell<0 or recipe[2]>recipe[3] or recipe[4]>recipe[5]:
                 raise ValueError("invalid training spell recipe")
             v.recipe_set=True
+        if "component_gold" in a:
+            if v.recipe_set or v.spell<0 or v.skill not in range(22,28): raise ValueError("invalid school release cost")
+            v.component_gold=_int(a["component_gold"],"component_gold",0,10000000)
+            v.range_multiplier_twice=_int(a["range_multiplier_twice"],"range_multiplier_twice",2,5)
+            v.self_heal=_flag(a.get("self_heal",False),"self_heal")
+        if v.recipe_set or v.component_gold>=0:
             v.bonus=_int(a.get("skill_bonus",0),"skill_bonus",-1000,10000)
             v.focus=_int(a.get("focus_pct",0),"focus_pct",0,1000)
     elif kind=="check":
         v.minutes=_int(a.get("minutes",0),"minutes",0,(1<<31)-1)
         v.short_rest=_flag(a.get("short_rest",False),"short_rest")
+    elif kind=="collect_gold":
+        v.first=_int(a["copy"],"gold stack identity",0,62)
+        v.amount=_int(a["amount"],"gold stack count",1,2**31-1)
     elif kind=="rest":
+        v.full_bed=_flag(a.get("full_bed",False),"full_bed")
         v.minutes=_int(a.get("minutes",480),"night minutes",480,480)
         v.refill_sp=_int(a.get("refill_sp",-1),"refill_sp",-1)
         v.refill_fatigue=_int(a.get("refill_fatigue",-1),"refill_fatigue",-1)
@@ -216,6 +251,7 @@ cdef Action _action(dict a):
     elif kind=="master":
         v.if_eligible=_flag(a.get("if_eligible",False),"if_eligible")
     elif kind in ("level","oghma"):
+        v.allocation_policy=_int(a.get("allocation_policy",-1),"allocation_policy",-1,3)
         if kind=="oghma": v.first=_int(a["copy"],"artifact copy",0,62)
         v.if_due=_flag(a.get("if_due",False),"if_due")
         if "allocation_order" in a:
@@ -270,7 +306,12 @@ cdef dict _path(const Path &p,dict start):
         real_ms=s.real_ms,challenge_at=s.challenge_at,challenge_level=s.challenge_level,gold=s.gold,bank_gold=s.bank_gold,sp=s.sp,
         fatigue=s.fatigue,arcane_path=s.arcane_path,martial_path=s.martial_path)
     if "oghma_mask" in start: result["oghma_mask"]=s.oghma
+    if "collected_gold" in start: result["collected_gold"]=s.collected_gold
+    if "allocation_policy" in start: result["allocation_policy"]=s.allocation_policy
     if "firmament" in start: result["firmament"]=s.firmament
+    if "hp_roll_state" in start:
+        result.update(hp_roll_state=s.hp_roll_state, raw_max_hp=s.raw_max_hp, hp=s.hp,hp_known=bool(s.hp_known),
+                      max_hp=s.max_hp, max_sp=s.max_sp, max_fatigue=s.max_fatigue)
     return {"choices":list(p.choices),"state":result,"effort":{"practice":p.effort.practice,
             "rest_passes":p.effort.rest_passes,"minutes":p.effort.minutes,"spent":p.effort.spent}}
 
@@ -283,6 +324,8 @@ def search(dict start, stages, dict goal, *, max_nodes=100000, memory_bytes=6710
     cdef Report report
     cdef vector[vector[Action]] domain
     cdef vector[Action] choices
+    cdef Py_ssize_t packed_indices[256]
+    cdef size_t bucket
     cdef CancelToken token=CancelToken() if cancel is None else cancel
     limits.max_nodes=_int(max_nodes,"max_nodes",0,1<<62)
     limits.memory_bytes=_int(memory_bytes,"memory_bytes",1,1<<62)
@@ -297,7 +340,13 @@ def search(dict start, stages, dict goal, *, max_nodes=100000, memory_bytes=6710
     pack = total*sizeof(Action) + len(stages)*sizeof(vector[Action]) <= limits.memory_bytes
     if pack:
         domain.reserve(len(stages))
+        for i in range(256): packed_indices[i]=-1
         for row in stages:
+            bucket=(<size_t>id(row)>>4) & 255
+            if packed_indices[bucket]>=0 and stages[packed_indices[bucket]] is row:
+                domain.push_back(domain[<size_t>packed_indices[bucket]])
+                continue
+            packed_indices[bucket]=domain.size()
             domain.push_back(choices)
             domain.back().reserve(len(row))
             for action in row: domain.back().push_back(_action(action))

@@ -9,7 +9,7 @@ const numericList = text => {
   if(values.some(v=>!/^[-+]?\d+$/.test(v)))throw Error("Enter whole numbers separated by commas.");
   return values.map(Number);
 };
-function control(label,value,apply,type="text"){
+export function control(label,value,apply,type="text"){
   const input=el("input");input.type=type;input.value=value;
   input.addEventListener("change",()=>{
     try{
@@ -27,7 +27,7 @@ function properties(label,value,update){
   });
   return field(label,area);
 }
-function fold(label,children){
+export function fold(label,children){
   const details=el("details");details.append(el("summary",label),...children);return details;
 }
 export function importedClass(doc,catalog,original){

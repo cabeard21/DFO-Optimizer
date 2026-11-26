@@ -5,7 +5,7 @@ from array import array
 
 import cython
 from cpython.array cimport array as c_array, clone
-from libc.stdint cimport INT32_MIN, INT32_MAX, int32_t, int64_t, uint64_t
+from libc.stdint cimport INT32_MIN, INT32_MAX, int32_t, int64_t, uint32_t, uint64_t
 from libc.math cimport copysign
 from libcpp cimport bool as cppbool
 from libcpp.vector cimport vector
@@ -17,6 +17,7 @@ cdef extern from "native_build.hpp":
 cdef extern from "class_search.hpp" namespace "dfo":
     cdef cppclass CancelFlag:
         void cancel() noexcept
+        cppbool is_cancelled() noexcept
         cppbool has_incumbent() noexcept
     cdef cppclass Trait:
         int id, side, cost, family
@@ -42,12 +43,30 @@ cdef extern from "class_search.hpp" namespace "dfo":
         time_limit
         memory_limit
         cancelled
+        sample_limit
     cdef cppclass Output:
         End end
         uint64_t nodes, pruned, leaves, work_bytes
         double first_seconds
         vector[Candidate] best
     Output search(const Options&, CancelFlag&) except + nogil
+    cdef cppclass DiscoveryConfig:
+        cppbool exhaustive, stable_examples
+        uint32_t seed
+        uint64_t required_masteries, required_skills
+        vector[uint32_t] rolls
+        void trait(int,int,int,int,int)
+        void add_stage() except +
+        void item(int,int) except +
+    cdef cppclass ScreenFeatures:
+        int hp, absorption, destruction_sum, sp_sum, speed_sum
+        int eligible[32]
+        cppbool pareto
+    cdef cppclass DiscoveryOutput:
+        Output visited
+        vector[ScreenFeatures] features
+        uint64_t unique_screened, attempts, pareto_overflows, pareto_retained, pareto_capacity
+    DiscoveryOutput discover(const Options&,CancelFlag&,const DiscoveryConfig&) except + nogil
     int hp_points(int hp) noexcept nogil
 
 
@@ -95,6 +114,10 @@ cdef class CancelToken:
 
     def cancel(self):
         self.flag.cancel()
+
+    def cancelled(self):
+        """Read the same signal used by native traversal during finalist checks."""
+        return bool(self.flag.is_cancelled())
 
     def has_incumbent(self):
         """Whether this token's search has retained its first feasible class."""
@@ -205,7 +228,7 @@ cdef dict _decode(Output& out):
             "skills": tuple([c.skills[j] for j in range(12)]),
             "traits": tuple([c.traits[j] for j in range(c.count)]),
         })
-    reasons = ("exhausted", "top_k", "node_limit", "time_limit", "memory_limit", "cancelled")
+    reasons = ("exhausted", "top_k", "node_limit", "time_limit", "memory_limit", "cancelled", "sample_limit")
     return {
         "results": results, "termination": reasons[<int>out.end],
         "nodes": out.nodes, "pruned": out.pruned, "leaves": out.leaves,
@@ -214,9 +237,92 @@ cdef dict _decode(Output& out):
     }
 
 
+cdef uint64_t _skill_mask(values):
+    cdef uint64_t bits = 0
+    cdef int skill
+    for skill in _domain(values, 0, 34, "required skills"):
+        bits |= (<uint64_t>1) << skill
+    return bits
+
+
+cdef dict _discover(Options& options, CancelToken token, object raw):
+    cdef DiscoveryConfig config
+    cdef DiscoveryOutput output
+    cdef ScreenFeatures features
+    cdef size_t index
+    allowed = {"exhaustive", "seed", "required_masteries", "required_skills", "roll_seeds",
+               "trait_features", "stage_items", "stable_examples"}
+    if not isinstance(raw, dict) or set(raw) - allowed:
+        raise ValueError("invalid native discovery options")
+    exhaustive = raw.get("exhaustive", False)
+    if type(exhaustive) is not bool:
+        raise ValueError("exhaustive must be boolean")
+    config.exhaustive = exhaustive
+    examples = raw.get("stable_examples", False)
+    if type(examples) is not bool:
+        raise ValueError("stable_examples must be boolean")
+    config.stable_examples = examples
+    config.seed = _whole(raw.get("seed", 42), 0, 2**32-1, "screen seed")
+    config.required_masteries = _skill_mask(raw.get("required_masteries", []))
+    config.required_skills = _skill_mask(raw.get("required_skills", []))
+    rolls = raw.get("roll_seeds", [42, 97])
+    if not isinstance(rolls, (list,tuple)) or not 1 <= len(rolls) <= 128:
+        raise ValueError("require 1..128 paired screen rolls")
+    for seed in rolls:
+        config.rolls.push_back(_whole(seed, 0, 2**32-1, "roll seed"))
+    if len(set(rolls)) != len(rolls):
+        raise ValueError("duplicate paired roll seed")
+    table = raw.get("trait_features", [])
+    if not isinstance(table, (list,tuple)) or len(table) > 128:
+        raise ValueError("invalid trait feature rows")
+    ids = set()
+    for ident, magery, materials, gear, absorb in table:
+        ident = _whole(ident, 0, 127, "trait feature ID")
+        if ident in ids:
+            raise ValueError("duplicate trait feature ID")
+        ids.add(ident)
+        config.trait(ident, _whole(magery, 0, 12, "magery quarters"),
+                     _whole(materials, 0, INT32_MAX, "material bits"),
+                     _whole(gear, 0, INT32_MAX, "equipment bits"),
+                     _whole(absorb, 0, INT32_MAX, "absorption flag"))
+    stages = raw.get("stage_items", [])
+    if not isinstance(stages, (list,tuple)) or len(stages)>32:
+        raise ValueError("at most 32 screening equipment pools")
+    count = 0
+    for stage in stages:
+        if not isinstance(stage,(list,tuple)) or len(stage)+count>100000:
+            raise ValueError("invalid screening equipment pool")
+        count += len(stage)
+        config.add_stage()
+        for materials, gear in stage:
+            config.item(_whole(materials, 0, INT32_MAX, "item material mask"),
+                        _whole(gear, 0, INT32_MAX, "item gear mask"))
+    with nogil:
+        output = discover(options, token.flag, config)
+    decoded = _decode(output.visited)
+    n = float(len(rolls))
+    for index in range(output.features.size()):
+        features = output.features[index]
+        decoded["results"][index]["screen"] = {
+            "birth_hp": features.hp, "absorption_flag": features.absorption,
+            "mean_birth_sp": features.sp_sum/n,
+            "mean_cast_rate": 1 + (features.speed_sum/n - 50)/200,
+            "mean_birth_destruction": features.destruction_sum/n,
+            "eligible_stage_items": [features.eligible[i] for i in range(len(stages))],
+            "pareto_representative": bool(features.pareto),
+        }
+    decoded["unique_screened"] = output.unique_screened
+    decoded["attempts"] = output.attempts
+    decoded["pareto_overflows"] = output.pareto_overflows
+    decoded["pareto_retained"] = output.pareto_retained
+    decoded["pareto_capacity"] = output.pareto_capacity
+    return decoded
+
+
 def search_classes(*, traits, hp_values, races, attributes, skills, target, top_k, max_nodes,
                    wall_seconds=0.0, memory_bytes=67108864, objective="examples",
-                   stop_after_top=False, CancelToken cancel=None, require_magic=False, magic_skills=()):
+                   stop_after_top=False, CancelToken cancel=None, require_magic=False, magic_skills=(),
+                   discovery=None):
     cdef Options options
     cdef Output result
     cdef int skill
@@ -245,6 +351,8 @@ def search_classes(*, traits, hp_values, races, attributes, skills, target, top_
     options.magic_mask = 0
     for skill in _domain(magic_skills, 0, 34, "magic skills"):
         options.magic_mask |= (<uint64_t>1) << skill
+    if discovery is not None:
+        return _discover(options, token, discovery)
     with nogil:
         result = search(options, token.flag)
     return _decode(result)

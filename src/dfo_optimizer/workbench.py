@@ -127,6 +127,11 @@ class Handler(BaseHTTPRequestHandler):
             return self._reply(200,self.server.library.get())
         if path == "/api/library/export":
             item = self.server.library.item(query.get("id"))
+            if "family" in query:
+                if set(query) != {"id","family"} or item.get("ruleset_hash") != self.server.jobs.ruleset_hash:
+                    raise ValueError("Choose a family from a build saved with the installed ruleset")
+                value,name = export_job(item,{"family":query["family"]})
+                return self._reply(200,value,filename=name)
             key = "request" if query.get("request") == "1" else "result"
             if not isinstance(item.get(key),dict):
                 raise ValueError("This item has no "+key)

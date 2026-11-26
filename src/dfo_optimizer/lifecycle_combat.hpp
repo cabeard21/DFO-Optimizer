@@ -16,6 +16,7 @@ struct Physical {
     std::vector<dfo_gear::Slot> slots;
     std::vector<std::vector<int>> declared;
     std::vector<int> wellspring;
+    std::vector<dfo_book::Bundle> hostile_book;
     bool automatic=true;
 };
 struct CombatStage {
@@ -42,6 +43,7 @@ class Joint {
     const std::vector<std::vector<int>>& policies;
     const uint64_t max_nodes, memory;
     const double seconds;
+    const int metric;
     Cancel& cancel;
     Clock::time_point start=Clock::now();
     JointResult out;
@@ -133,9 +135,10 @@ class Joint {
                 }
                 auto book=encounter_books.find(row.mods);
                 if (book==encounter_books.end()) {
-                    if (!step(spells.size()*256+128)) break;
+                    if (!step((spells.size()+gear.hostile_book.size())*256+128)) break;
                     auto compiled=std::make_shared<std::vector<dfo_enc::Spell>>();
                     for (const auto& spell:spells) compiled->push_back(dfo_enc::from_bundle(ctx,spell));
+                    for (const auto& spell:gear.hostile_book) compiled->push_back(dfo_enc::from_bundle(ctx,spell));
                     book=encounter_books.emplace(row.mods,compiled).first;
                     out.evaluations+=spells.size();
                 }
@@ -183,16 +186,18 @@ class Joint {
                 if (!step()) break;
                 Mask needs=row.need;
                 int64_t sp=0;
-                double total=0;
+                double total=0, health_loss=0;
                 for (int id:policies[p]) {
                     needs|=Mask(1)<<(gear.items.size()+id);
                     const auto& value=it->second[id];
                     sp+=value.cost_sp;
                     total+=value.dps;
+                    health_loss+=value.expected_health_loss;
                 }
-                if (sp>ctx.available_sp || total<=0) continue;
+                const bool unarmed_birth=policies[p].empty() && i==0 && stages.size()>1;
+                if (sp>ctx.available_sp || (total<=0 && !unarmed_birth)) continue;
                 if (!step(64)) break;
-                st.options.push_back({needs,total/policies[p].size(),sp});
+                st.options.push_back({needs,unarmed_birth ? 0. : total/policies[p].size(),sp,health_loss});
                 choices.back().emplace_back(static_cast<int>(j),static_cast<int>(p));
             }
             if (out.search.end) break;
@@ -202,8 +207,8 @@ class Joint {
     }
 public:
     Joint(const Physical& g,const std::vector<CombatStage>& s,const std::vector<dfo_book::Bundle>& b,
-          const std::vector<std::vector<int>>& p,uint64_t n,uint64_t m,double w,Cancel& f)
-        :gear(g),stages(s),spells(b),policies(p),max_nodes(n),memory(m),seconds(w),cancel(f){}
+          const std::vector<std::vector<int>>& p,uint64_t n,uint64_t m,double w,Cancel& f,int objective)
+        :gear(g),stages(s),spells(b),policies(p),max_nodes(n),memory(m),seconds(w),metric(objective),cancel(f){}
     JointResult run(Mask owned) {
         if (gear.automatic) generate(0,0,0,nullptr);
         else for (const auto& row:gear.declared) {if (out.search.end) break; generate(0,0,0,&row);}
@@ -211,7 +216,7 @@ public:
         for (size_t i=0;i<stages.size() && !out.search.end;++i) score(i);
         if (!out.search.end && max_nodes && out.preparation_nodes>=max_nodes) out.search.end=1;
         if (!out.search.end) out.search=search(graph,owned,max_nodes?max_nodes-out.preparation_nodes:0,
-                                               memory-reserved,seconds?std::max(1e-12,seconds-elapsed()):0,cancel);
+                                               memory-reserved,seconds?std::max(1e-12,seconds-elapsed()):0,cancel,metric);
         for (const auto& w:out.search.routes) {
             out.slots.emplace_back(); out.policies.emplace_back();
             for (size_t i=0;i<w.choices.size();++i) {
@@ -230,7 +235,7 @@ inline void set_encounter(CombatStage& stage,const dfo_enc::Encounter& scene,uin
     stage.seed=seed;
 }
 inline JointResult joint(const Physical& g,const std::vector<CombatStage>& s,const std::vector<dfo_book::Bundle>& b,
-                         const std::vector<std::vector<int>>& p,Mask owned,uint64_t n,uint64_t m,double w,Cancel& f) {
-    return Joint(g,s,b,p,n,m,w,f).run(owned);
+                         const std::vector<std::vector<int>>& p,Mask owned,uint64_t n,uint64_t m,double w,Cancel& f,int objective) {
+    return Joint(g,s,b,p,n,m,w,f,objective).run(owned);
 }
 }

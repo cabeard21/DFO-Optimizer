@@ -1,0 +1,109 @@
+{
+  "platform": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
+  "python": "3.12.3",
+  "service_module": "/tmp/dfo-wheel-test-qr8842xz/venv/lib/python3.12/site-packages/dfo_optimizer/workbench.py",
+  "ruleset_hash": "d639d137937f8c42e3f26d281785defb44fb5071e9c2da179de4a8320401d5b1",
+  "observations": [
+    {
+      "workload": "class",
+      "visible_preview_ms": null,
+      "visible_final_ms": 284.40000000037253,
+      "result_hash": "52c6d1c14599ae1b7e91b9e6334cad8b1ce0f2cf8ec8fc36c9c98e689433e7ca",
+      "status": "optimal_proven",
+      "counters": {
+        "nodes": 182,
+        "pruned": 21,
+        "leaves": 12,
+        "first_feasible_seconds": 1.651e-05,
+        "work_bytes": 23132
+      },
+      "service_timings": null,
+      "service_elapsed_seconds": null
+    },
+    {
+      "workload": "gear-owned",
+      "visible_preview_ms": null,
+      "visible_final_ms": 309.79999999981374,
+      "result_hash": "c16a4a201387786247132ca8b11d15f0f5f336d33d60609347177a6817d1b0e5",
+      "status": "optimal_proven",
+      "counters": {
+        "nodes": 203,
+        "pruned": 2,
+        "leaves": 7,
+        "evaluations": 192,
+        "cache_hits": 3,
+        "cache_misses": 4,
+        "work_bytes": 3830,
+        "first_feasible_seconds": 0.015446778000306288,
+        "uncertain_sp_recipes": 0,
+        "spell_grid_cardinality": 48,
+        "sampled_spells": false,
+        "first_feasible_native_seconds": 2.71e-06
+      },
+      "service_timings": null,
+      "service_elapsed_seconds": 0.018492161000267515
+    },
+    {
+      "workload": "gear-budget",
+      "visible_preview_ms": null,
+      "visible_final_ms": 307.39999999990687,
+      "result_hash": "eb96bd22b8912953dfb4f7564b517bedd3655eb9cf1c34e79ad33da1f37d6877",
+      "status": "optimal_proven",
+      "counters": {
+        "nodes": 420,
+        "pruned": 14,
+        "leaves": 14,
+        "evaluations": 384,
+        "cache_hits": 6,
+        "cache_misses": 8,
+        "work_bytes": 5263,
+        "first_feasible_seconds": 0.02555150899974346,
+        "uncertain_sp_recipes": 0,
+        "spell_grid_cardinality": 48,
+        "sampled_spells": false,
+        "first_feasible_native_seconds": 6.23e-06
+      },
+      "service_timings": null,
+      "service_elapsed_seconds": 0.02861739399986618
+    },
+    {
+      "workload": "gear-bis",
+      "visible_preview_ms": null,
+      "visible_final_ms": 325.89999999990687,
+      "result_hash": "e019e93bf8ceb299ee6e555e900cf8538a3133001a09bf493f9cb6098451288c",
+      "status": "best_found_bounded",
+      "counters": {
+        "nodes": 3500,
+        "pruned": 8,
+        "leaves": 234,
+        "evaluations": 3257,
+        "cache_hits": 166,
+        "cache_misses": 68,
+        "work_bytes": 21756,
+        "first_feasible_seconds": 0.02973026000008216,
+        "uncertain_sp_recipes": 0,
+        "spell_grid_cardinality": 48,
+        "sampled_spells": false,
+        "first_feasible_native_seconds": 1.001e-05
+      },
+      "service_timings": null,
+      "service_elapsed_seconds": 0.037063316000057966
+    },
+    {
+      "workload": "class-cancelled",
+      "visible_preview_ms": 363.10000000009313,
+      "visible_final_ms": 947.6999999997206,
+      "result_hash": "e7ad00f8baa0da9fafd489598bf1e9d2b22b22b625992ffb0906509d8c98bad4",
+      "status": "best_found_bounded",
+      "counters": {
+        "nodes": 8192,
+        "pruned": 499,
+        "leaves": 7160,
+        "first_feasible_seconds": 4.8151e-05,
+        "work_bytes": 153772
+      },
+      "service_timings": null,
+      "service_elapsed_seconds": null
+    }
+  ]
+}

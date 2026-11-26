@@ -1,4 +1,5 @@
 export const views = {
+  discovery: {name:"Discover Spellcaster Build",icon:"✧",operations:{"Discover builds":["build optimize","discovery-early"]}},
   creator: {name:"Character Creator", icon:"◇", operations:{"Class search":["class optimize","max-intelligence"]}},
   progression: {name:"Progression", icon:"↗", operations:{
     "Plan training":["progression plan","progression-tradeoffs"],
