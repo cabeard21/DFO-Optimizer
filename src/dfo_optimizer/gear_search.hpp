@@ -1,5 +1,6 @@
 #pragma once
 #include "spell_kernel.hpp"
+#include "firmament_projection.hpp"
 #include <algorithm>
 #include <array>
 #include <atomic>
@@ -41,6 +42,9 @@ struct Config {
     uint32_t empty_mask = 0;
     int intelligence=-1, quarters=0, bonus=-1, post_sp=-1, current_int=0;
     bool uncertain_worn=false;
+    bool firmament_enabled=false;
+    dfo_firmament::Channels firmament{};
+    dfo_firmament::Projection projection{};
 };
 struct SpellPoint {
     RecipeKey recipe{};
@@ -219,7 +223,14 @@ class Traversal {
                 retained+=cfg.items[id].mods[7];
         }
         int safe=base.available_sp, possible=safe;
-        if (cfg.post_sp>=0) safe=possible=cfg.post_sp;
+        if (cfg.firmament_enabled) {
+            const auto maximum = [&](int equipment_int) {
+                return dfo_firmament::maximum_sp(cfg.firmament, cfg.projection, equipment_int);
+            };
+            const int original = std::min(safe, maximum(cfg.projection.worn_intelligence));
+            possible = std::min(original, maximum(total[7]));
+            safe = changed ? std::min(possible, maximum(retained)) : possible;
+        } else if (cfg.post_sp>=0) safe=possible=cfg.post_sp;
         else if (changed) {
             const int delta=std::max(0,cfg.current_int-retained);
             safe=cfg.uncertain_worn ? 0 : std::max(0,safe-(delta*(cfg.quarters?cfg.quarters:12)+3)/4);
@@ -257,6 +268,8 @@ class Traversal {
         }
         ++out.misses;
         auto ctx = apply(base, mods);
+        if (cfg.firmament_enabled)
+            ctx = dfo_firmament::project(ctx, cfg.firmament, cfg.projection);
         ctx.available_sp=mods[8];
         cacheable = true;
         local.clear();

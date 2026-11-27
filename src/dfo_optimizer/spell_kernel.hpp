@@ -22,6 +22,7 @@ using u64 = std::uint64_t;
 struct Context {
     int level = 1, live_skill = 0, climb = 0, speed = 50, available_sp = 0;
     int target_hp = 1, willpower = 50, power_pct = 0, pierce = 0, cast_speed_pct = 0, focus_pct = 0;
+    int firmament_cost_pct = 0;
     int resistant = 0, immune = 0, low_tolerance = 0, critical_weakness = 0;
     int resist_mods[5]{}, elemental_resists[5]{};
     double price_factor = 1.0;
@@ -59,7 +60,9 @@ inline Price price(const Context &c, const Recipe &r) noexcept {
     const int twice_range_multiplier = r.range_type + 1;
     const int floored = std::max(5, sp * twice_range_multiplier / 2);
     const int discount = std::clamp(c.focus_pct, 0, 30);
-    const int paid = c.free_cast ? 0 : int((i64(floored) * (100 - discount) + 50) / 100);
+    const int gear_cost = int((i64(floored) * (100 - discount) + 50) / 100);
+    // The player spell cost registry rounds after each registered modifier.
+    const int paid = c.free_cast ? 0 : std::max(1, int((i64(gear_cost) * (100 - c.firmament_cost_pct) + 50) / 100));
     return {component * twice_range_multiplier / 2, sp, paid};
 }
 

@@ -4,6 +4,7 @@ from libc.stdint cimport uint32_t, uint64_t
 from libcpp.vector cimport vector
 from math import isfinite
 include "_spell_common.pxi"
+include "_firmament_projection.pxi"
 
 cdef extern from "gear_search.hpp" namespace "dfo_gear":
     cdef cppclass Cancel:
@@ -30,6 +31,9 @@ cdef extern from "gear_search.hpp" namespace "dfo_gear":
         uint32_t empty_mask
         int intelligence, quarters, bonus, post_sp, current_int
         cpp_bool uncertain_worn
+        cpp_bool firmament_enabled
+        Channels firmament
+        Projection projection
     cdef cppclass SpellPoint:
         uint64_t loss, outcomes
         int cost, rate_200
@@ -98,7 +102,7 @@ cdef vector[Slot] _slots(object domains, int n):
 
 def traverse(context, axes, items, slots, budget, *, max_nodes, memory_bytes,
              wall_seconds, per_state, CancelToken cancel=None, empty_mask=0,
-             capacity=(-1,0,-1,-1,0,False)):
+             capacity=(-1,0,-1,-1,0,False), firmament=None):
     cdef Context ctx=prepare_context(context)
     cdef Config cfg
     cdef Report out
@@ -129,6 +133,11 @@ def traverse(context, axes, items, slots, budget, *, max_nodes, memory_bytes,
     if type(uncertain) is not bool:
         raise ValueError("invalid capacity evidence")
     cfg.uncertain_worn=uncertain
+    cfg.firmament_enabled=firmament is not None
+    if cfg.firmament_enabled:
+        projection, gains, prices=firmament
+        cfg.projection=pack_projection(projection)
+        cfg.firmament=pack_channels(gains, prices)
     with nogil:
         out=search(cfg,ctx,token.flag)
     rows=[]

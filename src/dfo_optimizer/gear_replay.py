@@ -2,7 +2,7 @@
 from collections import Counter
 
 from .gear_request import MODIFIERS
-from .gear_capacity import spendable
+from .gear_capacity import firmament_spendable, spendable
 from .spell_reference import evaluate_reference
 from .spell_request import AXES
 
@@ -87,7 +87,13 @@ def replay(row, domain, spec, policy, empty_mask):
     ctx, total = fold_worn_modifiers(
         ((item.legendary, dict(zip(MODIFIERS,item.modifiers,strict=True))) for item in layout.values()),
         spec.native_context())
-    ctx["available_sp"], _ = spendable(policy, ctx["available_sp"],layout,domain,total.get("intelligence",0))
+    equip_int = total.get("intelligence", 0)
+    if domain.firmament is not None:
+        from .firmament import project_reference
+        ctx = project_reference(ctx, *domain.firmament)
+        ctx["available_sp"], _ = firmament_spendable(domain.firmament, ctx["available_sp"], layout, domain, equip_int)
+    else:
+        ctx["available_sp"], _ = spendable(policy, ctx["available_sp"], layout, domain, equip_int)
     occupancy = {k:None for k in domain.slots}
     for anchor,it in layout.items():
         mask=dict(it.placements)[anchor]
@@ -110,11 +116,14 @@ def replay(row, domain, spec, policy, empty_mask):
     slots = {name: layout[n].identity if n in layout else None for name, n in domain.slots.items()}
     changed = {name: {"from": domain.current.get(n), "to": slots[name]}
                for name, n in domain.slots.items() if domain.current.get(n) != slots[name]}
+    effective = {key: ctx[key] for key in ("speed", "live_skill", "climb", "pierce", "cast_speed_pct",
+                                          "power_pct", "focus_pct", "available_sp")}
+    if domain.firmament is not None:
+        effective["firmament_cost_pct"] = ctx["firmament_cost_pct"]
     return {"loadout": slots, "occupancy": occupancy, "changed_slots": changed,
             "items": [{"instance_id": item.identity, "container": item.container,
                        "owned": item.owned, "hypothetical":item.hypothetical, "source":item.source,
                        "item": dict(item.item)} for item in layout.values()],
             "spell": {"effect_id": spec.effect_id, **dict(zip(AXES, recipe, strict=True))},
-            "modifiers": total, "effective": {k: ctx[k] for k in ("speed", "live_skill", "climb",
-                         "pierce", "cast_speed_pct", "power_pct", "focus_pct","available_sp")},
+            "modifiers": total, "effective": effective,
             "metrics": metrics, "validated": True, **_spending(layout, domain)}

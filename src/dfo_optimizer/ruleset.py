@@ -13,7 +13,8 @@ from uuid import uuid4
 SOURCE_SHA = "a3eb1605ea1dc391b691fe314377458a7e63e483"
 SOURCE_URL = "https://github.com/Lattymoy/daggerfall-js-source"
 DATA = Path(__file__).with_name("data")
-BUNDLE_HASH = "d639d137937f8c42e3f26d281785defb44fb5071e9c2da179de4a8320401d5b1"
+BUNDLE_HASH = "8849517af7186b2a6290bdeb96c9991c470e9d7f87015e780d047644e1141b42"
+PREVIOUS_ENCOUNTER_BUNDLE_HASH = "d639d137937f8c42e3f26d281785defb44fb5071e9c2da179de4a8320401d5b1"
 LIFECYCLE_BUNDLE_HASH = "e8d974f193cc266b6fdbaaae73f35bc5e1bb446fe8cfa22a65da3c21269ca886"
 COMBAT_BUNDLE_HASH = "b8755e71e6c87e3efcf582325d49230a68db49910930127e72b0b12eff2bf183"
 CLASS_BUNDLE_HASH = "293f927a36e9bdbc9504e8ed3f16582e326c9bcc5f7a8b84a241a81ae069a27d"
@@ -33,7 +34,8 @@ def _authenticate(bundle):
         raise ValueError("Unsupported ruleset schema or source revision")
     identity = bundle.get("content_hash")
     body = _json_bytes({k: v for k, v in bundle.items() if k != "content_hash"})
-    if (identity not in (BUNDLE_HASH, LIFECYCLE_BUNDLE_HASH, COMBAT_BUNDLE_HASH, CLASS_BUNDLE_HASH)
+    if (identity not in (BUNDLE_HASH, PREVIOUS_ENCOUNTER_BUNDLE_HASH, LIFECYCLE_BUNDLE_HASH,
+                         COMBAT_BUNDLE_HASH, CLASS_BUNDLE_HASH)
             or hashlib.sha256(body).hexdigest() != identity):
         raise ValueError("Ruleset does not match the reviewed content hash")
     return body, identity

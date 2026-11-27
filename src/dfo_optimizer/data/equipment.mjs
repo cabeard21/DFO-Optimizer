@@ -3,6 +3,7 @@ import {GROUP_TEMPLATE_INDICES, templateByIndex} from './src/systems/item/itemTe
 import {getEquipSlot, equipTableOf, isForbiddenEquip, isBrokenItem, weaponProficiencyFlag, EQUIP_SLOTS} from './src/systems/equip.js';
 import {getItemHands, ITEM_HANDS} from './src/characters/equipTable.js';
 import {ARMOR_MATERIAL} from './src/systems/armorMaterials.js';
+import {RRI_TEMPLATES, rriNativeMaterialValue} from './src/systems/roleplayRealismItems/rriItems.js';
 import {ENCHANTMENT_TYPES} from './src/formats/magicDef.js';
 import {AFFIX_RANGES, AFFIX_KINDS, AFFIX_COUNTS, setGem, gemLine, ALL_GEM_IDS, socketCap,
   kindParams, rollLootRarity, affixFold, LEGENDARY_POWERS, allLegendaries, legendariesFor, RARE_FLAVOURS} from './src/systems/loot/lootRarity.js';
@@ -15,9 +16,11 @@ import {createRandomJewellery, createRandomArmor, createRandomWeapon} from './sr
 setPref('lootRarity', true);
 const slots = Object.fromEntries(Object.entries(EQUIP_SLOTS).filter(([, n]) => n >= 0 && n < 27));
 const groups = ['Jewellery', 'Weapons', 'Armor', 'Gems', 'MensClothing', 'WomensClothing'];
+const reviewedRriArmor = [520, 522, 525];
 const templates = {};
 for (const group of groups) {
-  for (const index of GROUP_TEMPLATE_INDICES[group]) {
+  const indices = GROUP_TEMPLATE_INDICES[group];
+  for (const index of group === 'Armor' ? [...indices, ...reviewedRriArmor] : indices) {
     const item = {group, templateIndex: index};
     const entity = {};
     const first = getEquipSlot(entity, item);
@@ -27,10 +30,15 @@ for (const group of groups) {
       const second = getEquipSlot(entity, item);
       if (second !== first && second !== -1) choices.push(second);
     }
-    const base = templateByIndex(index);
+    const rri = reviewedRriArmor.includes(index);
+    const base = rri ? RRI_TEMPLATES.find(row => row.index === index) : templateByIndex(index);
     templates[index] = {name: base.name, group, slots: choices, hands: getItemHands(item, {bowLeftHand: false}),
       switch_hands: getItemHands(item, {bowLeftHand: true}), weapon_mask: group === 'Weapons' ? weaponProficiencyFlag(item) : 0,
       socket_max: socketCap({...item, rarity:'rare'}), weight_kg: base.baseWeight};
+    if (rri) {
+      templates[index].native_armor_families = Object.fromEntries(Object.values(ARMOR_MATERIAL).map(material =>
+        [material, rriNativeMaterialValue({...item, material}) >> 8]));
+    }
   }
 }
 const affixes = Object.fromEntries(Object.entries(AFFIX_KINDS).map(([id, kind]) => [id, {
@@ -53,7 +61,7 @@ for (const factory of [r => createRandomJewellery(r), r => createRandomArmor(45,
   }
 }
 for (const base of bases.values()) {
-  if (!templates[base.templateIndex]?.slots.length) continue;
+  if (!templates[base.templateIndex]?.slots.length || reviewedRriArmor.includes(base.templateIndex)) continue;
   const found = new Map();
   const best = new Map();
   for (let seed = 1; seed <= 3000; seed++) {
@@ -108,10 +116,14 @@ const socketed = {group:'Jewellery',templateIndex:135,rarity:'rare',
 setGem(socketed,'malachite');
 const oracle = {eligibility:[],modifiers:[
   modifierCase(socketed), ...minted.filter(x=>x.item.templateIndex===135).map(x=>modifierCase(x.item)),
+  modifierCase({group:'Armor',templateIndex:520,material:0,rarity:'magic',
+    affixes:[{id:'skill',param:SKILLS.Destruction,value:5},{id:'skill',param:SKILLS.Mysticism,value:7}]}),
+  modifierCase({group:'Armor',templateIndex:525,material:0,rarity:'magic',affixes:[{id:'armor',value:5}]}),
 ]};
-for (const index of [102,109,112,113,115,128,130,135,140])
+for (const index of [102,109,112,113,115,128,130,135,140,...reviewedRriArmor])
  for (const material of (templates[index].group === 'Armor' ? [0,256,259,512,513,521] :
    templates[index].group === 'Weapons' ? [0,1,9] : [0]))
-  for (const career of [{},{weaponArmorShieldsBitfield:1},{weaponArmorShieldsBitfield:8191},{forbiddenMaterialsFlags:2}])
+  for (const career of [{},{weaponArmorShieldsBitfield:1},{weaponArmorShieldsBitfield:8191},{forbiddenMaterialsFlags:2},
+    ...(reviewedRriArmor.includes(index) ? [6,7,8].map(bit => ({weaponArmorShieldsBitfield:1 << bit})) : [])])
    oracle.eligibility.push(eligibility(index,material,career));
 console.log(JSON.stringify(process.argv[2]==='oracle'?oracle:catalog));

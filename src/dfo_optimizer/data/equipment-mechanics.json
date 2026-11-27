@@ -7,7 +7,7 @@
     "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
     "path": "src/systems/equip.js",
     "symbol": "getEquipSlot, isForbiddenEquip, isBrokenItem",
-    "limits": "Reviewed classic wearable template groups, including retained restricted equipment. The caller supplies the bow-switching setting.",
+    "limits": "Reviewed classic wearable template groups, including retained restricted equipment. Also reviews the Roleplay Realism Items Jerkin, Helmet and Left Vambrace from saves using the source's custom slots and native armor families. Generated loot excludes these mod-dependent templates. The caller supplies the bow-switching setting.",
     "assumptions": [],
     "live_verified": false
   },

@@ -87,7 +87,7 @@ def main():
              Path(__file__).resolve(),wheel], work, env)
         run([python, "-m", "pip", "check"], work, env)
         commands = []
-        for script in ("generate_oracle.py", "generate_character.py", "spell_oracle.py", "equipment.py",
+        for script in ("generate_oracle.py", "generate_character.py", "generate_firmament.py", "spell_oracle.py", "equipment.py",
                        "progression_oracle.py", "spellbook_oracle.py", "encounter_oracle.py",
                        "beginner_classes.py", "beginner_assets.py", "physical_oracle.py"):
             commands.append([python, ROOT / "tools" / "ruleset" / script, "--source", env["DFO_SOURCE"], "--check"])

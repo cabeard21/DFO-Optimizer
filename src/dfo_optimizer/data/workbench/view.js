@@ -14,6 +14,7 @@ export const views = {
   gear: {name:"Gear & Loadouts",icon:"⬡",operations:{
     "Best owned":["gear optimize","gear-owned"],"Budget upgrades":["gear optimize","gear-budget"],
     "Available catalog":["gear optimize","gear-catalog"],"Theoretical BIS":["gear optimize","gear-bis"]}},
+  firmament: {name:"Firmament",icon:"✷"},
   compare: {name:"Compare Builds",icon:"≍"},
   diagnostics: {name:"Data & Diagnostics",icon:"◎"}
 };

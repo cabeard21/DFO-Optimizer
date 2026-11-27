@@ -36,6 +36,16 @@ def test_source_restriction_and_retained_worn():
     assert inspect(135, currentCondition=1)["placements"]
 
 
+@pytest.mark.parametrize("index,slot", [(520, 18), (522, 12), (525, 15)])
+def test_reviewed_rri_light_armor_slots_and_career_restrictions(index, slot):
+    armor = item(index, group="Armor", material=513, rriVariant=True)
+    assert inspect_item(armor, career={})["placements"] == [{"slot": slot, "mask": 1 << slot}]
+    assert not inspect_item(armor, career={"weaponArmorShieldsBitfield": 1 << 6})["placements"]
+    assert inspect_item(armor, career={"weaponArmorShieldsBitfield": 1 << 8})["placements"]
+    assert not inspect_item(armor, career={"forbiddenMaterialsFlags": 2})["placements"]
+    assert not list(legal_catalog_items({}, theoretical=True, template_indices=[index]))
+
+
 def test_unknown_career_and_unsupported_effect_are_visible():
     assert not inspect_item(item(113, material=0), career=None)["placements"]
     assert inspect(135, enchantments=[{"type": 1, "param": 44}])["unsupported"]

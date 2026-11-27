@@ -8,7 +8,7 @@ import math
 from .ruleset import DATA, SOURCE_SHA
 from .equipment_effects import item_modifiers
 
-EQUIPMENT_HASH = "2d8d9a7e5b631682880df93cbdb40c6587927af9123ac8b1646867e5407f0a85"
+EQUIPMENT_HASH = "84d4339bc25a15bb822e24e2dfcf57365187fc14c1801547d7b3731d681e123e"
 
 
 @lru_cache(maxsize=1)
@@ -71,7 +71,8 @@ def _career_gate(catalog, template, index, material, career):
         return "class_restriction"
     if material is None:
         return "unknown_material" if (metals or (not shield and flags & (7 << 6))) else None
-    if not shield and (flags >> 6) & (1 << (material >> 8)):
+    native_family = template.get("native_armor_families", {}).get(str(material), material >> 8)
+    if not shield and (flags >> 6) & (1 << native_family):
         return "class_restriction"
     if material >> 8 == 2 and metals & (1 << (material & 255)):
         return "class_restriction"

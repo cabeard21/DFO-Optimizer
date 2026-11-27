@@ -24,6 +24,50 @@ def item(key, *, owned=True, price=None, available=True):
     }
 
 
+def test_save_assumptions_use_full_sp_without_altering_imported_snapshot():
+    from zipfile import ZipFile
+    from dfo_optimizer.character import normalize_character
+
+    with ZipFile(EXAMPLES.parent / "tests/fixtures/character/export.zip") as archive:
+        member = next(n for n in archive.namelist() if n.endswith("SAVE0/SaveData.txt"))
+        save = json.loads(archive.read(member))
+    save = {**save, "maxMagicka": 123, "activeEffects": [{"kind": "disease", "disease": 2}]}
+    snapshot = normalize_character(save)
+    request = {**example("auto-from-save"), "character": snapshot}
+    request.pop("live_observations")
+    strict = GearService().optimize(request)
+    assert strict["status"] == "unsupported"
+    assert "active_effect:disease" in strict["unsupported_mechanics"]
+    before = deepcopy(snapshot)
+    relaxed = GearService().optimize({**request, "save_assumptions": True})
+    assert relaxed["sp_basis"] == {"source": "saved_maximum", "value": 123}
+    assert relaxed["candidates"]
+    assert any("Yellow Fever" in warning for warning in relaxed["advisories"])
+    assert snapshot == before
+    live = {"current_sp": {"value": 25, "source": "sheet", "observed_at_ms": 1}}
+    anchored = GearService().optimize({**request, "save_assumptions": True, "live_observations": live})
+    assert anchored["sp_basis"] == {"source": "explicit_current", "value": 25}
+
+
+def test_tracked_firmament_agrees_with_native_planner_on_the_same_worn_gear():
+    from dfo_optimizer.character import import_character
+    from dfo_optimizer.firmament import optimize_firmament
+
+    character = import_character(EXAMPLES.parent / "tests/fixtures/character/export.zip", slot=0)
+    request = {**example("fixed-from-save"), "character": character}
+    request.pop("live_observations")
+    allocation = {"tree": {"start": "mg.start", "keys": ["mg.s1"]}, "stars": 2, "craft": 0}
+    gear = GearService().evaluate({**request, "save_assumptions": True, "firmament_projection": allocation})
+    plan = optimize_firmament({**allocation, "character": character, "target": request["target"],
+                               "spell": request["spell"], "search": {"exact": True}})
+    candidate = gear["candidates"][0]
+    assert gear["firmament_projection"] == allocation
+    assert candidate["effective"]["available_sp"] == plan["baseline"]["available_sp"]
+    assert candidate["metrics"]["cost_sp"] == plan["baseline"]["cost_sp"]
+    assert candidate["metrics"]["dps"] == plan["baseline"]["damage_per_second"]
+    assert candidate["metrics"]["damage_per_sp"] == plan["baseline"]["damage_per_sp"]
+
+
 def test_owned_and_budget_use_positive_evidence():
     raw = {"inventory": [item("own"), item("unknown", owned=False),
                          item("buy", owned=False, price={"gold": 3})],

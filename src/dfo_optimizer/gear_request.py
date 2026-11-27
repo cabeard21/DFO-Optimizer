@@ -59,6 +59,7 @@ class GearDomain:
     uncertain_worn: bool = False
     policy: object = None
     empty_mask: int = 0
+    firmament: tuple | None = None
 
 
 def _availability(mode, owned, obtainable, hypothetical, prices, budget, container, containers):

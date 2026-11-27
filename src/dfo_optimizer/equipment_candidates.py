@@ -23,7 +23,9 @@ def _materials(data, group, forbidden):
 
 def _extremes(index, template, data, forbidden):
     group = template["group"]
-    if not template["slots"] or group not in ("Weapons", "Armor", "Jewellery", "MensClothing", "WomensClothing"):
+    # Reviewed RRI pieces can be read from a save. Their loot pools depend on mod settings.
+    if (not template["slots"] or "native_armor_families" in template
+            or group not in ("Weapons", "Armor", "Jewellery", "MensClothing", "WomensClothing")):
         return
     procs = [k for k in ["castSpeed", "potency", "focus"] if group in data["affixes"][k]["groups"]]
     for tier in ("magic", "rare"):

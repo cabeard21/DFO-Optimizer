@@ -14,7 +14,7 @@ from tempfile import TemporaryDirectory
 
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = ROOT / "src" / "dfo_optimizer"
-EXTENSIONS = ("_native", "_spells", "_gear", "_progression", "_spellbook", "_lifecycle", "_encounter")
+EXTENSIONS = ("_native", "_spells", "_gear", "_progression", "_spellbook", "_lifecycle", "_encounter", "_firmament")
 HEADERS = tuple(sorted(path.name for path in PACKAGE.glob("*.hpp")))
 FLAGS = ["-std=c++17", "-O0", "-fPIC", "-fno-fast-math", "-ffp-contract=off",
          "--coverage", "-fprofile-abs-path"]
@@ -61,7 +61,7 @@ def native_tests(directory):
     run([sys.executable, "-c", check_imports], directory, env=env)
     tests = sorted({p for pattern in ("test_native.py", "test_search.py", "test_discovery*.py",
                                       "test_beginner*.py", "test_physical*.py",
-                                      "test_spell*.py", "test_gear*.py",
+                                      "test_spell*.py", "test_gear*.py", "test_firmament*.py",
                                       "test_progression*.py", "test_lifecycle*.py",
                                       "test_permanent*.py", "test_encounter_native*.py", "test_encounter.py")
                     for p in (ROOT / "tests").glob(pattern)})

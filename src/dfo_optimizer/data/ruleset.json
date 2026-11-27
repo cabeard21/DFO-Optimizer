@@ -13,7 +13,7 @@
     "unknown1": 0,
     "weaponArmorShieldsBitfield": 0
   },
-  "content_hash": "d639d137937f8c42e3f26d281785defb44fb5071e9c2da179de4a8320401d5b1",
+  "content_hash": "8849517af7186b2a6290bdeb96c9991c470e9d7f87015e780d047644e1141b42",
   "encounter_paths": [
     {
       "awake": "battlemage",
@@ -556,7 +556,7 @@
     }
   ],
   "engine_version": "encounter-v1",
-  "equipment_hash": "2d8d9a7e5b631682880df93cbdb40c6587927af9123ac8b1646867e5407f0a85",
+  "equipment_hash": "84d4339bc25a15bb822e24e2dfcf57365187fc14c1801547d7b3731d681e123e",
   "extraction_version": 4,
   "limits": {
     "difficulty_max": 40,
@@ -803,7 +803,7 @@
     {
       "assumptions": [],
       "implementation_status": "equipment_window",
-      "limits": "Reviewed classic wearable template groups, including retained restricted equipment. The caller supplies the bow-switching setting.",
+      "limits": "Reviewed classic wearable template groups, including retained restricted equipment. Also reviews the Roleplay Realism Items Jerkin, Helmet and Left Vambrace from saves using the source's custom slots and native armor families. Generated loot excludes these mod-dependent templates. The caller supplies the bow-switching setting.",
       "live_verified": false,
       "mechanic_id": "gear.eligibility",
       "mode": "online_snapshot",
