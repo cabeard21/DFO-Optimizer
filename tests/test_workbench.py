@@ -46,6 +46,68 @@ def finish(site, job_id, predicate=None):
     pytest.fail("Job timed out")
 
 
+def test_firmament_profile_replace_and_conflict(site):
+    from dfo_optimizer.character import import_character
+
+    save = Path(__file__).parent / "fixtures" / "character" / "export.zip"
+    first = import_character(save, slot=0)
+    second = import_character(save, slot=1)
+    upload = call(site, "/api/import/character", first)[1]["upload_id"]
+    code, profile = call(site, "/api/firmament/profile",
+                         {"character_upload": upload, "stars": 2, "craft": 0})
+    assert code == 200
+    selector = {"id": profile["id"], "revision": profile["revision"]}
+    tree = {"start": "mg.start", "keys": []}
+    assert call(site, "/api/firmament/profile", {**selector, "tree": tree})[0] == 200
+    assert call(site, "/api/firmament/profile", {**selector, "stars": 4})[0] == 409
+    upload = call(site, "/api/import/character", second)[1]["upload_id"]
+    selector["revision"] += 1
+    assert call(site, "/api/firmament/profile", {**selector, "character_upload": upload})[0] == 200
+    with create_server(library_dir=site.library.file.parent) as reopened:
+        found = reopened.firmament_profiles.item(profile["id"])
+        assert found["tree"] == tree
+        assert found["character_hash"] == second["snapshot_hash"]
+
+
+def test_firmament_job_freezes_profile_and_rejects_stale_adoption(site, monkeypatch):
+    from dfo_optimizer.character import import_character
+
+    character = import_character(Path(__file__).parent / "fixtures" / "character" / "export.zip", slot=0)
+    upload = call(site, "/api/import/character", character)[1]["upload_id"]
+    _, profile = call(site, "/api/firmament/profile", {"character_upload": upload, "stars": 2, "craft": 0})
+    selector = {"id": profile["id"], "revision": profile["revision"]}
+    tree = {"start": "mg.start", "keys": []}
+    monkeypatch.setattr("dfo_optimizer.workbench_jobs.search_token", lambda *_: None)
+    monkeypatch.setattr("dfo_optimizer.workbench_jobs.execute",
+                        lambda *_: {"termination": "exhausted", "candidates": [{"tree": tree}]})
+    body = {"action": "firmament optimize", "firmament_profile": selector}
+    code, queued = call(site, "/api/jobs", body)
+    assert code == 202
+    job = finish(site, queued["id"])
+    assert job["state"] == "completed"
+    assert job["request"]["character"]["snapshot_hash"] == character["snapshot_hash"]
+    assert job["request"]["stars"] == 2
+    adopted = {**selector, "job_id": job["id"], "candidate_index": 0}
+    assert call(site, "/api/firmament/adopt", adopted)[1]["tree"] == tree
+    assert call(site, "/api/firmament/adopt", adopted)[0] == 409
+    selector["revision"] += 1
+    forged = {"action": "firmament optimize", "request": {"character": character,
+              "profile_id": selector["id"], "revision": selector["revision"], "stars": 2, "craft": 0,
+              "tree": {"start": None, "keys": []}}}
+    code, queued = call(site, "/api/jobs", forged)
+    assert code == 202
+    assert finish(site, queued["id"])["state"] == "completed"
+    assert call(site, "/api/firmament/adopt",
+                {**selector, "job_id": queued["id"], "candidate_index": 0})[0] == 400
+    gear = {"action": "gear optimize", "firmament_profile": selector,
+            "request": {"character": character, "save_assumptions": True}}
+    code, queued = call(site, "/api/jobs", gear)
+    assert code == 202
+    assert queued["request"]["firmament_projection"]["tree"] == tree
+    gear["request"]["character"] = {"snapshot_hash": "different"}
+    assert call(site, "/api/jobs", gear)[0] == 400
+
+
 def test_service_examples_exports_and_reopened_archive(site):
     from dfo_optimizer.gear import optimize_gear
     _, meta = call(site, "/api/meta")

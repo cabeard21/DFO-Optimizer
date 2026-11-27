@@ -4,10 +4,11 @@ import {beginnerInputs,recommendationPane} from "./beginner.js";
 import {discoveryEditor} from "./discovery-editor.js";
 import {resultsPane,comparePane} from "./results.js";
 import {parseDocument,retainNumbers,stringifyDocument} from "./exact-json.js";
+import {createFirmamentWorkspace,gearFirmamentInputs} from "./firmament.js";
 
 const byId=id=>document.getElementById(id);
 const sessions=new Map(), compare={};
-let meta,library,view="beginner";
+let meta,library,firmament,view="beginner";
 const session=()=>sessions.get(view);
 const status=(message,error=false)=>{byId("status").textContent=message;byId("status").dataset.error=String(error);};
 function notifyError(error){status(error.message||String(error),true);}
@@ -93,6 +94,10 @@ function offerSnapshot(s,snapshot){
     const id=snapshot.name||snapshot.character_id||"Imported character";
     return {...req,families:[{id,start:{type:"current_character",character:snapshot}}]};
   }
+  if(operation.startsWith("gear ")&&!req.encounter){
+    const {caster,career,inventory,character,character_file,live_observations,firmament_projection,...rest}=req;
+    return {...rest,character:snapshot,save_assumptions:true};
+  }
   if(/^(gear|spell|spellbook) /.test(operation)){
     const {caster,career,inventory,character,character_file,...rest}=req;
     return {...rest,character:snapshot};
@@ -102,7 +107,7 @@ function offerSnapshot(s,snapshot){
 function attachSnapshot(s,snapshot){
   s.request=retainNumbers(s.request,offerSnapshot(s,snapshot));s.source=null;s.changed=Boolean(s.job);render();
 }
-async function importCharacter(file,s){
+async function readCharacter(file,consume,saveToLibrary=false){
   let query="";
   if(file.name.toLowerCase().endsWith(".zip")){
     const {value}=await readUpload("slots",file,"?format=zip");
@@ -117,11 +122,16 @@ async function importCharacter(file,s){
   }
   await finish(query);
   async function finish(suffix){
-    const {value}=await readUpload("character",file,suffix+(suffix?"&":"?")+"save_as="+encodeURIComponent(file.name));
+    const query=saveToLibrary?suffix+(suffix?"&":"?")+"save_as="+encodeURIComponent(file.name):suffix;
+    await consume(await readUpload("character",file,query));
+  }
+}
+async function importCharacter(file,s){
+  await readCharacter(file,async ({value})=>{
     library=await api("library");status("Saved "+file.name+".");
     if(s&&s===session())attachSnapshot(s,value);
     else if(!s){await openLibrary();status("Saved "+file.name+".");}
-  }
+  },true);
 }
 async function openLibrary(){
   library=await api("library");
@@ -148,7 +158,7 @@ function inspectSaved(item){
   const children=[];
   if(item.ruleset_hash!==meta.ruleset_hash)children.push(el("p","This result uses a different ruleset. Re-run its frozen request before comparing scores.","warning"));
   children.push(facts({action:item.action,status:item.result?.status,ruleset:item.ruleset_hash?.slice(0,12)}));
-  if(item.request&&item.action){
+  if(item.request&&item.action&&item.action!=="firmament optimize"){
     children.push(action("Open frozen request",guarded(async()=>{
       const isDiscovery=item.request?.class_search?.profile==="spellcaster_discovery_v1";
       const match=Object.entries(views).find(([key,v])=>(key!=="discovery"||isDiscovery)&&Object.values(v.operations||{}).some(([op])=>op===item.action));
@@ -250,6 +260,12 @@ function searchEditor(s){
     advanced.value=stringifyDocument(next,2);advanced.setCustomValidity("");
     const opened=new Set([...stage.querySelectorAll("details[open] > summary")].map(n=>n.textContent));
     stage.replaceChildren(...(discovery?discoveryEditor(next,meta.catalog,update,s.discoveryBudget):editors(view,next,meta.catalog,update)));
+    if(view==="gear"&&!next.encounter)stage.append(gearFirmamentInputs(next,firmament.list(),firmament.catalog(),
+      meta.ruleset_hash,s.firmamentId,
+      guarded(async id=>{
+        const selected=await api("firmament/profile?id="+encodeURIComponent(id));
+        if(s===session()){s.firmamentId=id;attachSnapshot(s,selected.character);}
+      }), update));
     const tags=view==="creator"?["Difficulty "+(next.difficulty_points??-12),
       "HP "+(next.hp_values??[30]).join(" / "),"Magery "+(next.magicka_multiplier===null?"unlocked":(next.magicka_multiplier??3)+"× INT")]:
       [next.mode, next.scenario?.id||next.target?.id, next.budget?.gold!=null?next.budget.gold+" gold":null,
@@ -310,6 +326,10 @@ function render(){
   for(const a of byId("navigation").children){if(a.hash==="#"+view)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");}
   const content=byId("content"),s=session();
   content.classList.toggle("beginner-flow",view==="beginner");
+  if(view==="firmament"){
+    content.replaceChildren(firmament.catalog()?firmament.render():el("p","Loading the Firmament catalog…","note"));
+    return;
+  }
   if(view==="compare"){content.replaceChildren(comparePane(library.items,compare,render,meta));return;}
   if(view==="diagnostics"){
     const coverage=meta.coverage;
@@ -340,12 +360,20 @@ async function navigate(){
   const key=location.hash.slice(1);view=Object.hasOwn(views,key)?key:"beginner";const s=getSession(view);
   if(view==="beginner"&&!s.request)Object.assign(s,{request:{schema_version:2,thoroughness:"standard"},operation:"Recommend My First Spellcaster",mode:"request"});
   render();
+  if(["gear","firmament"].includes(view)){
+    const requested=view;
+    await firmament.refresh();
+    if(requested!==view)return;
+    render();
+  }
   if(views[view].operations&&!s.request){
     const [name,[,example]]=Object.entries(views[view].operations)[0];await loadExample(s,name,example);
   }else status("");
 }
 async function start(){
   [meta,library]=await Promise.all([api("meta"),api("library")]);
+  firmament=createFirmamentWorkspace({api,post,waitForJob,done,status,guarded,readCharacter,filePicker,
+    rulesetHash:meta.ruleset_hash});
   byId("source").textContent=meta.source_sha.slice(0,12);
   for(const [key,{name,icon}] of Object.entries(views)){
     const a=el("a");a.href="#"+key;const glyph=el("span",icon,"nav-icon");glyph.setAttribute("aria-hidden","true");

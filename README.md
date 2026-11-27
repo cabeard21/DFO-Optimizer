@@ -89,6 +89,20 @@ dfo benchmark --suite combat --workers 1 --output build/combat.json
 
 Each point pairs a complete recipe with expected target HP loss per recast second and per actual SP. The scenario assumes one ordinary, stationary PvE foe and one confirmed hit per cast. Read the returned search status, domain, acquisition evidence, and exclusions before comparing points. The theoretical gear example searches a declared roll catalog.
 
+### Track and optimize a Firmament tree
+
+Open **Firmament** in the local workbench and import a save. Enter your total Stars and Craft points, then choose a supported damage spell and target. Use the tree editor to record your existing allocation, or adopt one of the native search results. Add points or replace the save when your character progresses. The tracker stores these changes locally. Apply the allocation in the game yourself.
+
+In **Gear & Loadouts**, **Apply tracked Firmament** uses the selected profile's tree as a fixed input for the Gear search. Save-based requests created in the workbench can ignore unmodeled active status effects and start at full SP. Read the advisories to see which effects were omitted and where the SP value came from.
+
+The CLI accepts the same calculation inputs. Specify a tree, total `stars` and `craft`, a `target`, and a `spell` recipe or supported `spell_index` in the Firmament request.
+
+```sh
+dfo firmament optimize --character /path/to/SaveData.txt --request firmament-request.json
+```
+
+Supply `firmament_projection` with the tree and point totals to attach it to a standard Gear request. Use `save_assumptions: true` to opt into save-based Gear advisories and the full-SP assumption in JSON requests.
+
 ### Plan a character through level 45
 
 ```sh

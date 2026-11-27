@@ -141,7 +141,9 @@ export function resultsPane(session,handlers){
     termination:result.termination??job.state,retained:rows.length,
     ...(result.counters?.nodes!==undefined?{nodes:result.counters.nodes}:{}),
     ruleset:(result.ruleset_hash??job.ruleset_hash??"Unknown").slice(0,12)}));
-  children.push(...warningList([result.blockers,result.first_gap,result.unsupported_mechanics,result.missing_observations]));
+  children.push(...warningList([result.blockers,result.first_gap,result.unsupported_mechanics,result.missing_observations,result.advisories]));
+  if(result.firmament_projection)children.push(disclosure("Applied Firmament tree",result.firmament_projection));
+  if(result.sp_basis)children.push(facts({starting_sp:result.sp_basis.value,sp_source:pretty(result.sp_basis.source)}));
   if(result.proof_scope)children.push(disclosure("Search scope",result.proof_scope));
   if(result.class_admission){
     children.push(el("h3","Class admission"),facts(result.class_admission));
@@ -233,7 +235,7 @@ function compareContext(archive){
   const req=archive.request||{}, op=archive.action||"";
   if(archive.result?.kind==="lifecycle" && archive.result.comparison_hash)
     return JSON.stringify([archive.ruleset_hash,"lifecycle",archive.result.comparison_hash]);
-  const keys=op.startsWith("gear ")?["caster","character","career","target","scenario","encounter","live_observations","domain","spell","spell_policy","capacity","objective","price_factor"]:
+  const keys=op.startsWith("gear ")?["caster","character","career","target","scenario","encounter","live_observations","domain","spell","spell_policy","capacity","objective","price_factor","save_assumptions","firmament_projection"]:
     op==="spell curve"?["caster","character","target","price_factor","live_observations","curve"]:
     op.startsWith("spell ")?["caster","character","target","price_factor","live_observations"]:
     op.startsWith("encounter ")?["actor","scenario","seeds","spells"]:null;

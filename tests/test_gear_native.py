@@ -32,6 +32,23 @@ def axes_metrics(loss, n, rate, cost):
     return Fraction(loss*rate, n), Fraction(loss, n*cost)
 
 
+def test_firmament_gear_hook_prices_and_clips_capacity_on_swap():
+    axes = ((0,), (1,), (30,), (30,), (1,), (1,), (1,))
+    caster = {**CTX, "live_skill": 50, "available_sp": 130}
+    items = [option([0]*7+[30], worn=0), option([0]*7+[25])]
+    placements = {0: [(0, 1), (1, 1)]}
+    projection = (78, 40, 50, 30, 6, 0, 0)
+    gains = (10, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    prices = (0,) * 13
+    off = query(items, placements, axes, caster, locks={0: 0})
+    on = query(items, placements, axes, caster, locks={0: 0}, firmament=(projection, gains, prices))
+    assert on["results"][0]["cost_sp"] < off["results"][0]["cost_sp"]
+    assert on["results"][0]["health_loss_sum"] > off["results"][0]["health_loss_sum"]
+    # Removing the worn item drops the pool before replacement Intelligence is applied.
+    swapped = query(items, placements, axes, caster, locks={0: 1}, firmament=(projection, gains, prices))
+    assert swapped["results"] == [] and swapped["uncertain_sp_recipes"] == 1
+
+
 @pytest.mark.parametrize("seed", range(6))
 def test_random_reduced_exact_joint_frontier(seed):
     rng = random.Random(seed)

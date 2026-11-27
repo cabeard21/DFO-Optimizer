@@ -16,6 +16,7 @@ SEARCH = {
     "spell optimize": ("spells", "optimize_spells", "_spells"),
     "gear evaluate": ("gear", "evaluate_gear", "_gear"),
     "gear optimize": ("gear", "optimize_gear", "_gear"),
+    "firmament optimize": ("firmament", "optimize_firmament", "_firmament"),
     "progression plan": ("progression", "plan_progression", "_progression"),
     "build optimize": ("lifecycle", "optimize_build", "_lifecycle"),
     "build recommend": ("beginner", "recommend_build", "beginner"),

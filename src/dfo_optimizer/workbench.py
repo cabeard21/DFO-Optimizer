@@ -8,6 +8,7 @@ from urllib.parse import parse_qsl, urlsplit
 import webbrowser
 
 from .character_files import MAX_SAVE_BYTES, MAX_ZIP_BYTES, read_json
+from .firmament_profiles import FirmamentProfiles, ProfileChanged, public_profile, search_request
 from .ruleset import DATA, load_ruleset
 from .workbench_files import Library, default_library, export_job, imported, library_item, upload_save
 from .workbench_jobs import Jobs, QueueFull, RulesetMismatch, digest
@@ -35,6 +36,7 @@ class WorkbenchServer(ThreadingHTTPServer):
         self.url = f"http://127.0.0.1:{self.server_port}"
         self.jobs = Jobs(load_ruleset()["content_hash"])
         self.library = Library(library_dir)
+        self.firmament_profiles = FirmamentProfiles(library_dir)
         self.uploads = {}
         self.upload_lock = Lock()
 
@@ -123,6 +125,14 @@ class Handler(BaseHTTPRequestHandler):
     def _get(self,path,query):
         if path == "/api/meta":
             return self._reply(200,metadata())
+        if path == "/api/firmament/catalog":
+            from .firmament import firmament_catalog
+            return self._reply(200, firmament_catalog())
+        if path == "/api/firmament/profiles":
+            profiles = self.server.firmament_profiles.get()["items"]
+            return self._reply(200, {"profiles": [public_profile(p) for p in profiles]})
+        if path == "/api/firmament/profile":
+            return self._reply(200, self.server.firmament_profiles.item(query.get("id")))
         if path == "/api/library":
             return self._reply(200,self.server.library.get())
         if path == "/api/library/export":
@@ -170,12 +180,24 @@ class Handler(BaseHTTPRequestHandler):
             value = upload_save(self.rfile,self._length(MAX_ZIP_BYTES),kind,slot,query.get("format")=="zip")
             return self._import(kind,value,query)
         data = self._json()
+        if not isinstance(data, dict):
+            raise ValueError("Expected a JSON object")
+        if path == "/api/firmament/profile":
+            upload = data.pop("character_upload", None)
+            if upload is not None and not isinstance(upload, str):
+                raise ValueError("Choose an imported character")
+            character = self.server.request_upload(upload) if upload is not None else None
+            return self._reply(200, public_profile(self.server.firmament_profiles.update(data, character=character)))
+        if path == "/api/firmament/adopt":
+            return self._reply(200, public_profile(self._adopt_firmament(data)))
         if path == "/api/jobs":
             # JavaScript numbers cannot preserve all JSON integer widths or
             # the distinction between integral floats and integers. Replay and
             # unedited inputs select the authoritative server-side document.
             if "source" in data:
                 data = self._source_job(data)
+            if "firmament_profile" in data:
+                data = self._firmament_job(data)
             return self._reply(202,self.server.jobs.submit(data))
         if path == "/api/library":
             return self._reply(200,self.server.library.save(data))
@@ -197,11 +219,68 @@ class Handler(BaseHTTPRequestHandler):
         response = imported(kind,value,self.server.jobs.ruleset_hash)
         if kind == "request":
             response["upload_id"] = self.server.remember_request(value)
+        if kind == "character":
+            response["upload_id"] = self.server.remember_request(response["value"])
         if "save_as" in query:
             item = library_item(kind,response["value"],query["save_as"])
             self.server.library.store_item({"item":item})
             response["saved_id"] = item["id"]
         return self._reply(200,response)
+
+    def _firmament_job(self, data):
+        selector = data.pop("firmament_profile")
+        if (not isinstance(selector, dict) or set(selector) != {"id", "revision"} or
+                not isinstance(selector["id"], str) or type(selector["revision"]) is not int):
+            raise ValueError("Select a Firmament profile and revision")
+        profile = self.server.firmament_profiles.item(selector["id"])
+        if profile["revision"] != selector["revision"]:
+            raise ProfileChanged("Firmament profile changed. Reload it and try again.")
+        frozen = search_request(profile)
+        from .firmament import firmament_catalog
+        catalog_hash = firmament_catalog()["content_hash"]
+        if data.get("action") == "firmament optimize" and "request" not in data:
+            return {**data, "request": {**frozen, "catalog_hash": catalog_hash,
+                                       "ruleset_hash": self.server.jobs.ruleset_hash}}
+        request = data.get("request")
+        if (data.get("action") not in {"gear optimize", "gear evaluate"} or
+                not isinstance(request, dict) or "firmament_projection" in request or "encounter" in request):
+            raise ValueError("Attach a Firmament profile to a standard Gear request")
+        character = request.get("character")
+        if not isinstance(character, dict) or character.get("snapshot_hash") != profile["character_hash"]:
+            raise ValueError("Use the same character snapshot in Gear and Firmament")
+        fields = ("tree", "stars", "craft", "profile_id", "revision")
+        projection = {**{key: frozen[key] for key in fields}, "snapshot_hash": profile["character_hash"],
+                      "ruleset_hash": self.server.jobs.ruleset_hash, "catalog_hash": catalog_hash}
+        return {**data, "request": {**request, "character": frozen["character"],
+                                   "firmament_projection": projection}}
+
+    def _adopt_firmament(self, data):
+        if set(data) != {"id", "revision", "job_id", "candidate_index"}:
+            raise ValueError("Select a completed Firmament recommendation")
+        key, revision, job_id, index = (data[k] for k in ("id", "revision", "job_id", "candidate_index"))
+        if not isinstance(key, str) or type(revision) is not int or not isinstance(job_id, str) or type(index) is not int:
+            raise ValueError("Invalid Firmament recommendation selection")
+        job = self.server.jobs.get(job_id)
+        request = job["request"]
+        if job["action"] != "firmament optimize" or job["state"] != "completed" or request.get("profile_id") != key:
+            raise ValueError("Select a completed recommendation for this profile")
+        if request.get("revision") != revision:
+            raise ProfileChanged("Firmament profile changed. Run a fresh recommendation.")
+        profile = self.server.firmament_profiles.item(key)
+        if profile["revision"] != revision:
+            raise ProfileChanged("Firmament profile changed. Run a fresh recommendation.")
+        submitted = {k: v for k, v in request.items() if k not in {"search", "ruleset_hash", "catalog_hash"}}
+        if submitted != search_request(profile):
+            raise ValueError("Recommendation was calculated for different profile inputs")
+        candidates = job["result"].get("candidates", [])
+        if not 0 <= index < len(candidates):
+            raise ValueError("Unknown Firmament recommendation")
+        tree = candidates[index]["tree"]
+        tracked = profile["tree"]
+        if tracked["start"] is not None and (tree["start"] != tracked["start"] or
+                                             not set(tracked["keys"]).issubset(tree["keys"])):
+            raise ValueError("Recommendation must extend the tracked tree")
+        return self.server.firmament_profiles.update({"id": key, "revision": revision, "tree": tree})
 
     def _source_job(self,data):
         source = data["source"]
@@ -230,6 +309,8 @@ class Handler(BaseHTTPRequestHandler):
             self._reply(exc.status,{"error":str(exc)})
         except (RulesetMismatch,QueueFull) as exc:
             self._reply(409 if isinstance(exc,RulesetMismatch) else 429,{"error":str(exc)})
+        except ProfileChanged as exc:
+            self._reply(409, {"error": str(exc)})
         except KeyError:
             self._reply(404,{"error":"Unknown job or packaged example"})
         except (ValueError,TypeError,RecursionError) as exc:

@@ -88,6 +88,11 @@ def _parser():
     stock.add_argument("--input", type=Path, required=True)
     stock.add_argument("--index", type=int, action="append", help="stock spell ID (repeatable)")
     gear = commands.add_parser("gear").add_subparsers(dest="action", required=True)
+    firmament = commands.add_parser("firmament").add_subparsers(dest="action", required=True)
+    firmament_search = _command(firmament, "optimize", "Search legal Firmament allocations")
+    firmament_search.add_argument("--request", type=Path, required=True)
+    firmament_search.add_argument("--character", type=Path, help="Import the character from a local save")
+    firmament_search.add_argument("--slot", type=int, help="Slot in the local save export")
     for parent, action, help_text in (
         (commands, "evaluate", "Evaluate one fixed direct spell"),
         (spell, "optimize", "Search legal Damage Health settings"),
@@ -212,7 +217,12 @@ def _combat(args, bundle):
         request = {**request, "character": import_character(args.character, slot=args.slot)}
     elif args.slot is not None:
         raise ValueError("--slot requires --character.")
-    if args.command == "gear":
+    if args.command == "firmament":
+        from . import _firmament
+        from .firmament import optimize_firmament
+        service = optimize_firmament
+        factory = _firmament.CancelToken
+    elif args.command == "gear":
         from . import _gear, gear
         service = gear.optimize_gear if args.action == "optimize" else gear.evaluate_gear
         factory = _gear.CancelToken
@@ -386,7 +396,7 @@ def _dispatch(args):
         return result, 130 if result.get("termination") == "cancelled" else 0
     if args.command in ("build", "progression", "spellbook"):
         return _planning(args, bundle)
-    if args.command in ("evaluate", "gear", "spell"):
+    if args.command in ("evaluate", "firmament", "gear", "spell"):
         return _combat(args, bundle)
     if args.command == "ruleset":
         if args.action == "coverage":

@@ -15,7 +15,8 @@ from .spell_request import parse_spell_request
 SPELL_FIELDS = {"schema_version", "ruleset_hash", "caster", "target", "spell", "domain", "price_factor"}
 GEAR_FIELDS = {"character", "live_observations", "mode", "inventory", "offers", "budget", "locks",
               "exclusions", "catalog", "catalog_templates", "catalog_access", "career", "available_containers",
-              "bow_left_hand", "search", "marginals", "loadout","capacity"}
+              "bow_left_hand", "search", "marginals", "loadout", "capacity", "save_assumptions",
+              "firmament_projection"}
 SEARCH_FIELDS = {"exact", "max_nodes", "wall_seconds", "memory_bytes", "max_spells_per_loadout",
                  "workers", "objective", "top_k"}
 
@@ -56,6 +57,50 @@ def _limits(request):
             "memory_bytes", 1, 2**63-1), "wall_seconds": float(wall)}
 
 
+def saved_effect_advisories(character):
+    observations = character["observations"]
+    labels = {issue.removeprefix("active_effect:"): set()
+              for issue in character.get("unknown_mechanics", ()) if issue.startswith("active_effect:")}
+    for effect in observations.get("active_effects", []):
+        mapping(effect, "saved active effect")
+        if effect.get("ended"):
+            continue
+        kind = effect.get("kind", "unidentified")
+        if not isinstance(kind, str):
+            raise ValueError("invalid saved active effect kind")
+        label = kind
+        if kind == "disease" and effect.get("disease") == 2:
+            label = "Yellow Fever" if effect.get("incubationOver") else "Yellow Fever (incubating)"
+        elif kind == "survival":
+            modifiers = mapping(effect.get("statMods", {}), "saved survival modifiers")
+            stats = ", ".join(f"{name} {value:+g}" for name, value in modifiers.items()
+                              if type(value) in (int, float))
+            label = f"survival modifiers ({stats})" if stats else "survival modifiers"
+        labels.setdefault(kind, set()).add(label)
+    return [f"Ignored saved active effect: {label}." for kind, names in sorted(labels.items())
+            for label in sorted(names or {kind})]
+
+
+def _saved_inputs(character, caster, firmament):
+    current = caster.get("current_sp")
+    if current is not None:
+        return caster, {"source": "explicit_current", "value": current}
+    maximum = character["caster"].get("max_sp")
+    resources = mapping(character["observations"].get("resources", {}), "saved resources")
+    saved = resources.get("maxMagicka")
+    source = "explicit_maximum" if maximum is not None else "saved_maximum"
+    if firmament is not None:
+        from .firmament import maximum_sp_reference
+        projection, gains, prices = firmament
+        maximum = maximum_sp_reference(projection, gains, prices, projection[3])
+        source = "projected_firmament_maximum"
+    elif maximum is None and type(saved) in (int, float) and 0 <= saved <= 2**30 and int(saved) == saved:
+        maximum = int(saved)
+    if maximum is None:
+        return caster, None
+    return {**caster, "current_sp": maximum, "max_sp": maximum}, {"source": source, "value": maximum}
+
+
 def _normalize(request, rules):
     mapping(request, "gear request")
     if set(request)-GEAR_FIELDS-SPELL_FIELDS:
@@ -65,7 +110,12 @@ def _normalize(request, rules):
     spell = {k: request[k] for k in SPELL_FIELDS if k in request}
     if ("spell" in spell) == ("domain" in spell):
         raise ValueError("provide exactly one fixed spell or automatic spell domain")
-    blockers = []
+    blockers, advisories = [], []
+    sp_basis = None
+    firmament = None
+    approximate = request.get("save_assumptions", False)
+    if type(approximate) is not bool:
+        raise ValueError("save_assumptions must be boolean")
     if "character" in request:
         if "caster" in request or "career" in request:
             raise ValueError("a character supplies both caster and career")
@@ -73,16 +123,32 @@ def _normalize(request, rules):
         if char.get("ruleset_hash", rules["content_hash"]) != rules["content_hash"]:
             raise ValueError("character ruleset_hash differs from selected ruleset")
         request["character"] = char
-        blockers.extend(char.get("unknown_mechanics", ()))
+        blockers.extend(issue for issue in char.get("unknown_mechanics", ())
+                        if not approximate or not issue.startswith("active_effect:"))
+        if approximate:
+            advisories.extend(saved_effect_advisories(char))
+        if "firmament_projection" in request:
+            from .firmament import fixed_projection
+            if request.get("capacity"):
+                raise ValueError("Tracked Firmament supplies Gear capacity. Omit the separate capacity override.")
+            firmament = fixed_projection(request["firmament_projection"], char, rules)
         spell["caster"] = char["gear"].get("base_caster", {})
         if not spell["caster"]:
             blockers.append("unknown unequipped caster stats")
+        elif approximate or firmament is not None:
+            spell["caster"], sp_basis = _saved_inputs(char, spell["caster"], firmament)
+    elif approximate or "firmament_projection" in request:
+        raise ValueError("Save assumptions and tracked Firmament require an imported character")
     spec = parse_spell_request(spell, rules, auto="domain" in spell)
     if spec.caster.current_sp is None:
         blockers.append("unknown caster.current_sp")
     if type(request.get("marginals", True)) is not bool:
         raise ValueError("marginals must be boolean")
-    return request, spec, sorted(set(blockers).union(spec.blockers))
+    if sp_basis and sp_basis["source"] == "saved_maximum":
+        advisories.append("Assumed full SP from the saved maximum, which can include temporary modifiers.")
+    elif sp_basis and sp_basis["source"] != "explicit_current":
+        advisories.append("Assumed full SP at the maximum shown for this run.")
+    return request, spec, sorted(set(blockers).union(spec.blockers)), advisories, sp_basis, firmament
 
 
 def _packed(domain, extra_excluded=()):
@@ -119,7 +185,8 @@ def _run(domain, spec, limits, token, removed=()):
     remaining = max(1e-12,limits["wall_seconds"]-setup_seconds) if limits["wall_seconds"] else 0
     native = _gear.traverse(spec.native_context(), spec.domains, *packed,
                             **{**limits, "wall_seconds": remaining}, cancel=token,
-                            capacity=astuple(domain.policy),empty_mask=domain.empty_mask)
+                            capacity=astuple(domain.policy), empty_mask=domain.empty_mask,
+                            **({"firmament": domain.firmament} if domain.firmament is not None else {}))
     if native["first_feasible_seconds"] is not None:
         native["first_feasible_native_seconds"] = native["first_feasible_seconds"]
         native["first_feasible_seconds"] += setup_seconds
@@ -183,7 +250,7 @@ class GearService:
         rules = _installed_combat_rules() if rules is None else validate_combat_ruleset(rules)
         if rules["equipment_hash"] != equipment.EQUIPMENT_HASH:
             raise ValueError("Gear data differs from the pinned ruleset")
-        request, spec, blockers = _normalize(raw, rules)
+        request, spec, blockers, advisories, sp_basis, firmament = _normalize(raw, rules)
         limits = _limits(request)
         empty_locks = [name for name,key in mapping(request.get("locks",{}),"locks").items() if key is None]
         if fixed:
@@ -202,7 +269,8 @@ class GearService:
             raise ValueError("use gear evaluate for a fixed loadout, or locks for optimization")
         domain = prepare_inventory(request)
         policy = capacity(request,domain)
-        domain = replace(domain,policy=policy,empty_mask=sum(1<<domain.slots[name] for name in empty_locks))
+        domain = replace(domain, policy=policy, empty_mask=sum(1<<domain.slots[name] for name in empty_locks),
+                         firmament=firmament)
         if domain.mode == "owned_plus_budget" and spec.caster.gold is not None and dict(domain.budget).get("gold",0)>spec.caster.gold:
             raise ValueError("gold budget exceeds caster's available gold")
         constrained = {k for _, k in domain.locks if k is not None}
@@ -224,6 +292,13 @@ class GearService:
                                 "caster supplies the unequipped baseline",
                                 "gear purchase budget excludes Spell Maker acquisition and travel",
                                 "loadout records item anchors; occupancy includes both hands of a two-handed item"]}
+        if request.get("save_assumptions") or firmament is not None:
+            base.update(advisories=advisories, sp_basis=sp_basis)
+        if firmament is not None:
+            base["firmament_projection"] = request["firmament_projection"]
+            base["resource_policy"] = "starting SP clipped to tracked Firmament capacity before and after a gear swap"
+        elif policy.explicit < 0 and sp_basis and sp_basis["source"] != "explicit_current":
+            base["resource_policy"] = "assumed full starting SP clipped to supported post-removal capacity"
         if blockers:
             return {**base, "candidates": [], "counters": {}, "termination": "unsupported",
                     "status": "unsupported", "exact": False, "marginals": {}}

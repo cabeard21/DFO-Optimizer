@@ -72,6 +72,7 @@ def evaluate_reference(ctx, recipe):
     gold = base_gold * half_mult // 2
     raw_sp = max(5, effect_sp * half_mult // 2)
     cost = max(1, _round_js(raw_sp * (100 - min(30, ctx["focus_pct"])) / 100))
+    cost = max(1, _round_js(cost * (100 - ctx.get("firmament_cost_pct", 0)) / 100))
     price = max(1, _round_js(gold * ctx["price_factor"]))
     rate = min(2, max(0.5, 1 + (ctx["speed"] - 50) / 200 + ctx["cast_speed_pct"] / 100))
     potency = (1 + max(0, ctx["climb"] - 100) * 0.01) * max(0.5, 1 + ctx["power_pct"] / 100)

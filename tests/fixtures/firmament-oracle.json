@@ -1,0 +1,144 @@
+{
+  "cases": [
+    {
+      "expected": {
+        "castCost": 28,
+        "destructionCost": 20,
+        "fault": null,
+        "left": {
+          "craft": 1,
+          "stars": 1
+        },
+        "magicka": 411,
+        "skill": 64,
+        "speedRate": 1.3450000000000002,
+        "spellPierce": 4,
+        "spellPower": 23,
+        "stats": {
+          "blowTaken": 7,
+          "carry": 2,
+          "castCost": 14,
+          "castCost.Destruction": 6,
+          "castSpeed": 13,
+          "intelligence": 8,
+          "mp": 15,
+          "mpPct": 11,
+          "pct.intelligence": 7,
+          "skill.Destruction": 4,
+          "spellPierce": 4,
+          "spellPower": 23
+        }
+      },
+      "input": {
+        "craft": 2,
+        "destruction": 60,
+        "intelligence": 98,
+        "speed": 93,
+        "stars": 24,
+        "tree": {
+          "keys": [
+            "mg.s1",
+            "mg.s2",
+            "mg.g",
+            "mg.r1",
+            "mg.r2",
+            "mg.k1",
+            "mg.k",
+            "mg.bt",
+            "mg.c3.0",
+            "mg.c3.1",
+            "mg.c3.2",
+            "mg.c4.0",
+            "mg.c4.1",
+            "mg.c4.2",
+            "mg.c4.3",
+            "mg.c4.4",
+            "mg.c2.0",
+            "mg.c2.1",
+            "mg.c2.2",
+            "mg.c2.4",
+            "mg.c1.0",
+            "mg.c1.6",
+            "mg.c1.5",
+            "mg.c1.4"
+          ],
+          "start": "mg.start"
+        }
+      }
+    },
+    {
+      "expected": {
+        "castCost": 35,
+        "destructionCost": 0,
+        "fault": null,
+        "left": {
+          "craft": 0,
+          "stars": 1
+        },
+        "magicka": 227,
+        "skill": 26,
+        "speedRate": 1.25,
+        "spellPierce": 0,
+        "spellPower": -4,
+        "stats": {
+          "hpRegen": 7,
+          "pct.strength": 5,
+          "pct.willpower": 3,
+          "skillPct.Restoration": 4,
+          "spellPower": -4,
+          "undeadDmg": 4,
+          "weaponDmg": -4,
+          "willpower": 2
+        }
+      },
+      "input": {
+        "craft": 0,
+        "destruction": 26,
+        "intelligence": 73,
+        "speed": 100,
+        "stars": 8,
+        "tree": {
+          "keys": [
+            "rt.s1",
+            "rt.s2",
+            "rt.g",
+            "rt.r1",
+            "rt.r2",
+            "rt.k1",
+            "rt.k"
+          ],
+          "start": "rt.start"
+        }
+      }
+    },
+    {
+      "expected": {
+        "castCost": 35,
+        "destructionCost": 0,
+        "fault": null,
+        "left": {
+          "craft": 0,
+          "stars": 8
+        },
+        "magicka": 227,
+        "skill": 34,
+        "speedRate": 1.1,
+        "spellPierce": 0,
+        "spellPower": 0,
+        "stats": {}
+      },
+      "input": {
+        "craft": 0,
+        "destruction": 34,
+        "intelligence": 73,
+        "speed": 70,
+        "stars": 8,
+        "tree": {
+          "keys": [],
+          "start": null
+        }
+      }
+    }
+  ],
+  "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483"
+}

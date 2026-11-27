@@ -379,6 +379,59 @@ def test_edit_uploaded_request_saved_character_and_reopened_archive(desktop):
     assert digest(download(page,"Export request")) == digest(amended)
 
 
+def test_firmament_profile_edit_and_gear_toggle(desktop):
+    from playwright.sync_api import expect
+
+    page, _ = desktop
+    page.get_by_role("link", name="Firmament", exact=True).click()
+    expect(page.get_by_role("heading", name="Firmament", exact=True)).to_be_visible()
+    fixture = Path(__file__).parent / "fixtures/character/export.zip"
+    page.locator("#content input[type=file]").set_input_files(fixture)
+    page.get_by_role("button", name=re.compile(r"Slot 0\b")).click()
+    expect(page.get_by_label("Total Stars")).to_have_value("0")
+    page.get_by_label("Total Stars").fill("4")
+    page.get_by_role("button", name="Save point totals").click()
+    expect(page.get_by_text("4 Stars left", exact=True)).to_be_visible()
+    page.locator('[data-node="mg.start"]').click()
+    page.get_by_role("button", name="Choose sign").click()
+    page.get_by_role("button", name="Save my tree").click()
+    expect(page.get_by_text("Tracked sign: The Mage", exact=True)).to_be_visible()
+
+    page.reload()
+    expect(page.get_by_text("Tracked sign: The Mage", exact=True)).to_be_visible()
+    page.get_by_role("link", name="Gear & Loadouts").click()
+    page.get_by_label("Firmament profile").select_option(label="Arden")
+    toggle = page.get_by_role("checkbox", name="Apply tracked Firmament")
+    expect(toggle).not_to_be_checked()
+    toggle.check()
+    with page.expect_download() as export:
+        page.get_by_role("button", name="Export request", exact=True).click()
+    request = json.loads(Path(export.value.path()).read_text(encoding="utf-8"))
+    assert request["save_assumptions"] is True
+    assert request["firmament_projection"]["tree"] == {"start": "mg.start", "keys": []}
+    assert request["firmament_projection"]["snapshot_hash"] == request["character"]["snapshot_hash"]
+    page.get_by_role("button", name="Run gear search").click()
+    expect(page.get_by_text("Applied Firmament tree", exact=True)).to_be_visible()
+    expect(page.get_by_role("heading", name="Retained options")).to_be_visible()
+    toggle.uncheck()
+    expect(toggle).not_to_be_checked()
+
+    page.get_by_role("link", name="Firmament", exact=True).click()
+    page.get_by_role("button", name="Run Firmament search").click()
+    expect(page.get_by_role("heading", name="Firmament recommendations")).to_be_visible()
+    page.get_by_role("button", name="Adopt plan").first.click()
+    expect(page.get_by_role("status")).to_have_text("Plan adopted in the local tracker.")
+    page.get_by_text("Add earned points", exact=True).click()
+    page.get_by_label("New Stars").fill("2")
+    page.get_by_role("button", name="Add points", exact=True).click()
+    expect(page.get_by_label("Total Stars")).to_have_value("6")
+    page.locator("#content input[type=file]").last.set_input_files(fixture)
+    page.get_by_role("button", name=re.compile(r"Slot 0\b")).click()
+    expect(page.get_by_role("status")).to_have_text("Updated the save for Arden.")
+    expect(page.get_by_label("Total Stars")).to_have_value("6")
+    expect(page.get_by_text("Tracked sign: The Mage", exact=True)).to_be_visible()
+
+
 def test_cancel_before_feasibility_and_after_replayed_incumbent(desktop,observations):
     from playwright.sync_api import expect
     page,url = desktop

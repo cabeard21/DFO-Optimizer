@@ -58,3 +58,18 @@ def spendable(policy, original, layout, domain, total_int):
         if policy.bonus>=0:
             possible=min(original,min(100,policy.intelligence+total_int)*policy.quarters//4+policy.bonus)
     return min(safe,possible),possible
+
+
+def firmament_spendable(firmament, original, layout, domain, total_int):
+    from .firmament import maximum_sp_reference
+
+    projection, gains, prices = firmament
+    worn_max = maximum_sp_reference(projection, gains, prices, projection[3])
+    final_max = maximum_sp_reference(projection, gains, prices, total_int)
+    possible = min(original, worn_max, final_max)
+    if {slot: item.identity for slot, item in layout.items()} == dict(domain.current):
+        return possible, possible
+    retained_int = sum(item.modifiers[7] for slot, item in layout.items()
+                       if item.worn == slot and not item.legendary)
+    retained_max = maximum_sp_reference(projection, gains, prices, retained_int)
+    return min(possible, retained_max), possible
