@@ -93,7 +93,7 @@ def desktop(browser,tmp_path):
                 and not req.url.startswith(server.url+"/") else None)
         try:
             page.goto(server.url)
-            expect(page.get_by_role("button",name="Recommend My First Spellcaster")).to_be_visible()
+            expect(page.get_by_role("button",name="Recommend My First Spellcaster")).to_be_visible(timeout=15_000)
             yield page, server.url
             assert errors == []
             assert external == []
@@ -125,23 +125,27 @@ def test_recommend_first_spellcaster_download_and_reopen(desktop):
     from playwright.sync_api import expect
     page, url = desktop
     expect(page.get_by_label("Search thoroughness")).to_have_value("standard")
-    advancement = page.get_by_label("Require 0.30× advancement")
-    expect(advancement).not_to_be_checked()
-    advancement.check()
+    expect(page.get_by_text("Requires 0.30× advancement.", exact=True)).to_be_visible()
     page.get_by_label("Search thoroughness").select_option("quick")
     with page.expect_response(lambda r: r.url == url+"/api/jobs" and r.request.method == "POST") as submitted:
         page.get_by_role("button", name="Recommend My First Spellcaster").click()
     identifier = submitted.value.json()["id"]
+    assert submitted.value.request.post_data_json["request"] == {"schema_version": 2, "thoroughness": "quick"}
     area = page.locator(f'#result-area[data-job-id="{identifier}"]')
     expect(area).to_have_attribute("data-state", re.compile("completed|failed|cancelled"), timeout=300_000)
     assert area.get_attribute("data-state") == "completed", area.inner_text()
     result = page.request.get(url+"/api/jobs/"+identifier+"/export").json()
     lead = result["recommendation"]
-    assert result["frozen_request"]["require_fast_advancement"]
+    assert result["frozen_request"]["schema_version"] == 2
     assert lead["metrics"]["advancement_multiplier"] == 0.30
     assert all(row["permanent"]["advancement_multiplier"] == 0.30 for row in result["comparisons"])
     expect(area.get_by_role("heading", name="Your creation checklist")).to_be_visible()
     expect(area.get_by_text("Choose your race", exact=True)).to_be_visible()
+    expect(area.get_by_role("heading", name="Gear and arcane path")).to_be_visible()
+    expect(area.get_by_text("Tested arcane paths at level 45", exact=True)).to_be_visible()
+    expect(area.get_by_text("How equipment access changes fights", exact=True)).to_be_visible()
+    area.get_by_text("How equipment access changes fights", exact=True).click()
+    expect(area.get_by_role("heading", name="Backup weapon with no magicka")).to_be_visible()
     with page.expect_download() as event:
         area.get_by_role("button", name="Download game class").click()
     assert event.value.suggested_filename.endswith(".dfclass.json")
@@ -166,6 +170,19 @@ def test_recommend_first_spellcaster_download_and_reopen(desktop):
         assert selected.value.path().read_text(encoding="utf-8") == alternate["guide"]["text"]
     if result["sensitivity"]:
         expect(area.get_by_role("heading",name="How the choice changes")).to_be_visible()
+    if result["alternatives"]:
+        area.get_by_label("View a build").select_option("0")
+    with page.expect_response(lambda r: r.url == url+"/api/jobs" and r.request.method == "POST") as slower:
+        area.get_by_role("button", name="Compare slower builds").click()
+    request = slower.value.request.post_data_json["request"]
+    assert request["compare_slower"] == {"class": lead["class"], "race_id": lead["race_id"]}
+    comparison = page.locator(f'[data-comparison-job-id="{slower.value.json()["id"]}"]')
+    expect(comparison).to_have_attribute("data-state", "completed", timeout=300_000)
+    slower_result = page.request.get(url+"/api/jobs/"+slower.value.json()["id"]+"/export").json()
+    assert slower_result["slower_comparison"][0]["origin"] == "fast_reference"
+    assert any(row["permanent"]["advancement_multiplier"] > 0.30 for row in slower_result["slower_comparison"])
+    expect(area.get_by_role("heading",name="Your creation checklist")).to_be_visible()
+    assert download(page,"Download game class") == lead["class"]
     area.get_by_role("button", name="Replay result").click()
     expect(page.get_by_role("dialog").get_by_text("verified",exact=True)).to_be_visible(timeout=180_000)
     page.get_by_role("button", name="Close dialog").click()

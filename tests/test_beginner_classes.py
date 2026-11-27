@@ -6,6 +6,43 @@ import pytest
 from dfo_optimizer import beginner_classes as beginner
 
 
+def test_refined_roster_decouples_sampling_from_retention():
+    first = beginner.refined_roster("quick")
+    assert first == beginner.refined_roster("quick")
+    lane, = first["proof_scope"]["slices"]
+    assert lane["difficulty"] == -12
+    assert lane["termination"] == "sample_limit"
+    assert lane["sample_attempts"] == lane["sample_attempt_limit"] == 2048
+    assert first["counts"]["native_retained"] <= 32
+    assert {f["compliance"]["difficulty_points"] for f in first["families"]} == {-12}
+    assert not first["proof_scope"]["admission_complete"]
+    bound = first["proof_scope"]["material_cost_bound"]
+    assert bound["maximum_metals_at_floor"] == 4
+    assert bound["lowest_cost_by_retained_materials"] == {"elven": -10, "steel": -9, "steel_and_elven": -2}
+    standard = beginner.refined_roster("standard")
+    standard_lane, = standard["proof_scope"]["slices"]
+    assert standard_lane["sample_attempts"] == 8192
+    assert standard["counts"]["native_retained"] <= 96
+
+
+def test_refined_roster_waves_are_bounded_and_slower_lane_is_separate():
+    first = beginner.refined_roster("quick")
+    next_wave = beginner.refined_roster("quick", wave=1)
+    assert {f["id"] for f in next_wave["families"] if f["origin"] == "discovered"} - {
+        f["id"] for f in first["families"]
+    }
+    slower = beginner.refined_roster("quick", slower=True)
+    assert slower["proof_scope"]["difficulty_values"] == [-11, -10, -9, -8]
+    assert slower["families"]
+    assert {f["compliance"]["difficulty_points"] for f in slower["families"]} <= {-11, -10, -9, -8}
+    assert {m for f in slower["families"] for m in f["compliance"]["plate"]["allowed_materials"]} >= {"Elven", "Steel"}
+    for lane in slower["proof_scope"]["slices"]:
+        assert lane["retained_metal"] in {None, "elven", "steel"}
+    limited = beginner.refined_roster("quick", max_nodes=50)
+    assert limited["counts"]["nodes"] <= 50
+    assert limited["proof_scope"]["slices"][0]["termination"] == "node_limit"
+
+
 def test_hand_built_families_certify_on_paired_births():
     families = beginner.manual_classes()
     assert {f["start"]["race_id"] for f in families} == {1, 5}

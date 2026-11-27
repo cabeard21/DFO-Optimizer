@@ -173,8 +173,13 @@ def casting_policy(spells, multiple=False):
     ):
         for s in _school_spell(spells, effect, (0,)):
             rules.append({"spell": s["id"], key: threshold})
+    signature = [s for s in spells if s.get("signature") == -46101]
+    if not multiple:
+        rules.extend({"spell": s["id"]} for s in signature)
     for reach in ((3,), (1,), (2,), (4,)) if multiple else ((1,), (2,), (3,), (4,)):
         for s in spells:
+            if s in signature and not multiple:
+                continue
             if s["range_type"] in reach and any(
                 e["effect_id"] in ("4,0", "5,255") for e in s["effects"]
             ):
@@ -301,7 +306,12 @@ def make_request(stage, case, variant, seeds, initial_sp=None):
         }
         for s in stage["spells"]
     ]
-    policy = casting_policy(book, case["id"] == "multiple")
+    if "spell_policy" in stage:
+        from .beginner_refined_assets import casting_plan
+
+        policy = casting_plan(book, case["id"] == "multiple", stage["spell_policy"])
+    else:
+        policy = casting_policy(book, case["id"] == "multiple")
     if case["physical"]:
         from .beginner_equipment import bind_physical_player
         from .physical_encounter import ordinary_combat, ordinary_foe

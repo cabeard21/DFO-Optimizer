@@ -104,3 +104,19 @@ def test_opening_checklist_uses_the_certified_cost_for_its_own_birth():
     for spell in matching["affordable_starting_damage_spells"]:
         assert any(f"{spell['name']} costs {spell['cost_sp']} SP" in line for line in tips)
     assert any(f"{matching['sp']} SP" in line for line in tips)
+
+
+def test_refined_checklist_gives_the_tested_path_and_practical_upgrade():
+    from dfo_optimizer.beginner_guide import build_guide
+
+    row = {**example(), "refinement": {"arcane": {"selected": "soulbinder"}},
+           "progression": {"checkpoints": [
+               {"stage": "midgame", "level": 15, "loadout_details": [
+                   {"name": "Broadsword", "material": 3, "slot": "RightHand"}]},
+               {"stage": "cap", "level": 45, "state": {"mastered": list(range(22, 28)),
+                                                         "arcane_path": "soulbinder"}},
+           ]}}
+    text = build_guide(row)["text"]
+    assert "Soulbinder" in text and "Mysticism and Thaumaturgy" in text
+    assert "eligible kills" in text and "Soul Lance" in text
+    assert "look for" in text.lower() and "Elven Broadsword" in text

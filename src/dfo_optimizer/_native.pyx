@@ -54,7 +54,7 @@ cdef extern from "class_search.hpp" namespace "dfo":
     cdef cppclass DiscoveryConfig:
         cppbool exhaustive, stable_examples
         uint32_t seed
-        uint64_t required_masteries, required_skills
+        uint64_t required_masteries, required_skills, sample_attempts
         vector[uint32_t] rolls
         void trait(int,int,int,int,int)
         void add_stage() except +
@@ -74,8 +74,8 @@ cdef extern from "class_search.hpp" namespace "dfo":
         int headroom
         uint64_t backups
     cdef cppclass BeginnerPanel:
-        void add(int,int,const vector[int]&,const vector[int]&,uint64_t,int,int,double) except +
-        vector[int] select(int,const vector[int]&,const CancelFlag&,double) except + nogil
+        void add(int,int,const vector[int]&,const vector[int]&,uint64_t,int,int,double,cppbool) except +
+        vector[int] select(int,const vector[int]&,const CancelFlag&,double,cppbool) except + nogil
     cdef cppclass DiscoveryOutput:
         Output visited
         vector[ScreenFeatures] features
@@ -90,13 +90,17 @@ def build_info():
     return {"compiler": dfo_compiler().decode("ascii"), "flags": dfo_flags().decode("ascii")}
 
 
-def beginner_panel(rows, prior, cap, CancelToken cancel=None, wall_seconds=0.0):
+def beginner_panel(rows, prior, cap, CancelToken cancel=None, wall_seconds=0.0, refined=False):
     """Merge the retained outputs of disjoint class-cost searches with stable diversity."""
     cdef BeginnerPanel panel
     cdef vector[int] traits, skills, initial, selected
     cdef int k = _whole(cap,1,10000,"beginner panel size")
     cdef CancelToken token = CancelToken() if cancel is None else cancel
     cdef double seconds=wall_seconds
+    cdef cppbool use_refined
+    if type(refined) is not bool:
+        raise ValueError("refined panel switch must be boolean")
+    use_refined = refined
     if type(wall_seconds) not in (int,float) or not math.isfinite(seconds) or seconds<0:
         raise ValueError("invalid panel time limit")
     started=perf_counter()
@@ -118,7 +122,7 @@ def beginner_panel(rows, prior, cap, CancelToken cancel=None, wall_seconds=0.0):
         sp = screen["mean_birth_sp"]
         if type(sp) not in (int,float) or not 0<=sp<=300:
             raise ValueError("invalid panel SP")
-        panel.add(target,race,traits,skills,backup,headroom,gear,sp)
+        panel.add(target,race,traits,skills,backup,headroom,gear,sp,use_refined)
     if not isinstance(prior,(tuple,list)) or len(set(prior))!=len(prior) or len(prior)>k:
         raise ValueError("invalid previous beginner panel")
     for index in prior:
@@ -126,7 +130,7 @@ def beginner_panel(rows, prior, cap, CancelToken cancel=None, wall_seconds=0.0):
     if seconds:
         seconds=max(1e-12,seconds-(perf_counter()-started))
     with nogil:
-        selected=panel.select(k,initial,token.flag,seconds)
+        selected=panel.select(k,initial,token.flag,seconds,use_refined)
     return selected
 
 
@@ -338,7 +342,7 @@ cdef dict _discover(Options& options, CancelToken token, object raw):
     cdef DiscoveryOutput output
     cdef ScreenFeatures features
     cdef size_t index
-    allowed = {"exhaustive", "seed", "required_masteries", "required_skills", "roll_seeds",
+    allowed = {"exhaustive", "seed", "sample_attempts", "required_masteries", "required_skills", "roll_seeds",
                "trait_features", "stage_items", "stable_examples","beginner"}
     if not isinstance(raw, dict) or set(raw) - allowed:
         raise ValueError("invalid native discovery options")
@@ -350,6 +354,10 @@ cdef dict _discover(Options& options, CancelToken token, object raw):
     if type(examples) is not bool:
         raise ValueError("stable_examples must be boolean")
     config.stable_examples = examples
+    if "sample_attempts" in raw:
+        if exhaustive or examples:
+            raise ValueError("sample_attempts requires bounded mechanics screening")
+        config.sample_attempts = _whole(raw["sample_attempts"], 1, 1_048_576, "sample attempt limit")
     if "beginner" in raw:
         if examples: raise ValueError("beginner gates require mechanics screening")
         _starter_tables(config,raw["beginner"])

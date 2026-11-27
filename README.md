@@ -32,9 +32,11 @@ dfo class export --result build/first-spellcaster.json --output build/first-spel
 
 Use `--thoroughness quick` for a smaller class panel or `--thoroughness thorough` for a longer search. Each class faces the same declared opportunities, birth rolls and enemy attacks. The comparison includes acquired weapons and armor, spell-point shortages and opportunities to heal.
 
-Select **Require 0.30× advancement** to restrict the beginner search to the fastest class advancement. On the command line, use `dfo build recommend --require-fast-advancement`.
+The beginner search requires 0.30× advancement. After it finishes, choose **Compare slower builds** to see what equipment and defenses a slower class could gain. The comparison keeps your 0.30× recommendation available. On the command line, use `dfo build recommend --compare-slower RESULT` with a saved recommendation or workbench archive.
 
-To start from the measured Standard run, select Khajiit, import the [recommended class](benchmarks/results/m9-standard-recommended.dfclass.json) and follow the [creation checklist](benchmarks/results/m9-standard-recommended-checklist.txt). Its nine compatible plate metals leave room to change equipment later. A [fast-advancing Breton](benchmarks/results/m9-fast-breton.dfclass.json) reached the same cap with about one tenth the practice in the modeled itinerary. The [comparison and qualification record](docs/M9-ACCEPTANCE.md) explains the trade-off and includes both checklists.
+See the [measured beginner recommendation](docs/BEGINNER-REFINEMENT.md) for a ready-to-import Breton, its creation checklist, and the paired equipment and specialization results.
+
+The [earlier M9 comparison](docs/M9-ACCEPTANCE.md) includes a nine-metal Khajiit at 3.00× and a Breton at 0.30× that reached the cap with about one tenth as much practice in that itinerary. Run the current beginner recommendation for the updated equipment, spell, and specialization comparisons.
 
 ## Discover a spellcaster build
 

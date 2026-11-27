@@ -131,7 +131,7 @@ def _equipment(permanent, birth, mid):
     return equipment
 
 
-def _first_levels(policy, mid):
+def _first_levels(policy, mid, refined=False):
     levels = [_choices("At level-up, allocate attributes in this order. ",
                        [_label(k) for k in policy.get("level_attribute_order", [])],
                        "Level-up allocation is unreported for this family.")]
@@ -142,6 +142,10 @@ def _first_levels(policy, mid):
     if first:
         gains = [f"{_label(k)} +{v}" for k,v in zip(ATTRIBUTES, first["attribute_gains"], strict=True) if v]
         levels.append(f"At the first earned level ({first['level']}), the replay gained " + ", ".join(gains) + ".")
+    if refined:
+        return [*levels,
+                "Use your starting spells and backup weapon first. At a Spell Maker, look for an affordable ranged attack and healing or shielding you can use regularly.",
+                "Use the tested recipes in the workbench when you have access and enough gold. Upgrade the backup weapon and armor as compatible pieces become available."]
     if mid:
         levels.append(f"The next encounter checkpoint was level {mid['level']}.")
         if "minutes" in mid.get("effort", {}):
@@ -213,6 +217,40 @@ def _specialization(cap, paths, outcomes):
     return tips
 
 
+def _refined_specialization(arcane, paths):
+    name = arcane.get("selected", "none")
+    if name == "none":
+        return ["Keep the arcane path open while learning the game. The capped comparison selected the build without an active path."]
+    path = "battlemage" if name == "battlemage_aegis" else name
+    chosen = next(r for r in paths if r["path"] == _label(path))
+    pair = " and ".join(chosen["masteries"])
+    steps = [f"Work toward {chosen['path']} by mastering {pair}. Select it after earning both masteries."]
+    if path == "soulbinder":
+        steps.append("Soulbinder restores magicka after eligible kills. The tested benefit does not need Soul Lance.")
+    elif name == "battlemage_aegis":
+        steps.append("Acquire Aegis Bolt separately when it appears on the Buy Spells shelf. It raises a shield after landing damage.")
+    elif path == "battlemage":
+        steps.append("Keep a damage shield active to benefit from Battlemage's spell power. Aegis Bolt is a separate purchase.")
+    return steps
+
+
+def _refined_gear(birth, mid):
+    from .equipment import equipment_catalog
+
+    slots = {"RightHand", "ChestArmor"}
+    equipped = {(item["slot"], item["name"], item.get("material")) for item in birth.get("loadout_details", [])}
+    labels = {value: key for key, value in equipment_catalog()["armor_materials"].items()}
+    upgrades = []
+    for item in mid.get("loadout_details", []):
+        slot, name, material = item["slot"], item["name"], item.get("material")
+        if slot not in slots or (slot, name, material) in equipped:
+            continue
+        code = material + 512 if slot == "RightHand" and isinstance(material, int) else material
+        metal = labels.get(code)
+        upgrades.append(f"{metal} {name}" if metal and not name.casefold().startswith(metal.casefold()) else name)
+    return ["Look for these usable upgrade options when available. " + ", ".join(upgrades) + "."] if upgrades else []
+
+
 def _traits(doc, permanent):
     labels = permanent.get("traits", {})
     advantages = labels.get("advantages") or [_trait(p) for p in doc["advantages"]]
@@ -235,6 +273,12 @@ def build_guide(row):
     paths = _earned_paths(mastered)
     seed = progression.get("representative_seed")
     certified = next((b for b in permanent.get("births", []) if b["seed"] == seed), None)
+    refined = row.get("refinement")
+    gear = _equipment(permanent, birth, mid)
+    specialization = (_refined_specialization(refined["arcane"], paths) if refined else
+                      _specialization(cap, paths, row.get("outcomes") or []))
+    if refined:
+        gear += _refined_gear(birth, mid)
     effects = [f"{_trait(p)}. {_consequence(p)}" for p in doc["disadvantages"]]
     groups = [f"{group.title()} skills in order — " + " → ".join(doc["skills"][group]) for group in ("primary","major","minor")]
     race = [f"Select {row['race']} in character creation. Race is a separate choice when importing the class file.",
@@ -250,10 +294,10 @@ def build_guide(row):
         ("birth_bonus", "Spend your birth bonus", _birth_bonus(policy,doc["skills"])),
         ("restrictions", "Play around each disadvantage", effects or ["This class has no selected disadvantages."]),
         ("spells", "Choose your opening spells", _opening_spells(policy,birth,certified)),
-        ("equipment", "Equip your first loadout", _equipment(permanent,birth,mid)),
-        ("training", "Plan your first levels", _first_levels(policy,mid)),
+        ("equipment", "Equip your first loadout", gear),
+        ("training", "Plan your first levels", _first_levels(policy,mid,bool(refined))),
         ("masteries", "Plan your masteries", _masteries(permanent,policy,mastered)),
-        ("specialization", "Choose an arcane specialization", _specialization(cap,paths,row.get("outcomes") or [])),
+        ("specialization", "Choose an arcane specialization", specialization),
         ("later", "Decisions you can postpone", ["Keep your mastery and specialization slots open while practicing the required skills.",
           "Wait to buy an upgrade or a Spell Maker recipe until you have access and enough gold."]),
     ]

@@ -26,22 +26,26 @@ COMBAT_SEEDS = (101, 202)
 
 class CancelToken:
     def __init__(self):
-        from . import _encounter, _lifecycle
+        from . import _encounter, _lifecycle, _spells
 
         self.lifecycle = _lifecycle.CancelToken()
         self.encounter = _encounter.CancelToken()
+        self.spell = _spells.CancelToken()
 
     def cancel(self):
         self.lifecycle.cancel()
         self.encounter.cancel()
+        self.spell.cancel()
 
     def cancelled(self):
         return self.lifecycle.cancelled()
 
 
 def parse_request(raw):
-    fields(raw, {"schema_version", "thoroughness", "search", "require_fast_advancement"}, "beginner recommendation")
-    integer(raw.get("schema_version", 1), "beginner request version", 1, 1)
+    require(isinstance(raw, dict), "Expected a beginner recommendation object")
+    version = integer(raw.get("schema_version", 1), "beginner request version", 1, 2)
+    extras = {"compare_slower"} if version == 2 else set()
+    fields(raw, {"schema_version", "thoroughness", "search", "require_fast_advancement"} | extras, "beginner recommendation")
     mode = raw.get("thoroughness", "standard")
     require(isinstance(mode, str) and mode in MODES, "Choose quick, standard or thorough")
     wall, nodes = MODES[mode]
@@ -52,10 +56,17 @@ def parse_request(raw):
     maximum = integer(budget.get("max_nodes", nodes), "max_nodes", 0, 2**53-1)
     require(maximum or seconds, "Supply a work limit or a time limit")
     memory = integer(budget.get("memory_bytes", 256 << 20), "memory_bytes", 1, 2**53-1)
-    fast = raw.get("require_fast_advancement", False)
+    fast = raw.get("require_fast_advancement", version == 2)
     require(type(fast) is bool, "require_fast_advancement must be a boolean")
-    return {"schema_version": 1, "thoroughness": mode, "search": {
+    require(version == 1 or fast, "The beginner recommendation requires 0.30× advancement")
+    comparison = raw.get("compare_slower")
+    if "compare_slower" in raw:
+        fields(comparison, {"race_id", "class"}, "checked comparison class")
+        integer(comparison.get("race_id"), "race", 1, 8)
+        require(isinstance(comparison.get("class"), dict), "Supply the checked class document")
+    return {"schema_version": version, "thoroughness": mode, "search": {
         "max_nodes": maximum, "wall_seconds": seconds, "memory_bytes": memory},
+        **({"compare_slower": comparison} if comparison is not None else {}),
         **({"require_fast_advancement": True} if fast else {})}
 
 
@@ -69,7 +80,7 @@ class _Budget:
 
     @property
     def nodes(self):
-        return sum(self.used[k] for k in ("class_nodes", "progression_nodes", "encounter_events"))
+        return sum(self.used[k] for k in ("class_nodes", "progression_nodes", "encounter_events", "spell_nodes", "gear_nodes"))
 
     def remaining(self):
         return max(0, self.limits["max_nodes"] - self.nodes) if self.limits["max_nodes"] else 2**53-1
@@ -119,7 +130,7 @@ def _project(family, cache, settings, budget):
             return checkpoints, rolls, policy, reason
         result = cache.project({**family["start"], "roll_seed": seed}, family=family["id"],
                                max_nodes=budget.remaining(), memory_bytes=max(1, budget.memory // 2),
-                               wall_seconds=budget.seconds(), cancel=budget.token.lifecycle.progression_token)
+                               wall_seconds=max(1e-12, budget.seconds()), cancel=budget.token.lifecycle.progression_token)
         budget.used["progression_nodes"] += result["counters"]["nodes"]
         budget.used["checkpoint_cache_hits"] += int(result["cache_hit"])
         policy = policy or result["policy"]
@@ -233,7 +244,11 @@ def _run(req, *, rules, token, families=None, roll_seeds=BIRTH_SEEDS, combat_see
 
 def recommend_build(request, ruleset=None, *, cancel=None, on_incumbent=None):
     rules = _progression_service_rules(ruleset)
-    return _run(parse_request(request), rules=rules, token=cancel or CancelToken(), on_incumbent=on_incumbent)
+    req = parse_request(request)
+    if req["schema_version"] == 2:
+        from .beginner_refinement import run
+        return run(req, rules, cancel or CancelToken(), on_incumbent=on_incumbent)
+    return _run(req, rules=rules, token=cancel or CancelToken(), on_incumbent=on_incumbent)
 
 
 def evaluate_roster(families, *, ruleset=None, roll_seeds=BIRTH_SEEDS, combat_seeds=COMBAT_SEEDS,
@@ -260,6 +275,9 @@ def evaluate_roster(families, *, ruleset=None, roll_seeds=BIRTH_SEEDS, combat_se
 
 def replay_recommendation(result, *, ruleset=None, cancel=None):
     rules = _progression_service_rules(ruleset)
+    if result.get("profile") == "first_spellcaster_v2":
+        from .beginner_refinement import replay
+        return replay(result, rules, cancel or CancelToken())
     require(result.get("kind") == "beginner_recommendation" and result.get("profile") == PROFILE
             and result.get("source_sha") == rules["source_sha"] and result.get("ruleset_hash") == rules["content_hash"]
             and result.get("result_hash") == result_identity(result),

@@ -159,7 +159,7 @@ function inspectSaved(item){
       const operation=key==="gear"&&gearMode?gearMode:Object.keys(config.operations).find(name=>config.operations[name][0]===item.action);
       if(s.submitting)throw Error("Finish or cancel the current search before opening another request.");
       s.load++; Object.assign(s,{operation,request:item.request,source:{library_request:item.id},discoveryBudget:null,
-        example:item.label,job:null,index:0,changed:false});
+        example:item.label,job:null,comparisonJob:null,index:0,changed:false});
       byId("drawer").close();location.hash=key;await navigate();
     })));
   }
@@ -192,12 +192,12 @@ async function runAndWait(operation,source){
   return waitForJob(await post("jobs",{action:operation,source,mode:"request",ruleset_hash:meta.ruleset_hash}),()=>{});
 }
 async function submit(s){
-  if(s.submitting||s.job&&!done(s.job))return;
+  if(s.submitting||s.comparing||s.job&&!done(s.job))return;
   if(s.loading)throw Error("Wait for the selected example to load.");
   if(!s.request)throw Error("Load a request first.");
   const controls=[...byId("content").querySelectorAll("input,textarea,select")];
   if(controls.some(node=>!node.reportValidity()))return;
-  s.submitting=true;s.changed=false;s.index=0;s.selectedBuild=null;
+  s.submitting=true;s.changed=false;s.index=0;s.selectedBuild=null;s.comparisonJob=null;
   const frozen=s.request,name=currentAction(s),example=s.example;
   try{
     const input=s.source?{source:s.source}:{request:frozen};
@@ -205,6 +205,17 @@ async function submit(s){
     await waitForJob(job,next=>{s.job={...next,example};if(s===session())drawResults();});
     if(s===session())status(s.job.error||pretty(s.job.state),Boolean(s.job.error));
   }finally{s.submitting=false;if(s===session())drawResults();}
+}
+async function compareSlower(s,row){
+  if(s.submitting||s.comparing||!done(s.job))return;
+  const request={schema_version:2,thoroughness:s.job.result.frozen_request.thoroughness,
+    compare_slower:{class:row.class,race_id:row.race_id}};
+  s.comparing=true;
+  try{
+    const job=await post("jobs",{action:"build recommend",request,mode:"request",ruleset_hash:meta.ruleset_hash});
+    await waitForJob(job,next=>{s.comparisonJob=next;if(s===session())drawResults();});
+    if(s===session())status(s.comparisonJob.error||pretty(s.comparisonJob.state),Boolean(s.comparisonJob.error));
+  }finally{s.comparing=false;if(s===session())drawResults();}
 }
 function drawResults(){
   const s=session(),area=byId("result-area");if(!area||!s)return;
@@ -218,6 +229,9 @@ function drawResults(){
     exportFamily:(name,preview=false)=>link("?"+new URLSearchParams({family:name,...(preview?{preview:"1"}:{})})),
     exportChecklist:(name,preview=false)=>link("?"+new URLSearchParams({family:name,checklist:"1",...(preview?{preview:"1"}:{})})),exportResult:()=>link(""),exportArchive:()=>link("?archive=1"),
     exportPreview:()=>link("?archive=1&preview=1"),
+    compareSlower:guarded(row=>compareSlower(s,row)),
+    cancelComparison:guarded(async()=>{s.comparisonJob=await post("jobs/"+s.comparisonJob.id+"/cancel",{});drawResults();}),
+    exportComparison:()=>location.assign("/api/jobs/"+encodeURIComponent(s.comparisonJob.id)+"/export?archive=1"),
     replay:guarded(async()=>{const replay=await runAndWait(replayAction(job.result),{job_result:job.id});
       if(replay.error)throw Error(replay.error);dialog("Replay verification",[facts(replay.result)]);})
   }));
@@ -311,7 +325,9 @@ function render(){
   if(!s?.request){content.replaceChildren(el("p","Loading request…","note"));return;}
   if(view==="beginner"){
     const inputs=beginnerInputs(s,guarded(()=>submit(s)),next=>{
-      s.request=next;s.source=null;s.changed=Boolean(s.job);if(s.job)drawResults();
+      const changedProfile=next.schema_version!==s.request.schema_version||Boolean(next.compare_slower)!==Boolean(s.request.compare_slower);
+      s.request=next;s.source=null;s.changed=Boolean(s.job);
+      if(changedProfile)render();else if(s.job)drawResults();
     });
     const out=el("div");out.id="result-area";out.className="beginner-results";
     content.replaceChildren(inputs,out);drawResults();return;
@@ -322,7 +338,7 @@ function render(){
 function noteOf(value){return typeof value==="string"?value:value==null?"—":JSON.stringify(value);}
 async function navigate(){
   const key=location.hash.slice(1);view=Object.hasOwn(views,key)?key:"beginner";const s=getSession(view);
-  if(view==="beginner"&&!s.request)Object.assign(s,{request:{thoroughness:"standard"},operation:"Recommend My First Spellcaster",mode:"request"});
+  if(view==="beginner"&&!s.request)Object.assign(s,{request:{schema_version:2,thoroughness:"standard"},operation:"Recommend My First Spellcaster",mode:"request"});
   render();
   if(views[view].operations&&!s.request){
     const [name,[,example]]=Object.entries(views[view].operations)[0];await loadExample(s,name,example);

@@ -103,7 +103,10 @@ def _parser():
     builds = commands.add_parser("build").add_subparsers(dest="action", required=True)
     _command(builds, "baselines", "List verified comparison class inputs and profile exclusions")
     first = _command(builds, "recommend", "Recommend a beginner spellcaster on paired progression and combat scenarios")
-    first.add_argument("--request", type=Path, help="optional beginner request JSON")
+    beginner_source = first.add_mutually_exclusive_group()
+    beginner_source.add_argument("--request", type=Path, help="optional beginner request JSON")
+    beginner_source.add_argument("--compare-slower", type=Path, metavar="RESULT",
+                                 help="compare slower builds to a 0.30x recommendation result or workbench archive")
     first.add_argument("--thoroughness", choices=("quick", "standard", "thorough"))
     first.add_argument("--require-fast-advancement", action="store_true", help="Require the fastest legal advancement (0.30x)")
     books = commands.add_parser("spellbook").add_subparsers(dest="action", required=True)
@@ -246,17 +249,39 @@ def _protect_planning_inputs(request, directory, destination):
             stack.extend((child, root) for child in value)
 
 
+def _slower_request(path):
+    result = _input(path)
+    if isinstance(result, dict) and result.get("format") == "dfo-workbench-archive":
+        result = result.get("result")
+    if not isinstance(result, dict) or result.get("kind") != "beginner_recommendation":
+        raise ValueError("Supply a beginner recommendation result or workbench archive")
+    selected = result.get("recommendation")
+    metrics = selected.get("metrics") if isinstance(selected, dict) else None
+    if (not isinstance(metrics, dict) or selected.get("status") != "replayed"
+            or metrics.get("advancement_multiplier") != 0.30 or not isinstance(selected.get("class"), dict)
+            or type(selected.get("race_id")) is not int):
+        raise ValueError("Supply a result with a checked 0.30x recommendation")
+    frozen = result.get("frozen_request")
+    if not isinstance(frozen, dict):
+        raise ValueError("The recommendation needs a frozen request")
+    return {"schema_version": 2,
+            "thoroughness": frozen.get("thoroughness", "standard"),
+            "compare_slower": {"class": selected["class"], "race_id": selected["race_id"]}}
+
+
 def _planning(args, bundle):
     from functools import partial
     from .ruleset import validate_progression_ruleset
     if args.action == "recommend":
         from .beginner import CancelToken, recommend_build
-        request = {} if args.request is None else _input(args.request)
+        request = {"schema_version": 2} if args.request is None else _input(args.request)
+        if args.compare_slower is not None:
+            request = _slower_request(args.compare_slower)
         if not isinstance(request, dict):
             raise ValueError("Beginner request must be a JSON object")
         if args.thoroughness:
             request = {**request, "thoroughness": args.thoroughness}
-        if args.require_fast_advancement:
+        if args.require_fast_advancement and request.get("schema_version", 1) == 1:
             request = {**request, "require_fast_advancement": True}
         result = _interruptible_search(recommend_build, CancelToken, request, bundle)
         return result, 130 if result["termination"] == "cancelled" else 0
@@ -390,7 +415,7 @@ def _protect_save(args):
     if getattr(args, "output", None) is None or str(args.output) == "-":
         return
     destination = args.output.resolve()
-    input_files = [getattr(args, key, None) for key in ("stock_spells", "request", "plan")]
+    input_files = [getattr(args, key, None) for key in ("stock_spells", "request", "plan", "compare_slower")]
     input_files.extend(getattr(args, "plans", ()))
     if any(p and str(p) != "-" and p.resolve() == destination for p in input_files):
         raise ValueError("Choose an output path distinct from the input files.")

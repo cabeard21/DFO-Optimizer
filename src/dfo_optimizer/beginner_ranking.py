@@ -54,10 +54,10 @@ def construction(row):
     return _hash([row["race_id"], doc["skills"], doc["advantages"], doc["disadvantages"]])
 
 
-def pick_builds(rows):
+def pick_builds(rows, preferred=None):
     if not rows:
         return None, []
-    winner = min(rows, key=ranking_key)
+    winner = min(rows, key=ranking_key) if preferred is None else preferred
     used = {construction(winner)}
     alternatives = []
     for role, axes in (("Damage mage", ("cap_damage_per_second",)),

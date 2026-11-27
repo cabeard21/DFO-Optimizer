@@ -1,4 +1,4 @@
-import {action, disclosure, el, field, format, panel, select, table} from "./view.js";
+import {action, disclosure, el, field, format, panel, pretty, select, table} from "./view.js";
 
 const metrics = [
   ["worst_clear_rate", "Lowest scenario clear rate", "percent"],
@@ -17,16 +17,15 @@ export function beginnerInputs(s, submit, update) {
   const thoroughness = field("Search thoroughness", select([
     ["quick","Quick"],["standard","Standard"],["thorough","Thorough"]
   ], s.request.thoroughness, value=>update({...s.request, thoroughness:value})));
-  const fast = el("input");
-  fast.type="checkbox";
-  fast.checked=s.request.require_fast_advancement===true;
-  fast.addEventListener("change",()=>update({...s.request, require_fast_advancement:fast.checked}));
-  const advancement=field("Require 0.30× advancement",fast);
   const controls = el("div", null, "beginner-controls");
-  controls.append(thoroughness, advancement, action("Recommend My First Spellcaster", submit, "primary"));
+  const frozen=s.request.schema_version!==2;
+  const compare=Boolean(s.request.compare_slower);
+  controls.append(thoroughness, action(compare?"Run saved comparison":"Recommend My First Spellcaster", submit, "primary"));
+  if(frozen||compare)controls.append(action("Start a new 0.30× recommendation",()=>update({schema_version:2,thoroughness:s.request.thoroughness||"standard"})));
   const advanced = el("a", "Set your own class and scenario constraints");
   advanced.href = "#discovery";
   const body = [el("p","Compare spellcasters in solo fights from creation to level 45. Take the selected class file and its creation checklist into the game.","intro"),
+                el("p",frozen?"This saved request uses its original rules.":compare?"This saved request compares slower classes.":"Requires 0.30× advancement.","note"),
                 controls, advanced];
   return panel("Start a new spellcaster", body);
 }
@@ -85,6 +84,88 @@ function buildLabel(row) {
   return [row.role || row.origin, row.race, label(row)].filter(Boolean).join(" · ");
 }
 
+const pathNames={none:"No path",battlemage:"Battlemage",battlemage_aegis:"Battlemage with Aegis Bolt",
+  soulbinder:"Soulbinder",spellbreaker:"Spellbreaker",riftwalker:"Riftwalker"};
+const stageNames={birth:"Creation",midgame:"Level 15",cap:"Level 45"};
+const percent=v=>Number.isFinite(v)?format(100*v)+"%":"Unreported";
+
+function spellMakerRecipes(row) {
+  const example=row.progression?.rolls?.find(r=>r.seed===row.progression.representative_seed);
+  const reach=["Self","Touch","Single target at range","Close area","Area at range"];
+  const elements=["Fire","Frost","Poison","Shock","Magic"];
+  const effects={"4,0":"Damage Health","10,8":"Heal Health","18,255":"Regeneration","35,255":"Shield"};
+  const recipes=(example?.stages||[]).flatMap(stage=>(stage.spells||[]).filter(s=>Number.isFinite(s.gold)).map(s=>[
+    stageNames[stage.stage],reach[s.range_type],elements[s.element],s.gold,s.effects.map(({effect_id,...settings})=>
+      (effects[effect_id]||effect_id)+". "+Object.entries(settings).map(([key,value])=>pretty(key)+" "+value).join(", ")).join(" / ")
+  ]));
+  if(!recipes.length)return [];
+  const box=el("details");
+  box.append(el("summary","Tested Spell Maker recipes"),el("p","Buy only when you have access and enough gold. Prices use the scenario’s chapter multiplier.","note"),
+    table(["Stage","Target","Element","Gold cost","Spell settings"],recipes));
+  return [box];
+}
+
+function refinementEvidence(row) {
+  const refinement=row.refinement;
+  if(!refinement)return [];
+  const gear=refinement.gear, arcane=refinement.arcane, children=[];
+  if(arcane){
+    const selected=pathNames[arcane.selected]||arcane.selected;
+    children.push(el("p",arcane.selected==="none"?"Keep your arcane path open for now.":"After mastering its required schools, aim for "+selected+"."));
+    const paths=Object.entries(arcane.paths||{});
+    if(paths.length){
+      const box=el("details");
+      box.append(el("summary","Tested arcane paths at level 45"),
+        table(["Path","Survived","Survived and cleared","Damage per second","Spell points spent / fight","Spell points restored / fight"],
+          paths.map(([id,m])=>[pathNames[id]||id,percent(m.survival),percent(m.clear),m.dps,m.sp_spent,m.sp_restored])));
+      if(arcane.coverage)box.append(el("p",arcane.coverage,"note"));
+      children.push(box);
+    }
+  }
+  if(gear){
+    const rows=Object.keys(stageNames).flatMap(stage=>{
+      const match=gear.same_spellbook?.[stage];
+      return match?[[stageNames[stage],match.owned,match.representative]]:[];
+    });
+    if(gear.theoretical)rows.push(["Level 45 · theoretical catalog",null,gear.theoretical]);
+    const box=el("details");
+    box.append(el("summary","How equipment access changes fights"),
+      el("p","The paired practical fights use the same spellbook. Gear access is hypothetical. The separate theoretical row also assumes access to the selected Spell Maker recipes.","note"),
+      table(["Stage","Owned survival","Upgraded survival","Owned clear rate","Upgraded clear rate","Owned melee damage / fight","Upgraded melee damage / fight","Upgraded DPS"],
+        rows.map(([stage,owned,upgraded])=>[stage,percent(owned?.survival),percent(upgraded?.survival),percent(owned?.clear),percent(upgraded?.clear),
+          owned?.melee_damage,upgraded?.melee_damage,upgraded?.dps])));
+    const backup=[];
+    const names={owned:"Owned gear",representative:"Practical upgrades",theoretical:"Theoretical gear"};
+    for(const [mode,stages] of Object.entries(gear.no_magicka||{})){
+      for(const stage of Object.keys(stageNames)){
+        const trial=stages[stage];
+        if(trial?.status==="replayed")backup.push([stageNames[stage],names[mode]||mode,
+          percent(trial.survival),percent(trial.clear),trial.melee_damage]);
+      }
+    }
+    if(backup.length)box.append(el("h3","Backup weapon with no magicka"),
+      table(["Stage","Gear access","Survived","Survived and cleared","Melee damage / fight"],backup));
+    children.push(box);
+  }
+  return children.length?[panel("Gear and arcane path",[...children,...spellMakerRecipes(row)])]:[];
+}
+
+function raceEvidence(rows) {
+  const matched=rows.filter(r=>r.status==="replayed"&&["submitted_archive","race_comparison"].includes(r.origin));
+  if(!matched.length)return [];
+  const losses=matched.map(r=>[r.race,r.refinement?.magic_pressure?.cap?.mean_hp_lost]);
+  const least=Math.min(...losses.map(([,loss])=>Number.isFinite(loss)?loss:Infinity));
+  const strongest=losses.filter(([,loss])=>loss===least).map(([race])=>race);
+  const children=[el("p","This comparison keeps the submitted class choices fixed and changes only race.")];
+  if(matched.length>1&&strongest.length===1)children.push(el("p",
+    strongest[0]+" had the lowest mean health loss among these races in the capped hostile Magic test."));
+  if(strongest.length>1)children.push(el("p",strongest.join(", ")+" tied for the lowest mean health loss in the capped hostile Magic test."));
+  children.push(table(["Race","Survived and cleared","Level-cap DPS","Mean net HP loss in the capped Magic fight"],matched.map(r=>[
+    r.race,metric(r,"mean_clear_rate","percent"),metric(r,"cap_damage_per_second"),r.refinement?.magic_pressure?.cap?.mean_hp_lost
+  ])),el("p","Breton's magic resistance applies to the hostile Magic test. High Elf paralysis immunity and Wood Elf's bow bonus are outside these fights. The submitted Wood Elf uses Long Blade, so its short-blade bonus is outside this race comparison.","note"));
+  return [panel("How race affects the choice",children)];
+}
+
 function compareBuild(row, rows) {
   const peers=rows.filter(r=>r.id!==row.id), area=el("div"), body=el("div");
   function show(index) {
@@ -108,6 +189,30 @@ const cases={
   resistant:"high resistance", multiple:"multiple opponents", low_sp:"low spell points",
   sustained:"sustained clearing", defensive:"defensive casting"
 };
+
+function slowerComparison(result) {
+  const rows=result.slower_comparison||[];
+  return [el("p","These alternatives trade faster leveling for possible equipment or defensive benefits. Your 0.30× recommendation stays available.","note"),
+    ...(rows.length?[table(["Build","Advancement","Compatible metals","Survived","Survived and cleared","Level-cap DPS","Practice to cap","Status"],
+      rows.map(r=>[
+        r.race+" · "+(r.origin==="fast_reference"?"Your 0.30× reference":
+          r.origin?.includes("_keeps_")?"Keeps "+r.origin.split("_keeps_")[1]:label(r)),
+        metric({metrics:r.permanent},"advancement_multiplier","multiplier"),
+        metric(r,"plate_weapon_materials"), metric(r,"mean_survival_rate","percent"),metric(r,"mean_clear_rate","percent"),
+        metric(r,"cap_damage_per_second"),metric(r,"mean_practice"),r.reason||"Replayed"
+      ]))]:[el("p","No slower build finished the common comparison panel.","note")])];
+}
+
+function slowerJob(job,handlers) {
+  if(!job)return [];
+  const children=[el("p",job.error||job.state,"state")];
+  if(job.result)children.push(...slowerComparison(job.result),action("Export slower comparison",handlers.exportComparison));
+  if(!["completed","cancelled","failed"].includes(job.state))children.push(action("Cancel comparison",handlers.cancelComparison));
+  const box=panel("Advancement comparison",children);
+  box.dataset.comparisonJobId=job.id;
+  box.dataset.state=job.state;
+  return [box];
+}
 const variants={
   baseline:"baseline conditions", owned_only:"owned gear only", no_spell_purchase:"no spell purchase",
   higher_pressure:"higher incoming pressure", protected_recovery:"protected recovery"
@@ -170,6 +275,10 @@ function scenarioEvidence(row) {
 
 export function recommendationPane(result, handlers, session={}) {
   const area=el("div",null,"recommendation");
+  if(result.frozen_request?.compare_slower){
+    area.append(panel("Advancement comparison",slowerComparison(result)),...notes("Limits of this comparison",result.limitations));
+    return area;
+  }
   const choices=[result.recommendation,...(result.alternatives||[])].filter(Boolean);
   if (!choices.length) {
     const reasons=(result.comparisons||[]).filter(r=>r.reason);
@@ -194,6 +303,11 @@ export function recommendationPane(result, handlers, session={}) {
     controls.append(action("Download game class",()=>handlers.exportFamily(row.id),"primary"),
                     action("Download checklist",()=>handlers.exportChecklist(row.id)),
                     action("Print checklist",()=>printGuide(card)));
+    if(handlers.compareSlower&&row.metrics?.advancement_multiplier===0.30){
+      const compare=action("Compare slower builds",()=>handlers.compareSlower(row));
+      compare.disabled=Boolean(session.comparing);
+      controls.append(compare);
+    }
     const body=[];
     body.push(el("h3",row.race+" · "+label(row)));
     if(result.summary && typeof result.summary==="string" && index===0)body.push(el("p",result.summary));
@@ -208,10 +322,12 @@ export function recommendationPane(result, handlers, session={}) {
       body.push(reference);
     }
     selected.replaceChildren(panel(index===0?"Recommended build":row.role||"Alternative build",body),
-                             compareBuild(row,compared),...scenarioEvidence(row));
+                             ...refinementEvidence(row),compareBuild(row,compared),...scenarioEvidence(row));
   }
   if(selector)area.append(selector);
   area.append(selected);choose(initial);
+  area.append(...slowerJob(session.comparisonJob,handlers));
+  area.append(...raceEvidence(compared));
   area.append(...sensitivityPanel(result,compared));
   area.append(...notes("Scenario assumptions",result.assumptions),...notes("Limits of this recommendation",result.limitations));
   if(result.diagnostics)area.append(disclosure("Search diagnostics",result.diagnostics));

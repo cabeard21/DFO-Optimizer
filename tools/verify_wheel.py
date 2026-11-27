@@ -89,7 +89,7 @@ def main():
         commands = []
         for script in ("generate_oracle.py", "generate_character.py", "spell_oracle.py", "equipment.py",
                        "progression_oracle.py", "spellbook_oracle.py", "encounter_oracle.py",
-                       "beginner_classes.py", "physical_oracle.py"):
+                       "beginner_classes.py", "beginner_assets.py", "physical_oracle.py"):
             commands.append([python, ROOT / "tools" / "ruleset" / script, "--source", env["DFO_SOURCE"], "--check"])
         commands.append([python, "-m", "pytest", ROOT / "tests", "--cov=dfo_optimizer",
                          "--cov-config", ROOT / "pyproject.toml", "--cov-report=term-missing"])

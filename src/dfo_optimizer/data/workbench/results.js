@@ -104,6 +104,7 @@ export function resultsPane(session,handlers){
   if(result.kind==="beginner_recommendation"){
     const buttons=el("div",null,"actions");
     const controls={...handlers,
+      compareSlower:job.state==="completed"&&!usePreview?handlers.compareSlower:null,
       exportFamily:key=>handlers.exportFamily(key,usePreview),exportChecklist:key=>handlers.exportChecklist(key,usePreview)};
     if(usePreview){
       children.push(el("p","First checked recommendation. The search is still comparing classes.","note"));

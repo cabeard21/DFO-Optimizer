@@ -1,0 +1,77 @@
+Breton spellblade · Breton
+Character creation and development checklist
+The development example uses paired birth seed 42.
+
+[ ] Choose your race
+    Select Breton in character creation. Race is a separate choice when importing the class file.
+    The online creator goes directly from class to name.
+    Select Average reflexes to match the tested character.
+
+[ ] Set your class attributes
+    Strength 50, Intelligence 65, Willpower 55, Agility 40, Endurance 55, Personality 35, Speed 60, Luck 40.
+    Set class health to 30 HP per level. Birth rolls and bonuses determine your starting sheet.
+
+[ ] Enter the ordered skill groups
+    Primary skills in order — Destruction → Restoration → Alteration
+    Major skills in order — Illusion → Mysticism → Long Blade
+    Minor skills in order — Thaumaturgy → Dodging → Mercantile → Running → Medical → Lockpicking
+
+[ ] Select advantages and disadvantages
+    Advantages — Increased magery Int in spell points3.
+    Disadvantages — Forbidden material Steel, Forbidden material Elven, Forbidden material Dwarven, Forbidden material Mithril, Forbidden material Silver, Forbidden material Adamantium, Forbidden shield types Buckler.
+    Magery gives this class 3 spell points per point of Intelligence before other modifiers.
+
+[ ] Spend your birth bonus
+    Allocate up to four points to Endurance, then Intelligence, Speed and Willpower within legal caps. Explicit allocations override that rule.
+    Spend all six points per group on its lowest rolled skills.
+    The replay used Intelligence +9, Endurance +4.
+    The primary bonus on this example roll went to Destruction +3, Restoration +3.
+    The major bonus on this example roll went to Illusion +2, Mysticism +1, Long Blade +3.
+    The minor bonus on this example roll went to Thaumaturgy +2, Dodging +1, Mercantile +2, Running +1.
+
+[ ] Play around each disadvantage
+    Forbidden material · Steel. You cannot equip items made of steel. Check the material before buying an upgrade.
+    Forbidden material · Elven. You cannot equip items made of elven. Check the material before buying an upgrade.
+    Forbidden material · Dwarven. You cannot equip items made of dwarven. Check the material before buying an upgrade.
+    Forbidden material · Mithril. You cannot equip items made of mithril. Check the material before buying an upgrade.
+    Forbidden material · Silver. You cannot equip items made of silver. Check the material before buying an upgrade.
+    Forbidden material · Adamantium. You cannot equip items made of adamantium. Check the material before buying an upgrade.
+    Forbidden shield types · Buckler. You cannot equip the buckler shield type.
+
+[ ] Choose your opening spells
+    Your starting spellbook contains Minor Shock, Arcane Arrow, Gentle Fall, Candle, Knick-Knack, Salve Bruise, Smelling Salts, Knock.
+    The example birth has 222 SP available before the opening fight.
+    Minor Shock costs 28 SP per cast on this roll.
+    Arcane Arrow costs 28 SP per cast on this roll.
+    Use Minor Shock [990] within touch range for offense.
+    Use Arcane Arrow [991] at range for offense.
+    Use Salve Bruise [995] to restore health. The scenario policy checks healing below 60% health.
+
+[ ] Equip your first loadout
+    Equip the starting copies used in the replay. Right hand — Broadsword, Chest clothes — Short Shirt, Legs clothes — Casual Pants, Cloak2 — Formal Cloak, Feet — Shoes.
+    When spell points run low, use a proficient backup from the starting kit. The checked copies include Iron Broadsword (Long Blade).
+    The carry test uses a hypothetical Ebony Cuirass. It weighs 6.25 kg.
+    The starting kit plus that cuirass leaves at least 47.0 kg free across the tested births.
+    Look for these usable upgrade options when available. Ebony Katana, Ebony Cuirass.
+
+[ ] Plan your first levels
+    At level-up, allocate attributes in this order. Endurance, Intelligence, Speed, Willpower, Strength, Agility, Personality, Luck.
+    Practice the skills on the route, starting with Destruction, Restoration, Alteration.
+    At the first earned level (2), the replay gained Endurance +5.
+    Use your starting spells and backup weapon first. At a Spell Maker, look for an affordable ranged attack and healing or shielding you can use regularly.
+    Use the tested recipes in the workbench when you have access and enough gold. Upgrade the backup weapon and armor as compatible pieces become available.
+
+[ ] Plan your masteries
+    Prioritize mastery in this order. Destruction, Restoration, Alteration, Illusion, Mysticism, Thaumaturgy.
+    Mastered at the final checkpoint — Destruction, Restoration, Illusion, Alteration, Thaumaturgy, Mysticism.
+    Primary school choices include Destruction, Restoration, Alteration.
+    Major school choices include Illusion, Mysticism.
+    Minor school choices include Thaumaturgy.
+
+[ ] Choose an arcane specialization
+    Work toward Battlemage by mastering Alteration and Destruction. Select it after earning both masteries.
+    Acquire Aegis Bolt separately when it appears on the Buy Spells shelf. It raises a shield after landing damage.
+
+[ ] Decisions you can postpone
+    Keep your mastery and specialization slots open while practicing the required skills.
+    Wait to buy an upgrade or a Spell Maker recipe until you have access and enough gold.

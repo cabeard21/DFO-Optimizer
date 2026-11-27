@@ -9,35 +9,51 @@ struct StarterWeapon {
 // positions in a group keep their original mechanics, but use a shared
 // signature for diversity.
 class BeginnerPanel {
-  using Shape = std::array<int, 22>;
+  using Shape = std::array<int, 28>;
+  using TraitSet = std::array<int, 14>;
+  using SkillOrder = std::array<int, 12>;
   struct Row {
-    int difficulty, race, shape, headroom, gear;
+    int difficulty, race, shape, traits, skills, headroom, gear;
     double sp;
   };
   std::vector<Row> rows;
   std::map<Shape, int> shapes;
+  std::map<TraitSet, int> trait_sets;
+  std::map<SkillOrder, int> skill_orders;
 
 public:
   void add(int difficulty, int race, const std::vector<int> &traits,
            const std::vector<int> &skills, uint64_t backup, int headroom,
-           int gear, double sp) {
+           int gear, double sp, bool refined) {
     Shape shape;
     shape.fill(-1);
     shape[0] = race;
     std::copy(traits.begin(), traits.end(), shape.begin() + 1);
     std::sort(shape.begin() + 1, shape.begin() + 1 + traits.size());
-    std::copy_n(skills.begin(), 6, shape.begin() + 15);
-    std::sort(shape.begin() + 15, shape.begin() + 18);
-    std::sort(shape.begin() + 18, shape.begin() + 21);
-    shape[21] = int(backup >> 28);
+    std::copy_n(skills.begin(), refined ? 12 : 6, shape.begin() + 15);
+    if (!refined) {
+      std::sort(shape.begin() + 15, shape.begin() + 18);
+      std::sort(shape.begin() + 18, shape.begin() + 21);
+    }
+    shape[27] = int(backup >> 28);
     int idx = shapes.emplace(shape, int(shapes.size())).first->second;
-    rows.push_back({difficulty, race, idx, headroom, gear, sp});
+    int trait_id = 0, skill_id = 0;
+    if (refined) {
+      TraitSet traits_key{};
+      SkillOrder skills_key{};
+      std::copy_n(shape.begin() + 1, 14, traits_key.begin());
+      std::copy_n(shape.begin() + 15, 12, skills_key.begin());
+      trait_id = trait_sets.emplace(traits_key, int(trait_sets.size())).first->second;
+      skill_id = skill_orders.emplace(skills_key, int(skill_orders.size())).first->second;
+    }
+    rows.push_back({difficulty, race, idx, trait_id, skill_id, headroom, gear, sp});
   }
   std::vector<int> select(int limit, const std::vector<int> &prior,
-                          const CancelFlag &cancel, double seconds) const {
+                          const CancelFlag &cancel, double seconds, bool refined) const {
     const auto started = Clock::now();
     std::vector<int> chosen;
     std::vector<bool> taken(rows.size()), used(shapes.size());
+    std::vector<bool> used_traits(trait_sets.size()), used_skills(skill_orders.size());
     std::array<bool, 9> races{};
     std::array<bool, 53> difficulties{};
     auto accept = [&](int i) {
@@ -45,6 +61,10 @@ public:
       chosen.push_back(i);
       taken[i] = true;
       used[r.shape] = true;
+      if (refined) {
+        used_traits[r.traits] = true;
+        used_skills[r.skills] = true;
+      }
       races[r.race] = true;
       difficulties[r.difficulty + 12] = true;
     };
@@ -55,17 +75,19 @@ public:
                      ? -std::abs(r.difficulty - (chosen.empty() ? -12 : -11))
                      : 0;
       bool sp_first = chosen.size() % 2 == 0;
-      return std::array<double, 7>{double(!used[r.shape]),
+      return std::array<double, 9>{double(!used[r.shape]),
                                    double(cost),
                                    double(!difficulties[r.difficulty + 12]),
                                    double(!races[r.race]),
+                                   double(refined && !used_traits[r.traits]),
+                                   double(refined && !used_skills[r.skills]),
                                    sp_first ? r.sp : r.gear,
                                    sp_first ? r.gear : r.sp,
                                    double(r.headroom)};
     };
     while (chosen.size() < std::min(rows.size(), size_t(limit))) {
       int best = -1;
-      std::array<double, 7> score{};
+      std::array<double, 9> score{};
       for (size_t i = 0; i < rows.size(); ++i) {
         if (!(i & 255) &&
             (cancel.is_cancelled() ||

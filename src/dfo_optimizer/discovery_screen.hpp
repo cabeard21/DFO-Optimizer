@@ -11,7 +11,7 @@ struct GearMasks {
 struct DiscoveryConfig {
     bool exhaustive{}, stable_examples{};
     uint32_t seed{};
-    uint64_t required_masteries{}, required_skills{};
+    uint64_t required_masteries{}, required_skills{}, sample_attempts{};
     std::array<TraitFeatures, 128> features{};
     std::vector<uint32_t> rolls;
     std::vector<std::vector<GearMasks>> stages;
@@ -137,7 +137,7 @@ class DiscoveryScreen {
     size_t visit_capacity() const {
         if (!sampling())
             return 0;
-        const size_t limit = std::max(256, 64 * o.k);
+        const size_t limit = attempt_limit();
         // A new sampled leaf always requires eight attribute and twelve skill
         // frames. Bound the set size before allocation for short node budgets.
         return o.max_nodes ? std::min<uint64_t>(limit, 1 + o.max_nodes / 20) : limit;
@@ -178,6 +178,9 @@ class DiscoveryScreen {
                              (uint64_t(current.absorption) << 48);
         for (int i = 0; i < c.count; ++i)
             signature = scramble(signature ^ uint64_t(c.traits[i] + 1));
+        if (cfg.sample_attempts)
+            for (int skill : c.skills)
+                signature = scramble(signature ^ uint64_t(skill + 1));
         return scramble(signature);
     }
     std::array<int, 6> axes(const ScreenFeatures& f) const {
@@ -261,7 +264,8 @@ class DiscoveryScreen {
         sampled = false;
         ++attempts;
     }
-    bool sample_limit() const { return attempts >= uint64_t(std::max(256, 64 * o.k)); }
+    uint64_t attempt_limit() const { return cfg.sample_attempts ? cfg.sample_attempts : std::max(256, 64 * o.k); }
+    bool sample_limit() const { return attempts >= attempt_limit(); }
     bool skills_possible(int slot, uint64_t selected, const int* skills) const {
         // An upper bound on remaining required mastery slots ignores slot domains.
         // No skill outside its career group can consume its quota.

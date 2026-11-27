@@ -32,7 +32,12 @@ def _verified_layout(checkpoint, layout):
 def bind_physical_player(checkpoint, loadout=None):
     """Derive an actor from physical item IDs. The caller supplies the fight and target."""
     state = checkpoint["state"]
-    if state.get("arcane_path", -1) not in (None, -1) or state.get("martial_path", -1) not in (None, -1):
+    arcane = state.get("arcane_path")
+    actor = checkpoint.get("actor", {})
+    modeled = checkpoint.get("refined_entry") and actor.get("path") == arcane and (
+        actor.get("path_evidence", {}).get("basis") == "hypothetical"
+    )
+    if (arcane not in (None, -1) and not modeled) or state.get("martial_path", -1) not in (None, -1):
         raise PhysicalGap("Physical combat projection needs verified active path state")
     attrs = list(state["attributes"])
     mastered = set(state.get("mastered", ()))

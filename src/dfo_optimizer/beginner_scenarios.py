@@ -200,7 +200,10 @@ def _run_batch(
     try:
         stage = _stage(checkpoint, variant)
         prep = None
-        if case["id"] == "low_sp":
+        entry_sp = None
+        if case["id"] == "low_sp" and stage.get("refined_entry"):
+            entry_sp = min(stage["actor"]["current_sp"], stage["actor"]["max_sp"] // 4)
+        elif case["id"] == "low_sp":
             key = _digest([stage["actor"], stage["spells"], stage["career"], seeds[0]])
             if key not in preparations:
                 prelude = prepare_low_sp(stage, seeds[0], work)
@@ -208,7 +211,7 @@ def _run_batch(
                 preparations[key] = prelude
             prep = preparations[key]
         query = make_request(
-            stage, case, variant, seeds, prep["ending_sp"] if prep else None
+            stage, case, variant, seeds, prep["ending_sp"] if prep else entry_sp
         )
         query["ruleset_hash"] = rules_hash
         key = _digest([query, prep, stage["loadout"]])

@@ -34,6 +34,7 @@ SCHOOLS={"4,0":"destruction","5,255":"destruction","10,8":"restoration",
 MAGNITUDE=("base_low","base_high","plus_low","plus_high","per_level")
 CHANCE=("chance_base","chance_increment","chance_per_level")
 DURATION=("duration_base","duration_increment","duration_per_level")
+HYPOTHETICAL_ARCANE_PATHS=("battlemage","soulbinder","spellbreaker","riftwalker")
 
 
 def _slot(effect, blockers):
@@ -88,11 +89,16 @@ def _paths(raw,blockers,rules,speed):
         blockers.append("unsupported martial combat passive or technique: "+martial)
     if arcane!="none" or martial!="none" or "path_evidence" in raw:
         evidence=_object(raw.get("path_evidence",{}),"path_evidence",
-                         ("source","observed_at_ms","context","initial_state","speed_basis"))
+                         ("source","observed_at_ms","context","initial_state","speed_basis","basis"))
         if "source" in evidence: label(evidence["source"],"path evidence source",2048)
         if "observed_at_ms" in evidence: _int(evidence["observed_at_ms"],"path observation time",0,2**53-1)
-        if not {"source","observed_at_ms"}<=evidence.keys() or evidence.get("context")!="ordinary_online_pve" or evidence.get("initial_state")!="fresh":
-            blockers.append("paths require attributed, dated ordinary online PvE evidence with fresh cooldowns, stacks and fractional carries")
+        basis=evidence.get("basis","observed")
+        observed=basis=="observed" and "observed_at_ms" in evidence
+        modeled=(basis=="hypothetical" and "observed_at_ms" not in evidence and
+                 arcane in HYPOTHETICAL_ARCANE_PATHS and martial=="none")
+        if ("source" not in evidence or not (observed or modeled) or
+                evidence.get("context")!="ordinary_online_pve" or evidence.get("initial_state")!="fresh"):
+            blockers.append("paths require attributed ordinary online PvE evidence with fresh cooldowns, stacks and fractional carries")
         if martial=="windrunner":
             basis=evidence.get("speed_basis")
             if basis not in ("before_martial_fold","observed_final"):

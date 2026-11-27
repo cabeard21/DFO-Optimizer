@@ -32,6 +32,7 @@ _SLICES = {
     "standard": (_STANDARD, 24),
     "thorough": (_THOROUGH, 100),
 }
+_REFINED_SIZES = {"quick": (2048, 32), "standard": (8192, 96), "thorough": (32768, 384)}
 _FIELDS = {
     "race_ids",
     "hp_values",
@@ -165,7 +166,7 @@ def _compile_domain(domain, target, top, exact, rules, seeds, max_nodes, memory,
     return args, reason
 
 
-def _selection(rows, capacity, exact, previous=(), *, cancel=None, deadline=None):
+def _selection(rows, capacity, exact, previous=(), *, cancel=None, deadline=None, refined=False):
     if exact:
         return rows[:capacity]
     if not rows:
@@ -173,7 +174,11 @@ def _selection(rows, capacity, exact, previous=(), *, cancel=None, deadline=None
     indices = {id(raw): i for i, (_, raw) in enumerate(rows)}
     prior = [indices[id(raw)] for _, raw in previous]
     seconds = max(1e-12, deadline - perf_counter()) if deadline else 0
-    return [rows[i] for i in require_native().beginner_panel(rows, prior, capacity, cancel, seconds)]
+    native = require_native()
+    indices = native.beginner_panel(rows, prior, capacity, cancel, seconds, refined=True) if refined else (
+        native.beginner_panel(rows, prior, capacity, cancel, seconds)
+    )
+    return [rows[i] for i in indices]
 
 
 def _options(thoroughness, domain, exact, max_nodes):
@@ -196,6 +201,55 @@ def _options(thoroughness, domain, exact, max_nodes):
     if type(top) is not int or not 1 <= top <= 10000:
         raise ValueError("top_k requires 1..10000")
     return targets, top, len(targets) * _LANE_NODES if max_nodes is None else max_nodes
+
+
+def _material_cost_bound(rules):
+    """Optimistic costs ignore conflicts and all additional beginner kit gates."""
+    allowed = [t for t in rules["traits"] if not (
+        exclusion(t["primary"], t["secondary"]) or sampling_preference(t["primary"], t["secondary"])
+    )]
+    magery = next(t for t in allowed if (t["primary"], t["secondary"]) == (
+        "increasedMagery", "intInSpellPoints3"
+    ))
+    # All other advantages at the pin cost at least zero. Include negative
+    # ones if ever supplied to keep the estimate optimistic.
+    mandatory = 30 - 8 + magery["cost"] + sum(
+        min(0, t["cost"]) for t in allowed if t["side"] == "advantage" and t != magery
+    )
+    metals = {t["secondary"]: t["cost"] for t in allowed if t["primary"] == "forbiddenMaterial"}
+    other = [t["cost"] for t in allowed if t["side"] == "disadvantage" and t["primary"] != "forbiddenMaterial"]
+    picks = rules["limits"]["max_picks"]
+
+    def lowest(costs):
+        return mandatory + sum(sorted([c for c in [*costs, *other] if c < 0])[:picks])
+
+    cheapest = sorted(metals.values())
+    required = next((n for n in range(len(metals) + 1)
+                     if lowest(cheapest[:n]) <= rules["limits"]["difficulty_min"]), None)
+    retained = {"elven": {"elven"}, "steel": {"steel"}, "steel_and_elven": {"steel", "elven"}}
+    return {"maximum_metals_at_floor": None if required is None else len(metals) - required,
+            "lowest_cost_by_retained_materials": {
+                label: lowest([cost for metal, cost in metals.items() if metal not in keep])
+                for label, keep in retained.items()
+            },
+            "scope": "Optimistic bound for the sampled beginner trait policy, ignoring compatibility and kit gates."}
+
+
+def _lanes(targets, packed_traits, trait_rows, material_bound):
+    """Keep material-sensitive samples disjoint from ordinary difficulty slices."""
+    protected_ids = {t["secondary"]: t["id"] for t in trait_rows
+                     if t["primary"] == "forbiddenMaterial" and t["secondary"] in ("steel", "elven")}
+    thresholds = material_bound["lowest_cost_by_retained_materials"]
+    for target in targets:
+        for kept in ((), ("elven",), ("steel",), ("steel", "elven")):
+            name = "_and_".join(kept)
+            if kept and target < thresholds[name]:
+                continue
+            excluded = {protected_ids[metal] for metal in kept}
+            required = set(protected_ids.values()) - excluded
+            traits = [(*trait[:4], trait[4] or trait[0] in required, trait[5])
+                      for trait in packed_traits if trait[0] not in excluded]
+            yield target, name or None, traits
 
 
 def _single_edits(manual, domain, args, targets, rules):
@@ -246,11 +300,13 @@ def beginner_roster(
     memory_bytes=64 << 20,
     domain=None,
     exhaustive=False,
+    _refined_wave=None,
 ):
     """Admit classes for a shared lifecycle evaluation; references are always listed separately."""
     started = perf_counter()
     domain = {} if domain is None else domain
     targets, capacity, nodes = _options(thoroughness, domain, exhaustive, max_nodes)
+    refined = _refined_wave is not None
     rules, seeds = _service_rules(ruleset), _seeds(roll_seeds)
     samples = []
     # Validate limits and the full caller domain even when a pre-cancelled token is supplied.
@@ -283,25 +339,40 @@ def beginner_roster(
         "leaf_visits": 0,
         "native_retained": 0,
     }
-    slices, candidates = [], []
+    slices, candidates, protected = [], [], []
     traits = {r["id"]: r for r in rules["traits"]}
     skills = {r["id"]: r for r in rules["skills"]}
     native = require_native()
-    for i, target in enumerate(targets):
+    material_bound = _material_cost_bound(rules) if refined else None
+    lanes = (list(_lanes(targets, first_args["traits"], traits.values(), material_bound))
+             if refined and tuple(targets) != (-12,) else [(cost, None, first_args["traits"]) for cost in targets])
+    for i, (target, retained_metal, lane_traits) in enumerate(lanes):
         if interrupted() or (nodes and counts["nodes"] >= nodes):
             break
         args = {
             **first_args,
             "target": target,
+            "traits": lane_traits,
             "discovery": {**first_args["discovery"], "seed": target + 93},
         }
+        if refined:
+            base_attempts, _ = _REFINED_SIZES[thoroughness]
+            wave_scale = 1 << min(_refined_wave, 3) if thoroughness == "thorough" else 1
+            share, remainder = divmod(base_attempts * wave_scale, len(lanes))
+            attempts = max(1, share + int(i < remainder))
+            args["discovery"].update(
+                seed=(target + 93 + 1_000_003 * _refined_wave + (65537 * (i + 1) if retained_metal else 0)) % (1 << 32),
+                sample_attempts=attempts,
+            )
         args["top_k"] = capacity if exhaustive or domain else 24
+        if refined and len(lanes) > 1:
+            args["top_k"] = min(capacity, max(8, (2 * capacity + len(lanes) - 1) // len(lanes)))
         if nodes:
             remaining = nodes - counts["nodes"]
             args["max_nodes"] = (
                 remaining
                 if exhaustive
-                else max(1, remaining // (len(targets) - i))
+                else max(1, remaining // (len(lanes) - i))
                 if domain
                 else min(_LANE_NODES, remaining)
             )
@@ -333,13 +404,19 @@ def beginner_roster(
                 "nodes": result["nodes"],
                 "kit_rejections_by_mask": result["beginner_rejections"],
                 "work_bytes": result["work_bytes"],
+                **({"seed": args["discovery"]["seed"], "sample_attempts": result["attempts"],
+                    "sample_attempt_limit": attempts, "retained_metal": retained_metal} if refined else {}),
             }
         )
         rows = result["results"][: max(0, capacity - len(samples))] if exhaustive else result["results"]
-        samples.extend((target, r) for r in rows)
+        tagged = [(target, r) for r in rows]
+        samples.extend(tagged)
+        if retained_metal and tagged:
+            protected.extend(_selection(tagged, 1, False, cancel=cancel, deadline=deadline, refined=True))
     selected = []
     if exhaustive or domain:
-        selected = _selection(samples, capacity, exhaustive, cancel=cancel, deadline=deadline)
+        selected = _selection(samples, capacity, exhaustive, protected[:capacity], cancel=cancel,
+                              deadline=deadline, refined=refined)
     else:
         for slice_targets, tier_limit in _SLICES.values():
             pool = [r for r in samples if r[0] in slice_targets]
@@ -369,6 +446,8 @@ def beginner_roster(
             raise RuntimeError("Beginner native screen disagrees with independent creation replay")
         candidates.append({**family, "native_screen": screen})
     manual = [] if interrupted() else _manual(rules, seeds)
+    if refined:
+        manual = [f for f in manual if f["compliance"]["difficulty_points"] in targets]
     probes = _counterfactuals(manual[0], rules, seeds) if manual and not domain else []
     counts.update(admitted=len(candidates), manual=len(manual), controlled_comparisons=len(probes))
     enumerated = len(slices) == len(targets) and all(
@@ -425,6 +504,7 @@ def beginner_roster(
         },
         "catalog_scope": {k: len(v) for k, v in catalog_masks().items()},
         "eligibility_only": "Reviewed mundane template/material combinations do not imply ownership or access.",
+        **({"material_cost_bound": material_bound} if refined else {}),
     }
     return {
         "families": [*manual, *probes, *candidates],
@@ -432,3 +512,17 @@ def beginner_roster(
         "counts": counts,
         "proof_scope": scope,
     }
+
+
+def refined_roster(mode, *, ruleset=None, roll_seeds=(42, 43), max_nodes=0,
+                   memory_bytes=64 << 20, wall_seconds=0, cancel=None, wave=0, slower=False):
+    """One deterministic, bounded mechanics sample for the revised beginner profile."""
+    if not isinstance(mode, str) or mode not in _REFINED_SIZES:
+        raise ValueError("Invalid beginner thoroughness")
+    if type(wave) is not int or not 0 <= wave <= 2**32-1 or type(slower) is not bool:
+        raise ValueError("Invalid beginner wave or advancement lane")
+    _, capacity = _REFINED_SIZES[mode]
+    costs = [-11, -10, -9, -8] if slower else [-12]
+    return beginner_roster(mode, ruleset=ruleset, roll_seeds=roll_seeds, max_nodes=max_nodes,
+                           memory_bytes=memory_bytes, wall_seconds=wall_seconds, cancel=cancel,
+                           domain={"difficulty_values": costs, "top_k": capacity}, _refined_wave=wave)

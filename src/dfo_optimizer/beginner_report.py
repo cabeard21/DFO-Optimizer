@@ -115,7 +115,7 @@ def _advancement_note(winner, rows):
     raise RuntimeError("A slower class won without the required measured benefit")
 
 
-def publish(archive):
+def publish(archive, select=pick_builds):
     from .beginner_guide import build_guide
 
     eligible = [r for r in archive.rows if r["status"] == "replayed"]
@@ -123,7 +123,7 @@ def publish(archive):
         return None, [], []
     if len({r["panel_hash"] for r in eligible}) != 1:
         raise ValueError("Cannot rank different scenario panels together")
-    winner, alternatives = pick_builds(eligible)
+    winner, alternatives = select(eligible)
     m = winner["metrics"]
     backup = winner["permanent"]["backup_weapons"][0]
     recommended = {**archive.expand(winner), "role": "Recommended spellcaster",
@@ -135,6 +135,7 @@ def publish(archive):
                "min_hp_fraction": ("minimum health remaining", ".0%"),
                "mean_min_hp_fraction": ("average minimum health remaining", ".0%"),
                "mean_survival_rate": ("average survival", ".0%"),
+               "mean_clear_rate": ("average clear rate", ".0%"),
                "worst_survival_rate": ("weakest scenario survival", ".0%"),
                "mean_damage_per_sp": ("dungeon spell damage per spell point", ".2f")}
     explained = []
