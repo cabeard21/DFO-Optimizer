@@ -1,4 +1,6 @@
 export const views = {
+  beginner: {name:"Beginner spellcaster",icon:"✦",operations:{"Recommend My First Spellcaster":["build recommend",null]}},
+  discovery: {name:"Discover Spellcaster Build",icon:"✧",operations:{"Discover builds":["build optimize","discovery-early"]}},
   creator: {name:"Character Creator", icon:"◇", operations:{"Class search":["class optimize","max-intelligence"]}},
   progression: {name:"Progression", icon:"↗", operations:{
     "Plan training":["progression plan","progression-tradeoffs"],
@@ -83,7 +85,7 @@ export function resultRows(result) {
   return [];
 }
 export function replayAction(result) {
-  return {encounter_result:"encounter replay",lifecycle:"build replay",progression_plan:"progression replay"}[result?.kind]??null;
+  return {beginner_recommendation:"build replay",encounter_result:"encounter replay",lifecycle:"build replay",progression_plan:"progression replay"}[result?.kind]??null;
 }
 export function metrics(row) {
   const values={};

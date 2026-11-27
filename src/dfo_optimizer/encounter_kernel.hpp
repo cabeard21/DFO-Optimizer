@@ -1,6 +1,7 @@
 #pragma once
 #include "encounter_effects.hpp"
 #include "encounter_powers.hpp"
+#include "physical_combat.hpp"
 #include "spellbook.hpp"
 #include <array>
 #include <chrono>
@@ -23,7 +24,7 @@ struct Foe {
 struct Incoming { Time time_us=0; int source=0, damage=0, spell=-1; bool blow=true; };
 struct Room {
     Time delay_us=0;
-    int rest_hp=-1,rest_sp=-1;
+    int rest_hp=-1,rest_sp=-1,heal_spell=-1;
     std::vector<int> enemies;
     std::vector<Incoming> incoming;
 };
@@ -40,6 +41,9 @@ struct Encounter {
     std::vector<Room> rooms;
     std::vector<Recovery> recovery;
     std::vector<double> tape;
+    std::vector<Fighter> fighters;
+    bool backup=false;
+    int enemy_reach_mm=0,fatigue=0;
 };
 struct Spell {
     int element=4,range_type=1,cost_sp=0,climb=-1;
@@ -48,12 +52,16 @@ struct Spell {
 };
 struct Rule { int spell=0,target=-1,hp_below_pct=-1,sp_below_pct=-1,shield_below=-1; };
 struct Limits { std::uint64_t max_events=0,memory_bytes=64u<<20; double wall_seconds=0; bool trace=false,frontier=false,mark_incumbent=true; int objective=0; };
-enum EventKind { click,release,impact,round_tick,incoming_hit,kill,death,miss,wait,restore,absorbed,reflected,resisted,room_open };
+enum EventKind { click,release,impact,round_tick,incoming_hit,kill,death,miss,wait,restore,absorbed,reflected,resisted,room_open,
+                 swing_start,swing_impact,swing_miss,enemy_impact,enemy_miss };
 struct Event { Time time_us=0; int kind=0,target=-1,spell=-1,value=0,hp=0,sp=0,shield=0,target_hp=0; };
 struct Trial {
     int initial_sp=0,casts=0,impacts=0,kills=0,end_hp=0,end_sp=0,min_hp=0,min_sp=0,consumables=0;
     std::int64_t spent_sp=0,restored_sp=0,damage=0,healing=0,mitigated=0,rest_us=0,end_us=0;
     bool dead=false,cleared=false;
+    bool physical=false;
+    int melee_swings=0,melee_hits=0,incoming_swings=0,incoming_hits=0,spent_fatigue=0,end_fatigue=0;
+    int64_t melee_damage=0;
     std::uint64_t draws=0;
     std::vector<Event> trace;
 };
@@ -145,6 +153,9 @@ class Run {
     std::vector<int> foe_sp,silence;
     std::vector<Flight> flights;
     std::vector<Regen> regens;
+    std::vector<Fighter> fighters;
+    Time swing_at=never;
+    int swing_target=-1;
     int hp,sp,shield=0,shield_max=0,shield_rounds=-1;
     int survivors,room_alive=0,last_cast_cost=0;
     bool power_shield=false;
@@ -299,16 +310,11 @@ class Run {
         if (t>=0) out.damage+=took;
         note(impact,t,f.spell,took);
         if (t>=0 && before>0 && !foes[t]) {
-            --survivors;--room_alive;++out.kills;
-            int old_hp=hp,old_sp=sp;
             // Dungeon reflected missiles use the original foeSinks wrapper.
             // Its default fromPlayer=true credits the kill; this is not a
             // player-cast landing and cannot trigger a signature rider below.
             const bool credited=scene.enemies[t].kill_eligible && (origin<0 || return_trip);
-            path_kill(path,credited,scene.enemies[t].trapped,hp,scene.max_hp,sp,scene.max_sp);
-            gear_kill(path,scene.wellspring_pct,credited,sp,scene.max_sp);
-            gains(old_hp,old_sp);
-            note(kill,t,f.spell);
+            finish_kill(t,f.spell,credited);
         }
         if (origin<0 && t>=0 && took>0) {
             path_landed(path,now/1000.,f.cast,took);
@@ -381,8 +387,55 @@ class Run {
         const auto& rest=scene.recovery[next_rest];
         return now<rest.time_us && rest.time_us-rest.duration_us<=finish;
     }
+    void finish_kill(int t,int spell,bool credited) {
+        --survivors;--room_alive;++out.kills;
+        const int old_hp=hp,old_sp=sp;
+        path_kill(path,credited,scene.enemies[t].trapped,hp,scene.max_hp,sp,scene.max_sp);
+        gear_kill(path,scene.wellspring_pct,credited,sp,scene.max_sp);
+        gains(old_hp,old_sp);note(kill,t,spell);
+    }
+    void strike(int t,bool outgoing) {
+        if (outgoing) {out.end_fatigue-=8;out.spent_fatigue+=8;}
+        if (!foes[t]) return;
+        if (!outgoing) ++out.incoming_swings;
+        if (target_distance(t)>(outgoing?2500:scene.enemy_reach_mm)) {
+            note(outgoing?swing_miss:enemy_miss,t);
+            return;
+        }
+        auto& foe=fighters[t+1];auto& actor=fighters[0];
+        const auto blow=outgoing?physical_blow(actor,foe,true,hp,scene.max_hp,foes[t],scene.enemies[t].hp,rng)
+                         :physical_blow(foe,actor,false,foes[t],scene.enemies[t].hp,hp,scene.max_hp,rng);
+        if (outgoing) {
+            out.melee_hits+=blow.hit;
+            const int loss=std::min(foes[t],blow.damage);
+            foes[t]-=loss;out.damage+=loss;out.melee_damage+=loss;
+            note(blow.hit?swing_impact:swing_miss,t,blow.part,loss);
+            if (!foes[t]) finish_kill(t,-1,scene.enemies[t].kill_eligible);
+        } else {
+            out.incoming_hits+=blow.hit;
+            const int before=hp;
+            if (blow.damage>0) hurt(blow.damage,true);
+            note(blow.hit?enemy_impact:enemy_miss,t,blow.part,before-hp);
+        }
+    }
+    void start_cast(int index,int target,Time release_at,Time ready_at) {
+        const int cost=spells[index].cost_sp;
+        sp-=cost; out.spent_sp+=cost; ++out.casts;
+        flights.push_back({release_at,index,target,out.casts,cost,false});
+        note(click,target,index,cost);
+        cast_ready=ready_at;
+    }
     void decide() {
         decision=never;
+        if (open_at!=never) {
+            const int heal=scene.rooms[room_index+1].heal_spell;
+            if (heal<0 || hp==scene.max_hp || spells[heal].cost_sp>sp || (silence[0]>=0 && spells[heal].cost_sp)) return;
+            auto c=scene.caster;c.cast_speed_pct+=path_speed(path.id);
+            const double rate=dfo_spell::rate(c);
+            const Time release_at=now+static_cast<Time>(std::ceil(200000./rate));
+            if (release_at<open_at) start_cast(heal,-1,release_at,now+static_cast<Time>(std::ceil(700000./rate)));
+            return;
+        }
         if (!overlaps_rest(now)) for (const Rule& rule:policy) {
             const Spell& s=spells[rule.spell];
             if (rule.hp_below_pct>=0 && Time(hp)*100>=Time(scene.max_hp)*rule.hp_below_pct) continue;
@@ -404,11 +457,17 @@ class Run {
                 finish=std::max(finish,release_at+std::min<Time>(8000000,flight_us));
             }
             if (overlaps_rest(finish)) continue;
-            sp-=s.cost_sp; out.spent_sp+=s.cost_sp; ++out.casts;
-            flights.push_back({release_at,rule.spell,target,out.casts,s.cost_sp,false});
-            note(click,target,rule.spell,s.cost_sp);
-            decision=cast_ready=ready_at;
+            start_cast(rule.spell,target,release_at,ready_at);
+            decision=cast_ready;
             return;
+        }
+        if (scene.backup && out.end_fatigue>8) {
+            const auto& move=fighters[0].move();
+            for (int t=0;t<int(foes.size());++t) if (foes[t] && target_distance(t)<=2500 && !overlaps_rest(now+move.ready_us)) {
+                swing_target=t;swing_at=now+move.impact_us;
+                decision=cast_ready=now+move.ready_us;
+                ++out.melee_swings;note(swing_start,t,-1,move.ready_us);return;
+            }
         }
         note(wait);
     }
@@ -435,15 +494,19 @@ class Run {
         if (room_alive || !survivors || open_at!=never || scene.rooms.empty()) return;
         // Scene transition retires missiles and the old room's future attacks.
         flights.clear();
+        swing_at=never;
         incoming_i=scene.rooms[room_index].incoming.size();
         decision=never;
         open_at=now+scene.rooms[room_index+1].delay_us;
+        if (scene.rooms[room_index+1].heal_spell>=0 && std::max(now,cast_ready)<open_at)
+            decision=std::max(now,cast_ready);
     }
 public:
     Run(const Encounter& e,const std::vector<Spell>& s,const std::vector<Rule>& p,
         std::uint32_t seed,bool trace,Budget& b):scene(e),spells(s),policy(p),budget(b),traced(trace),
         hp(e.hp),sp(e.caster.available_sp),survivors(static_cast<int>(e.enemies.size())),next_round(e.first_round_us) {
         rng.state=seed?seed:0x6d2b79f5; rng.borrowed=&e.tape;
+        fighters=e.fighters;out.physical=!fighters.empty();out.end_fatigue=e.fatigue;
         path.id=e.path_id;
         path.martial_id=e.martial_id;
         for (const auto& foe:e.enemies) {foes.push_back(e.rooms.empty()?foe.hp:0);foe_sp.push_back(foe.sp);}
@@ -462,7 +525,7 @@ public:
                 return std::tie(a.when,a.cast)<std::tie(b.when,b.cast);
             });
             const Time flight_time=flight==flights.end() ? never : flight->when;
-            now=std::min({open_at,incoming,recovery,next_round,flight_time,decision});
+            now=std::min({open_at,incoming,recovery,next_round,flight_time,swing_at,decision});
             if (now>scene.horizon_us) {now=scene.horizon_us;break;}
             if (!budget.take()) break;
             if (now==open_at) enter_room(room_index+1);
@@ -470,9 +533,10 @@ public:
                 const auto& hit=attacks[incoming_i++];
                 if (foes[hit.source]>0) {
                     const int old=hp;
-                    if (hit.spell<0) hurt(hit.damage,hit.blow);
+                    if (hit.spell==-2) strike(hit.source,false);
+                    else if (hit.spell<0) hurt(hit.damage,hit.blow);
                     else landed(-1,Flight{now,hit.spell,-1,0,0,true},hit.source);
-                    note(incoming_hit,hit.source,hit.spell,old-hp);
+                    if (hit.spell!=-2) note(incoming_hit,hit.source,hit.spell,old-hp);
                 }
                 wake();
             } else if (now==recovery) {
@@ -482,6 +546,7 @@ public:
             }
             else if (now==next_round) {magic_round();wake();}
             else if (now==flight_time) {Flight f=*flight; flights.erase(flight);apply_flight(f);wake();}
+            else if (now==swing_at) {swing_at=never;strike(swing_target,true);wake();}
             else decide();
             leave_if_cleared();
         }
@@ -501,13 +566,13 @@ inline Report evaluate(const Encounter& e,const std::vector<Spell>& spells,const
     std::uint64_t packed=sizeof(Encounter)+e.enemies.capacity()*sizeof(Foe)+e.rooms.capacity()*sizeof(Room)
         +e.incoming.capacity()*sizeof(Incoming)+e.recovery.capacity()*sizeof(Recovery)+e.tape.capacity()*sizeof(double)
         +seeds.capacity()*sizeof(std::uint32_t)+spells.capacity()*sizeof(Spell)+policies.capacity()*sizeof(std::vector<Rule>)
-        +e.wards.set_absorb_chances.capacity()*sizeof(int);
+        +e.wards.set_absorb_chances.capacity()*sizeof(int)+e.fighters.capacity()*sizeof(Fighter);
     for (const auto& foe:e.enemies) packed+=foe.wards.set_absorb_chances.capacity()*sizeof(int);
     for (const auto& room:e.rooms) packed+=room.incoming.capacity()*sizeof(Incoming)+room.enemies.capacity()*sizeof(int);
     for (const auto& spell:spells) packed+=spell.effects.capacity()*sizeof(Effect);
     for (const auto& policy:policies) packed+=policy.capacity()*sizeof(Rule);
     const auto workspace=sizeof(Run)+(e.enemies.size()+1)*sizeof(int)*6
-        +sizeof(Flight)*64+spells.size()*3*sizeof(Regen)*4;
+        +sizeof(Flight)*64+spells.size()*3*sizeof(Regen)*4+e.fighters.size()*sizeof(Fighter);
     if (!budget.reserve(packed+workspace)) return std::move(budget.data);
     auto check_attacks=[&spells](const std::vector<Incoming>& attacks) {
         for (const auto& hit:attacks) {
@@ -518,7 +583,14 @@ inline Report evaluate(const Encounter& e,const std::vector<Spell>& spells,const
         }
     };
     check_attacks(e.incoming);
-    for (const auto& room:e.rooms) check_attacks(room.incoming);
+    for (const auto& room:e.rooms) {
+        check_attacks(room.incoming);
+        if (room.heal_spell<0) continue;
+        if (size_t(room.heal_spell)>=spells.size() || spells[room.heal_spell].range_type!=0 ||
+            !std::all_of(spells[room.heal_spell].effects.begin(),spells[room.heal_spell].effects.end(),
+                         [](const Effect& effect){return effect.type==10 && effect.subtype==8;}))
+            throw std::invalid_argument("Unsupported protected room heal");
+    }
     for (size_t i=0;i<policies.size() && budget.check();++i) {
         PolicyResult row;row.policy_index=static_cast<int>(i);
         row.payload_bytes=seeds.size()*sizeof(Trial);

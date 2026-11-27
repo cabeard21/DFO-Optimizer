@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "release": "0.5.0",
+  "host": {
+    "os": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
+    "architecture": "x86_64",
+    "cpu": "AMD Ryzen 5 5600X 6-Core Processor",
+    "logical_cpus": 1,
+    "python": "3.12.3",
+    "python_compiler": "GCC 13.3.0"
+  },
+  "ruleset_hash": "d639d137937f8c42e3f26d281785defb44fb5071e9c2da179de4a8320401d5b1",
+  "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+  "qualification_source_archive_sha256": "4c2498f89febf5f4524169a3ca41cfe403cbe60054b8d0121bbb3a2276b7ef6f",
+  "wheel": {
+    "file": "dfo_optimizer-0.5.0-cp312-cp312-linux_x86_64.whl",
+    "sha256": "243bc73bf77137824fde5e1fbac81a27c3ef60b81c30c2f0647a8db054219b4a"
+  },
+  "verified_wheel_files": 172,
+  "tests": {
+    "passed": 758,
+    "skipped": 0,
+    "seconds": 374.15,
+    "coverage_percent": 90.99
+  },
+  "oracles": {
+    "class": 27,
+    "numeric": 25,
+    "character_export_bytes": 9452,
+    "spell_distributions": 19,
+    "spell_cast_hosts": 6,
+    "equipment_copies": 833,
+    "progression_specialization_pairs": 30,
+    "progression_gameplay_cases": 136,
+    "spellbook_scenarios": 9,
+    "encounter_effects": 5,
+    "encounter_paths": 15
+  },
+  "qualification": {
+    "smoke": {
+      "file": "build/m8-qualified-linux/smoke.json",
+      "sha256": "ae0f30165984591fd4daddbc74bdabd86f3483aa21f1cfc6d4d34ad7ae3dc75e",
+      "quality": null
+    },
+    "combat": {
+      "file": "build/m8-qualified-linux/combat.json",
+      "sha256": "665ddd1b9082cf57e91e3b4e4a606c2502620732ba1d2a2d1264326b7b8b4c57",
+      "quality": null
+    },
+    "progression": {
+      "file": "build/m8-qualified-linux/progression.json",
+      "sha256": "88ea9339a14b772d8bcdde15b41c0c9d362520dd9d604eb657c9bc9937091b6f",
+      "quality": null
+    },
+    "lifecycle": {
+      "file": "build/m8-qualified-linux/lifecycle.json",
+      "sha256": "f160ac5110b048e438d042dfe30f9a786d1e9301526d2e36aae604dc3c733c02",
+      "quality": null
+    },
+    "encounter": {
+      "file": "build/m8-qualified-linux/encounter.json",
+      "sha256": "dfd780fd3e34ae5dc446efe93bc9251f724faa6549f630fd1db0fbc629869db9",
+      "quality": null
+    },
+    "discovery": {
+      "file": "C:/Users/beard/orca/workspaces/daggerfall_helper/cornetfish/benchmarks/results/ubuntu-m8-discovery.json",
+      "sha256": "e5d28bd602ea74829e4cf86ff8bd142547ae83fa1143bc48abf1229d365b15d9",
+      "quality": {
+        "designated_recovery": 1.0,
+        "scalar_recovery": 1,
+        "mean_regret": 0.0,
+        "worst_regret": 0.0,
+        "pareto_recall": 1.0,
+        "targets": {
+          "designated_recovery": 1.0,
+          "scalar_recovery": 0.95,
+          "mean_regret": 0.005,
+          "worst_regret": 0.02,
+          "pareto_recall": 0.9
+        },
+        "passed": true,
+        "per_roll_passed": true,
+        "paired_family": {
+          "designated_recovery": 1.0,
+          "scalar_recovery": 1,
+          "mean_regret": 0.0,
+          "worst_regret": 0.0,
+          "pareto_recall": 1.0,
+          "targets": {
+            "designated_recovery": 1.0,
+            "scalar_recovery": 0.95,
+            "mean_regret": 0.005,
+            "worst_regret": 0.02,
+            "pareto_recall": 0.9
+          },
+          "passed": true
+        }
+      }
+    },
+    "browser-timings": {
+      "file": "C:/Users/beard/orca/workspaces/daggerfall_helper/cornetfish/benchmarks/results/ubuntu-m8-browser-timings.json",
+      "sha256": "09ab8ad847787032f146f5d477353866af595d0aa3f1515eea9de97c4f4f38fd",
+      "quality": null
+    },
+    "native-coverage": {
+      "file": "C:/Users/beard/orca/workspaces/daggerfall_helper/cornetfish/benchmarks/results/ubuntu-m8-native-coverage.json",
+      "sha256": "7f224ac1091337c1de15ab3d9d97552b65c9c2c774ac3a36f8a956cb46cae58c",
+      "quality": null
+    }
+  },
+  "native_coverage_build": {
+    "source_archive_sha256": "6bff68bd3f8d1e370cf5b21e8c8ef9f37ebcb269e3c1e55a76cd0509ebffb60b",
+    "tests_passed": 450,
+    "final_wheel_native_modules_byte_identical": true
+  }
+}

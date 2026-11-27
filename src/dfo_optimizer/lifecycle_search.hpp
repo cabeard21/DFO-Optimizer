@@ -16,7 +16,7 @@ struct Cancel : dfo_spell::Token {
     bool cancelled() const noexcept { return stopped.load(); }
 };
 inline void mark_replayed(Cancel& token) noexcept { token.incumbent.store(true); }
-struct Option { Mask requires_mask; double score; int64_t sp=0; };
+struct Option { Mask requires_mask; double score; int64_t sp=0; double damage=0; };
 struct Stage {
     std::vector<Option> options;
     std::vector<EncounterOption> encounters;
@@ -27,7 +27,7 @@ struct Stage {
 struct Witness {
     std::vector<int> choices;
     std::vector<Mask> bought;
-    std::vector<double> scores;
+    std::vector<double> scores, metric_axes;
     std::vector<int> end_hp,end_sp;
     int64_t spent = 0;
 };
@@ -40,13 +40,24 @@ struct Report {
 inline bool covers(const Witness& a, const Witness& b) {
     if (a.spent>b.spent) return false;
     for (size_t i=0;i<a.scores.size();++i) if (a.scores[i]<b.scores[i]) return false;
+    for (size_t i=0;i<a.metric_axes.size();++i) if (a.metric_axes[i]<b.metric_axes[i]) return false;
     return true;
+}
+
+// Values are maximized, with -1 reserved for an undefined nonnegative ratio or pool.
+enum Metric { standard, damage, clear_performance, efficiency, sustain, survival, all_metrics };
+inline size_t axis_count(int metric, bool encounter) {
+    if (metric==all_metrics) return encounter ? 5 : 1;
+    if (metric==clear_performance) return 2;
+    return metric==standard ? 0 : 1;
 }
 
 class Search {
     const std::vector<Stage>& stages;
     uint64_t node_limit, memory_limit, fixed_bytes=0;
     double time_limit;
+    int metric;
+    size_t width=0;
     Clock::time_point started=Clock::now();
     Cancel& flag;
     std::vector<Mask> future_use;
@@ -65,7 +76,7 @@ class Search {
         return true;
     }
     uint64_t resident(uint64_t points) const {
-        return fixed_bytes+points*(sizeof(Witness)+stages.size()*32+128);
+        return fixed_bytes+points*(sizeof(Witness)+stages.size()*(32+width*sizeof(double))+128);
     }
     bool fits(uint64_t points) {
         const auto bytes=resident(points);
@@ -105,6 +116,21 @@ class Search {
         if (s+1==stages.size()) publish(spent);
         else visit(s+1,held,spent,std::min(stages[s].remaining_debt_cap,sp),hp_loss);
     }
+    void record(size_t s, double loss, int64_t gross_sp, const dfo_enc::Trial* trial=nullptr,
+                int64_t horizon=0) {
+        if (!width) return;
+        const double ratio=gross_sp ? loss/gross_sp : -1.;
+        auto* a=path.metric_axes.data()+s*width;
+        if (metric==efficiency || metric==all_metrics) *a++=ratio;
+        if (!trial) return;
+        if (metric==damage) *a++=loss;
+        if (metric==clear_performance || metric==all_metrics) {
+            *a++=trial->cleared;
+            *a++=-static_cast<double>(trial->cleared ? trial->end_us : horizon);
+        }
+        if (metric==sustain || metric==all_metrics) *a++=trial->cleared ? trial->end_sp : -1;
+        if (metric==survival || metric==all_metrics) *a++=!trial->dead;
+    }
     bool fight(size_t s, const EncounterOption& choice, int64_t debt, int loss, double& score, int64_t& cost,
                int& next_loss, bool& dead) {
         if (!step()) return false;
@@ -128,6 +154,7 @@ class Search {
         out.nodes+=result.events;
         if (result.end) {out.end=result.end;return false;}
         const auto& trial=result.rows.at(0).trials.at(0);
+        record(s,static_cast<double>(trial.damage),trial.spent_sp,&trial,scene.horizon_us);
         score=static_cast<double>(trial.damage)*1e6/scene.horizon_us;
         cost=scene.caster.available_sp-trial.end_sp;
         next_loss=initial.hp-trial.end_hp;
@@ -139,7 +166,8 @@ class Search {
         if (spent>stage.ceiling) {++out.pruned; return;}
         // Relax resource and access constraints for every future checkpoint.
         // A complete witness that matches even this bound excludes all descendants.
-        for (const auto& route:out.routes) {
+        // A DPS-only upper bound cannot certify any unbounded extra metric.
+        if (!width) for (const auto& route:out.routes) {
             if (route.spent>spent) continue;
             bool covered=true;
             for (size_t j=0;j<stages.size();++j) {
@@ -170,6 +198,7 @@ class Search {
                 if (out.end) return;
                 ++out.pruned; continue;
             }
+            if (stage.encounters.empty()) record(s,option.damage,option.sp);
             path.choices[s]=int(choice);
             path.scores[s]=score;
             if (!stage.encounters.empty()) {
@@ -182,10 +211,11 @@ class Search {
         }
     }
 public:
-    Search(const std::vector<Stage>& st, uint64_t n, uint64_t mem, double wall, Cancel& token)
-        : stages(st),node_limit(n),memory_limit(mem),time_limit(wall),flag(token) {}
+    Search(const std::vector<Stage>& st, uint64_t n, uint64_t mem, double wall, Cancel& token, int objective)
+        : stages(st),node_limit(n),memory_limit(mem),time_limit(wall),metric(objective),flag(token) {}
     Report run(Mask owned) {
         const auto n=stages.size();
+        width=axis_count(metric,!stages.front().encounters.empty());
         future_use.resize(n+1,0);
         max_scores.resize(n,0);
         fixed_bytes=sizeof(*this)+(n+1)*512;
@@ -202,7 +232,9 @@ public:
             fixed_bytes+=stages[i].options.capacity()*sizeof(Option)+stages[i].prices.capacity()*8;
         }
         path.choices.resize(n); path.bought.resize(n); path.scores.resize(n);
+        fixed_bytes+=n*width*sizeof(double);
         if (fits(0)) {
+            path.metric_axes.resize(n*width);
             if (std::any_of(stages.begin(),stages.end(),[](const Stage& st){return !st.encounters.empty();})) {
                 scenarios.resize(n);
                 path.end_hp.resize(n); path.end_sp.resize(n);
@@ -215,8 +247,8 @@ public:
     }
 };
 inline Report search(const std::vector<Stage>& stages, Mask owned, uint64_t nodes, uint64_t memory,
-                     double wall, Cancel& flag) {
-    return Search(stages,nodes,memory,wall,flag).run(owned);
+                     double wall, Cancel& flag, int objective=standard) {
+    return Search(stages,nodes,memory,wall,flag,objective).run(owned);
 }
 // Across class families and progression paths, each row has the same ordered
 // checkpoint axes. Maximize each coordinate. Preserve equal alternatives.

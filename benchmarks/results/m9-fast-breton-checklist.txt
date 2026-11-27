@@ -1,0 +1,81 @@
+Breton spellblade · Breton
+Character creation and development checklist
+The development example uses paired birth seed 42.
+
+[ ] Choose your race
+    Select Breton in character creation. Race is a separate choice when importing the class file.
+    The online creator goes directly from class to name.
+    Select Average reflexes to match the tested character.
+
+[ ] Set your class attributes
+    Strength 50, Intelligence 65, Willpower 55, Agility 40, Endurance 55, Personality 35, Speed 60, Luck 40.
+    Set class health to 30 HP per level. Birth rolls and bonuses determine your starting sheet.
+
+[ ] Enter the ordered skill groups
+    Primary skills in order — Destruction → Restoration → Alteration
+    Major skills in order — Illusion → Mysticism → Long Blade
+    Minor skills in order — Thaumaturgy → Dodging → Mercantile → Running → Medical → Lockpicking
+
+[ ] Select advantages and disadvantages
+    Advantages — Increased magery Int in spell points3.
+    Disadvantages — Forbidden material Steel, Forbidden material Elven, Forbidden material Dwarven, Forbidden material Mithril, Forbidden material Silver, Forbidden material Ebony, Forbidden shield types Buckler.
+    Magery gives this class 3 spell points per point of Intelligence before other modifiers.
+
+[ ] Spend your birth bonus
+    Allocate up to four points to Endurance, then Intelligence, Speed and Willpower within legal caps. Explicit allocations override that rule.
+    Spend all six points per group on its lowest rolled skills.
+    The replay used Intelligence +9, Endurance +4.
+    The primary bonus on this example roll went to Destruction +3, Restoration +3.
+    The major bonus on this example roll went to Illusion +2, Mysticism +1, Long Blade +3.
+    The minor bonus on this example roll went to Thaumaturgy +2, Dodging +1, Mercantile +2, Running +1.
+
+[ ] Play around each disadvantage
+    Forbidden material · Steel. You cannot equip items made of steel. Check the material before buying an upgrade.
+    Forbidden material · Elven. You cannot equip items made of elven. Check the material before buying an upgrade.
+    Forbidden material · Dwarven. You cannot equip items made of dwarven. Check the material before buying an upgrade.
+    Forbidden material · Mithril. You cannot equip items made of mithril. Check the material before buying an upgrade.
+    Forbidden material · Silver. You cannot equip items made of silver. Check the material before buying an upgrade.
+    Forbidden material · Ebony. You cannot equip items made of ebony. Check the material before buying an upgrade.
+    Forbidden shield types · Buckler. You cannot equip the buckler shield type.
+
+[ ] Choose your opening spells
+    Your starting spellbook contains Minor Shock, Arcane Arrow, Gentle Fall, Candle, Knick-Knack, Salve Bruise, Smelling Salts, Knock.
+    The example birth has 222 SP available before the opening fight.
+    Minor Shock costs 28 SP per cast on this roll.
+    Arcane Arrow costs 28 SP per cast on this roll.
+    Use Minor Shock [990] within touch range for offense.
+    Use Arcane Arrow [991] at range for offense.
+    Use Salve Bruise [995] to restore health. The scenario policy checks healing below 60% health.
+
+[ ] Equip your first loadout
+    Equip the starting copies used in the replay. Right hand — Broadsword, Chest clothes — Short Shirt, Legs clothes — Casual Pants, Cloak2 — Formal Cloak, Feet — Shoes.
+    When spell points run low, use a proficient backup from the starting kit. The checked copies include Iron Broadsword (Long Blade).
+    The carry test uses a hypothetical Iron Cuirass. It weighs 12.5 kg.
+    The starting kit plus that cuirass leaves at least 40.8 kg free across the tested births.
+    The level-15 replay acquired Iron plate cuirass for 30 gold under the declared offer.
+
+[ ] Plan your first levels
+    At level-up, allocate attributes in this order. Endurance, Intelligence, Speed, Willpower, Strength, Agility, Personality, Luck.
+    Practice the skills on the route, starting with Destruction, Restoration, Alteration.
+    At the first earned level (2), the replay gained Endurance +5.
+    The next encounter checkpoint was level 15.
+    On this roll the checkpoint required 308,280 in-game minutes under the supplied opportunities.
+    Start with the actual birth spellbook. Pay for missing practice recipes during training. At the first scored earned level, buy the stated area-touch recipe at the ordinary Spell Maker price if affordable after armor and obligatory training.
+    The replay assumes one qualifying action every 60 seconds and access to full bed rests.
+
+[ ] Plan your masteries
+    Prioritize mastery in this order. Destruction, Restoration, Alteration, Illusion, Mysticism, Thaumaturgy.
+    Mastered at the final checkpoint — Destruction, Restoration, Illusion, Alteration, Thaumaturgy, Mysticism.
+    Primary school choices include Destruction, Restoration, Alteration.
+    Major school choices include Illusion, Mysticism.
+    Minor school choices include Thaumaturgy.
+
+[ ] Choose an arcane specialization
+    Leave the path open at first. The replay measured this build before choosing a specialization.
+    If melee enemies repeatedly reach you and drain your health, choose Battlemage after mastering Alteration and Destruction. When Aegis Bolt deals damage in ordinary PvE, it raises a shield worth twice the landed damage, up to 20% of your maximum HP. Health fell as low as 38% in the tested melee-pressure fights.
+    If enemy spellcasters keep landing spells, choose Spellbreaker after mastering Destruction and Mysticism. Unravel deals damage and rolls separately for Silence. A damaging hit returns one third of the spell points paid, subject to your pool limit. Health fell as low as 0% in the tested enemy-spellcaster fights.
+    Unlocking a path and acquiring its signature spell are separate steps. Buy the spell only when a funded opportunity is available.
+
+[ ] Decisions you can postpone
+    Keep your mastery and specialization slots open while practicing the required skills.
+    Wait to buy an upgrade or a Spell Maker recipe until you have access and enough gold.

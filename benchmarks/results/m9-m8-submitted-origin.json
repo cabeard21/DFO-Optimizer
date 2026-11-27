@@ -1,0 +1,1339 @@
+{
+  "input_hash": "bbfcc3e86ce0eddca71f3087f5c5a9afdb72e00ea43c4d23b689f407e52ecd36",
+  "result_hash": "61702c9fc676e449aaad88fd3feab16af22197e6bc0fbcbdccc9b3b864902ab7",
+  "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+  "ruleset_hash": "d639d137937f8c42e3f26d281785defb44fb5071e9c2da179de4a8320401d5b1",
+  "status": "best_found_bounded",
+  "termination": "class_limit",
+  "counters": {
+    "nodes": 4000000,
+    "pruned": 571377,
+    "leaves": 1428765,
+    "evaluations": 2400,
+    "cache_hits": 0,
+    "work_bytes": 15462636,
+    "progression_nodes": 297322,
+    "layouts": 48
+  },
+  "timings": {
+    "first_validated_seconds": 1.1682112999988021,
+    "elapsed_seconds": 16.230862600001274
+  },
+  "class_admission": {
+    "strategy": "adaptive",
+    "enumeration_complete": false,
+    "admission_complete": false,
+    "downstream_complete": false,
+    "generated_legal": 512,
+    "screened": 421,
+    "admitted": 8,
+    "evaluated": 6,
+    "validated": 6,
+    "refined": 1,
+    "neighborhood_centers": 1,
+    "neighbor_families_evaluated": 2,
+    "evaluated_pairs": 12,
+    "declared_pairs": 16,
+    "class_nodes": 53792,
+    "lifecycle_nodes": 3946208
+  },
+  "paired_rolls": [
+    42,
+    43
+  ],
+  "validation": {
+    "routes_checked": 22
+  },
+  "gaps": [],
+  "per_roll_candidates": 18,
+  "comparison_witnesses": 4,
+  "axes": [
+    "early_dps",
+    "early_damage_per_sp",
+    "level_5_dps",
+    "level_5_damage_per_sp",
+    "level_10_dps",
+    "level_10_damage_per_sp",
+    "level_15_dps",
+    "level_15_damage_per_sp",
+    "level_20_dps",
+    "level_20_damage_per_sp",
+    "level_25_dps",
+    "level_25_damage_per_sp",
+    "level_30_dps",
+    "level_30_damage_per_sp",
+    "level_35_dps",
+    "level_35_damage_per_sp",
+    "level_40_dps",
+    "level_40_damage_per_sp",
+    "final_dps",
+    "final_damage_per_sp",
+    "practice",
+    "rest_passes",
+    "minutes",
+    "spent_gold"
+  ],
+  "policy_enumeration_complete": false,
+  "paired_builds": [
+    {
+      "id": "165597086335177332a5174ad894e3ea260b078e9ae14408218bed4d5014b6a1",
+      "race_id": 4,
+      "class": {
+        "format": "daggerfall-enhanced/custom-class",
+        "version": 1,
+        "name": "DFO class",
+        "hitPointsPerLevel": 30,
+        "skills": {
+          "primary": [
+            "Destruction",
+            "Thaumaturgy",
+            "Restoration"
+          ],
+          "major": [
+            "Critical Strike",
+            "Mysticism",
+            "Alteration"
+          ],
+          "minor": [
+            "Streetwise",
+            "Climbing",
+            "Archery",
+            "Stealth",
+            "Harpy",
+            "Illusion"
+          ]
+        },
+        "attributes": {
+          "strength": 70,
+          "intelligence": 75,
+          "willpower": 50,
+          "agility": 40,
+          "endurance": 30,
+          "personality": 10,
+          "speed": 75,
+          "luck": 50
+        },
+        "advantages": [
+          {
+            "primary": "acuteHearing"
+          },
+          {
+            "primary": "expertiseIn",
+            "secondary": "axe"
+          },
+          {
+            "primary": "increasedMagery",
+            "secondary": "intInSpellPoints3"
+          }
+        ],
+        "disadvantages": [
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "dwarven"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "ebony"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "elven"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "silver"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "steel"
+          },
+          {
+            "primary": "lowTolerance",
+            "secondary": "toFrost"
+          },
+          {
+            "primary": "lowTolerance",
+            "secondary": "toShock"
+          }
+        ],
+        "reputations": {
+          "merchants": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "nobility": 0,
+          "underworld": 0
+        }
+      },
+      "policies": [
+        {
+          "selectors": [
+            "early_dps",
+            "early_damage_per_sp",
+            "level_5_dps",
+            "level_5_damage_per_sp",
+            "level_10_dps",
+            "level_10_damage_per_sp",
+            "level_15_dps",
+            "level_15_damage_per_sp",
+            "level_20_dps",
+            "level_20_damage_per_sp",
+            "level_25_dps",
+            "level_25_damage_per_sp",
+            "level_30_dps",
+            "level_30_damage_per_sp",
+            "level_35_dps",
+            "level_35_damage_per_sp",
+            "level_40_dps",
+            "level_40_damage_per_sp",
+            "final_dps",
+            "final_damage_per_sp",
+            "practice",
+            "rest_passes",
+            "minutes"
+          ],
+          "means": {
+            "early_dps": 6.745652777777778,
+            "early_damage_per_sp": 0.1431824712643678,
+            "level_5_dps": 5.357571428571429,
+            "level_5_damage_per_sp": 0.405,
+            "level_10_dps": 10.710678571428573,
+            "level_10_damage_per_sp": 0.9301190476190477,
+            "level_15_dps": 15.714285714285717,
+            "level_15_damage_per_sp": 1.7600000000000002,
+            "level_20_dps": 20.642857142857146,
+            "level_20_damage_per_sp": 2.3120000000000003,
+            "level_25_dps": 25.60714285714286,
+            "level_25_damage_per_sp": 2.8680000000000003,
+            "level_30_dps": 62.23214285714287,
+            "level_30_damage_per_sp": 6.970000000000001,
+            "level_35_dps": 79.12500000000001,
+            "level_35_damage_per_sp": 8.862,
+            "level_40_dps": 99.10714285714286,
+            "level_40_damage_per_sp": 11.1,
+            "final_dps": 102.76785714285715,
+            "final_damage_per_sp": 11.51,
+            "practice": 152630.0,
+            "rest_passes": 5978.5,
+            "minutes": 4041708.0,
+            "spent_gold": 170.0
+          },
+          "rolls": [
+            {
+              "seed": 42,
+              "witness_index": 5
+            },
+            {
+              "seed": 43,
+              "witness_index": 14
+            }
+          ]
+        },
+        {
+          "selectors": [
+            "spent_gold"
+          ],
+          "means": {
+            "early_dps": 6.745652777777778,
+            "early_damage_per_sp": 0.1431824712643678,
+            "level_5_dps": 5.357571428571429,
+            "level_5_damage_per_sp": 0.405,
+            "level_10_dps": 10.710678571428573,
+            "level_10_damage_per_sp": 0.9301190476190477,
+            "level_15_dps": 15.714285714285717,
+            "level_15_damage_per_sp": 1.7600000000000002,
+            "level_20_dps": 20.642857142857146,
+            "level_20_damage_per_sp": 2.3120000000000003,
+            "level_25_dps": 25.60714285714286,
+            "level_25_damage_per_sp": 2.8680000000000003,
+            "level_30_dps": 51.889880952380956,
+            "level_30_damage_per_sp": 5.8116666666666665,
+            "level_35_dps": 65.31051587301587,
+            "level_35_damage_per_sp": 7.314777777777778,
+            "level_40_dps": 78.5029761904762,
+            "level_40_damage_per_sp": 8.792333333333332,
+            "final_dps": 87.06150793650795,
+            "final_damage_per_sp": 9.75088888888889,
+            "practice": 152630.0,
+            "rest_passes": 5978.5,
+            "minutes": 4041708.0,
+            "spent_gold": 56.0
+          },
+          "rolls": [
+            {
+              "seed": 42,
+              "witness_index": 6
+            },
+            {
+              "seed": 43,
+              "witness_index": 15
+            }
+          ]
+        }
+      ],
+      "beginner_profile": {
+        "passed": false,
+        "race": "Dark Elf",
+        "failures": [
+          "class_save_vulnerability",
+          "no_equippable_trained_starting_melee_weapon",
+          "sampled_kit_without_usable_backup_or_carry"
+        ],
+        "plate_weapon_materials": 0,
+        "backup_weapons": []
+      }
+    },
+    {
+      "id": "180c096d0a64417ba58e4dc29b42a724ea8bd6ee47cf73853449e9c533bda252",
+      "race_id": 1,
+      "class": {
+        "format": "daggerfall-enhanced/custom-class",
+        "version": 1,
+        "name": "DFO class",
+        "hitPointsPerLevel": 30,
+        "skills": {
+          "primary": [
+            "Destruction",
+            "Mysticism",
+            "Thaumaturgy"
+          ],
+          "major": [
+            "Blunt Weapon",
+            "Alteration",
+            "Restoration"
+          ],
+          "minor": [
+            "Axe",
+            "Pickpocket",
+            "Mercantile",
+            "Climbing",
+            "Medical",
+            "Illusion"
+          ]
+        },
+        "attributes": {
+          "strength": 10,
+          "intelligence": 74,
+          "willpower": 20,
+          "agility": 29,
+          "endurance": 61,
+          "personality": 61,
+          "speed": 74,
+          "luck": 71
+        },
+        "advantages": [
+          {
+            "primary": "acuteHearing"
+          },
+          {
+            "primary": "expertiseIn",
+            "secondary": "axe"
+          },
+          {
+            "primary": "increasedMagery",
+            "secondary": "intInSpellPoints3"
+          }
+        ],
+        "disadvantages": [
+          {
+            "primary": "forbiddenArmorType",
+            "secondary": "plate"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "dwarven"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "elven"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "mithril"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "silver"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "steel"
+          },
+          {
+            "primary": "phobia",
+            "secondary": "animals"
+          }
+        ],
+        "reputations": {
+          "merchants": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "nobility": 0,
+          "underworld": 0
+        }
+      },
+      "policies": [
+        {
+          "selectors": [
+            "early_dps",
+            "early_damage_per_sp",
+            "level_5_dps",
+            "level_5_damage_per_sp",
+            "level_10_dps",
+            "level_10_damage_per_sp",
+            "level_15_dps",
+            "level_15_damage_per_sp",
+            "level_20_dps",
+            "level_20_damage_per_sp",
+            "level_25_dps",
+            "level_25_damage_per_sp",
+            "level_30_dps",
+            "level_30_damage_per_sp",
+            "level_35_dps",
+            "level_35_damage_per_sp",
+            "level_40_dps",
+            "level_40_damage_per_sp",
+            "final_dps",
+            "final_damage_per_sp",
+            "practice",
+            "rest_passes",
+            "minutes"
+          ],
+          "means": {
+            "early_dps": 6.71651388888889,
+            "early_damage_per_sp": 0.1431824712643678,
+            "level_5_dps": 5.334428571428573,
+            "level_5_damage_per_sp": 0.405,
+            "level_10_dps": 10.667750000000002,
+            "level_10_damage_per_sp": 0.9301190476190477,
+            "level_15_dps": 15.714285714285717,
+            "level_15_damage_per_sp": 1.7600000000000002,
+            "level_20_dps": 20.642857142857146,
+            "level_20_damage_per_sp": 2.3120000000000003,
+            "level_25_dps": 25.60714285714286,
+            "level_25_damage_per_sp": 2.8680000000000003,
+            "level_30_dps": 61.30357142857143,
+            "level_30_damage_per_sp": 6.866,
+            "level_35_dps": 79.08035714285717,
+            "level_35_damage_per_sp": 8.857,
+            "level_40_dps": 98.85714285714286,
+            "level_40_damage_per_sp": 11.072,
+            "final_dps": 102.76785714285715,
+            "final_damage_per_sp": 11.51,
+            "practice": 149372.5,
+            "rest_passes": 5789.0,
+            "minutes": 3916164.0,
+            "spent_gold": 170.0
+          },
+          "rolls": [
+            {
+              "seed": 42,
+              "witness_index": 7
+            },
+            {
+              "seed": 43,
+              "witness_index": 16
+            }
+          ]
+        },
+        {
+          "selectors": [
+            "spent_gold"
+          ],
+          "means": {
+            "early_dps": 6.71651388888889,
+            "early_damage_per_sp": 0.1431824712643678,
+            "level_5_dps": 5.334428571428573,
+            "level_5_damage_per_sp": 0.405,
+            "level_10_dps": 10.667750000000002,
+            "level_10_damage_per_sp": 0.9301190476190477,
+            "level_15_dps": 15.714285714285717,
+            "level_15_damage_per_sp": 1.7600000000000002,
+            "level_20_dps": 20.642857142857146,
+            "level_20_damage_per_sp": 2.3120000000000003,
+            "level_25_dps": 25.60714285714286,
+            "level_25_damage_per_sp": 2.8680000000000003,
+            "level_30_dps": 51.3779761904762,
+            "level_30_damage_per_sp": 5.754333333333333,
+            "level_35_dps": 65.0327380952381,
+            "level_35_damage_per_sp": 7.283666666666667,
+            "level_40_dps": 77.92757936507937,
+            "level_40_damage_per_sp": 8.727888888888888,
+            "final_dps": 87.06150793650795,
+            "final_damage_per_sp": 9.75088888888889,
+            "practice": 149372.5,
+            "rest_passes": 5789.0,
+            "minutes": 3916164.0,
+            "spent_gold": 56.0
+          },
+          "rolls": [
+            {
+              "seed": 42,
+              "witness_index": 8
+            },
+            {
+              "seed": 43,
+              "witness_index": 17
+            }
+          ]
+        }
+      ],
+      "beginner_profile": {
+        "passed": false,
+        "race": "Breton",
+        "failures": [
+          "plate_forbidden",
+          "sampled_kit_without_usable_backup_or_carry"
+        ],
+        "plate_weapon_materials": 0,
+        "backup_weapons": [
+          {
+            "instance_id": "birth:pack:0",
+            "name": "Warhammer",
+            "skill": "Blunt Weapon",
+            "skill_id": 32,
+            "material": "Iron",
+            "template_index": 126
+          }
+        ]
+      }
+    },
+    {
+      "id": "6d2bb8e6f6f71ff4a23ba98f4413ec4928b3a229e7ac38c04dc256a9b7c955a7",
+      "race_id": 1,
+      "class": {
+        "format": "daggerfall-enhanced/custom-class",
+        "version": 1,
+        "name": "DFO class",
+        "hitPointsPerLevel": 30,
+        "skills": {
+          "primary": [
+            "Destruction",
+            "Mysticism",
+            "Thaumaturgy"
+          ],
+          "major": [
+            "Blunt Weapon",
+            "Alteration",
+            "Restoration"
+          ],
+          "minor": [
+            "Axe",
+            "Pickpocket",
+            "Mercantile",
+            "Climbing",
+            "Medical",
+            "Illusion"
+          ]
+        },
+        "attributes": {
+          "strength": 10,
+          "intelligence": 75,
+          "willpower": 20,
+          "agility": 30,
+          "endurance": 60,
+          "personality": 60,
+          "speed": 75,
+          "luck": 70
+        },
+        "advantages": [
+          {
+            "primary": "acuteHearing"
+          },
+          {
+            "primary": "expertiseIn",
+            "secondary": "axe"
+          },
+          {
+            "primary": "increasedMagery",
+            "secondary": "intInSpellPoints3"
+          }
+        ],
+        "disadvantages": [
+          {
+            "primary": "forbiddenArmorType",
+            "secondary": "plate"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "dwarven"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "elven"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "mithril"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "silver"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "steel"
+          },
+          {
+            "primary": "phobia",
+            "secondary": "animals"
+          }
+        ],
+        "reputations": {
+          "merchants": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "nobility": 0,
+          "underworld": 0
+        }
+      },
+      "policies": [
+        {
+          "selectors": [
+            "early_dps",
+            "early_damage_per_sp",
+            "level_5_dps",
+            "level_5_damage_per_sp",
+            "level_10_dps",
+            "level_10_damage_per_sp",
+            "level_15_dps",
+            "level_15_damage_per_sp",
+            "level_20_dps",
+            "level_20_damage_per_sp",
+            "level_25_dps",
+            "level_25_damage_per_sp",
+            "level_30_dps",
+            "level_30_damage_per_sp",
+            "level_35_dps",
+            "level_35_damage_per_sp",
+            "level_40_dps",
+            "level_40_damage_per_sp",
+            "final_dps",
+            "final_damage_per_sp",
+            "practice",
+            "rest_passes",
+            "minutes"
+          ],
+          "means": {
+            "early_dps": 6.745652777777778,
+            "early_damage_per_sp": 0.1431824712643678,
+            "level_5_dps": 5.357571428571429,
+            "level_5_damage_per_sp": 0.405,
+            "level_10_dps": 10.710678571428573,
+            "level_10_damage_per_sp": 0.9301190476190477,
+            "level_15_dps": 15.714285714285717,
+            "level_15_damage_per_sp": 1.7600000000000002,
+            "level_20_dps": 20.642857142857146,
+            "level_20_damage_per_sp": 2.3120000000000003,
+            "level_25_dps": 50.37500000000001,
+            "level_25_damage_per_sp": 5.642,
+            "level_30_dps": 61.30357142857143,
+            "level_30_damage_per_sp": 6.866,
+            "level_35_dps": 79.08035714285717,
+            "level_35_damage_per_sp": 8.857,
+            "level_40_dps": 98.85714285714286,
+            "level_40_damage_per_sp": 11.072,
+            "final_dps": 102.76785714285715,
+            "final_damage_per_sp": 11.51,
+            "practice": 149397.5,
+            "rest_passes": 5789.0,
+            "minutes": 3916164.0,
+            "spent_gold": 170.0
+          },
+          "rolls": [
+            {
+              "seed": 42,
+              "witness_index": 0
+            },
+            {
+              "seed": 43,
+              "witness_index": 9
+            }
+          ]
+        },
+        {
+          "selectors": [
+            "spent_gold"
+          ],
+          "means": {
+            "early_dps": 6.745652777777778,
+            "early_damage_per_sp": 0.1431824712643678,
+            "level_5_dps": 5.357571428571429,
+            "level_5_damage_per_sp": 0.405,
+            "level_10_dps": 10.710678571428573,
+            "level_10_damage_per_sp": 0.9301190476190477,
+            "level_15_dps": 15.714285714285717,
+            "level_15_damage_per_sp": 1.7600000000000002,
+            "level_20_dps": 20.642857142857146,
+            "level_20_damage_per_sp": 2.3120000000000003,
+            "level_25_dps": 42.96726190476191,
+            "level_25_damage_per_sp": 3.4373809523809524,
+            "level_30_dps": 51.3779761904762,
+            "level_30_damage_per_sp": 5.754333333333333,
+            "level_35_dps": 65.0327380952381,
+            "level_35_damage_per_sp": 7.283666666666667,
+            "level_40_dps": 77.92757936507937,
+            "level_40_damage_per_sp": 8.727888888888888,
+            "final_dps": 87.06150793650795,
+            "final_damage_per_sp": 9.75088888888889,
+            "practice": 149397.5,
+            "rest_passes": 5789.0,
+            "minutes": 3916164.0,
+            "spent_gold": 56.0
+          },
+          "rolls": [
+            {
+              "seed": 42,
+              "witness_index": 1
+            },
+            {
+              "seed": 43,
+              "witness_index": 10
+            }
+          ]
+        }
+      ],
+      "beginner_profile": {
+        "passed": false,
+        "race": "Breton",
+        "failures": [
+          "plate_forbidden",
+          "sampled_kit_without_usable_backup_or_carry"
+        ],
+        "plate_weapon_materials": 0,
+        "backup_weapons": [
+          {
+            "instance_id": "birth:pack:0",
+            "name": "Warhammer",
+            "skill": "Blunt Weapon",
+            "skill_id": 32,
+            "material": "Iron",
+            "template_index": 126
+          }
+        ]
+      }
+    },
+    {
+      "id": "7037006f437910cfc285964ee475f2e5c5abd46d5c31fcb3323868e35fab29a9",
+      "race_id": 7,
+      "class": {
+        "format": "daggerfall-enhanced/custom-class",
+        "version": 1,
+        "name": "DFO class",
+        "hitPointsPerLevel": 30,
+        "skills": {
+          "primary": [
+            "Destruction",
+            "Restoration",
+            "Alteration"
+          ],
+          "major": [
+            "Medical",
+            "Illusion",
+            "Mysticism"
+          ],
+          "minor": [
+            "Etiquette",
+            "Dodging",
+            "Daedric",
+            "Backstabbing",
+            "Archery",
+            "Thaumaturgy"
+          ]
+        },
+        "attributes": {
+          "strength": 60,
+          "intelligence": 75,
+          "willpower": 30,
+          "agility": 70,
+          "endurance": 10,
+          "personality": 40,
+          "speed": 75,
+          "luck": 40
+        },
+        "advantages": [
+          {
+            "primary": "acuteHearing"
+          },
+          {
+            "primary": "bonusToHit",
+            "secondary": "daedra"
+          },
+          {
+            "primary": "increasedMagery",
+            "secondary": "intInSpellPoints3"
+          }
+        ],
+        "disadvantages": [
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "dwarven"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "ebony"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "elven"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "mithril"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "silver"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "steel"
+          },
+          {
+            "primary": "lowTolerance",
+            "secondary": "toFrost"
+          }
+        ],
+        "reputations": {
+          "merchants": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "nobility": 0,
+          "underworld": 0
+        }
+      },
+      "policies": [
+        {
+          "selectors": [
+            "early_dps",
+            "early_damage_per_sp",
+            "level_5_dps",
+            "level_5_damage_per_sp",
+            "level_10_dps",
+            "level_10_damage_per_sp",
+            "level_15_dps",
+            "level_15_damage_per_sp",
+            "level_20_dps",
+            "level_20_damage_per_sp",
+            "level_25_dps",
+            "level_25_damage_per_sp",
+            "level_30_dps",
+            "level_30_damage_per_sp",
+            "level_35_dps",
+            "level_35_damage_per_sp",
+            "level_40_dps",
+            "level_40_damage_per_sp",
+            "final_dps",
+            "final_damage_per_sp",
+            "practice",
+            "rest_passes",
+            "minutes",
+            "spent_gold"
+          ],
+          "means": {
+            "early_dps": 6.745652777777778,
+            "early_damage_per_sp": 0.1431824712643678,
+            "level_5_dps": 5.357571428571429,
+            "level_5_damage_per_sp": 0.405,
+            "level_10_dps": 10.710678571428573,
+            "level_10_damage_per_sp": 0.9301190476190477,
+            "level_15_dps": 15.714285714285717,
+            "level_15_damage_per_sp": 1.7600000000000002,
+            "level_20_dps": 20.642857142857146,
+            "level_20_damage_per_sp": 2.3120000000000003,
+            "level_25_dps": 25.60714285714286,
+            "level_25_damage_per_sp": 2.8680000000000003,
+            "level_30_dps": 53.152281746031754,
+            "level_30_damage_per_sp": 5.953055555555556,
+            "level_35_dps": 67.63194444444446,
+            "level_35_damage_per_sp": 7.574777777777778,
+            "level_40_dps": 79.07837301587303,
+            "level_40_damage_per_sp": 8.856777777777777,
+            "final_dps": 87.06150793650795,
+            "final_damage_per_sp": 9.75088888888889,
+            "practice": 145851.0,
+            "rest_passes": 5913.0,
+            "minutes": 3997284.0,
+            "spent_gold": 108.0
+          },
+          "rolls": [
+            {
+              "seed": 42,
+              "witness_index": 4
+            },
+            {
+              "seed": 43,
+              "witness_index": 13
+            }
+          ]
+        }
+      ],
+      "beginner_profile": {
+        "passed": false,
+        "race": "Khajiit",
+        "failures": [
+          "class_save_vulnerability",
+          "no_equippable_trained_starting_melee_weapon",
+          "sampled_kit_without_usable_backup_or_carry"
+        ],
+        "plate_weapon_materials": 0,
+        "backup_weapons": []
+      }
+    },
+    {
+      "id": "cfcc59caef4753a8baed65294816d3ad20c23a40597935f45d878438a32d74c6",
+      "race_id": 2,
+      "class": {
+        "format": "daggerfall-enhanced/custom-class",
+        "version": 1,
+        "name": "DFO class",
+        "hitPointsPerLevel": 30,
+        "skills": {
+          "primary": [
+            "Illusion",
+            "Mysticism",
+            "Destruction"
+          ],
+          "major": [
+            "Orcish",
+            "Thaumaturgy",
+            "Restoration"
+          ],
+          "minor": [
+            "Medical",
+            "Running",
+            "Dodging",
+            "Harpy",
+            "Daedric",
+            "Alteration"
+          ]
+        },
+        "attributes": {
+          "strength": 40,
+          "intelligence": 75,
+          "willpower": 30,
+          "agility": 60,
+          "endurance": 40,
+          "personality": 70,
+          "speed": 75,
+          "luck": 10
+        },
+        "advantages": [
+          {
+            "primary": "bonusToHit",
+            "secondary": "daedra"
+          },
+          {
+            "primary": "increasedMagery",
+            "secondary": "intInSpellPoints3"
+          }
+        ],
+        "disadvantages": [
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "adamantium"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "dwarven"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "ebony"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "elven"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "silver"
+          },
+          {
+            "primary": "forbiddenMaterial",
+            "secondary": "steel"
+          },
+          {
+            "primary": "lowTolerance",
+            "secondary": "toMagic"
+          }
+        ],
+        "reputations": {
+          "merchants": 0,
+          "peasants": 0,
+          "scholars": 0,
+          "nobility": 0,
+          "underworld": 0
+        }
+      },
+      "policies": [
+        {
+          "selectors": [
+            "early_dps",
+            "early_damage_per_sp",
+            "level_5_dps",
+            "level_5_damage_per_sp",
+            "level_10_dps",
+            "level_10_damage_per_sp",
+            "level_15_dps",
+            "level_15_damage_per_sp",
+            "level_20_dps",
+            "level_20_damage_per_sp",
+            "level_25_dps",
+            "level_25_damage_per_sp",
+            "level_30_dps",
+            "level_30_damage_per_sp",
+            "level_35_dps",
+            "level_35_damage_per_sp",
+            "level_40_dps",
+            "level_40_damage_per_sp",
+            "final_dps",
+            "final_damage_per_sp",
+            "practice",
+            "rest_passes",
+            "minutes"
+          ],
+          "means": {
+            "early_dps": 6.745652777777778,
+            "early_damage_per_sp": 0.1406704980842912,
+            "level_5_dps": 5.357571428571429,
+            "level_5_damage_per_sp": 0.405,
+            "level_10_dps": 10.710678571428573,
+            "level_10_damage_per_sp": 0.9301190476190477,
+            "level_15_dps": 15.714285714285717,
+            "level_15_damage_per_sp": 1.7600000000000002,
+            "level_20_dps": 20.642857142857146,
+            "level_20_damage_per_sp": 2.3120000000000003,
+            "level_25_dps": 42.96726190476191,
+            "level_25_damage_per_sp": 4.812333333333333,
+            "level_30_dps": 52.46031746031746,
+            "level_30_damage_per_sp": 5.875555555555556,
+            "level_35_dps": 65.92261904761907,
+            "level_35_damage_per_sp": 7.383333333333335,
+            "level_40_dps": 79.07837301587303,
+            "level_40_damage_per_sp": 8.856777777777777,
+            "final_dps": 87.06150793650795,
+            "final_damage_per_sp": 9.75088888888889,
+            "practice": 149403.5,
+            "rest_passes": 5995.5,
+            "minutes": 4050648.0,
+            "spent_gold": 138.0
+          },
+          "rolls": [
+            {
+              "seed": 42,
+              "witness_index": 3
+            },
+            {
+              "seed": 43,
+              "witness_index": 12
+            }
+          ]
+        },
+        {
+          "selectors": [
+            "spent_gold"
+          ],
+          "means": {
+            "early_dps": 6.745652777777778,
+            "early_damage_per_sp": 0.1406704980842912,
+            "level_5_dps": 5.357571428571429,
+            "level_5_damage_per_sp": 0.405,
+            "level_10_dps": 10.710678571428573,
+            "level_10_damage_per_sp": 0.9301190476190477,
+            "level_15_dps": 15.714285714285717,
+            "level_15_damage_per_sp": 1.7600000000000002,
+            "level_20_dps": 20.642857142857146,
+            "level_20_damage_per_sp": 2.3120000000000003,
+            "level_25_dps": 42.96726190476191,
+            "level_25_damage_per_sp": 4.010277777777778,
+            "level_30_dps": 52.46031746031746,
+            "level_30_damage_per_sp": 5.875555555555556,
+            "level_35_dps": 65.92261904761907,
+            "level_35_damage_per_sp": 7.383333333333335,
+            "level_40_dps": 79.07837301587303,
+            "level_40_damage_per_sp": 8.856777777777777,
+            "final_dps": 87.06150793650795,
+            "final_damage_per_sp": 9.75088888888889,
+            "practice": 149403.5,
+            "rest_passes": 5995.5,
+            "minutes": 4050648.0,
+            "spent_gold": 128.0
+          },
+          "rolls": [
+            {
+              "seed": 42,
+              "witness_index": 2
+            },
+            {
+              "seed": 43,
+              "witness_index": 11
+            }
+          ]
+        }
+      ],
+      "beginner_profile": {
+        "passed": false,
+        "race": "Redguard",
+        "failures": [
+          "class_save_vulnerability",
+          "no_equippable_trained_starting_melee_weapon",
+          "sampled_kit_without_usable_backup_or_carry"
+        ],
+        "plate_weapon_materials": 0,
+        "backup_weapons": []
+      }
+    }
+  ],
+  "independent_replay": {
+    "validated": true,
+    "valid": true,
+    "optimality_reproved": false,
+    "routes_checked": 24,
+    "result_hash": "61702c9fc676e449aaad88fd3feab16af22197e6bc0fbcbdccc9b3b864902ab7"
+  },
+  "replay_elapsed_seconds": 7.9199270000099204,
+  "request_file_sha256": "620538efe4b8972e84b5143920dcd75971067fa7bf671eca6d9d2c493277b493",
+  "result_file_sha256": "53a2867ed0ea15ac5bf1176ed3516c4639896c9609f2f64a17abfd7e42117cb3",
+  "original_result_bytes": 96601170,
+  "request": {
+    "schema_version": 1,
+    "description": "Compare the birth, intermediate and final checkpoints of a common practice itinerary. Conditional opportunities and quotes are hypothetical. Gear compares the declared physical copies and layouts. The target and spell access are editable scenario assumptions.",
+    "class_admission_strategy": "adaptive",
+    "class_search": {
+      "profile": "spellcaster_discovery_v1",
+      "objective": "diverse",
+      "top_k": 4
+    },
+    "objective": "pareto",
+    "roll_seeds": [
+      42,
+      43
+    ],
+    "target": {
+      "id": "hypothetical ordinary stationary opponent",
+      "hp": 100,
+      "willpower": 50
+    },
+    "equipment": {
+      "offers": [
+        {
+          "instance_id": "offer-133-39",
+          "item": {
+            "affixes": [
+              {
+                "id": "skill",
+                "param": 22,
+                "value": 9
+              },
+              {
+                "id": "skill",
+                "param": 16,
+                "value": 7
+              }
+            ],
+            "group": "Jewellery",
+            "name": "Amulet of Practice",
+            "rarity": "magic",
+            "templateIndex": 133
+          },
+          "acquisition": {
+            "owned": false,
+            "obtainable": true,
+            "price": {
+              "gold": 10
+            },
+            "source": "Hypothetical availability and gold quote. Pinned tier6_pile_level45_luck50 template 133, seed 39."
+          }
+        },
+        {
+          "instance_id": "offer-113-44",
+          "item": {
+            "affixes": [
+              {
+                "id": "skill",
+                "param": 0,
+                "value": 8
+              },
+              {
+                "id": "castSpeed",
+                "value": 3
+              }
+            ],
+            "group": "Weapons",
+            "material": 1,
+            "name": "Dagger of Practice",
+            "rarity": "magic",
+            "templateIndex": 113
+          },
+          "acquisition": {
+            "owned": false,
+            "obtainable": true,
+            "price": {
+              "gold": 12
+            },
+            "source": "Hypothetical availability and gold quote. Pinned tier6_pile_level45_luck50 template 113, seed 44."
+          }
+        },
+        {
+          "instance_id": "offer-103-226",
+          "item": {
+            "affixes": [
+              {
+                "id": "stat",
+                "param": "speed",
+                "value": 2
+              }
+            ],
+            "group": "Armor",
+            "material": 0,
+            "name": "Gauntlets of the Hare",
+            "rarity": "magic",
+            "templateIndex": 103
+          },
+          "acquisition": {
+            "owned": false,
+            "obtainable": true,
+            "price": {
+              "gold": 15
+            },
+            "source": "Hypothetical availability and gold quote. Pinned tier6_pile_level45_luck50 template 103, seed 226."
+          }
+        }
+      ],
+      "loadouts": [
+        {},
+        {
+          "Amulet0": "offer-133-39"
+        },
+        {
+          "RightHand": "offer-113-44"
+        },
+        {
+          "Amulet0": "offer-133-39",
+          "RightHand": "offer-113-44"
+        },
+        {
+          "Gloves": "offer-103-226"
+        },
+        {
+          "Amulet0": "offer-133-39",
+          "Gloves": "offer-103-226"
+        },
+        {
+          "RightHand": "offer-113-44",
+          "Gloves": "offer-103-226"
+        },
+        {
+          "Amulet0": "offer-133-39",
+          "RightHand": "offer-113-44",
+          "Gloves": "offer-103-226"
+        }
+      ]
+    },
+    "spellbook": {
+      "include_known": true,
+      "mode": "auto_spellbook",
+      "spells": [
+        {
+          "id": "Apprentice touch",
+          "recipe": {
+            "range_type": 1,
+            "element": 4,
+            "effects": [
+              {
+                "effect_id": "4,0",
+                "base_low": 1,
+                "base_high": 1,
+                "plus_low": 1,
+                "plus_high": 1,
+                "per_level": 1
+              }
+            ]
+          }
+        },
+        {
+          "id": "Scaling flame",
+          "recipe": {
+            "range_type": 2,
+            "element": 0,
+            "effects": [
+              {
+                "effect_id": "4,0",
+                "base_low": 1,
+                "base_high": 1,
+                "plus_low": 2,
+                "plus_high": 2,
+                "per_level": 1
+              }
+            ]
+          }
+        },
+        {
+          "id": "Close circle",
+          "recipe": {
+            "range_type": 3,
+            "element": 2,
+            "effects": [
+              {
+                "effect_id": "4,0",
+                "base_low": 1,
+                "base_high": 1,
+                "plus_low": 1,
+                "plus_high": 1,
+                "per_level": 2
+              }
+            ]
+          }
+        }
+      ],
+      "maker": {
+        "source": "Hypothetical access to an ordinary Spell Maker at every scored checkpoint. The price factor is explicit and purchases use actual gold.",
+        "price_factor": 1.0
+      },
+      "allow_unarmed_start": true
+    },
+    "search": {
+      "max_nodes": 4000000,
+      "wall_seconds": 120,
+      "memory_bytes": 268435456
+    },
+    "progression": {
+      "goal": {
+        "level": 45
+      },
+      "require_starting_damage": false,
+      "itinerary": {
+        "version": 1,
+        "cycles": 1800,
+        "cadence_ms": 60000,
+        "challenge_level": 34,
+        "maker_price_factor": 1.0,
+        "cache_gold": 160,
+        "allocation_order": [
+          1,
+          6,
+          4,
+          2,
+          0,
+          3,
+          5,
+          7
+        ],
+        "alternate_allocation_orders": [
+          [
+            6,
+            1,
+            4,
+            2,
+            0,
+            3,
+            5,
+            7
+          ]
+        ],
+        "mastery_priority": [],
+        "evidence": "Conditional school practice with repeated eligible targets, successful qualifying actions, safe full nights in beds, and no harm or additional income. Each incoming challenge is authored, not a population estimate. Cadence, Spell Maker access and one identified gold cache are hypothetical. Training uses only funded casts. Select different opportunities to test sensitivity."
+      }
+    }
+  }
+}

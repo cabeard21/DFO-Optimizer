@@ -183,6 +183,35 @@ def export_job(job, query):
                    "mode":"request" if preview else job["mode"],"request":request,"request_hash":digest(request),
                    "ruleset_hash":job["ruleset_hash"],"result":result,"preview":preview}
         return {**archive,"archive_sha256":digest(archive)}, "workbench-archive.json"
+    if job["action"] == "build recommend" and ("family" in query or "checklist" in query):
+        if (set(query) - {"family", "checklist", "preview"} or "family" not in query or
+                query.get("checklist", "1") != "1" or query.get("preview", "1") != "1"):
+            raise ValueError("Choose one published recommendation")
+        rows = [result.get("recommendation"), *result.get("alternatives", [])]
+        selected = next((r for r in rows if isinstance(r,dict) and r.get("id") == query["family"]), None)
+        if not selected:
+            raise ValueError("Unknown published recommendation")
+        if "checklist" in query:
+            return selected["guide"]["text"].encode("utf-8"), "spellcaster-checklist.txt"
+        return export_class(selected["class"]), "spellcaster.dfclass.json"
+    if "family" in query:
+        if job["action"] != "build optimize" or query.keys() - {"family", "preview"}:
+            raise ValueError("Select one family from a build result")
+        family_id = query["family"]
+        witnesses = (*result["candidates"], *result.get("comparison_witnesses", ()))
+        if not any(row.get("family") == family_id and row.get("validated") for row in witnesses):
+            raise ValueError("Unknown validated build family")
+        frozen = result["frozen_request"]
+        families = [*frozen.get("families", []), *frozen.get("class_admission", {}).get("families", [])]
+        family = next((row for row in families if row["id"] == family_id), {})
+        start = family.get("start")
+        if "baseline_id" in family:
+            from .build_baselines import resolve_family_baseline
+            from .ruleset import load_ruleset
+            start = resolve_family_baseline(family["baseline_id"], load_ruleset())
+        if not start or start.get("type") != "new_character":
+            raise ValueError("This build family has no game class document")
+        return export_class(start["class"]), "dfo-class.json"
     if "index" in query or "class_id" in query:
         if job["action"] != "class optimize" or ("index" in query and "class_id" in query):
             raise ValueError("Select one class from a completed class search")

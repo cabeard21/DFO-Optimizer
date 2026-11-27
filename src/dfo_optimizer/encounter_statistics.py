@@ -19,7 +19,7 @@ def probability_intervals(trials,tape):
 
 def single_cast_exact(scene,spells,policy):
     """Enumerate independent magnitude/save/ward draws only where one cast covers the whole fight."""
-    if (len(policy)!=1 or len(scene["enemies"])!=1 or scene["incoming"] or scene["recovery"]
+    if (scene.get("physical") or len(policy)!=1 or len(scene["enemies"])!=1 or scene["incoming"] or scene["recovery"]
             or scene["tape"] or scene.get("path_id") or scene.get("martial_id") or scene.get("wellspring_pct")):
         return None
     rule=policy[0]

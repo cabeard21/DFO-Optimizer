@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "domain": {
+    "race_ids": [1, 5],
+    "hp_values": [30],
+    "difficulty_values": [-12],
+    "attribute_domains": {
+      "strength": [50], "intelligence": [60, 65], "willpower": [55], "agility": [40],
+      "endurance": [55], "personality": [35], "speed": [60, 65], "luck": [40]
+    },
+    "skill_domains": [
+      [22], [23], [25], [24], [27], [29], [26], [20], [14], [21], [0, 1], [13]
+    ],
+    "trait_ids": [23, 56, 58, 60, 62, 64, 65, 66],
+    "required_trait_ids": [23, 56, 58, 60, 62, 64, 65, 66]
+  },
+  "material_domain": {
+    "race_ids": [1, 5],
+    "hp_values": [30],
+    "difficulty_values": [-12, -11, -7, -6],
+    "attribute_domains": {
+      "strength": [50], "intelligence": [65], "willpower": [55], "agility": [40],
+      "endurance": [55], "personality": [35], "speed": [60], "luck": [40]
+    },
+    "skill_domains": [[22], [23], [25], [24], [27], [29], [26], [20], [14], [21], [0], [13]],
+    "trait_ids": [23, 56, 58, 60, 62, 64, 65, 66],
+    "required_trait_ids": [23, 58, 60, 62, 64, 65]
+  },
+  "domain_for_panel": {"held_out_materials": "material_domain"},
+  "panels": {
+    "development": {"roll_seeds": [42, 43], "combat_seeds": [101, 202],
+      "cases": ["ordinary", "physical", "multiple"], "variants": ["baseline"]},
+    "held_out_pressure": {"roll_seeds": [73, 79], "combat_seeds": [223, 227],
+      "cases": ["enemy_caster", "low_sp", "defensive"], "variants": ["higher_pressure"]},
+    "held_out_dungeon": {"roll_seeds": [83, 89], "combat_seeds": [229, 233],
+      "cases": ["sustained"], "variants": ["baseline", "protected_recovery"]},
+    "held_out_materials": {"roll_seeds": [97, 103], "combat_seeds": [239, 241],
+      "cases": ["physical", "resistant", "sustained"], "variants": ["baseline", "owned_only"]}
+  },
+  "bounded_panel_sizes": [2, 4],
+  "expected_finite_classes": 8,
+  "scope": "The first eight-class domain spans two eligible races, two integer-balanced Intelligence/Speed assignments, and one Medical/Etiquette slot with fixed traits. A separate eight-class domain spans both races and all combinations of two optional exclusions, adamantium and bucklers, across four legal advancement values. All choices are fixed before comparing paired birth and encounter tapes. The three held-out panels do not share seeds with the development panel."
+}

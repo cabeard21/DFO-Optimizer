@@ -3,7 +3,6 @@
 This module validates witnesses. Production graph expansion belongs to the
 native engine. Times are personal classic minutes unless a field ends in ms.
 """
-from copy import deepcopy
 from math import floor, inf
 
 
@@ -65,6 +64,8 @@ def _check(s, effort):
     reflex = 65536 - (s["reflexes"] - 2) * 8192
     raised = False
     for i, raw in enumerate(s["skills"]):
+        if not s["uses"][i] and s["progress"][i] < 1:
+            continue
         uses = floor(s["uses"][i] * reflex / 65536)
         if raw >= 100 and i in s["mastered"]:
             if raw == 200:
@@ -104,37 +105,62 @@ def _quality(skill, level):
     return 1 + .5 * min(1., (ratio - 1) / .5)
 
 
-def _tally(s, i, amount):
+def _releases(s, i, amount, count, first, cadence, level):
+    """Replay the source fractional carry for a run of equal-quality tallies."""
     raw = s["skills"][i]
     if raw < 100 or i not in s["mastered"]:
-        s["uses"][i] = min(20000, s["uses"][i] + amount)
+        s["uses"][i] = min(20000, s["uses"][i] + count * amount)
         return
     if raw == 200:
         return
-    level = s["challenge_level"] if s["challenge_at"] >= 0 and s["real_ms"] - s["challenge_at"] <= 6000 else 0
     q = _quality(raw, level)
     q, burst = (q, 40) if i in COMBAT else (max(.25, q), 10) if i in MAGIC else (1, 6)
     if not q:
         return
+    decay = .5 ** (max(0, first - s["spam_at"][i]) / 60000)
+    step_decay = .5 ** (cadence / 60000)
+    gain = amount * q
+    recent, fraction, uses = s["spam_recent"][i], s["fractions"][i], s["uses"][i]
+    for _ in range(count):
+        recent = recent * decay + gain
+        total = fraction + gain * min(1, burst / recent)
+        whole = floor(total)
+        fraction = total - whole
+        uses += whole
+        decay = step_decay
+    s["spam_recent"][i], s["spam_at"][i] = recent, first + (count-1) * cadence
+    s["fractions"][i], s["uses"][i] = fraction, uses
+
+
+def _tally(s, i, amount):
     now = s["real_ms"]
-    decayed = s["spam_recent"][i] * .5 ** (max(0, now - s["spam_at"][i]) / 60000)
-    recent = decayed + amount * q
-    s["spam_recent"][i], s["spam_at"][i] = recent, now
-    total = s["fractions"][i] + amount * q * min(1, burst / recent)
-    whole = floor(total)
-    s["fractions"][i] = total - whole
-    s["uses"][i] += whole
+    level = s["challenge_level"] if s["challenge_at"] >= 0 and now - s["challenge_at"] <= 6000 else 0
+    _releases(s, i, amount, 1, now, 0, level)
+
+
+def _stationary(s, i, amount, count, cadence, challenge):
+    if count:
+        first = s["real_ms"] + cadence
+        _releases(s, i, amount, count, first, cadence, challenge)
+        s["real_ms"] += cadence * count
+        if challenge:
+            s["challenge_level"], s["challenge_at"] = challenge, s["real_ms"]
 
 
 def _cast_price(s, a):
-    if "recipe" not in a:
+    if "component_gold" in a:
+        base, twice = a["component_gold"], a["range_multiplier_twice"]
+    elif "recipe" in a:
+        _, target, lo, hi, plus_lo, plus_hi, per = a["recipe"]
+        base = 20 * ((lo + hi) // 2) + 28 * (((plus_lo + plus_hi) // 2) // per)
+        twice = (2, 2, 3, 4, 5)[target]
+    else:
         return a.get("sp_cost", 0)
-    _, target, lo, hi, plus_lo, plus_hi, per = a["recipe"]
-    base = 20 * ((lo + hi) // 2) + 28 * (((plus_lo + plus_hi) // 2) // per)
-    raw = s["skills"][22]
-    live = max(0, effective(raw if 22 in s["mastered"] else min(raw, 100)) + a.get("skill_bonus", 0))
+    school = a.get("skill", 22)
+    raw = s["skills"][school]
+    live = max(0, effective(raw if school in s["mastered"] else min(raw, 100)) + a.get("skill_bonus", 0))
     unscaled = base * (110 - live) // 400 if live <= 100 else base * 1000 // (400 * live)
-    cost = max(5, unscaled * (2, 2, 3, 4, 5)[target] // 2)
+    cost = max(5, unscaled * twice // 2)
     return max(1, floor(cost * (100 - min(30, a.get("focus_pct", 0))) / 100 + .5))
 
 
@@ -145,12 +171,28 @@ def _practice(s, a, e):
     if a.get("spell", -1) >= 0:
         require(a["spell"] in s["known"], "spell is not known")
     count = a.get("count", 1)
-    cost = _cast_price(s, a) * count
+    price = _cast_price(s, a)
+    if a.get("until_spent") and price:
+        count = min(count, s["sp"] // price)
+    if count and a.get("self_heal"):
+        require(s["hp"] == s["max_hp"], "self-heal practice would require a healing roll")
+    cost = price * count
     require(s["sp"] >= cost, "insufficient current SP")
     debit = a.get("fatigue_cost", 0)
     require(debit <= s["fatigue"], "insufficient fatigue for practice")
     s["fatigue"] -= debit
     s["sp"] -= cost
+    cadence = a.get("cadence_ms", 0)
+    challenge = a.get("challenge_level", 0)
+    # Only these stationary windows have invariant release quality. A live
+    # prior contact can expire between unchallenged casts; motion can earn
+    # action-dependent stride credit. Both continue through individual releases.
+    stationary = "horizontal_m" not in a and "vertical_m" not in a
+    if stationary and (challenge or s["challenge_at"] < 0 or s["real_ms"] - s["challenge_at"] > 6000):
+        _stationary(s, i, a.get("amount", 1), count, cadence, challenge)
+        e["practice"] += count
+        s["real_ms"] += (a.get("count", 1) - count) * cadence
+        return
     for _ in range(count):
         s["real_ms"] += a.get("cadence_ms", 0)
         if a.get("challenge_level", 0):
@@ -178,6 +220,7 @@ def _practice(s, a, e):
                 continue
         _tally(s, i, a.get("amount", 1))
     e["practice"] += count
+    s["real_ms"] += (a.get("count", 1) - count) * a.get("cadence_ms", 0)
 
 
 def _pay(s, amount, e):
@@ -227,18 +270,42 @@ def _distribute(s, a, budget):
 
 
 def _level(s, a):
-    if a.get("if_due") and (s["pending_level"] != s["level"] + 1 or s["level"] >= 45):
+    due = s["pending_level"] == s["level"] + 1 and s["level"] < 45
+    policy = a.get("allocation_policy")
+    if policy is not None:
+        bound = s.get("allocation_policy", -1)
+        if bound >= 0 or not due:
+            require(policy == max(bound, 0), "different prospective allocation policy")
+        if due:
+            s["allocation_policy"] = policy
+    if a.get("if_due") and not due:
         return
     require(s["pending_level"] == s["level"] + 1 and s["level"] < 45, "level has not been earned")
+    projected = "hp_roll_state" in s
+    if projected:
+        h = s["hp_setting"]
+        lower = h // 2
+        s["hp_roll_state"] = (s["hp_roll_state"] * 1664525 + 1013904223) & 0xffffffff
+        draw = lower + ((s["hp_roll_state"] * (1 + h - lower)) >> 32)
+        s["raw_max_hp"] += max(1, draw + s["attributes"][4] // 10 - 5)
     _distribute(s, a, 5 if s["pending_pool"] < 0 else s["pending_pool"])
     s["level"] += 1
+    if projected:
+        hp_floor = floor(25 + h + (s["level"] - 1) * max(1, (lower + h) / 2 + s["attributes"][4] // 10 - 5))
+        s["max_hp"] = max(s["raw_max_hp"], hp_floor)
+        s["hp"] = min(s["hp"], s["max_hp"])
+        s["max_sp"] = s["attributes"][1] * s["magery_quarters"] // 4
+        s["max_fatigue"] = (s["attributes"][0] + s["attributes"][4]) * s["fatigue_multiplier"]
     s["pending_level"] = s["pending_pool"] = -1
     _pending(s)
 
 
 def transition(state, action, effort):
     """Apply a single compiled action to detached state, or explain its first unmet gate."""
-    s, e = deepcopy(state), dict(effort)
+    # The internal state has scalar fields and flat numeric vectors. All
+    # returned vectors are independent, including ones this edge leaves idle.
+    s = {key: value.copy() if isinstance(value, list) else value for key, value in state.items()}
+    e = dict(effort)
     kind = action["kind"]
     delta = action.get("minutes", 0)
     if kind != "practice":
@@ -250,6 +317,11 @@ def transition(state, action, effort):
     elif kind == "train":
         _train(s, action, e)
         delta = 180
+    elif kind == "collect_gold":
+        bit = 1 << action["copy"]
+        require(not s["collected_gold"] & bit, "gold stack already collected")
+        s["collected_gold"] |= bit
+        s["gold"] += action["amount"]
     elif kind == "rest":
         wait = s["minutes"] - s["last_rest"]
         require(s["last_rest"] < 0 or wait < 0 or wait >= 120, "online night cooldown")
@@ -260,6 +332,10 @@ def transition(state, action, effort):
         for k in ("sp", "fatigue"):
             if action.get("refill_" + k, -1) >= 0:
                 s[k] = max(s[k], action["refill_" + k])
+        if action.get("full_bed"):
+            for k in ("hp", "sp", "fatigue"):
+                s[k] = s["max_" + k]
+            s["hp_known"] = True
     elif kind == "level":
         _level(s, action)
     elif kind == "oghma":
@@ -307,6 +383,10 @@ def transition(state, action, effort):
     e["minutes"] += delta
     if kind in ("rest", "check"):
         _check(s, e)
+    if (s.get("career_regeneration") and not action.get("full_bed") and state["hp"] < state["max_hp"]
+            and (s["minutes"] != state["minutes"] or s["real_ms"] != state["real_ms"])):
+        # Character minutes alone cannot resolve magic-round environment and passive healing.
+        s["hp_known"] = False
     return s, e
 
 

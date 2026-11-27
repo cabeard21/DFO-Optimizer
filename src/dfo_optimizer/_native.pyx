@@ -1,11 +1,12 @@
 # cython: language_level=3
 """Coarse-grained native calls. All Python conversions happen outside traversal."""
 import math
+from time import perf_counter
 from array import array
 
 import cython
 from cpython.array cimport array as c_array, clone
-from libc.stdint cimport INT32_MIN, INT32_MAX, int32_t, int64_t, uint64_t
+from libc.stdint cimport INT32_MIN, INT32_MAX, int32_t, int64_t, uint32_t, uint64_t
 from libc.math cimport copysign
 from libcpp cimport bool as cppbool
 from libcpp.vector cimport vector
@@ -17,6 +18,7 @@ cdef extern from "native_build.hpp":
 cdef extern from "class_search.hpp" namespace "dfo":
     cdef cppclass CancelFlag:
         void cancel() noexcept
+        cppbool is_cancelled() noexcept
         cppbool has_incumbent() noexcept
     cdef cppclass Trait:
         int id, side, cost, family
@@ -42,17 +44,94 @@ cdef extern from "class_search.hpp" namespace "dfo":
         time_limit
         memory_limit
         cancelled
+        sample_limit
     cdef cppclass Output:
         End end
         uint64_t nodes, pruned, leaves, work_bytes
         double first_seconds
         vector[Candidate] best
     Output search(const Options&, CancelFlag&) except + nogil
+    cdef cppclass DiscoveryConfig:
+        cppbool exhaustive, stable_examples
+        uint32_t seed
+        uint64_t required_masteries, required_skills, sample_attempts
+        vector[uint32_t] rolls
+        void trait(int,int,int,int,int)
+        void add_stage() except +
+        void item(int,int) except +
+        void start_beginner() except +
+        void beginner_part(int) except +
+        void beginner_weapon(int,int,int) except +
+        void beginner_probe(int) except +
+        void beginner_probe_weapon(int,int,int) except +
+        void beginner_plate(int) except +
+        void beginner_attack_cost(int,int) except +
+        void beginner_capacity(int) except +
+    cdef cppclass ScreenFeatures:
+        int hp, absorption, destruction_sum, sp_sum, speed_sum
+        int eligible[32]
+        cppbool pareto
+        int headroom
+        uint64_t backups
+    cdef cppclass BeginnerPanel:
+        void add(int,int,const vector[int]&,const vector[int]&,uint64_t,int,int,double,cppbool) except +
+        vector[int] select(int,const vector[int]&,const CancelFlag&,double,cppbool) except + nogil
+    cdef cppclass DiscoveryOutput:
+        Output visited
+        vector[ScreenFeatures] features
+        uint64_t unique_screened, attempts, pareto_overflows, pareto_retained, pareto_capacity
+        uint64_t beginner_admissible
+        uint64_t beginner_rejections[16]
+    DiscoveryOutput discover(const Options&,CancelFlag&,const DiscoveryConfig&) except + nogil
     int hp_points(int hp) noexcept nogil
 
 
 def build_info():
     return {"compiler": dfo_compiler().decode("ascii"), "flags": dfo_flags().decode("ascii")}
+
+
+def beginner_panel(rows, prior, cap, CancelToken cancel=None, wall_seconds=0.0, refined=False):
+    """Merge the retained outputs of disjoint class-cost searches with stable diversity."""
+    cdef BeginnerPanel panel
+    cdef vector[int] traits, skills, initial, selected
+    cdef int k = _whole(cap,1,10000,"beginner panel size")
+    cdef CancelToken token = CancelToken() if cancel is None else cancel
+    cdef double seconds=wall_seconds
+    cdef cppbool use_refined
+    if type(refined) is not bool:
+        raise ValueError("refined panel switch must be boolean")
+    use_refined = refined
+    if type(wall_seconds) not in (int,float) or not math.isfinite(seconds) or seconds<0:
+        raise ValueError("invalid panel time limit")
+    started=perf_counter()
+    if not isinstance(rows,(list,tuple)) or len(rows)>530000:
+        raise ValueError("invalid beginner panel")
+    for i,(target,row) in enumerate(rows):
+        if not (i & 255) and (token.cancelled() or (seconds and perf_counter()-started>=seconds)):
+            return []
+        target = _whole(target,-12,40,"difficulty")
+        race = _whole(row["race"],1,8,"race")
+        traits = _domain(row["traits"],0,127,"traits")
+        skills = _domain(row["skills"],0,34,"skills")
+        if traits.size()>14 or skills.size()!=12:
+            raise ValueError("invalid panel traits or skills")
+        screen = row["screen"]
+        backup = _whole(screen["usable_backup_skill_mask"],0,(1<<35)-1,"backup mask")
+        headroom = _whole(screen["minimum_headroom_units"],0,1000000,"headroom")
+        gear = _whole(sum(screen["eligible_stage_items"]),0,100000,"gear count")
+        sp = screen["mean_birth_sp"]
+        if type(sp) not in (int,float) or not 0<=sp<=300:
+            raise ValueError("invalid panel SP")
+        panel.add(target,race,traits,skills,backup,headroom,gear,sp,use_refined)
+    if not isinstance(prior,(tuple,list)) or len(set(prior))!=len(prior) or len(prior)>k:
+        raise ValueError("invalid previous beginner panel")
+    for index in prior:
+        initial.push_back(_whole(index,0,len(rows)-1,"previous panel index"))
+    if seconds:
+        seconds=max(1e-12,seconds-(perf_counter()-started))
+    with nogil:
+        selected=panel.select(k,initial,token.flag,seconds,use_refined)
+    return selected
 
 
 cdef bint _same_json_tree(object value, object reference, int depth):
@@ -95,6 +174,10 @@ cdef class CancelToken:
 
     def cancel(self):
         self.flag.cancel()
+
+    def cancelled(self):
+        """Read the same signal used by native traversal during finalist checks."""
+        return bool(self.flag.is_cancelled())
 
     def has_incumbent(self):
         """Whether this token's search has retained its first feasible class."""
@@ -205,7 +288,7 @@ cdef dict _decode(Output& out):
             "skills": tuple([c.skills[j] for j in range(12)]),
             "traits": tuple([c.traits[j] for j in range(c.count)]),
         })
-    reasons = ("exhausted", "top_k", "node_limit", "time_limit", "memory_limit", "cancelled")
+    reasons = ("exhausted", "top_k", "node_limit", "time_limit", "memory_limit", "cancelled", "sample_limit")
     return {
         "results": results, "termination": reasons[<int>out.end],
         "nodes": out.nodes, "pruned": out.pruned, "leaves": out.leaves,
@@ -214,9 +297,137 @@ cdef dict _decode(Output& out):
     }
 
 
+cdef uint64_t _skill_mask(values):
+    cdef uint64_t bits = 0
+    cdef int skill
+    for skill in _domain(values, 0, 34, "required skills"):
+        bits |= (<uint64_t>1) << skill
+    return bits
+
+
+cdef void _starter_tables(DiscoveryConfig& config, object tables) except *:
+    if not isinstance(tables,dict) or set(tables)!={"parts","probes","plate_weights","capacity","attack_costs"}:
+        raise ValueError("invalid beginner creation tables")
+    for key,size in (("parts",144),("probes",864),("plate_weights",10),("capacity",101),("attack_costs",82)):
+        if not isinstance(tables[key],(tuple,list)) or len(tables[key])!=size:
+            raise ValueError("invalid beginner table length")
+    config.start_beginner()
+    for index, cost in enumerate(tables["attack_costs"]):
+        config.beginner_attack_cost(index,_whole(cost,1,100000,"starter damage spell cost"))
+    for units in tables["plate_weights"]:
+        config.beginner_plate(_whole(units,0,1000000,"cuirass weight"))
+    for units in tables["capacity"]:
+        config.beginner_capacity(_whole(units,0,1000000,"capacity"))
+    for key in ("parts","probes"):
+        for weight,weapons in tables[key]:
+            weight = _whole(weight,0,1000000,"kit weight")
+            if key == "parts":
+                config.beginner_part(weight)
+            else:
+                config.beginner_probe(weight)
+            if not isinstance(weapons,(list,tuple)) or len(weapons)>64:
+                raise ValueError("invalid birth weapon rows")
+            for skill,material,gear in weapons:
+                skill = _whole(skill,0,34,"weapon skill")
+                material = _whole(material,0,1023,"material mask")
+                gear = _whole(gear,0,63,"weapon mask")
+                if key == "parts":
+                    config.beginner_weapon(skill,material,gear)
+                else:
+                    config.beginner_probe_weapon(skill,material,gear)
+
+
+cdef dict _discover(Options& options, CancelToken token, object raw):
+    cdef DiscoveryConfig config
+    cdef DiscoveryOutput output
+    cdef ScreenFeatures features
+    cdef size_t index
+    allowed = {"exhaustive", "seed", "sample_attempts", "required_masteries", "required_skills", "roll_seeds",
+               "trait_features", "stage_items", "stable_examples","beginner"}
+    if not isinstance(raw, dict) or set(raw) - allowed:
+        raise ValueError("invalid native discovery options")
+    exhaustive = raw.get("exhaustive", False)
+    if type(exhaustive) is not bool:
+        raise ValueError("exhaustive must be boolean")
+    config.exhaustive = exhaustive
+    examples = raw.get("stable_examples", False)
+    if type(examples) is not bool:
+        raise ValueError("stable_examples must be boolean")
+    config.stable_examples = examples
+    if "sample_attempts" in raw:
+        if exhaustive or examples:
+            raise ValueError("sample_attempts requires bounded mechanics screening")
+        config.sample_attempts = _whole(raw["sample_attempts"], 1, 1_048_576, "sample attempt limit")
+    if "beginner" in raw:
+        if examples: raise ValueError("beginner gates require mechanics screening")
+        _starter_tables(config,raw["beginner"])
+    config.seed = _whole(raw.get("seed", 42), 0, 2**32-1, "screen seed")
+    config.required_masteries = _skill_mask(raw.get("required_masteries", []))
+    config.required_skills = _skill_mask(raw.get("required_skills", []))
+    rolls = raw.get("roll_seeds", [42, 97])
+    if not isinstance(rolls, (list,tuple)) or not 1 <= len(rolls) <= 128:
+        raise ValueError("require 1..128 paired screen rolls")
+    for seed in rolls:
+        config.rolls.push_back(_whole(seed, 0, 2**32-1, "roll seed"))
+    if len(set(rolls)) != len(rolls):
+        raise ValueError("duplicate paired roll seed")
+    table = raw.get("trait_features", [])
+    if not isinstance(table, (list,tuple)) or len(table) > 128:
+        raise ValueError("invalid trait feature rows")
+    ids = set()
+    for ident, magery, materials, gear, absorb in table:
+        ident = _whole(ident, 0, 127, "trait feature ID")
+        if ident in ids:
+            raise ValueError("duplicate trait feature ID")
+        ids.add(ident)
+        config.trait(ident, _whole(magery, 0, 12, "magery quarters"),
+                     _whole(materials, 0, INT32_MAX, "material bits"),
+                     _whole(gear, 0, INT32_MAX, "equipment bits"),
+                     _whole(absorb, 0, INT32_MAX, "absorption flag"))
+    stages = raw.get("stage_items", [])
+    if not isinstance(stages, (list,tuple)) or len(stages)>32:
+        raise ValueError("at most 32 screening equipment pools")
+    count = 0
+    for stage in stages:
+        if not isinstance(stage,(list,tuple)) or len(stage)+count>100000:
+            raise ValueError("invalid screening equipment pool")
+        count += len(stage)
+        config.add_stage()
+        for materials, gear in stage:
+            config.item(_whole(materials, 0, INT32_MAX, "item material mask"),
+                        _whole(gear, 0, INT32_MAX, "item gear mask"))
+    with nogil:
+        output = discover(options, token.flag, config)
+    decoded = _decode(output.visited)
+    n = float(len(rolls))
+    for index in range(output.features.size()):
+        features = output.features[index]
+        decoded["results"][index]["screen"] = {
+            "birth_hp": features.hp, "absorption_flag": features.absorption,
+            "mean_birth_sp": features.sp_sum/n,
+            "mean_cast_rate": 1 + (features.speed_sum/n - 50)/200,
+            "mean_birth_destruction": features.destruction_sum/n,
+            "eligible_stage_items": [features.eligible[i] for i in range(len(stages))],
+            "pareto_representative": bool(features.pareto),
+        }
+        if "beginner" in raw:
+            decoded["results"][index]["screen"]["minimum_headroom_units"]=features.headroom
+            decoded["results"][index]["screen"]["usable_backup_skill_mask"]=features.backups
+    if "beginner" in raw:
+        decoded["beginner_admissible"]=output.beginner_admissible
+        decoded["beginner_rejections"]=[output.beginner_rejections[i] for i in range(16)]
+    decoded["unique_screened"] = output.unique_screened
+    decoded["attempts"] = output.attempts
+    decoded["pareto_overflows"] = output.pareto_overflows
+    decoded["pareto_retained"] = output.pareto_retained
+    decoded["pareto_capacity"] = output.pareto_capacity
+    return decoded
+
+
 def search_classes(*, traits, hp_values, races, attributes, skills, target, top_k, max_nodes,
                    wall_seconds=0.0, memory_bytes=67108864, objective="examples",
-                   stop_after_top=False, CancelToken cancel=None, require_magic=False, magic_skills=()):
+                   stop_after_top=False, CancelToken cancel=None, require_magic=False, magic_skills=(),
+                   discovery=None):
     cdef Options options
     cdef Output result
     cdef int skill
@@ -245,6 +456,8 @@ def search_classes(*, traits, hp_values, races, attributes, skills, target, top_
     options.magic_mask = 0
     for skill in _domain(magic_skills, 0, 34, "magic skills"):
         options.magic_mask |= (<uint64_t>1) << skill
+    if discovery is not None:
+        return _discover(options, token, discovery)
     with nogil:
         result = search(options, token.flag)
     return _decode(result)

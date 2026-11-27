@@ -1,0 +1,563 @@
+{
+  "schema_version": 1,
+  "kind": "sealed_windows_encounter_timing_investigation",
+  "host": {
+    "os": "Windows-10-10.0.19045-SP0",
+    "architecture": "AMD64",
+    "cpu": "AMD Ryzen 5 5600X 6-Core Processor",
+    "logical_cpus": 12,
+    "python": "3.12.10",
+    "python_compiler": "MSC v.1943 64 bit (AMD64)"
+  },
+  "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+  "wheels": {
+    "before": {
+      "filename": "dfo_optimizer-0.5.0-cp312-cp312-win_amd64.whl",
+      "sha256": "d9d8ab4618312fe3d2c15e7cfd3fca443d6fac91d4ebb4506eed58cb45b2b3f3"
+    },
+    "after": {
+      "filename": "dfo_optimizer-0.6.0-cp312-cp312-win_amd64.whl",
+      "sha256": "b5fd478c5233d613d23e1d7f1b044c3f6e34d032199a6dc25aa0f68cd99a298b"
+    }
+  },
+  "wheel_native_encounter_sha256": {
+    "0.5.0": "d83ba3dfe6b6da3ca540c8f63ab895300bd2517d159c9cfab3f8602a088a83d1",
+    "0.6.0": "5d51107b23d6ac169edcb0b15c5d46404c891b16cd020572106cb5ddfa71db51"
+  },
+  "initial_comparison": {
+    "file": "windows-m9-release-comparison-0.5.0.json",
+    "workloads": {
+      "miss": {
+        "before_p50_ms": 0.6262999959290028,
+        "after_p50_ms": 0.6893999961903319,
+        "p50_change_percent": 10.075044015884371,
+        "regression_investigation": true,
+        "matching_work_and_quality": true
+      },
+      "pack": {
+        "before_p50_ms": 2.2108999983174726,
+        "after_p50_ms": 3.1140000064624473,
+        "p50_change_percent": 40.84761901633938,
+        "regression_investigation": true,
+        "matching_work_and_quality": true
+      },
+      "pack_bounded": {
+        "before_p50_ms": 1.1233000113861635,
+        "after_p50_ms": 1.2556000001495704,
+        "p50_change_percent": 11.777796441054722,
+        "regression_investigation": true,
+        "matching_work_and_quality": true
+      },
+      "dungeon": {
+        "before_p50_ms": 2.3511000035796314,
+        "after_p50_ms": 1.9312999938847497,
+        "p50_change_percent": -17.855472291936614,
+        "regression_investigation": false,
+        "matching_work_and_quality": true
+      }
+    }
+  },
+  "design": {
+    "measurement": "Warm complete service calls on installed wheels. All times are microseconds.",
+    "launch": "Windows CPython -I, one fresh subprocess per block on logical CPU 11, affinity mask 2048, allowed mask 4095. Other release tasks were running on this host.",
+    "workers": 1,
+    "workloads_in_order": [
+      "pack",
+      "pack_bounded",
+      "miss",
+      "dungeon"
+    ],
+    "requests": {
+      "pack": "examples/encounter-pack.json",
+      "pack_bounded": "Same pack request with search.max_policies=1",
+      "miss": "examples/encounter-miss.json",
+      "dungeon": "examples/encounter-dungeon.json"
+    },
+    "services": "evaluate_encounter for miss and optimize_encounter for the other three.",
+    "warmups_per_workload_per_process": 7,
+    "timed_calls_per_workload_per_process": {
+      "pack": 100,
+      "pack_bounded": 35,
+      "miss": 35,
+      "dungeon": 35
+    },
+    "clocks": "Wall from time.perf_counter around the service call. Preparation and native/packing from result.timings. Witness/result build is elapsed_seconds minus preparation_seconds and native_seconds. Return and result hash is wall minus elapsed_seconds.",
+    "aggregation": "Each component is its own block median. The summary takes the median of the four block medians for each wheel. Component medians need not add to the median wall time.",
+    "columns": [
+      "wall_us",
+      "prepare_us",
+      "native_and_packing_us",
+      "witness_and_result_build_us",
+      "return_and_result_hash_us"
+    ],
+    "process_order": [
+      "0.5.0",
+      "0.6.0",
+      "0.6.0",
+      "0.5.0",
+      "0.5.0",
+      "0.6.0",
+      "0.6.0",
+      "0.5.0"
+    ],
+    "timing_threshold_percent": 10
+  },
+  "sealed_block_medians_us": [
+    {
+      "index": 1,
+      "version": "0.5.0",
+      "pack": [
+        1987.75,
+        248.8,
+        83.15,
+        1534.25,
+        115.95
+      ],
+      "pack_bounded": [
+        1054.9,
+        250.6,
+        60.7,
+        643.2,
+        81.7
+      ],
+      "miss": [
+        514.3,
+        150.2,
+        38.3,
+        232.6,
+        65.7
+      ],
+      "dungeon": [
+        1759.2,
+        292.8,
+        92.1,
+        1254.7,
+        118.1
+      ]
+    },
+    {
+      "index": 2,
+      "version": "0.6.0",
+      "pack": [
+        2073.2,
+        249.15,
+        83.4,
+        1609.9,
+        116.85
+      ],
+      "pack_bounded": [
+        1084.8,
+        252.4,
+        60.4,
+        692.6,
+        81.3
+      ],
+      "miss": [
+        468.1,
+        139.0,
+        34.0,
+        235.1,
+        60.5
+      ],
+      "dungeon": [
+        1818.8,
+        296.1,
+        91.8,
+        1305.9,
+        117.5
+      ]
+    },
+    {
+      "index": 3,
+      "version": "0.6.0",
+      "pack": [
+        2072.3,
+        246.05,
+        84.25,
+        1623.8,
+        115.65
+      ],
+      "pack_bounded": [
+        1079.8,
+        253.0,
+        60.5,
+        681.6,
+        81.8
+      ],
+      "miss": [
+        498.6,
+        143.9,
+        36.2,
+        244.2,
+        62.5
+      ],
+      "dungeon": [
+        1826.7,
+        296.8,
+        94.7,
+        1309.3,
+        117.4
+      ]
+    },
+    {
+      "index": 4,
+      "version": "0.5.0",
+      "pack": [
+        2005,
+        247.85,
+        82.75,
+        1551.7,
+        117.1
+      ],
+      "pack_bounded": [
+        1025.5,
+        240.3,
+        56.6,
+        643.1,
+        80.2
+      ],
+      "miss": [
+        455.7,
+        136.9,
+        33.5,
+        211.2,
+        60.6
+      ],
+      "dungeon": [
+        1759.1,
+        294.5,
+        91.3,
+        1250.7,
+        116.5
+      ]
+    },
+    {
+      "index": 5,
+      "version": "0.5.0",
+      "pack": [
+        2004.6,
+        243.35,
+        82.7,
+        1547,
+        116.15
+      ],
+      "pack_bounded": [
+        1008.8,
+        234.2,
+        56,
+        640.4,
+        78.8
+      ],
+      "miss": [
+        429.5,
+        127.6,
+        31.2,
+        205.7,
+        59
+      ],
+      "dungeon": [
+        1694.1,
+        280.5,
+        88.1,
+        1211.3,
+        112.6
+      ]
+    },
+    {
+      "index": 6,
+      "version": "0.6.0",
+      "pack": [
+        2068.85,
+        246.95,
+        87.3,
+        1608.45,
+        116.05
+      ],
+      "pack_bounded": [
+        1055,
+        242,
+        58.1,
+        669.7,
+        79.8
+      ],
+      "miss": [
+        483.3,
+        138.3,
+        35,
+        240.8,
+        61.6
+      ],
+      "dungeon": [
+        1857.9,
+        304.3,
+        98.3,
+        1330.7,
+        121.5
+      ]
+    },
+    {
+      "index": 7,
+      "version": "0.6.0",
+      "pack": [
+        2085.4,
+        249.8,
+        83.2,
+        1622.9,
+        116.5
+      ],
+      "pack_bounded": [
+        1077.7,
+        248.5,
+        58.9,
+        685,
+        81.6
+      ],
+      "miss": [
+        467,
+        138.6,
+        33.7,
+        232,
+        59.4
+      ],
+      "dungeon": [
+        1800.1,
+        292,
+        90.6,
+        1297.4,
+        114.9
+      ]
+    },
+    {
+      "index": 8,
+      "version": "0.5.0",
+      "pack": [
+        1981.55,
+        244.4,
+        81.9,
+        1538.55,
+        115.6
+      ],
+      "pack_bounded": [
+        1009.7,
+        237.3,
+        56.2,
+        635.2,
+        79.1
+      ],
+      "miss": [
+        437.4,
+        132.4,
+        32.1,
+        210.5,
+        60.1
+      ],
+      "dungeon": [
+        1772.8,
+        295.1,
+        92.6,
+        1255.2,
+        119.3
+      ]
+    }
+  ],
+  "sealed_median_of_block_medians_us": {
+    "pack": {
+      "0.5.0": [
+        1996.175,
+        246.125,
+        82.725,
+        1542.775,
+        116.05
+      ],
+      "0.6.0": [
+        2072.75,
+        248.05,
+        83.825,
+        1616.4,
+        116.275
+      ],
+      "wall_change_percent": 3.84
+    },
+    "pack_bounded": {
+      "0.5.0": [
+        1017.6,
+        238.8,
+        56.4,
+        641.75,
+        79.65
+      ],
+      "0.6.0": [
+        1078.75,
+        250.45,
+        59.65,
+        683.3,
+        81.45
+      ],
+      "wall_change_percent": 6.01
+    },
+    "miss": {
+      "0.5.0": [
+        446.55,
+        134.65,
+        32.8,
+        210.85,
+        60.35
+      ],
+      "0.6.0": [
+        475.7,
+        138.8,
+        34.5,
+        237.95,
+        61.05
+      ],
+      "wall_change_percent": 6.53
+    },
+    "dungeon": {
+      "0.5.0": [
+        1759.15,
+        293.65,
+        91.7,
+        1252.7,
+        117.3
+      ],
+      "0.6.0": [
+        1822.75,
+        296.45,
+        93.25,
+        1307.6,
+        117.45
+      ],
+      "wall_change_percent": 3.62
+    }
+  },
+  "pack_identity": {
+    "result_sha256": "1db96c40932a45439afadd8ea657cf320b15fc218115b0d2502457c72a4ddd26",
+    "status": "optimal_proven",
+    "termination": "exhausted",
+    "frontier": [
+      [
+        0,
+        0,
+        5.0,
+        38.0,
+        48.0,
+        15000000.0
+      ],
+      [
+        0,
+        0,
+        5.0,
+        49.0,
+        56.0,
+        15000000.0
+      ]
+    ],
+    "policies_checked": 2,
+    "seeds": [
+      1,
+      17,
+      42,
+      4294967295
+    ],
+    "counters": {
+      "events": 258,
+      "trials_completed": 12,
+      "policies_completed": 3
+    },
+    "input_sha256": "c25c8f91715014d7eae8f08567282fc356d36f137a5c46e0b469d9ef40e6a055",
+    "native_peak_work_bytes": {
+      "0.5.0": 12176,
+      "0.6.0": 12664
+    }
+  },
+  "profile": {
+    "tool": "cProfile, 20 warmups and 120 pack service calls in each of four pinned fresh processes in 0.5, 0.6, 0.6, 0.5 order.",
+    "calls_per_pack": {
+      "0.5.0": {
+        "simulate_trial": 8,
+        "deepcopy": 205,
+        "_deepcopy_list": 11,
+        "note": 219
+      },
+      "0.6.0": {
+        "simulate_trial": 8,
+        "deepcopy": 213,
+        "_deepcopy_list": 19,
+        "note": 219
+      }
+    },
+    "explanation": "The M9 replay constructor copies its empty physical actor list once per independently replayed trial. Unconditional fighters and max_trace_events fields also grow the legacy CPython instance dictionary from 29 entries (296 shallow bytes) to 31 entries (1584 shallow bytes)."
+  },
+  "isolated_replay_experiment": {
+    "environment": "One 0.6.0 service process on the same logical CPU. Compile replay alternatives in memory and replace only the simulate_trial binding. All variants produced the same result SHA-256.",
+    "schedule": "25 warm-up rounds then 250 measured rounds, one call per variant per round, order shuffled by random.Random(1219 + round_index).",
+    "columns": [
+      "median_wall_us",
+      "median_paired_delta_vs_shipped_us",
+      "paired_delta_medians_in_five_consecutive_50_round_blocks_us"
+    ],
+    "alternatives": {
+      "0.5.0 replay on 0.6.0 service": [
+        2026.8,
+        -87.15,
+        [
+          -90.8,
+          -81.6,
+          -88.4,
+          -87.0,
+          -82.05
+        ]
+      ],
+      "shipped 0.6.0 replay": [
+        2110.65,
+        0,
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "conditional instance fields": [
+        2038.85,
+        -68.75,
+        [
+          -51.85,
+          -82.85,
+          -68.6,
+          -64.6,
+          -77.15
+        ]
+      ],
+      "slotted replay with conditional copy": [
+        2051.45,
+        -63.9,
+        [
+          -72.0,
+          -73.35,
+          -52.95,
+          -55.55,
+          -71.1
+        ]
+      ]
+    },
+    "conditional_fields": "Class-level fighters=() and max_trace_events=None. Assign instance fields only when physical combat is present or an explicit trace bound is supplied. The legacy instance returns to 29 dictionary entries (296 shallow bytes).",
+    "slotted_variant": "Use slots for all 31 replay state fields and copy fighters only in physical encounters. The slotted instance occupies 280 bytes before its referents.",
+    "copy_only_experiment": {
+      "schedule": "15 warm-up rounds and 250 measured rounds, shuffled within each by random.Random(1789 + round_index), in a separate three-variant 0.6.0 process.",
+      "shipped_median_us": 2160.3,
+      "conditional_copy_median_us": 2141.8,
+      "median_paired_delta_us": -12.9,
+      "five_paired_delta_block_medians_us": [
+        13.55,
+        1.45,
+        -23.45,
+        -57.65,
+        -7.5
+      ]
+    }
+  },
+  "finding": "Pack measured 3.84% slower across the controlled wheel blocks, below the 10% investigation threshold. Most of the repeatable difference fell in independent replay and result construction. Native evaluation and packing increased by about one microsecond per call. The host remained shared, so the original 40.85% timing cannot be assigned wholly to scheduler interference.",
+  "disposition": "Retain the qualified release. The replay alternatives were diagnostic in-memory experiments."
+}

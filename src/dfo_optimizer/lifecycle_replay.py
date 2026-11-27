@@ -2,6 +2,7 @@
 
 from math import isclose
 
+from .lifecycle_objectives import stage_performance
 from .gear_replay import _selected, fold_worn_modifiers
 from .gear_request import MODIFIERS
 from .progression_replay import require
@@ -33,6 +34,9 @@ def replay_choices(d, slots, policies, bought, native_scores=None):
             len(anchors) == 27 and all(type(i) is int and -1 <= i < len(d.copies) for i in anchors),
             "invalid lifecycle physical layout",
         )
+        if d.encounters:
+            require(all(i < 0 or any(j == i for j,_ in d.slots[k][3]) for k,i in enumerate(anchors)),
+                    "loadout lacks supported encounter defenses")
         layout = _selected({"slots": anchors}, d.domain)
         for it in layout.values():
             require(held >> d.names_all.index(it.identity) & 1, "equipped physical copy is unavailable")
@@ -59,6 +63,7 @@ def replay_choices(d, slots, policies, bought, native_scores=None):
                 scores.append(replay_spell(combat, d.book[idx][1]))
         before = available_sp
         encounter = {}
+        performance = {}
         if d.encounters:
             from .lifecycle_encounter import replay_point
             recipes = {k:r for k,(_,r) in zip(d.names,d.book,strict=True)}
@@ -73,15 +78,20 @@ def replay_choices(d, slots, policies, bought, native_scores=None):
                     "Wellspring requires verified pool capacity and fractional recovery carry")
             dps,trial = replay_point(d.encounters[n],combat,recipes,names,available_hp,before,min(10,wellspring))
             encounter = {"encounter": {"initial_hp": available_hp, **trial}}
+            if d.objective != "legacy":
+                performance = stage_performance(trial["damage"], trial["spent_sp"], trial, d.encounters[n][0]["horizon_us"])
             available_sp, available_hp = trial["end_sp"], trial["end_hp"]
             require(available_hp > 0 or n+1 == len(d.indices),"dead character entered a later encounter")
             sp = before - available_sp
         else:
             sp = sum(v["cost_sp"] for v in scores)
             require(sp <= before, "policy exceeds spendable SP after previous casts")
+            if d.objective != "legacy":
+                performance = stage_performance(sum(v["expected_health_loss"] for v in scores), sp)
             available_sp -= sp
-            dps = sum(v["dps"] for v in scores) / len(scores)
-            require(dps > 0, "policy fails positive damage floor")
+            dps = sum(v["dps"] for v in scores) / len(scores) if scores else 0.
+            allow_wait = not names and n == 0 and len(d.stages) > 1 and d.source.get("boundary") == "creation"
+            require(dps > 0 or allow_wait, "policy fails positive damage floor")
         if native_scores is not None:
             require(
                 isclose(native_scores[n], dps, rel_tol=1e-10, abs_tol=1e-11),
@@ -102,6 +112,7 @@ def replay_choices(d, slots, policies, bought, native_scores=None):
                 "loadout": {label: layout[i].identity for label, i in d.domain.slots.items() if i in layout},
                 "casting_policy": names,
                 **encounter,
+                **({"performance": performance} if performance else {}),
                 **({"firmament_modifiers": d.firmament[n]} if d.firmament and d.firmament[n] else {}),
                 "spellbook": [name for j, name in enumerate(d.names, len(d.copies)) if held >> j & 1],
             }
@@ -109,7 +120,10 @@ def replay_choices(d, slots, policies, bought, native_scores=None):
         next_stage = d.indices[n + 1] if n + 1 < len(d.indices) else stage
         for j in range(stage + 1, next_stage + 1):
             action = d.actions[j - 1]
-            if action["kind"] == "rest":
+            if action["kind"] == "rest" and action.get("recovery") == "full_bed":
+                available_sp = d.states[j]["sp"]
+                available_hp = d.states[j].get("hp")
+            elif action["kind"] == "rest":
                 available_sp = max(available_sp, action.get("refill_sp", 0))
             else:
                 available_sp += d.states[j]["sp"] - d.states[j - 1]["sp"]

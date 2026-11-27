@@ -15,6 +15,8 @@ struct Career {
     Skills<int> group{}, multipliers{};
     double advancement{};
     int reflexes{}, starting_sum{};
+    int hp_setting{}, magery_quarters{}, fatigue_multiplier{};
+    bool career_regeneration{};
 };
 
 struct State {
@@ -25,21 +27,26 @@ struct State {
     double odometer_h{}, odometer_v{};
     Stats attributes{};
     Book known{};
-    u64 mastered{}, oghma{};
+    u64 mastered{}, oghma{}, collected_gold{};
     int firmament{-1};
     int level{}, current_sum{}, pending_level{-1}, pending_pool{-1};
+    int allocation_policy{-1};
     int arcane_path{-1}, martial_path{-1}, challenge_level{};
     i64 minutes{}, last_check{}, last_training{}, last_rest{-1}, real_ms{}, challenge_at{-1};
     i64 gold{}, bank_gold{}, sp{}, fatigue{};
+    std::uint32_t hp_roll_state{};
+    bool hp_known{true};
+    int raw_max_hp{}, max_hp{}, hp{}, max_sp{}, max_fatigue{};
     auto fields() const {
         return std::tie(skills, uses, fractions, progress, attributes, known, mastered, level,
             current_sum, pending_level, pending_pool, arcane_path, martial_path, challenge_level,
             minutes, last_check, last_training, last_rest, real_ms, challenge_at, gold, bank_gold, sp, fatigue,
-            spam_recent, spam_at, move_mark, move_credit, odometer_h, odometer_v, oghma, firmament);
+            spam_recent, spam_at, move_mark, move_credit, odometer_h, odometer_v, oghma, firmament,
+            hp_roll_state, hp_known, raw_max_hp, max_hp, hp, max_sp, max_fatigue, collected_gold, allocation_policy);
     }
 };
 
-enum Kind { skip, practice, rest, check, train, master, level_up, choose, reset, buy, read_oghma, allocate_star };
+enum Kind { skip, practice, rest, check, train, master, level_up, choose, reset, buy, read_oghma, allocate_star, collect_gold };
 struct Action {
     int kind{}, skill{}, count{1}, amount{1}, challenge_level{}, spell{-1}, roll{10};
     int family{}, path{-1}, first{}, second{}, member{-1}, bonus{}, focus{};
@@ -48,6 +55,9 @@ struct Action {
     double price_factor{1.};
     bool recipe_set{}, if_due{}, if_eligible{}, use_order{};
     bool movement{}, short_rest{};
+    bool until_spent{}, full_bed{}, self_heal{};
+    int component_gold{-1}, range_multiplier_twice{};
+    int allocation_policy{-1};
     double horizontal_m{}, vertical_m{};
     int until_skill{201};
     Stats allocation{}, order{};
@@ -181,6 +191,13 @@ inline void motion(State &s,const Action &a) {
 }
 
 inline i64 cast_cost(const State &s,const Action &a) {
+    if (a.component_gold >= 0) {
+        const i64 live = std::max(0, effective(s,a.skill) + a.bonus);
+        const i64 base = live > 100 ? a.component_gold * 1000LL / (400 * live)
+                                    : a.component_gold * (110 - live) / 400;
+        const i64 price = std::max<i64>(5, base * a.range_multiplier_twice / 2);
+        return (price * (100 - std::clamp(a.focus,0,30)) + 50) / 100;
+    }
     if (!a.recipe_set) return a.sp_cost;
     dfo_spell::Context ctx;
     ctx.live_skill=std::max(0,effective(s,a.skill)+a.bonus);
@@ -190,12 +207,15 @@ inline i64 cast_cost(const State &s,const Action &a) {
 }
 inline bool practice_batch(State &s,const Action &a,Effort &e) {
     if (a.spell>=0 && !knows(s.known,a.spell)) return false;
-    const i64 cost=cast_cost(s,a)*a.count;
+    const i64 price = cast_cost(s,a);
+    const int count = a.until_spent && price ? int(std::min<i64>(a.count,s.sp/price)) : a.count;
+    if (count && a.self_heal && s.hp != s.max_hp) return false;
+    const i64 cost=price*count;
     if (s.sp<cost || s.fatigue<a.fatigue_cost) return false;
     s.sp-=cost;
     s.fatigue-=a.fatigue_cost;
-    e.practice+=a.count;
-    for (int i=0;i<a.count;++i) {
+    e.practice+=count;
+    for (int i=0;i<count;++i) {
         s.real_ms+=a.cadence_ms;
         if (a.challenge_level>0) {
             s.challenge_at=s.real_ms;
@@ -204,6 +224,7 @@ inline bool practice_batch(State &s,const Action &a,Effort &e) {
         if (a.movement) motion(s,a);
         else tally(s,a.skill,a.amount);
     }
+    s.real_ms += (a.count - count) * a.cadence_ms;
     return true;
 }
 inline bool master_skill(State &s,const Career &c,int skill) {
@@ -232,9 +253,28 @@ inline bool distribute(State &s,const Action &a,int pool) {
     return true;
 }
 inline bool level(State &s,const Career &c,const Action &a) {
-    if (s.pending_level!=s.level+1 || s.level>=45) return a.if_due;
+    const bool due = s.pending_level==s.level+1 && s.level<45;
+    if (a.allocation_policy>=0) {
+        if ((s.allocation_policy>=0 || !due) && a.allocation_policy!=std::max(s.allocation_policy,0)) return false;
+        if (due) s.allocation_policy=a.allocation_policy;
+    }
+    if (!due) return a.if_due;
+    const int lower = c.hp_setting/2;
+    if (c.hp_setting) {
+        s.hp_roll_state = 1664525u*s.hp_roll_state + 1013904223u;
+        const int draw = lower + int((u64(s.hp_roll_state) * (c.hp_setting+1-lower)) >> 32);
+        s.raw_max_hp += std::max(1, draw + s.attributes[4]/10 - 5);
+    }
     if (!distribute(s,a,s.pending_pool<0?5:s.pending_pool)) return false;
     ++s.level; s.pending_level=-1; s.pending_pool=-1;
+    if (c.hp_setting) {
+        const int twice_average = lower+c.hp_setting + 2*(s.attributes[4]/10-5);
+        const int floor = 25+c.hp_setting + (s.level-1)*std::max(2,twice_average)/2;
+        s.max_hp = std::max(floor,s.raw_max_hp);
+        s.hp = std::min(s.hp,s.max_hp);
+        s.max_sp = s.attributes[1]*c.magery_quarters/4;
+        s.max_fatigue = (s.attributes[0]+s.attributes[4])*c.fatigue_multiplier;
+    }
     latch(s,c);
     return true;
 }
@@ -259,7 +299,7 @@ inline bool short_rest_available(i64 last_night, i64 now) {
     return last_night>=0 && now>=last_night && now-last_night<120;
 }
 
-inline bool apply(State &s,const Career &c,const Action &a,Effort &e) {
+inline bool apply_action(State &s,const Career &c,const Action &a,Effort &e) {
     s.real_ms+=a.real_elapsed_ms;
     int &path=a.family==0?s.arcane_path:s.martial_path;
     switch (a.kind) {
@@ -275,12 +315,23 @@ inline bool apply(State &s,const Career &c,const Action &a,Effort &e) {
         for (int hour=0;hour<8;++hour) tally(s,0,1);
         if (a.refill_sp>=0) s.sp=std::max(s.sp,a.refill_sp);
         if (a.refill_fatigue>=0) s.fatigue=std::max(s.fatigue,a.refill_fatigue);
+        if (a.full_bed) {
+            s.hp=s.max_hp;
+            s.hp_known=true;
+            s.sp=s.max_sp;
+            s.fatigue=s.max_fatigue;
+        }
         [[fallthrough]];
     case check:
         s.minutes+=a.minutes; e.minutes+=a.minutes;
         if (a.short_rest && !short_rest_available(s.last_rest,s.minutes)) return false;
         raise_pass(s,c,e); return true;
     case train: return train_skill(s,c,a,e);
+    case collect_gold:
+        if (s.collected_gold & bit(a.first)) return false;
+        s.collected_gold|=bit(a.first);
+        s.gold+=a.amount;
+        return true;
     case master: return master_skill(s,c,a.skill) || a.if_eligible;
     case level_up: return level(s,c,a);
     case read_oghma:
@@ -305,5 +356,14 @@ inline bool apply(State &s,const Career &c,const Action &a,Effort &e) {
         s.known[a.spell/64]|=bit(a.spell%64); return true;
     default: return false;
     }
+}
+inline bool apply(State &s,const Career &c,const Action &a,Effort &e) {
+    const auto minutes = s.minutes;
+    const auto real_ms = s.real_ms;
+    const bool injured = s.hp<s.max_hp;
+    if (!apply_action(s,c,a,e)) return false;
+    if (c.career_regeneration && !a.full_bed && injured && (minutes!=s.minutes || real_ms!=s.real_ms))
+        s.hp_known=false;
+    return true;
 }
 } // namespace dfo_progression

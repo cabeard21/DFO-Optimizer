@@ -18,6 +18,43 @@ python3.12 -m venv .venv
 .venv/bin/dfo class optimize --top 1 --output build/example.json
 ```
 
+## Create your first spellcaster
+
+Run `dfo ui` and choose **Recommend My First Spellcaster**. The default comparison has a two-minute budget. Read the recommended race and starting equipment, download the game class, and follow the printable checklist when assigning your bonuses. Race is selected separately in the game. The result also explains what the character gives up and which later choices you can postpone.
+
+The same service can create, check and export the recommendation from the command line.
+
+```sh
+dfo build recommend --output build/first-spellcaster.json
+dfo build replay --plan build/first-spellcaster.json
+dfo class export --result build/first-spellcaster.json --output build/first-spellcaster.dfclass.json
+```
+
+Use `--thoroughness quick` for a smaller class panel or `--thoroughness thorough` for a longer search. Each class faces the same declared opportunities, birth rolls and enemy attacks. The comparison includes acquired weapons and armor, spell-point shortages and opportunities to heal.
+
+The beginner search requires 0.30× advancement. After it finishes, choose **Compare slower builds** to see what equipment and defenses a slower class could gain. The comparison keeps your 0.30× recommendation available. On the command line, use `dfo build recommend --compare-slower RESULT` with a saved recommendation or workbench archive.
+
+See the [measured beginner recommendation](docs/BEGINNER-REFINEMENT.md) for a ready-to-import Breton, its creation checklist, and the paired equipment and specialization results.
+
+The [earlier M9 comparison](docs/M9-ACCEPTANCE.md) includes a nine-metal Khajiit at 3.00× and a Breton at 0.30× that reached the cap with about one tenth as much practice in that itinerary. Run the current beginner recommendation for the updated equipment, spell, and specialization comparisons.
+
+## Discover a spellcaster build
+
+Run `dfo ui` and select **Discover Spellcaster Build**. Start with the two-minute Overall PvE search, then compare funded spells, loadouts and progression effort on the same birth rolls. Each preset displays its world assumptions. The practical itinerary assumes specific access to practice, rest and purchases. The theoretical equipment preset supplies a separate finite item pool.
+
+Start with all eight races and an ordered skill assignment that can eventually master all six schools. Lock a permanent choice only if you want it enforced. The seven-material Breton and its High Elf race variant are optional comparison inputs. To compare a custom class, import its game JSON and select its race. Exporting a recommendation downloads the game class document. Save the archive to keep its race, assumptions and replayable route.
+
+The CLI uses the same services. The class command screens creation choices. The build command evaluates their progression and performance.
+
+```sh
+dfo class optimize --profile spellcaster_discovery_v1 --top 24 --output build/class-panel.json
+dfo build optimize --request examples/build-discovery-demo.json --output build/discovery.json
+dfo build replay --plan build/discovery.json
+dfo benchmark --suite discovery --workers 1 --output build/discovery-quality.json
+```
+
+The result reports class enumeration, admission and downstream completion separately. An early result can be replayed while the search continues. A complete paired comparison covers each listed birth seed. See the [M8 qualification record](docs/M8-ACCEPTANCE.md) for measured recovery, demonstration inputs and platform evidence.
+
 ## Use the installed CLI
 
 With the environment activated, the following commands export the first candidate, validate its actual game document, and reproduce a small exact search.
@@ -128,6 +165,8 @@ python -m build
 python tools/verify_wheel.py --browser
 ```
 
-Wheel acceptance creates a new environment, regenerates the source fixtures, runs the tests against the installed package from outside the checkout, and records five serial benchmark suites. The browser lane adds Chromium workflow tests. Set `DFO_SOURCE` to use another local checkout. The 14 original Dhargo downloads can also be replayed separately. [Fixture verification](tests/fixtures/dhargo/README.md)
+CI builds and installs the native wheel on Windows and Linux and runs `dfo benchmark --suite smoke --workers 1`.
+
+Full wheel acceptance creates a new environment, checks the source fixtures, runs the tests against the installed package from outside the checkout, and records seven serial benchmark suites. The `--browser` option adds Chromium workflow tests. On Linux, run `python tools/verify_native_coverage.py` for compiler-instrumented coverage. Set `DFO_SOURCE` to use another local checkout. The 14 original Dhargo downloads can also be replayed separately. [Fixture verification](tests/fixtures/dhargo/README.md)
 
 [M0–M1 acceptance](docs/M0-M1-ACCEPTANCE.md) · [M2–M3 acceptance](docs/M2-M3-ACCEPTANCE.md) · [M4–M5 acceptance](docs/M4-M5-ACCEPTANCE.md) · [M6–M7 qualification](docs/M6-M7-ACCEPTANCE.md) · [Architecture](docs/ARCHITECTURE.md) · [Mechanics and open questions](docs/MECHANICS.md) · [Search guarantees](docs/OPTIMIZATION.md) · [Performance measurements](docs/PERFORMANCE.md)

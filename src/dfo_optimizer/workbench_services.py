@@ -18,6 +18,7 @@ SEARCH = {
     "gear optimize": ("gear", "optimize_gear", "_gear"),
     "progression plan": ("progression", "plan_progression", "_progression"),
     "build optimize": ("lifecycle", "optimize_build", "_lifecycle"),
+    "build recommend": ("beginner", "recommend_build", "beginner"),
     "build replan": ("lifecycle", "replan_build", "_lifecycle"),
     "spellbook evaluate": ("spellbook", "evaluate_spellbook", "_spellbook"),
     "spellbook optimize": ("spellbook", "optimize_spellbook", "_spellbook"),
@@ -38,24 +39,40 @@ def module(name):
 
 
 def search_token(action, request):
+    if (action == "build replay" and request.get("kind") == "beginner_recommendation" or
+            action == "build compare" and isinstance(request.get("plans"), list) and any(
+                isinstance(p, dict) and p.get("kind") == "beginner_recommendation" for p in request["plans"])):
+        return module("beginner").CancelToken()
     if action.split()[0] in ("gear","spellbook") and "encounter" in request:
         return module("_lifecycle").CancelToken()
     return module(SEARCH[action][2]).CancelToken() if action in SEARCH else None
 
 
-def execute(action, request, token):
+def is_discovery(action, request):
+    return action == "build recommend" or action == "build optimize" and (
+        "class_admission_strategy" in request
+        or isinstance(request.get("class_search"), dict)
+        and request["class_search"].get("profile") == "spellcaster_discovery_v1"
+    )
+
+
+def execute(action, request, token, *, on_incumbent=None):
     if action in SEARCH:
         source, function, _ = SEARCH[action]
+        if on_incumbent is not None and is_discovery(action, request):
+            return getattr(module(source), function)(request, cancel=token, on_incumbent=on_incumbent)
         return getattr(module(source), function)(request, cancel=token)
     if action in REPLAY:
         source, function = REPLAY[action]
+        if action == "build replay" and request.get("kind") == "beginner_recommendation":
+            return module(source).replay_build(request, cancel=token)
         return getattr(module(source), function)(request)
     if action == "class validate":
         return module("classes").validate_class(request.get("document", request), race=request.get("race"))
     if action == "class export":
         return module("classes").export_class(request.get("document", request))
     if action == "build compare":
-        return module("lifecycle").compare_builds(request.get("plans"))
+        return module("lifecycle").compare_builds(request.get("plans"), cancel=token)
     if action == "build baselines":
         return module("build_baselines").baseline_catalog(load_ruleset())
     if action == "ruleset coverage":
@@ -76,6 +93,14 @@ def inline_only(value):
 
 
 def read_example(name):
+    if name.startswith("discovery-"):
+        from .discovery_presets import discovery_preset, preset_catalog
+        key = name.removeprefix("discovery-")
+        if key not in {row["id"] for row in preset_catalog()}:
+            raise KeyError("Unknown discovery preset")
+        value = discovery_preset(key)
+        inline_only(value)
+        return value
     directory = shared_data("examples")
     examples = {p.stem: p for p in directory.glob("*.json")}
     if name not in examples:
@@ -97,15 +122,24 @@ def read_example(name):
 
 
 def metadata():
-    from .build_baselines import baseline_catalog
+    from .build_baselines import baseline_catalog, resolve_family_baseline
+    from .discovery_presets import preset_catalog
+    from .lifecycle_objectives import OBJECTIVES
     from .equipment import equipment_catalog
     rules = load_ruleset()
+    baselines = baseline_catalog(rules)["baselines"]
     slots = {key:value for key,value in equipment_catalog()["slots"].items() if 0 <= value <= 26}
     return {"ruleset_hash": rules["content_hash"], "source_sha":rules["source_sha"], "mode":rules["mode"],
             "engine":rules["engine_version"], "actions":list(ACTIONS),
             "examples":sorted(p.stem for p in shared_data("examples").glob("*.json")),
-            "modes":MODES, "catalog":{"slots":slots,**{k:rules[k] for k in ("races","skills","traits","limits")}},
-            "baselines":baseline_catalog(rules)["baselines"], "coverage":coverage(rules)}
+            "discovery_presets":preset_catalog(), "modes":MODES,
+            "catalog":{"slots":slots,**{k:rules[k] for k in ("races","skills","traits","limits")},
+                       "objective_definitions":OBJECTIVES,
+                       "caster_races":{r["id"]:r["race_id"] for r in baselines
+                                       if r["id"] in ("m1-breton-caster","comparison-high-elf-caster")},
+                       "caster_classes":{key:resolve_family_baseline(key,rules)["class"] for key in
+                                         ("m1-breton-caster","comparison-high-elf-caster")}},
+            "baselines":baselines, "coverage":coverage(rules)}
 
 
 def limited_request(action, request, caps):
@@ -125,4 +159,4 @@ def limited_request(action, request, caps):
 
 
 def searchable(action):
-    return action.endswith("optimize") or action in ("progression plan", "build replan")
+    return action.endswith("optimize") or action in ("progression plan", "build replan", "build recommend")

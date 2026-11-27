@@ -1,0 +1,32 @@
+# How the beginner recommendation tests a build
+
+Each class commits to one development policy before combat. Every fight starts from an independently replayed birth, level-15 or level-45 checkpoint with its legal attributes, skills, HP, spell points, known recipes, carried fatigue and equipped physical copies. The two birth tapes are 42 and 43. The combat tapes are 101 and 202. They provide paired examples. Their clear rates do not estimate live encounter frequencies.
+
+## The eight encounters
+
+All classes at the same stage face identical opponent statistics, positions, timing and draws. The default horizon is 18 seconds. The table shows total enemy HP at each stage.
+
+| Encounter | Birth | Level 15 | Level 45 | What happens |
+| --- | ---: | ---: | ---: | --- |
+| Ordinary | 36 | 72 | 216 | One opponent in weapon and touch range attacks on a fixed schedule. |
+| Physical pressure | 68 | 136 | 408 | A more skilled raider attacks sooner and more frequently. |
+| Enemy spellcaster | 50 | 70 | 170 | A stationary caster at 6.4 m fires a declared Damage Health bundle. The player can use ranged magic. Closing distance is outside this case. |
+| Resistant | 48 | 96 | 288 | The close opponent has Willpower 80 and a hypothetical 50% resist ward active throughout the fight. |
+| Multiple | 76 | 152 | 456 | Three nearby enemies take their own attacks. The policy prefers an affordable area spell against the visible group. |
+| Low SP | 36 | 72 | 216 | Before the ordinary fight, a separate paid casting drill consumes real SP. The fight begins with the measured remainder. |
+| Sustained | 104 | 208 | 624 | The second enemy enters two seconds after the first room clears. The encounter carries HP, SP, casting recovery, timed effects and equipment wear across the transition. |
+| Defensive recovery | 68 | 136 | 408 | An opponent in reach mixes weapon attempts and a hostile spell schedule. The policy can shield and heal if it learned the corresponding spells. |
+
+The ordinary melee opponents are hypothetical, awake human career opponents. The three bands use an iron dagger, steel longsword and ebony claymore respectively. Weapon handling, condition, race and career modifiers, the struck location, physical defense and fatigue use the ordinary online PCAAO/RRI calculation. Opponent levels, skills, armour, starting condition, attack attempts and positions are scenario inputs. A scheduled attempt can miss or deal no damage. The built-in spellcaster uses the Orc Shaman base row at the first two stages and the Ancient Lich at cap. The pinned game's `src/characters/enemy/enemyBasics.js` supplies level and HP ranges. Its `src/combat/enemyGroups.js` supplies the lich's undead group. The hostile recipe, Willpower and schedule are authored. The three stage panels make no claim about enemy scaling, drop rates or spawning. [Exact scenario definitions and stage bands](../src/dfo_optimizer/beginner_scenario_catalog.py) · [Physical rules and source data](../src/dfo_optimizer/data/physical-laws.json)
+
+The ground is dry, dark and non-sacred. The character stands within ordinary weapon reach in the close-range cases. The first five-second magic tick has absolute round number one, so the first fourth-round career pulse would occur at 20 seconds. The built-in fights end before then. This boundary follows `src/systems/passiveSpecials.js`. Persistent environmental magery or unsupported physical effects produce an explicit gap. Account bonuses, movement, human reaction time and unobserved AI behavior are outside these projections.
+
+## Decisions and resources
+
+The casting policy checks for an affordable immediate heal below 60% HP, a shield when none remains, then regeneration below 65% HP. It then attempts an available attack, in the same book order for all combat draws. Single-opponent fights prefer touch then ranged damage. The pack prefers a close area attack. If no qualifying spell can start, the close-range policy attempts a legal weapon or unarmed strike. A character with a fully known book and no usable spell waits under incoming fire when the opponent stays out of reach. An unresolved owned record that might change this outcome produces an explicit coverage gap. Shield absorption, healing, physical hits, HP, SP and spell usage come from actual event results.
+
+The low-SP preparation runs one repeatable, owned direct-damage spell against a hypothetical harmless high-HP practice target for two minutes. A character without such a spell can use an owned immediate heal. The input grants no new spell, experience, refill or on-kill reward. A character who already meets the low-SP threshold enters immediately. The service replays every payment made during preparation. It requires the remaining SP to be at most one-quarter of capacity and publishes starting SP, casts, gross spending, restoration and remaining SP separately from the subsequent fight. An infeasible preparation appears as a coverage gap.
+
+The sensitivity panels retain the same classes and birth rolls. Owned-only gear removes an optional gear transaction. No optional combat purchase keeps the ordinary training lessons and removes the later paid combat recipe. Increased pressure moves each attack to 75% of its baseline time. Protected recovery permits one owned immediate heal during the two-second interval between dungeon rooms. The cast requires missing HP, available SP, an available casting action and time to release. A later cast waits for its normal recovery. This opportunity grants no free healing, SP refill or consumable. [Attained gear and spell transactions](../src/dfo_optimizer/beginner_stage_assets.py) · [Fixed casting policy and reference replay](../src/dfo_optimizer/beginner_scenario_trials.py)
+
+An unfinished fight counts for the full horizon in clear-time comparisons. A confirmed death remains a scored outcome. A fight that lacks a required observation carries its own reason. If a resource limit or cancellation interrupts the panel, the result preserves completed outcomes, identifies the first unvisited draw and counts the remaining draws. A partially tested class stays outside the ranking. Each returned row identifies the stage, variant, birth roll, combat draw, policy identity, observed spell counts, loadout and replay identity. The batch evaluator verifies the native result against the independent event simulation. [Matrix evaluation](../src/dfo_optimizer/beginner_scenarios.py)

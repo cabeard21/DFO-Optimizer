@@ -1,0 +1,4486 @@
+{
+  "schema_version": 1,
+  "suite": "beginner",
+  "workers": 1,
+  "host": {
+    "os": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
+    "architecture": "x86_64",
+    "cpu": "AMD Ryzen 5 5600X 6-Core Processor",
+    "logical_cpus": 1,
+    "python": "3.12.3",
+    "python_compiler": "GCC 13.3.0"
+  },
+  "engine": {
+    "compiler": "GCC 13.3.0",
+    "flags": "-std=c++17 -O3 -fno-fast-math -ffp-contract=off",
+    "native": true,
+    "extension": "_native.cpython-312-x86_64-linux-gnu.so",
+    "binary_sha256": "1b4906ce720fd7377e0108fb98a184dacf7b2113b56b0ca27d450425b89191af",
+    "version": "0.6.0"
+  },
+  "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+  "ruleset_hash": "d639d137937f8c42e3f26d281785defb44fb5071e9c2da179de4a8320401d5b1",
+  "input_hash": "0dfd9aad459e7b87c065606ff6ca97c9eab240d067319dd579025d287a61a1bd",
+  "determinism": {
+    "panel": "development",
+    "size": 2,
+    "same_ranked_result": true,
+    "same_screening": true,
+    "result_hash": "008de963c9cd5ced6f02d57992093dd7c44bce73578499f16bfa3c2a3b83d266"
+  },
+  "scope": "The first eight-class domain spans two eligible races, two integer-balanced Intelligence/Speed assignments, and one Medical/Etiquette slot with fixed traits. A separate eight-class domain spans both races and all combinations of two optional exclusions, adamantium and bucklers, across four legal advancement values. All choices are fixed before comparing paired birth and encounter tapes. The three held-out panels do not share seeds with the development panel.",
+  "finite_domains": {
+    "domain": {
+      "race_ids": [
+        1,
+        5
+      ],
+      "hp_values": [
+        30
+      ],
+      "difficulty_values": [
+        -12
+      ],
+      "attribute_domains": {
+        "strength": [
+          50
+        ],
+        "intelligence": [
+          60,
+          65
+        ],
+        "willpower": [
+          55
+        ],
+        "agility": [
+          40
+        ],
+        "endurance": [
+          55
+        ],
+        "personality": [
+          35
+        ],
+        "speed": [
+          60,
+          65
+        ],
+        "luck": [
+          40
+        ]
+      },
+      "skill_domains": [
+        [
+          22
+        ],
+        [
+          23
+        ],
+        [
+          25
+        ],
+        [
+          24
+        ],
+        [
+          27
+        ],
+        [
+          29
+        ],
+        [
+          26
+        ],
+        [
+          20
+        ],
+        [
+          14
+        ],
+        [
+          21
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          13
+        ]
+      ],
+      "trait_ids": [
+        23,
+        56,
+        58,
+        60,
+        62,
+        64,
+        65,
+        66
+      ],
+      "required_trait_ids": [
+        23,
+        56,
+        58,
+        60,
+        62,
+        64,
+        65,
+        66
+      ]
+    },
+    "material_domain": {
+      "race_ids": [
+        1,
+        5
+      ],
+      "hp_values": [
+        30
+      ],
+      "difficulty_values": [
+        -12,
+        -11,
+        -7,
+        -6
+      ],
+      "attribute_domains": {
+        "strength": [
+          50
+        ],
+        "intelligence": [
+          65
+        ],
+        "willpower": [
+          55
+        ],
+        "agility": [
+          40
+        ],
+        "endurance": [
+          55
+        ],
+        "personality": [
+          35
+        ],
+        "speed": [
+          60
+        ],
+        "luck": [
+          40
+        ]
+      },
+      "skill_domains": [
+        [
+          22
+        ],
+        [
+          23
+        ],
+        [
+          25
+        ],
+        [
+          24
+        ],
+        [
+          27
+        ],
+        [
+          29
+        ],
+        [
+          26
+        ],
+        [
+          20
+        ],
+        [
+          14
+        ],
+        [
+          21
+        ],
+        [
+          0
+        ],
+        [
+          13
+        ]
+      ],
+      "trait_ids": [
+        23,
+        56,
+        58,
+        60,
+        62,
+        64,
+        65,
+        66
+      ],
+      "required_trait_ids": [
+        23,
+        58,
+        60,
+        62,
+        64,
+        65
+      ]
+    }
+  },
+  "workloads": {
+    "development": {
+      "scenario": {
+        "roll_seeds": [
+          42,
+          43
+        ],
+        "combat_seeds": [
+          101,
+          202
+        ],
+        "cases": [
+          "ordinary",
+          "physical",
+          "multiple"
+        ],
+        "variants": [
+          "baseline"
+        ]
+      },
+      "domain": "domain",
+      "exhaustive_admission": {
+        "seconds": 0.07050922799999171,
+        "proof_scope": {
+          "enumeration_complete": true,
+          "admission_complete": true,
+          "difficulty_values": [
+            -12
+          ],
+          "slices": [
+            {
+              "difficulty": -12,
+              "termination": "exhausted",
+              "screened": 8,
+              "passed": 8,
+              "nodes": 69,
+              "kit_rejections_by_mask": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "work_bytes": 81192
+            }
+          ],
+          "termination": "exhausted",
+          "conflicts": [],
+          "claim": "Within the declared class domain and ordinary birth assumptions only.",
+          "suggested_edits": [],
+          "verified_minimal_edits": [],
+          "kit_rejection_bits": {
+            "1": "no plate",
+            "2": "insufficient carry",
+            "4": "no owned trained melee",
+            "8": "no affordable owned direct-damage spell at birth"
+          },
+          "excluded_traits": {
+            "42": "high_risk_disadvantage",
+            "43": "high_risk_disadvantage",
+            "44": "high_risk_disadvantage",
+            "45": "high_risk_disadvantage",
+            "46": "high_risk_disadvantage",
+            "47": "high_risk_disadvantage",
+            "48": "high_risk_disadvantage",
+            "49": "high_risk_disadvantage",
+            "50": "high_risk_disadvantage",
+            "51": "restricted_casting",
+            "52": "restricted_casting",
+            "55": "plate_forbidden",
+            "76": "uncertain_regeneration_behavior",
+            "77": "restricted_casting",
+            "78": "restricted_casting",
+            "80": "class_save_vulnerability",
+            "81": "class_save_vulnerability",
+            "82": "class_save_vulnerability",
+            "83": "class_save_vulnerability",
+            "84": "class_save_vulnerability",
+            "85": "class_save_vulnerability"
+          },
+          "domain_policy": {
+            "hp": 30,
+            "magicka": 3,
+            "required_masteries": [
+              22,
+              23,
+              24,
+              25,
+              26,
+              27
+            ],
+            "race_ids": [
+              1,
+              5
+            ],
+            "attribute_domains": [
+              [
+                50
+              ],
+              [
+                60,
+                65
+              ],
+              [
+                55
+              ],
+              [
+                40
+              ],
+              [
+                55
+              ],
+              [
+                35
+              ],
+              [
+                60,
+                65
+              ],
+              [
+                40
+              ]
+            ],
+            "ordered_skill_domains": [
+              [
+                22
+              ],
+              [
+                23
+              ],
+              [
+                25
+              ],
+              [
+                24
+              ],
+              [
+                27
+              ],
+              [
+                29
+              ],
+              [
+                26
+              ],
+              [
+                20
+              ],
+              [
+                14
+              ],
+              [
+                21
+              ],
+              [
+                0,
+                1
+              ],
+              [
+                13
+              ]
+            ],
+            "trait_ids": [
+              23,
+              56,
+              58,
+              60,
+              62,
+              64,
+              65,
+              66
+            ],
+            "required_trait_ids": [
+              23,
+              56,
+              58,
+              60,
+              62,
+              64,
+              65,
+              66
+            ],
+            "advancement": "Every enumerated cost slice is reported in difficulty_values."
+          },
+          "catalog_scope": {
+            "weapons": 180,
+            "armor": 143,
+            "other": 91
+          },
+          "eligibility_only": "Reviewed mundane template/material combinations do not imply ownership or access."
+        },
+        "counters": {
+          "nodes": 69,
+          "legal": 8,
+          "screened": 8,
+          "leaf_visits": 8,
+          "native_retained": 8,
+          "admitted": 8,
+          "manual": 2,
+          "controlled_comparisons": 0
+        },
+        "ids": [
+          "f65361aaf353b0a5b595e0c6f7ca923344d56f8958eb01161c1455a1add58260",
+          "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4",
+          "11a068eccf0cb0b163669e609fdb68727ca647b8d2391f0b4693a19c9d05fdd6",
+          "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+          "ae79ea96964c0063990402f36a678d11c298a94f5a4dfcdc8040bc90c27f5d38",
+          "d84c4e5ae68acc2a072a6e6cdede724097730d81619431f1cc466f91fff805e0",
+          "1cc7de017ae6b71c79173ebd4c3d366ee51919680495daa5c059caed83980eef",
+          "c35c28cdc97d6e0738013327b3829f09f93296440f1d6888fe2d9afad9827679"
+        ]
+      },
+      "exhaustive": {
+        "elapsed_seconds": 7.637003765999907,
+        "seconds_per_family": 0.9546254707499884,
+        "cells_per_family": 36,
+        "result_hash": "276aa93dc842a0199d06a42d1294d3be4dd4ad227ea0042e8ffabcd2bbaa96d6",
+        "peak_process_rss_bytes": 49909760,
+        "diagnostics": {
+          "admission": {},
+          "fully_evaluated": 8,
+          "retained_bytes": 1426288,
+          "progression_nodes": 201668,
+          "checkpoint_cache_hits": 0,
+          "encounter_events": 9508,
+          "encounter_batches": 144,
+          "replayed_trials": 288,
+          "identical_encounter_batches_reused": 0,
+          "checkpoint_forks": 288,
+          "nodes": 211176
+        },
+        "eligible_rows": [
+          {
+            "id": "f65361aaf353b0a5b595e0c6f7ca923344d56f8958eb01161c1455a1add58260",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.75,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 144891.5,
+              "mean_censored_clear_fraction": 0.48276939506172845,
+              "cap_damage_per_second": 74.58563535911603,
+              "mean_damage_per_sp": null,
+              "min_hp_fraction": 0.34545454545454546,
+              "mean_min_hp_fraction": 0.802883122832523
+            }
+          },
+          {
+            "id": "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.7777777777777778,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 143034.5,
+              "mean_censored_clear_fraction": 0.4959229567901235,
+              "cap_damage_per_second": 74.58563535911603,
+              "mean_damage_per_sp": null,
+              "min_hp_fraction": 0.34545454545454546,
+              "mean_min_hp_fraction": 0.793792213741614
+            }
+          },
+          {
+            "id": "11a068eccf0cb0b163669e609fdb68727ca647b8d2391f0b4693a19c9d05fdd6",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.75,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 144891.5,
+              "mean_censored_clear_fraction": 0.48276939506172845,
+              "cap_damage_per_second": 74.58563535911603,
+              "mean_damage_per_sp": null,
+              "min_hp_fraction": 0.34545454545454546,
+              "mean_min_hp_fraction": 0.802883122832523
+            }
+          },
+          {
+            "id": "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.7777777777777778,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 143032.5,
+              "mean_censored_clear_fraction": 0.4959229567901235,
+              "cap_damage_per_second": 74.58563535911603,
+              "mean_damage_per_sp": null,
+              "min_hp_fraction": 0.34545454545454546,
+              "mean_min_hp_fraction": 0.793792213741614
+            }
+          },
+          {
+            "id": "ae79ea96964c0063990402f36a678d11c298a94f5a4dfcdc8040bc90c27f5d38",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.75,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 144895.5,
+              "mean_censored_clear_fraction": 0.48276939506172845,
+              "cap_damage_per_second": 74.58563535911603,
+              "mean_damage_per_sp": null,
+              "min_hp_fraction": 0.34545454545454546,
+              "mean_min_hp_fraction": 0.802883122832523
+            }
+          },
+          {
+            "id": "d84c4e5ae68acc2a072a6e6cdede724097730d81619431f1cc466f91fff805e0",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.7777777777777778,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 143032.5,
+              "mean_censored_clear_fraction": 0.4959229567901235,
+              "cap_damage_per_second": 74.58563535911603,
+              "mean_damage_per_sp": null,
+              "min_hp_fraction": 0.34545454545454546,
+              "mean_min_hp_fraction": 0.793792213741614
+            }
+          },
+          {
+            "id": "1cc7de017ae6b71c79173ebd4c3d366ee51919680495daa5c059caed83980eef",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.75,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 144895.5,
+              "mean_censored_clear_fraction": 0.48276939506172845,
+              "cap_damage_per_second": 74.58563535911603,
+              "mean_damage_per_sp": null,
+              "min_hp_fraction": 0.34545454545454546,
+              "mean_min_hp_fraction": 0.802883122832523
+            }
+          },
+          {
+            "id": "c35c28cdc97d6e0738013327b3829f09f93296440f1d6888fe2d9afad9827679",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.7777777777777778,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 143034.5,
+              "mean_censored_clear_fraction": 0.4959229567901235,
+              "cap_damage_per_second": 74.58563535911603,
+              "mean_damage_per_sp": null,
+              "min_hp_fraction": 0.34545454545454546,
+              "mean_min_hp_fraction": 0.793792213741614
+            }
+          }
+        ]
+      },
+      "bounded": {
+        "2": {
+          "admission": {
+            "seconds": 0.013871689000097831,
+            "proof_scope": {
+              "enumeration_complete": false,
+              "admission_complete": false,
+              "difficulty_values": [
+                -12
+              ],
+              "slices": [
+                {
+                  "difficulty": -12,
+                  "termination": "sample_limit",
+                  "screened": 8,
+                  "passed": 8,
+                  "nodes": 9360,
+                  "kit_rejections_by_mask": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "work_bytes": 94016
+                }
+              ],
+              "termination": "bounded",
+              "conflicts": [],
+              "claim": "Within the declared class domain and ordinary birth assumptions only.",
+              "suggested_edits": [],
+              "verified_minimal_edits": [],
+              "kit_rejection_bits": {
+                "1": "no plate",
+                "2": "insufficient carry",
+                "4": "no owned trained melee",
+                "8": "no affordable owned direct-damage spell at birth"
+              },
+              "excluded_traits": {
+                "42": "high_risk_disadvantage",
+                "43": "high_risk_disadvantage",
+                "44": "high_risk_disadvantage",
+                "45": "high_risk_disadvantage",
+                "46": "high_risk_disadvantage",
+                "47": "high_risk_disadvantage",
+                "48": "high_risk_disadvantage",
+                "49": "high_risk_disadvantage",
+                "50": "high_risk_disadvantage",
+                "51": "restricted_casting",
+                "52": "restricted_casting",
+                "55": "plate_forbidden",
+                "76": "uncertain_regeneration_behavior",
+                "77": "restricted_casting",
+                "78": "restricted_casting",
+                "80": "class_save_vulnerability",
+                "81": "class_save_vulnerability",
+                "82": "class_save_vulnerability",
+                "83": "class_save_vulnerability",
+                "84": "class_save_vulnerability",
+                "85": "class_save_vulnerability"
+              },
+              "domain_policy": {
+                "hp": 30,
+                "magicka": 3,
+                "required_masteries": [
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27
+                ],
+                "race_ids": [
+                  1,
+                  5
+                ],
+                "attribute_domains": [
+                  [
+                    50
+                  ],
+                  [
+                    60,
+                    65
+                  ],
+                  [
+                    55
+                  ],
+                  [
+                    40
+                  ],
+                  [
+                    55
+                  ],
+                  [
+                    35
+                  ],
+                  [
+                    60,
+                    65
+                  ],
+                  [
+                    40
+                  ]
+                ],
+                "ordered_skill_domains": [
+                  [
+                    22
+                  ],
+                  [
+                    23
+                  ],
+                  [
+                    25
+                  ],
+                  [
+                    24
+                  ],
+                  [
+                    27
+                  ],
+                  [
+                    29
+                  ],
+                  [
+                    26
+                  ],
+                  [
+                    20
+                  ],
+                  [
+                    14
+                  ],
+                  [
+                    21
+                  ],
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    13
+                  ]
+                ],
+                "trait_ids": [
+                  23,
+                  56,
+                  58,
+                  60,
+                  62,
+                  64,
+                  65,
+                  66
+                ],
+                "required_trait_ids": [
+                  23,
+                  56,
+                  58,
+                  60,
+                  62,
+                  64,
+                  65,
+                  66
+                ],
+                "advancement": "Every enumerated cost slice is reported in difficulty_values."
+              },
+              "catalog_scope": {
+                "weapons": 180,
+                "armor": 143,
+                "other": 91
+              },
+              "eligibility_only": "Reviewed mundane template/material combinations do not imply ownership or access."
+            },
+            "counters": {
+              "nodes": 9360,
+              "legal": 8,
+              "screened": 8,
+              "leaf_visits": 256,
+              "native_retained": 2,
+              "admitted": 2,
+              "manual": 2,
+              "controlled_comparisons": 0
+            },
+            "ids": [
+              "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+              "f65361aaf353b0a5b595e0c6f7ca923344d56f8958eb01161c1455a1add58260"
+            ]
+          },
+          "downstream": {
+            "elapsed_seconds": 1.818051129000196,
+            "seconds_per_family": 0.909025564500098,
+            "cells_per_family": 36,
+            "result_hash": "008de963c9cd5ced6f02d57992093dd7c44bce73578499f16bfa3c2a3b83d266",
+            "peak_process_rss_bytes": 50049024,
+            "diagnostics": {
+              "admission": {},
+              "fully_evaluated": 2,
+              "retained_bytes": 356541,
+              "progression_nodes": 50417,
+              "checkpoint_cache_hits": 0,
+              "encounter_events": 2377,
+              "encounter_batches": 36,
+              "replayed_trials": 72,
+              "identical_encounter_batches_reused": 0,
+              "checkpoint_forks": 72,
+              "nodes": 52794
+            },
+            "eligible_rows": [
+              {
+                "id": "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 1.0,
+                  "mean_survival_rate": 1.0,
+                  "mean_clear_rate": 0.7777777777777778,
+                  "plate_weapon_materials": 4,
+                  "advancement_multiplier": 0.3,
+                  "mean_practice": 143032.5,
+                  "mean_censored_clear_fraction": 0.4959229567901235,
+                  "cap_damage_per_second": 74.58563535911603,
+                  "mean_damage_per_sp": null,
+                  "min_hp_fraction": 0.34545454545454546,
+                  "mean_min_hp_fraction": 0.793792213741614
+                }
+              },
+              {
+                "id": "f65361aaf353b0a5b595e0c6f7ca923344d56f8958eb01161c1455a1add58260",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 1.0,
+                  "mean_survival_rate": 1.0,
+                  "mean_clear_rate": 0.75,
+                  "plate_weapon_materials": 4,
+                  "advancement_multiplier": 0.3,
+                  "mean_practice": 144891.5,
+                  "mean_censored_clear_fraction": 0.48276939506172845,
+                  "cap_damage_per_second": 74.58563535911603,
+                  "mean_damage_per_sp": null,
+                  "min_hp_fraction": 0.34545454545454546,
+                  "mean_min_hp_fraction": 0.802883122832523
+                }
+              }
+            ]
+          },
+          "quality": {
+            "enumerated": 8,
+            "admitted": 2,
+            "exact_winners": [
+              "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+              "d84c4e5ae68acc2a072a6e6cdede724097730d81619431f1cc466f91fff805e0"
+            ],
+            "elected": "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+            "quality_recovered": true,
+            "tie_break_recovered": true,
+            "first_loss": null,
+            "exhaustive_distinct_pareto_vectors": 2,
+            "pareto_recall": 1.0,
+            "specialist_ceilings": {
+              "cap_damage_per_second": {
+                "reference": 74.58563535911603,
+                "retained": 74.58563535911603,
+                "recovered": true,
+                "absolute_gap": 0.0,
+                "relative_gap": 0.0
+              },
+              "min_hp_fraction": {
+                "reference": 0.34545454545454546,
+                "retained": 0.34545454545454546,
+                "recovered": true,
+                "absolute_gap": 0.0,
+                "relative_gap": 0.0
+              },
+              "mean_damage_per_sp": {
+                "reference": null,
+                "retained": null,
+                "recovered": null,
+                "absolute_gap": null,
+                "relative_gap": null
+              }
+            }
+          }
+        },
+        "4": {
+          "admission": {
+            "seconds": 0.01762141499966674,
+            "proof_scope": {
+              "enumeration_complete": false,
+              "admission_complete": false,
+              "difficulty_values": [
+                -12
+              ],
+              "slices": [
+                {
+                  "difficulty": -12,
+                  "termination": "sample_limit",
+                  "screened": 8,
+                  "passed": 8,
+                  "nodes": 9360,
+                  "kit_rejections_by_mask": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "work_bytes": 95376
+                }
+              ],
+              "termination": "bounded",
+              "conflicts": [],
+              "claim": "Within the declared class domain and ordinary birth assumptions only.",
+              "suggested_edits": [],
+              "verified_minimal_edits": [],
+              "kit_rejection_bits": {
+                "1": "no plate",
+                "2": "insufficient carry",
+                "4": "no owned trained melee",
+                "8": "no affordable owned direct-damage spell at birth"
+              },
+              "excluded_traits": {
+                "42": "high_risk_disadvantage",
+                "43": "high_risk_disadvantage",
+                "44": "high_risk_disadvantage",
+                "45": "high_risk_disadvantage",
+                "46": "high_risk_disadvantage",
+                "47": "high_risk_disadvantage",
+                "48": "high_risk_disadvantage",
+                "49": "high_risk_disadvantage",
+                "50": "high_risk_disadvantage",
+                "51": "restricted_casting",
+                "52": "restricted_casting",
+                "55": "plate_forbidden",
+                "76": "uncertain_regeneration_behavior",
+                "77": "restricted_casting",
+                "78": "restricted_casting",
+                "80": "class_save_vulnerability",
+                "81": "class_save_vulnerability",
+                "82": "class_save_vulnerability",
+                "83": "class_save_vulnerability",
+                "84": "class_save_vulnerability",
+                "85": "class_save_vulnerability"
+              },
+              "domain_policy": {
+                "hp": 30,
+                "magicka": 3,
+                "required_masteries": [
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27
+                ],
+                "race_ids": [
+                  1,
+                  5
+                ],
+                "attribute_domains": [
+                  [
+                    50
+                  ],
+                  [
+                    60,
+                    65
+                  ],
+                  [
+                    55
+                  ],
+                  [
+                    40
+                  ],
+                  [
+                    55
+                  ],
+                  [
+                    35
+                  ],
+                  [
+                    60,
+                    65
+                  ],
+                  [
+                    40
+                  ]
+                ],
+                "ordered_skill_domains": [
+                  [
+                    22
+                  ],
+                  [
+                    23
+                  ],
+                  [
+                    25
+                  ],
+                  [
+                    24
+                  ],
+                  [
+                    27
+                  ],
+                  [
+                    29
+                  ],
+                  [
+                    26
+                  ],
+                  [
+                    20
+                  ],
+                  [
+                    14
+                  ],
+                  [
+                    21
+                  ],
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    13
+                  ]
+                ],
+                "trait_ids": [
+                  23,
+                  56,
+                  58,
+                  60,
+                  62,
+                  64,
+                  65,
+                  66
+                ],
+                "required_trait_ids": [
+                  23,
+                  56,
+                  58,
+                  60,
+                  62,
+                  64,
+                  65,
+                  66
+                ],
+                "advancement": "Every enumerated cost slice is reported in difficulty_values."
+              },
+              "catalog_scope": {
+                "weapons": 180,
+                "armor": 143,
+                "other": 91
+              },
+              "eligibility_only": "Reviewed mundane template/material combinations do not imply ownership or access."
+            },
+            "counters": {
+              "nodes": 9360,
+              "legal": 8,
+              "screened": 8,
+              "leaf_visits": 256,
+              "native_retained": 4,
+              "admitted": 4,
+              "manual": 2,
+              "controlled_comparisons": 0
+            },
+            "ids": [
+              "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+              "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4",
+              "f65361aaf353b0a5b595e0c6f7ca923344d56f8958eb01161c1455a1add58260",
+              "11a068eccf0cb0b163669e609fdb68727ca647b8d2391f0b4693a19c9d05fdd6"
+            ]
+          },
+          "downstream": {
+            "elapsed_seconds": 3.6545457560000614,
+            "seconds_per_family": 0.9136364390000153,
+            "cells_per_family": 36,
+            "result_hash": "1132f40c2fe0f5156cbf993cbc14b5f3843ba809267a6092996079759ba8b28b",
+            "peak_process_rss_bytes": 51511296,
+            "diagnostics": {
+              "admission": {},
+              "fully_evaluated": 4,
+              "retained_bytes": 713110,
+              "progression_nodes": 100834,
+              "checkpoint_cache_hits": 0,
+              "encounter_events": 4754,
+              "encounter_batches": 72,
+              "replayed_trials": 144,
+              "identical_encounter_batches_reused": 0,
+              "checkpoint_forks": 144,
+              "nodes": 105588
+            },
+            "eligible_rows": [
+              {
+                "id": "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 1.0,
+                  "mean_survival_rate": 1.0,
+                  "mean_clear_rate": 0.7777777777777778,
+                  "plate_weapon_materials": 4,
+                  "advancement_multiplier": 0.3,
+                  "mean_practice": 143032.5,
+                  "mean_censored_clear_fraction": 0.4959229567901235,
+                  "cap_damage_per_second": 74.58563535911603,
+                  "mean_damage_per_sp": null,
+                  "min_hp_fraction": 0.34545454545454546,
+                  "mean_min_hp_fraction": 0.793792213741614
+                }
+              },
+              {
+                "id": "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 1.0,
+                  "mean_survival_rate": 1.0,
+                  "mean_clear_rate": 0.7777777777777778,
+                  "plate_weapon_materials": 4,
+                  "advancement_multiplier": 0.3,
+                  "mean_practice": 143034.5,
+                  "mean_censored_clear_fraction": 0.4959229567901235,
+                  "cap_damage_per_second": 74.58563535911603,
+                  "mean_damage_per_sp": null,
+                  "min_hp_fraction": 0.34545454545454546,
+                  "mean_min_hp_fraction": 0.793792213741614
+                }
+              },
+              {
+                "id": "f65361aaf353b0a5b595e0c6f7ca923344d56f8958eb01161c1455a1add58260",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 1.0,
+                  "mean_survival_rate": 1.0,
+                  "mean_clear_rate": 0.75,
+                  "plate_weapon_materials": 4,
+                  "advancement_multiplier": 0.3,
+                  "mean_practice": 144891.5,
+                  "mean_censored_clear_fraction": 0.48276939506172845,
+                  "cap_damage_per_second": 74.58563535911603,
+                  "mean_damage_per_sp": null,
+                  "min_hp_fraction": 0.34545454545454546,
+                  "mean_min_hp_fraction": 0.802883122832523
+                }
+              },
+              {
+                "id": "11a068eccf0cb0b163669e609fdb68727ca647b8d2391f0b4693a19c9d05fdd6",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 1.0,
+                  "mean_survival_rate": 1.0,
+                  "mean_clear_rate": 0.75,
+                  "plate_weapon_materials": 4,
+                  "advancement_multiplier": 0.3,
+                  "mean_practice": 144891.5,
+                  "mean_censored_clear_fraction": 0.48276939506172845,
+                  "cap_damage_per_second": 74.58563535911603,
+                  "mean_damage_per_sp": null,
+                  "min_hp_fraction": 0.34545454545454546,
+                  "mean_min_hp_fraction": 0.802883122832523
+                }
+              }
+            ]
+          },
+          "quality": {
+            "enumerated": 8,
+            "admitted": 4,
+            "exact_winners": [
+              "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+              "d84c4e5ae68acc2a072a6e6cdede724097730d81619431f1cc466f91fff805e0"
+            ],
+            "elected": "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+            "quality_recovered": true,
+            "tie_break_recovered": true,
+            "first_loss": null,
+            "exhaustive_distinct_pareto_vectors": 2,
+            "pareto_recall": 1.0,
+            "specialist_ceilings": {
+              "cap_damage_per_second": {
+                "reference": 74.58563535911603,
+                "retained": 74.58563535911603,
+                "recovered": true,
+                "absolute_gap": 0.0,
+                "relative_gap": 0.0
+              },
+              "min_hp_fraction": {
+                "reference": 0.34545454545454546,
+                "retained": 0.34545454545454546,
+                "recovered": true,
+                "absolute_gap": 0.0,
+                "relative_gap": 0.0
+              },
+              "mean_damage_per_sp": {
+                "reference": null,
+                "retained": null,
+                "recovered": null,
+                "absolute_gap": null,
+                "relative_gap": null
+              }
+            }
+          }
+        }
+      }
+    },
+    "held_out_pressure": {
+      "scenario": {
+        "roll_seeds": [
+          73,
+          79
+        ],
+        "combat_seeds": [
+          223,
+          227
+        ],
+        "cases": [
+          "enemy_caster",
+          "low_sp",
+          "defensive"
+        ],
+        "variants": [
+          "higher_pressure"
+        ]
+      },
+      "domain": "domain",
+      "exhaustive_admission": {
+        "seconds": 0.028777249000086158,
+        "proof_scope": {
+          "enumeration_complete": true,
+          "admission_complete": true,
+          "difficulty_values": [
+            -12
+          ],
+          "slices": [
+            {
+              "difficulty": -12,
+              "termination": "exhausted",
+              "screened": 8,
+              "passed": 8,
+              "nodes": 69,
+              "kit_rejections_by_mask": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "work_bytes": 81192
+            }
+          ],
+          "termination": "exhausted",
+          "conflicts": [],
+          "claim": "Within the declared class domain and ordinary birth assumptions only.",
+          "suggested_edits": [],
+          "verified_minimal_edits": [],
+          "kit_rejection_bits": {
+            "1": "no plate",
+            "2": "insufficient carry",
+            "4": "no owned trained melee",
+            "8": "no affordable owned direct-damage spell at birth"
+          },
+          "excluded_traits": {
+            "42": "high_risk_disadvantage",
+            "43": "high_risk_disadvantage",
+            "44": "high_risk_disadvantage",
+            "45": "high_risk_disadvantage",
+            "46": "high_risk_disadvantage",
+            "47": "high_risk_disadvantage",
+            "48": "high_risk_disadvantage",
+            "49": "high_risk_disadvantage",
+            "50": "high_risk_disadvantage",
+            "51": "restricted_casting",
+            "52": "restricted_casting",
+            "55": "plate_forbidden",
+            "76": "uncertain_regeneration_behavior",
+            "77": "restricted_casting",
+            "78": "restricted_casting",
+            "80": "class_save_vulnerability",
+            "81": "class_save_vulnerability",
+            "82": "class_save_vulnerability",
+            "83": "class_save_vulnerability",
+            "84": "class_save_vulnerability",
+            "85": "class_save_vulnerability"
+          },
+          "domain_policy": {
+            "hp": 30,
+            "magicka": 3,
+            "required_masteries": [
+              22,
+              23,
+              24,
+              25,
+              26,
+              27
+            ],
+            "race_ids": [
+              1,
+              5
+            ],
+            "attribute_domains": [
+              [
+                50
+              ],
+              [
+                60,
+                65
+              ],
+              [
+                55
+              ],
+              [
+                40
+              ],
+              [
+                55
+              ],
+              [
+                35
+              ],
+              [
+                60,
+                65
+              ],
+              [
+                40
+              ]
+            ],
+            "ordered_skill_domains": [
+              [
+                22
+              ],
+              [
+                23
+              ],
+              [
+                25
+              ],
+              [
+                24
+              ],
+              [
+                27
+              ],
+              [
+                29
+              ],
+              [
+                26
+              ],
+              [
+                20
+              ],
+              [
+                14
+              ],
+              [
+                21
+              ],
+              [
+                0,
+                1
+              ],
+              [
+                13
+              ]
+            ],
+            "trait_ids": [
+              23,
+              56,
+              58,
+              60,
+              62,
+              64,
+              65,
+              66
+            ],
+            "required_trait_ids": [
+              23,
+              56,
+              58,
+              60,
+              62,
+              64,
+              65,
+              66
+            ],
+            "advancement": "Every enumerated cost slice is reported in difficulty_values."
+          },
+          "catalog_scope": {
+            "weapons": 180,
+            "armor": 143,
+            "other": 91
+          },
+          "eligibility_only": "Reviewed mundane template/material combinations do not imply ownership or access."
+        },
+        "counters": {
+          "nodes": 69,
+          "legal": 8,
+          "screened": 8,
+          "leaf_visits": 8,
+          "native_retained": 8,
+          "admitted": 8,
+          "manual": 2,
+          "controlled_comparisons": 0
+        },
+        "ids": [
+          "f65361aaf353b0a5b595e0c6f7ca923344d56f8958eb01161c1455a1add58260",
+          "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4",
+          "11a068eccf0cb0b163669e609fdb68727ca647b8d2391f0b4693a19c9d05fdd6",
+          "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+          "ae79ea96964c0063990402f36a678d11c298a94f5a4dfcdc8040bc90c27f5d38",
+          "d84c4e5ae68acc2a072a6e6cdede724097730d81619431f1cc466f91fff805e0",
+          "1cc7de017ae6b71c79173ebd4c3d366ee51919680495daa5c059caed83980eef",
+          "c35c28cdc97d6e0738013327b3829f09f93296440f1d6888fe2d9afad9827679"
+        ]
+      },
+      "exhaustive": {
+        "elapsed_seconds": 7.929626312999972,
+        "seconds_per_family": 0.9912032891249964,
+        "cells_per_family": 36,
+        "result_hash": "86c080c564537e655406856bebc003bc80bea89c4535987b7662303719945821",
+        "peak_process_rss_bytes": 53477376,
+        "diagnostics": {
+          "admission": {},
+          "fully_evaluated": 8,
+          "retained_bytes": 1427462,
+          "progression_nodes": 198968,
+          "checkpoint_cache_hits": 0,
+          "encounter_events": 16980,
+          "encounter_batches": 192,
+          "replayed_trials": 336,
+          "identical_encounter_batches_reused": 0,
+          "checkpoint_forks": 288,
+          "nodes": 215948
+        },
+        "eligible_rows": [
+          {
+            "id": "f65361aaf353b0a5b595e0c6f7ca923344d56f8958eb01161c1455a1add58260",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 0.25,
+              "mean_survival_rate": 0.9166666666666666,
+              "mean_clear_rate": 0.4444444444444444,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 143443.0,
+              "mean_censored_clear_fraction": 0.6991670246913579,
+              "cap_damage_per_second": 20.3635944092827,
+              "mean_damage_per_sp": null,
+              "min_hp_fraction": 0.0,
+              "mean_min_hp_fraction": 0.6606938954765043
+            }
+          },
+          {
+            "id": "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 0.5,
+              "mean_survival_rate": 0.9444444444444444,
+              "mean_clear_rate": 0.4444444444444444,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 144174.5,
+              "mean_censored_clear_fraction": 0.6991670246913579,
+              "cap_damage_per_second": 20.3635944092827,
+              "mean_damage_per_sp": null,
+              "min_hp_fraction": 0.0,
+              "mean_min_hp_fraction": 0.6627140974967062
+            }
+          },
+          {
+            "id": "11a068eccf0cb0b163669e609fdb68727ca647b8d2391f0b4693a19c9d05fdd6",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 0.25,
+              "mean_survival_rate": 0.9166666666666666,
+              "mean_clear_rate": 0.4444444444444444,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 143443.0,
+              "mean_censored_clear_fraction": 0.6991670246913579,
+              "cap_damage_per_second": 20.3635944092827,
+              "mean_damage_per_sp": null,
+              "min_hp_fraction": 0.0,
+              "mean_min_hp_fraction": 0.6606938954765043
+            }
+          },
+          {
+            "id": "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 0.5,
+              "mean_survival_rate": 0.9444444444444444,
+              "mean_clear_rate": 0.4444444444444444,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 144174.5,
+              "mean_censored_clear_fraction": 0.6991670246913579,
+              "cap_damage_per_second": 20.3635944092827,
+              "mean_damage_per_sp": null,
+              "min_hp_fraction": 0.0,
+              "mean_min_hp_fraction": 0.6627140974967062
+            }
+          },
+          {
+            "id": "ae79ea96964c0063990402f36a678d11c298a94f5a4dfcdc8040bc90c27f5d38",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 0.25,
+              "mean_survival_rate": 0.9166666666666666,
+              "mean_clear_rate": 0.4444444444444444,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 143443.0,
+              "mean_censored_clear_fraction": 0.6991670246913579,
+              "cap_damage_per_second": 20.3635944092827,
+              "mean_damage_per_sp": null,
+              "min_hp_fraction": 0.0,
+              "mean_min_hp_fraction": 0.6606938954765043
+            }
+          },
+          {
+            "id": "d84c4e5ae68acc2a072a6e6cdede724097730d81619431f1cc466f91fff805e0",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 0.5,
+              "mean_survival_rate": 0.9444444444444444,
+              "mean_clear_rate": 0.4444444444444444,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 144174.5,
+              "mean_censored_clear_fraction": 0.6991670246913579,
+              "cap_damage_per_second": 20.3635944092827,
+              "mean_damage_per_sp": null,
+              "min_hp_fraction": 0.0,
+              "mean_min_hp_fraction": 0.6627140974967062
+            }
+          },
+          {
+            "id": "1cc7de017ae6b71c79173ebd4c3d366ee51919680495daa5c059caed83980eef",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 0.25,
+              "mean_survival_rate": 0.9166666666666666,
+              "mean_clear_rate": 0.4444444444444444,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 143443.0,
+              "mean_censored_clear_fraction": 0.6991670246913579,
+              "cap_damage_per_second": 20.3635944092827,
+              "mean_damage_per_sp": null,
+              "min_hp_fraction": 0.0,
+              "mean_min_hp_fraction": 0.6606938954765043
+            }
+          },
+          {
+            "id": "c35c28cdc97d6e0738013327b3829f09f93296440f1d6888fe2d9afad9827679",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 0.5,
+              "mean_survival_rate": 0.9444444444444444,
+              "mean_clear_rate": 0.4444444444444444,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 144174.5,
+              "mean_censored_clear_fraction": 0.6991670246913579,
+              "cap_damage_per_second": 20.3635944092827,
+              "mean_damage_per_sp": null,
+              "min_hp_fraction": 0.0,
+              "mean_min_hp_fraction": 0.6627140974967062
+            }
+          }
+        ]
+      },
+      "bounded": {
+        "2": {
+          "admission": {
+            "seconds": 0.012915296999835846,
+            "proof_scope": {
+              "enumeration_complete": false,
+              "admission_complete": false,
+              "difficulty_values": [
+                -12
+              ],
+              "slices": [
+                {
+                  "difficulty": -12,
+                  "termination": "sample_limit",
+                  "screened": 8,
+                  "passed": 8,
+                  "nodes": 9360,
+                  "kit_rejections_by_mask": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "work_bytes": 94016
+                }
+              ],
+              "termination": "bounded",
+              "conflicts": [],
+              "claim": "Within the declared class domain and ordinary birth assumptions only.",
+              "suggested_edits": [],
+              "verified_minimal_edits": [],
+              "kit_rejection_bits": {
+                "1": "no plate",
+                "2": "insufficient carry",
+                "4": "no owned trained melee",
+                "8": "no affordable owned direct-damage spell at birth"
+              },
+              "excluded_traits": {
+                "42": "high_risk_disadvantage",
+                "43": "high_risk_disadvantage",
+                "44": "high_risk_disadvantage",
+                "45": "high_risk_disadvantage",
+                "46": "high_risk_disadvantage",
+                "47": "high_risk_disadvantage",
+                "48": "high_risk_disadvantage",
+                "49": "high_risk_disadvantage",
+                "50": "high_risk_disadvantage",
+                "51": "restricted_casting",
+                "52": "restricted_casting",
+                "55": "plate_forbidden",
+                "76": "uncertain_regeneration_behavior",
+                "77": "restricted_casting",
+                "78": "restricted_casting",
+                "80": "class_save_vulnerability",
+                "81": "class_save_vulnerability",
+                "82": "class_save_vulnerability",
+                "83": "class_save_vulnerability",
+                "84": "class_save_vulnerability",
+                "85": "class_save_vulnerability"
+              },
+              "domain_policy": {
+                "hp": 30,
+                "magicka": 3,
+                "required_masteries": [
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27
+                ],
+                "race_ids": [
+                  1,
+                  5
+                ],
+                "attribute_domains": [
+                  [
+                    50
+                  ],
+                  [
+                    60,
+                    65
+                  ],
+                  [
+                    55
+                  ],
+                  [
+                    40
+                  ],
+                  [
+                    55
+                  ],
+                  [
+                    35
+                  ],
+                  [
+                    60,
+                    65
+                  ],
+                  [
+                    40
+                  ]
+                ],
+                "ordered_skill_domains": [
+                  [
+                    22
+                  ],
+                  [
+                    23
+                  ],
+                  [
+                    25
+                  ],
+                  [
+                    24
+                  ],
+                  [
+                    27
+                  ],
+                  [
+                    29
+                  ],
+                  [
+                    26
+                  ],
+                  [
+                    20
+                  ],
+                  [
+                    14
+                  ],
+                  [
+                    21
+                  ],
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    13
+                  ]
+                ],
+                "trait_ids": [
+                  23,
+                  56,
+                  58,
+                  60,
+                  62,
+                  64,
+                  65,
+                  66
+                ],
+                "required_trait_ids": [
+                  23,
+                  56,
+                  58,
+                  60,
+                  62,
+                  64,
+                  65,
+                  66
+                ],
+                "advancement": "Every enumerated cost slice is reported in difficulty_values."
+              },
+              "catalog_scope": {
+                "weapons": 180,
+                "armor": 143,
+                "other": 91
+              },
+              "eligibility_only": "Reviewed mundane template/material combinations do not imply ownership or access."
+            },
+            "counters": {
+              "nodes": 9360,
+              "legal": 8,
+              "screened": 8,
+              "leaf_visits": 256,
+              "native_retained": 2,
+              "admitted": 2,
+              "manual": 2,
+              "controlled_comparisons": 0
+            },
+            "ids": [
+              "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+              "f65361aaf353b0a5b595e0c6f7ca923344d56f8958eb01161c1455a1add58260"
+            ]
+          },
+          "downstream": {
+            "elapsed_seconds": 1.8182616089998191,
+            "seconds_per_family": 0.9091308044999096,
+            "cells_per_family": 36,
+            "result_hash": "bdc1bf9e09c6c59bf685d15be37c4f845a80618c80a01d8a006bf07e90c9d66f",
+            "peak_process_rss_bytes": 53477376,
+            "diagnostics": {
+              "admission": {},
+              "fully_evaluated": 2,
+              "retained_bytes": 356875,
+              "progression_nodes": 49742,
+              "checkpoint_cache_hits": 0,
+              "encounter_events": 4245,
+              "encounter_batches": 48,
+              "replayed_trials": 84,
+              "identical_encounter_batches_reused": 0,
+              "checkpoint_forks": 72,
+              "nodes": 53987
+            },
+            "eligible_rows": [
+              {
+                "id": "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 0.5,
+                  "mean_survival_rate": 0.9444444444444444,
+                  "mean_clear_rate": 0.4444444444444444,
+                  "plate_weapon_materials": 4,
+                  "advancement_multiplier": 0.3,
+                  "mean_practice": 144174.5,
+                  "mean_censored_clear_fraction": 0.6991670246913579,
+                  "cap_damage_per_second": 20.3635944092827,
+                  "mean_damage_per_sp": null,
+                  "min_hp_fraction": 0.0,
+                  "mean_min_hp_fraction": 0.6627140974967062
+                }
+              },
+              {
+                "id": "f65361aaf353b0a5b595e0c6f7ca923344d56f8958eb01161c1455a1add58260",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 0.25,
+                  "mean_survival_rate": 0.9166666666666666,
+                  "mean_clear_rate": 0.4444444444444444,
+                  "plate_weapon_materials": 4,
+                  "advancement_multiplier": 0.3,
+                  "mean_practice": 143443.0,
+                  "mean_censored_clear_fraction": 0.6991670246913579,
+                  "cap_damage_per_second": 20.3635944092827,
+                  "mean_damage_per_sp": null,
+                  "min_hp_fraction": 0.0,
+                  "mean_min_hp_fraction": 0.6606938954765043
+                }
+              }
+            ]
+          },
+          "quality": {
+            "enumerated": 8,
+            "admitted": 2,
+            "exact_winners": [
+              "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+              "c35c28cdc97d6e0738013327b3829f09f93296440f1d6888fe2d9afad9827679",
+              "d84c4e5ae68acc2a072a6e6cdede724097730d81619431f1cc466f91fff805e0",
+              "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4"
+            ],
+            "elected": "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+            "quality_recovered": true,
+            "tie_break_recovered": true,
+            "first_loss": null,
+            "exhaustive_distinct_pareto_vectors": 2,
+            "pareto_recall": 1.0,
+            "specialist_ceilings": {
+              "cap_damage_per_second": {
+                "reference": 20.3635944092827,
+                "retained": 20.3635944092827,
+                "recovered": true,
+                "absolute_gap": 0.0,
+                "relative_gap": 0.0
+              },
+              "min_hp_fraction": {
+                "reference": 0.0,
+                "retained": 0.0,
+                "recovered": true,
+                "absolute_gap": 0.0,
+                "relative_gap": null
+              },
+              "mean_damage_per_sp": {
+                "reference": null,
+                "retained": null,
+                "recovered": null,
+                "absolute_gap": null,
+                "relative_gap": null
+              }
+            }
+          }
+        },
+        "4": {
+          "admission": {
+            "seconds": 0.023762253999848326,
+            "proof_scope": {
+              "enumeration_complete": false,
+              "admission_complete": false,
+              "difficulty_values": [
+                -12
+              ],
+              "slices": [
+                {
+                  "difficulty": -12,
+                  "termination": "sample_limit",
+                  "screened": 8,
+                  "passed": 8,
+                  "nodes": 9360,
+                  "kit_rejections_by_mask": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "work_bytes": 95376
+                }
+              ],
+              "termination": "bounded",
+              "conflicts": [],
+              "claim": "Within the declared class domain and ordinary birth assumptions only.",
+              "suggested_edits": [],
+              "verified_minimal_edits": [],
+              "kit_rejection_bits": {
+                "1": "no plate",
+                "2": "insufficient carry",
+                "4": "no owned trained melee",
+                "8": "no affordable owned direct-damage spell at birth"
+              },
+              "excluded_traits": {
+                "42": "high_risk_disadvantage",
+                "43": "high_risk_disadvantage",
+                "44": "high_risk_disadvantage",
+                "45": "high_risk_disadvantage",
+                "46": "high_risk_disadvantage",
+                "47": "high_risk_disadvantage",
+                "48": "high_risk_disadvantage",
+                "49": "high_risk_disadvantage",
+                "50": "high_risk_disadvantage",
+                "51": "restricted_casting",
+                "52": "restricted_casting",
+                "55": "plate_forbidden",
+                "76": "uncertain_regeneration_behavior",
+                "77": "restricted_casting",
+                "78": "restricted_casting",
+                "80": "class_save_vulnerability",
+                "81": "class_save_vulnerability",
+                "82": "class_save_vulnerability",
+                "83": "class_save_vulnerability",
+                "84": "class_save_vulnerability",
+                "85": "class_save_vulnerability"
+              },
+              "domain_policy": {
+                "hp": 30,
+                "magicka": 3,
+                "required_masteries": [
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27
+                ],
+                "race_ids": [
+                  1,
+                  5
+                ],
+                "attribute_domains": [
+                  [
+                    50
+                  ],
+                  [
+                    60,
+                    65
+                  ],
+                  [
+                    55
+                  ],
+                  [
+                    40
+                  ],
+                  [
+                    55
+                  ],
+                  [
+                    35
+                  ],
+                  [
+                    60,
+                    65
+                  ],
+                  [
+                    40
+                  ]
+                ],
+                "ordered_skill_domains": [
+                  [
+                    22
+                  ],
+                  [
+                    23
+                  ],
+                  [
+                    25
+                  ],
+                  [
+                    24
+                  ],
+                  [
+                    27
+                  ],
+                  [
+                    29
+                  ],
+                  [
+                    26
+                  ],
+                  [
+                    20
+                  ],
+                  [
+                    14
+                  ],
+                  [
+                    21
+                  ],
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    13
+                  ]
+                ],
+                "trait_ids": [
+                  23,
+                  56,
+                  58,
+                  60,
+                  62,
+                  64,
+                  65,
+                  66
+                ],
+                "required_trait_ids": [
+                  23,
+                  56,
+                  58,
+                  60,
+                  62,
+                  64,
+                  65,
+                  66
+                ],
+                "advancement": "Every enumerated cost slice is reported in difficulty_values."
+              },
+              "catalog_scope": {
+                "weapons": 180,
+                "armor": 143,
+                "other": 91
+              },
+              "eligibility_only": "Reviewed mundane template/material combinations do not imply ownership or access."
+            },
+            "counters": {
+              "nodes": 9360,
+              "legal": 8,
+              "screened": 8,
+              "leaf_visits": 256,
+              "native_retained": 4,
+              "admitted": 4,
+              "manual": 2,
+              "controlled_comparisons": 0
+            },
+            "ids": [
+              "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+              "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4",
+              "f65361aaf353b0a5b595e0c6f7ca923344d56f8958eb01161c1455a1add58260",
+              "11a068eccf0cb0b163669e609fdb68727ca647b8d2391f0b4693a19c9d05fdd6"
+            ]
+          },
+          "downstream": {
+            "elapsed_seconds": 4.209310899999764,
+            "seconds_per_family": 1.052327724999941,
+            "cells_per_family": 36,
+            "result_hash": "13df5310b35a9b48b2ff36f4088f70ef0f7b25f1495d652f8fbdbd0a55b63741",
+            "peak_process_rss_bytes": 53477376,
+            "diagnostics": {
+              "admission": {},
+              "fully_evaluated": 4,
+              "retained_bytes": 713733,
+              "progression_nodes": 99484,
+              "checkpoint_cache_hits": 0,
+              "encounter_events": 8490,
+              "encounter_batches": 96,
+              "replayed_trials": 168,
+              "identical_encounter_batches_reused": 0,
+              "checkpoint_forks": 144,
+              "nodes": 107974
+            },
+            "eligible_rows": [
+              {
+                "id": "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 0.5,
+                  "mean_survival_rate": 0.9444444444444444,
+                  "mean_clear_rate": 0.4444444444444444,
+                  "plate_weapon_materials": 4,
+                  "advancement_multiplier": 0.3,
+                  "mean_practice": 144174.5,
+                  "mean_censored_clear_fraction": 0.6991670246913579,
+                  "cap_damage_per_second": 20.3635944092827,
+                  "mean_damage_per_sp": null,
+                  "min_hp_fraction": 0.0,
+                  "mean_min_hp_fraction": 0.6627140974967062
+                }
+              },
+              {
+                "id": "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 0.5,
+                  "mean_survival_rate": 0.9444444444444444,
+                  "mean_clear_rate": 0.4444444444444444,
+                  "plate_weapon_materials": 4,
+                  "advancement_multiplier": 0.3,
+                  "mean_practice": 144174.5,
+                  "mean_censored_clear_fraction": 0.6991670246913579,
+                  "cap_damage_per_second": 20.3635944092827,
+                  "mean_damage_per_sp": null,
+                  "min_hp_fraction": 0.0,
+                  "mean_min_hp_fraction": 0.6627140974967062
+                }
+              },
+              {
+                "id": "f65361aaf353b0a5b595e0c6f7ca923344d56f8958eb01161c1455a1add58260",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 0.25,
+                  "mean_survival_rate": 0.9166666666666666,
+                  "mean_clear_rate": 0.4444444444444444,
+                  "plate_weapon_materials": 4,
+                  "advancement_multiplier": 0.3,
+                  "mean_practice": 143443.0,
+                  "mean_censored_clear_fraction": 0.6991670246913579,
+                  "cap_damage_per_second": 20.3635944092827,
+                  "mean_damage_per_sp": null,
+                  "min_hp_fraction": 0.0,
+                  "mean_min_hp_fraction": 0.6606938954765043
+                }
+              },
+              {
+                "id": "11a068eccf0cb0b163669e609fdb68727ca647b8d2391f0b4693a19c9d05fdd6",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 0.25,
+                  "mean_survival_rate": 0.9166666666666666,
+                  "mean_clear_rate": 0.4444444444444444,
+                  "plate_weapon_materials": 4,
+                  "advancement_multiplier": 0.3,
+                  "mean_practice": 143443.0,
+                  "mean_censored_clear_fraction": 0.6991670246913579,
+                  "cap_damage_per_second": 20.3635944092827,
+                  "mean_damage_per_sp": null,
+                  "min_hp_fraction": 0.0,
+                  "mean_min_hp_fraction": 0.6606938954765043
+                }
+              }
+            ]
+          },
+          "quality": {
+            "enumerated": 8,
+            "admitted": 4,
+            "exact_winners": [
+              "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+              "c35c28cdc97d6e0738013327b3829f09f93296440f1d6888fe2d9afad9827679",
+              "d84c4e5ae68acc2a072a6e6cdede724097730d81619431f1cc466f91fff805e0",
+              "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4"
+            ],
+            "elected": "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+            "quality_recovered": true,
+            "tie_break_recovered": true,
+            "first_loss": null,
+            "exhaustive_distinct_pareto_vectors": 2,
+            "pareto_recall": 1.0,
+            "specialist_ceilings": {
+              "cap_damage_per_second": {
+                "reference": 20.3635944092827,
+                "retained": 20.3635944092827,
+                "recovered": true,
+                "absolute_gap": 0.0,
+                "relative_gap": 0.0
+              },
+              "min_hp_fraction": {
+                "reference": 0.0,
+                "retained": 0.0,
+                "recovered": true,
+                "absolute_gap": 0.0,
+                "relative_gap": null
+              },
+              "mean_damage_per_sp": {
+                "reference": null,
+                "retained": null,
+                "recovered": null,
+                "absolute_gap": null,
+                "relative_gap": null
+              }
+            }
+          }
+        }
+      }
+    },
+    "held_out_dungeon": {
+      "scenario": {
+        "roll_seeds": [
+          83,
+          89
+        ],
+        "combat_seeds": [
+          229,
+          233
+        ],
+        "cases": [
+          "sustained"
+        ],
+        "variants": [
+          "baseline",
+          "protected_recovery"
+        ]
+      },
+      "domain": "domain",
+      "exhaustive_admission": {
+        "seconds": 0.03078059100016617,
+        "proof_scope": {
+          "enumeration_complete": true,
+          "admission_complete": true,
+          "difficulty_values": [
+            -12
+          ],
+          "slices": [
+            {
+              "difficulty": -12,
+              "termination": "exhausted",
+              "screened": 8,
+              "passed": 8,
+              "nodes": 69,
+              "kit_rejections_by_mask": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "work_bytes": 81192
+            }
+          ],
+          "termination": "exhausted",
+          "conflicts": [],
+          "claim": "Within the declared class domain and ordinary birth assumptions only.",
+          "suggested_edits": [],
+          "verified_minimal_edits": [],
+          "kit_rejection_bits": {
+            "1": "no plate",
+            "2": "insufficient carry",
+            "4": "no owned trained melee",
+            "8": "no affordable owned direct-damage spell at birth"
+          },
+          "excluded_traits": {
+            "42": "high_risk_disadvantage",
+            "43": "high_risk_disadvantage",
+            "44": "high_risk_disadvantage",
+            "45": "high_risk_disadvantage",
+            "46": "high_risk_disadvantage",
+            "47": "high_risk_disadvantage",
+            "48": "high_risk_disadvantage",
+            "49": "high_risk_disadvantage",
+            "50": "high_risk_disadvantage",
+            "51": "restricted_casting",
+            "52": "restricted_casting",
+            "55": "plate_forbidden",
+            "76": "uncertain_regeneration_behavior",
+            "77": "restricted_casting",
+            "78": "restricted_casting",
+            "80": "class_save_vulnerability",
+            "81": "class_save_vulnerability",
+            "82": "class_save_vulnerability",
+            "83": "class_save_vulnerability",
+            "84": "class_save_vulnerability",
+            "85": "class_save_vulnerability"
+          },
+          "domain_policy": {
+            "hp": 30,
+            "magicka": 3,
+            "required_masteries": [
+              22,
+              23,
+              24,
+              25,
+              26,
+              27
+            ],
+            "race_ids": [
+              1,
+              5
+            ],
+            "attribute_domains": [
+              [
+                50
+              ],
+              [
+                60,
+                65
+              ],
+              [
+                55
+              ],
+              [
+                40
+              ],
+              [
+                55
+              ],
+              [
+                35
+              ],
+              [
+                60,
+                65
+              ],
+              [
+                40
+              ]
+            ],
+            "ordered_skill_domains": [
+              [
+                22
+              ],
+              [
+                23
+              ],
+              [
+                25
+              ],
+              [
+                24
+              ],
+              [
+                27
+              ],
+              [
+                29
+              ],
+              [
+                26
+              ],
+              [
+                20
+              ],
+              [
+                14
+              ],
+              [
+                21
+              ],
+              [
+                0,
+                1
+              ],
+              [
+                13
+              ]
+            ],
+            "trait_ids": [
+              23,
+              56,
+              58,
+              60,
+              62,
+              64,
+              65,
+              66
+            ],
+            "required_trait_ids": [
+              23,
+              56,
+              58,
+              60,
+              62,
+              64,
+              65,
+              66
+            ],
+            "advancement": "Every enumerated cost slice is reported in difficulty_values."
+          },
+          "catalog_scope": {
+            "weapons": 180,
+            "armor": 143,
+            "other": 91
+          },
+          "eligibility_only": "Reviewed mundane template/material combinations do not imply ownership or access."
+        },
+        "counters": {
+          "nodes": 69,
+          "legal": 8,
+          "screened": 8,
+          "leaf_visits": 8,
+          "native_retained": 8,
+          "admitted": 8,
+          "manual": 2,
+          "controlled_comparisons": 0
+        },
+        "ids": [
+          "f65361aaf353b0a5b595e0c6f7ca923344d56f8958eb01161c1455a1add58260",
+          "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4",
+          "11a068eccf0cb0b163669e609fdb68727ca647b8d2391f0b4693a19c9d05fdd6",
+          "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+          "ae79ea96964c0063990402f36a678d11c298a94f5a4dfcdc8040bc90c27f5d38",
+          "d84c4e5ae68acc2a072a6e6cdede724097730d81619431f1cc466f91fff805e0",
+          "1cc7de017ae6b71c79173ebd4c3d366ee51919680495daa5c059caed83980eef",
+          "c35c28cdc97d6e0738013327b3829f09f93296440f1d6888fe2d9afad9827679"
+        ]
+      },
+      "exhaustive": {
+        "elapsed_seconds": 7.368787207999958,
+        "seconds_per_family": 0.9210984009999947,
+        "cells_per_family": 24,
+        "result_hash": "5bd9adaf07247d8e623918d9022744e67aedee776782558c98e8d90796008795",
+        "peak_process_rss_bytes": 53702656,
+        "diagnostics": {
+          "admission": {},
+          "fully_evaluated": 8,
+          "retained_bytes": 1426681,
+          "progression_nodes": 199616,
+          "checkpoint_cache_hits": 0,
+          "encounter_events": 8102,
+          "encounter_batches": 96,
+          "replayed_trials": 192,
+          "identical_encounter_batches_reused": 0,
+          "checkpoint_forks": 192,
+          "nodes": 207718
+        },
+        "eligible_rows": [
+          {
+            "id": "f65361aaf353b0a5b595e0c6f7ca923344d56f8958eb01161c1455a1add58260",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.625,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 144091.5,
+              "mean_censored_clear_fraction": 0.6989997638888888,
+              "cap_damage_per_second": 67.97385620915033,
+              "mean_damage_per_sp": 1.684158659768416,
+              "min_hp_fraction": 0.5818181818181818,
+              "mean_min_hp_fraction": 0.8195990700577225
+            }
+          },
+          {
+            "id": "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.5833333333333334,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 145079.0,
+              "mean_censored_clear_fraction": 0.7098693101851853,
+              "cap_damage_per_second": 67.97385620915033,
+              "mean_damage_per_sp": 1.5921878632876076,
+              "min_hp_fraction": 0.43636363636363634,
+              "mean_min_hp_fraction": 0.7873074033910559
+            }
+          },
+          {
+            "id": "11a068eccf0cb0b163669e609fdb68727ca647b8d2391f0b4693a19c9d05fdd6",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.625,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 144091.5,
+              "mean_censored_clear_fraction": 0.6989997638888888,
+              "cap_damage_per_second": 67.97385620915033,
+              "mean_damage_per_sp": 1.684158659768416,
+              "min_hp_fraction": 0.5818181818181818,
+              "mean_min_hp_fraction": 0.8195990700577225
+            }
+          },
+          {
+            "id": "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.5833333333333334,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 145564.0,
+              "mean_censored_clear_fraction": 0.7098693101851853,
+              "cap_damage_per_second": 67.97385620915033,
+              "mean_damage_per_sp": 1.5921878632876076,
+              "min_hp_fraction": 0.43636363636363634,
+              "mean_min_hp_fraction": 0.7873074033910559
+            }
+          },
+          {
+            "id": "ae79ea96964c0063990402f36a678d11c298a94f5a4dfcdc8040bc90c27f5d38",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.625,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 144208.5,
+              "mean_censored_clear_fraction": 0.6989997638888888,
+              "cap_damage_per_second": 67.97385620915033,
+              "mean_damage_per_sp": 1.6661786237188874,
+              "min_hp_fraction": 0.5818181818181818,
+              "mean_min_hp_fraction": 0.8192202821789346
+            }
+          },
+          {
+            "id": "d84c4e5ae68acc2a072a6e6cdede724097730d81619431f1cc466f91fff805e0",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.5833333333333334,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 145564.0,
+              "mean_censored_clear_fraction": 0.7098693101851853,
+              "cap_damage_per_second": 67.97385620915033,
+              "mean_damage_per_sp": 1.5921878632876076,
+              "min_hp_fraction": 0.43636363636363634,
+              "mean_min_hp_fraction": 0.7873074033910559
+            }
+          },
+          {
+            "id": "1cc7de017ae6b71c79173ebd4c3d366ee51919680495daa5c059caed83980eef",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.625,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 144208.5,
+              "mean_censored_clear_fraction": 0.6989997638888888,
+              "cap_damage_per_second": 67.97385620915033,
+              "mean_damage_per_sp": 1.6661786237188874,
+              "min_hp_fraction": 0.5818181818181818,
+              "mean_min_hp_fraction": 0.8192202821789346
+            }
+          },
+          {
+            "id": "c35c28cdc97d6e0738013327b3829f09f93296440f1d6888fe2d9afad9827679",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.5833333333333334,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 145079.0,
+              "mean_censored_clear_fraction": 0.7098693101851853,
+              "cap_damage_per_second": 67.97385620915033,
+              "mean_damage_per_sp": 1.5921878632876076,
+              "min_hp_fraction": 0.43636363636363634,
+              "mean_min_hp_fraction": 0.7873074033910559
+            }
+          }
+        ]
+      },
+      "bounded": {
+        "2": {
+          "admission": {
+            "seconds": 0.013611072000003333,
+            "proof_scope": {
+              "enumeration_complete": false,
+              "admission_complete": false,
+              "difficulty_values": [
+                -12
+              ],
+              "slices": [
+                {
+                  "difficulty": -12,
+                  "termination": "sample_limit",
+                  "screened": 8,
+                  "passed": 8,
+                  "nodes": 9360,
+                  "kit_rejections_by_mask": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "work_bytes": 94016
+                }
+              ],
+              "termination": "bounded",
+              "conflicts": [],
+              "claim": "Within the declared class domain and ordinary birth assumptions only.",
+              "suggested_edits": [],
+              "verified_minimal_edits": [],
+              "kit_rejection_bits": {
+                "1": "no plate",
+                "2": "insufficient carry",
+                "4": "no owned trained melee",
+                "8": "no affordable owned direct-damage spell at birth"
+              },
+              "excluded_traits": {
+                "42": "high_risk_disadvantage",
+                "43": "high_risk_disadvantage",
+                "44": "high_risk_disadvantage",
+                "45": "high_risk_disadvantage",
+                "46": "high_risk_disadvantage",
+                "47": "high_risk_disadvantage",
+                "48": "high_risk_disadvantage",
+                "49": "high_risk_disadvantage",
+                "50": "high_risk_disadvantage",
+                "51": "restricted_casting",
+                "52": "restricted_casting",
+                "55": "plate_forbidden",
+                "76": "uncertain_regeneration_behavior",
+                "77": "restricted_casting",
+                "78": "restricted_casting",
+                "80": "class_save_vulnerability",
+                "81": "class_save_vulnerability",
+                "82": "class_save_vulnerability",
+                "83": "class_save_vulnerability",
+                "84": "class_save_vulnerability",
+                "85": "class_save_vulnerability"
+              },
+              "domain_policy": {
+                "hp": 30,
+                "magicka": 3,
+                "required_masteries": [
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27
+                ],
+                "race_ids": [
+                  1,
+                  5
+                ],
+                "attribute_domains": [
+                  [
+                    50
+                  ],
+                  [
+                    60,
+                    65
+                  ],
+                  [
+                    55
+                  ],
+                  [
+                    40
+                  ],
+                  [
+                    55
+                  ],
+                  [
+                    35
+                  ],
+                  [
+                    60,
+                    65
+                  ],
+                  [
+                    40
+                  ]
+                ],
+                "ordered_skill_domains": [
+                  [
+                    22
+                  ],
+                  [
+                    23
+                  ],
+                  [
+                    25
+                  ],
+                  [
+                    24
+                  ],
+                  [
+                    27
+                  ],
+                  [
+                    29
+                  ],
+                  [
+                    26
+                  ],
+                  [
+                    20
+                  ],
+                  [
+                    14
+                  ],
+                  [
+                    21
+                  ],
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    13
+                  ]
+                ],
+                "trait_ids": [
+                  23,
+                  56,
+                  58,
+                  60,
+                  62,
+                  64,
+                  65,
+                  66
+                ],
+                "required_trait_ids": [
+                  23,
+                  56,
+                  58,
+                  60,
+                  62,
+                  64,
+                  65,
+                  66
+                ],
+                "advancement": "Every enumerated cost slice is reported in difficulty_values."
+              },
+              "catalog_scope": {
+                "weapons": 180,
+                "armor": 143,
+                "other": 91
+              },
+              "eligibility_only": "Reviewed mundane template/material combinations do not imply ownership or access."
+            },
+            "counters": {
+              "nodes": 9360,
+              "legal": 8,
+              "screened": 8,
+              "leaf_visits": 256,
+              "native_retained": 2,
+              "admitted": 2,
+              "manual": 2,
+              "controlled_comparisons": 0
+            },
+            "ids": [
+              "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+              "f65361aaf353b0a5b595e0c6f7ca923344d56f8958eb01161c1455a1add58260"
+            ]
+          },
+          "downstream": {
+            "elapsed_seconds": 1.8850391670002864,
+            "seconds_per_family": 0.9425195835001432,
+            "cells_per_family": 24,
+            "result_hash": "19a949f098192bcf4d7ae10653e2786d595bd8beec831a64f7af68325c4926d1",
+            "peak_process_rss_bytes": 53702656,
+            "diagnostics": {
+              "admission": {},
+              "fully_evaluated": 2,
+              "retained_bytes": 356680,
+              "progression_nodes": 49958,
+              "checkpoint_cache_hits": 0,
+              "encounter_events": 2026,
+              "encounter_batches": 24,
+              "replayed_trials": 48,
+              "identical_encounter_batches_reused": 0,
+              "checkpoint_forks": 48,
+              "nodes": 51984
+            },
+            "eligible_rows": [
+              {
+                "id": "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 1.0,
+                  "mean_survival_rate": 1.0,
+                  "mean_clear_rate": 0.5833333333333334,
+                  "plate_weapon_materials": 4,
+                  "advancement_multiplier": 0.3,
+                  "mean_practice": 145564.0,
+                  "mean_censored_clear_fraction": 0.7098693101851853,
+                  "cap_damage_per_second": 67.97385620915033,
+                  "mean_damage_per_sp": 1.5921878632876076,
+                  "min_hp_fraction": 0.43636363636363634,
+                  "mean_min_hp_fraction": 0.7873074033910559
+                }
+              },
+              {
+                "id": "f65361aaf353b0a5b595e0c6f7ca923344d56f8958eb01161c1455a1add58260",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 1.0,
+                  "mean_survival_rate": 1.0,
+                  "mean_clear_rate": 0.625,
+                  "plate_weapon_materials": 4,
+                  "advancement_multiplier": 0.3,
+                  "mean_practice": 144091.5,
+                  "mean_censored_clear_fraction": 0.6989997638888888,
+                  "cap_damage_per_second": 67.97385620915033,
+                  "mean_damage_per_sp": 1.684158659768416,
+                  "min_hp_fraction": 0.5818181818181818,
+                  "mean_min_hp_fraction": 0.8195990700577225
+                }
+              }
+            ]
+          },
+          "quality": {
+            "enumerated": 8,
+            "admitted": 2,
+            "exact_winners": [
+              "11a068eccf0cb0b163669e609fdb68727ca647b8d2391f0b4693a19c9d05fdd6",
+              "f65361aaf353b0a5b595e0c6f7ca923344d56f8958eb01161c1455a1add58260"
+            ],
+            "elected": "f65361aaf353b0a5b595e0c6f7ca923344d56f8958eb01161c1455a1add58260",
+            "quality_recovered": true,
+            "tie_break_recovered": false,
+            "first_loss": null,
+            "exhaustive_distinct_pareto_vectors": 1,
+            "pareto_recall": 1.0,
+            "specialist_ceilings": {
+              "cap_damage_per_second": {
+                "reference": 67.97385620915033,
+                "retained": 67.97385620915033,
+                "recovered": true,
+                "absolute_gap": 0.0,
+                "relative_gap": 0.0
+              },
+              "min_hp_fraction": {
+                "reference": 0.5818181818181818,
+                "retained": 0.5818181818181818,
+                "recovered": true,
+                "absolute_gap": 0.0,
+                "relative_gap": 0.0
+              },
+              "mean_damage_per_sp": {
+                "reference": 1.684158659768416,
+                "retained": 1.684158659768416,
+                "recovered": true,
+                "absolute_gap": 0.0,
+                "relative_gap": 0.0
+              }
+            }
+          }
+        },
+        "4": {
+          "admission": {
+            "seconds": 0.019208679999792366,
+            "proof_scope": {
+              "enumeration_complete": false,
+              "admission_complete": false,
+              "difficulty_values": [
+                -12
+              ],
+              "slices": [
+                {
+                  "difficulty": -12,
+                  "termination": "sample_limit",
+                  "screened": 8,
+                  "passed": 8,
+                  "nodes": 9360,
+                  "kit_rejections_by_mask": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "work_bytes": 95376
+                }
+              ],
+              "termination": "bounded",
+              "conflicts": [],
+              "claim": "Within the declared class domain and ordinary birth assumptions only.",
+              "suggested_edits": [],
+              "verified_minimal_edits": [],
+              "kit_rejection_bits": {
+                "1": "no plate",
+                "2": "insufficient carry",
+                "4": "no owned trained melee",
+                "8": "no affordable owned direct-damage spell at birth"
+              },
+              "excluded_traits": {
+                "42": "high_risk_disadvantage",
+                "43": "high_risk_disadvantage",
+                "44": "high_risk_disadvantage",
+                "45": "high_risk_disadvantage",
+                "46": "high_risk_disadvantage",
+                "47": "high_risk_disadvantage",
+                "48": "high_risk_disadvantage",
+                "49": "high_risk_disadvantage",
+                "50": "high_risk_disadvantage",
+                "51": "restricted_casting",
+                "52": "restricted_casting",
+                "55": "plate_forbidden",
+                "76": "uncertain_regeneration_behavior",
+                "77": "restricted_casting",
+                "78": "restricted_casting",
+                "80": "class_save_vulnerability",
+                "81": "class_save_vulnerability",
+                "82": "class_save_vulnerability",
+                "83": "class_save_vulnerability",
+                "84": "class_save_vulnerability",
+                "85": "class_save_vulnerability"
+              },
+              "domain_policy": {
+                "hp": 30,
+                "magicka": 3,
+                "required_masteries": [
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27
+                ],
+                "race_ids": [
+                  1,
+                  5
+                ],
+                "attribute_domains": [
+                  [
+                    50
+                  ],
+                  [
+                    60,
+                    65
+                  ],
+                  [
+                    55
+                  ],
+                  [
+                    40
+                  ],
+                  [
+                    55
+                  ],
+                  [
+                    35
+                  ],
+                  [
+                    60,
+                    65
+                  ],
+                  [
+                    40
+                  ]
+                ],
+                "ordered_skill_domains": [
+                  [
+                    22
+                  ],
+                  [
+                    23
+                  ],
+                  [
+                    25
+                  ],
+                  [
+                    24
+                  ],
+                  [
+                    27
+                  ],
+                  [
+                    29
+                  ],
+                  [
+                    26
+                  ],
+                  [
+                    20
+                  ],
+                  [
+                    14
+                  ],
+                  [
+                    21
+                  ],
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    13
+                  ]
+                ],
+                "trait_ids": [
+                  23,
+                  56,
+                  58,
+                  60,
+                  62,
+                  64,
+                  65,
+                  66
+                ],
+                "required_trait_ids": [
+                  23,
+                  56,
+                  58,
+                  60,
+                  62,
+                  64,
+                  65,
+                  66
+                ],
+                "advancement": "Every enumerated cost slice is reported in difficulty_values."
+              },
+              "catalog_scope": {
+                "weapons": 180,
+                "armor": 143,
+                "other": 91
+              },
+              "eligibility_only": "Reviewed mundane template/material combinations do not imply ownership or access."
+            },
+            "counters": {
+              "nodes": 9360,
+              "legal": 8,
+              "screened": 8,
+              "leaf_visits": 256,
+              "native_retained": 4,
+              "admitted": 4,
+              "manual": 2,
+              "controlled_comparisons": 0
+            },
+            "ids": [
+              "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+              "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4",
+              "f65361aaf353b0a5b595e0c6f7ca923344d56f8958eb01161c1455a1add58260",
+              "11a068eccf0cb0b163669e609fdb68727ca647b8d2391f0b4693a19c9d05fdd6"
+            ]
+          },
+          "downstream": {
+            "elapsed_seconds": 3.9318381049997697,
+            "seconds_per_family": 0.9829595262499424,
+            "cells_per_family": 24,
+            "result_hash": "32576e49437c8e85d00e817f1b25ee85ea5c770b83f48ccecf7ef6cede272b7b",
+            "peak_process_rss_bytes": 53702656,
+            "diagnostics": {
+              "admission": {},
+              "fully_evaluated": 4,
+              "retained_bytes": 713358,
+              "progression_nodes": 99808,
+              "checkpoint_cache_hits": 0,
+              "encounter_events": 4052,
+              "encounter_batches": 48,
+              "replayed_trials": 96,
+              "identical_encounter_batches_reused": 0,
+              "checkpoint_forks": 96,
+              "nodes": 103860
+            },
+            "eligible_rows": [
+              {
+                "id": "72fe997730788255f97f3343cee72cbb384ff5edc25e8ccef7cfec67c4f42570",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 1.0,
+                  "mean_survival_rate": 1.0,
+                  "mean_clear_rate": 0.5833333333333334,
+                  "plate_weapon_materials": 4,
+                  "advancement_multiplier": 0.3,
+                  "mean_practice": 145564.0,
+                  "mean_censored_clear_fraction": 0.7098693101851853,
+                  "cap_damage_per_second": 67.97385620915033,
+                  "mean_damage_per_sp": 1.5921878632876076,
+                  "min_hp_fraction": 0.43636363636363634,
+                  "mean_min_hp_fraction": 0.7873074033910559
+                }
+              },
+              {
+                "id": "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 1.0,
+                  "mean_survival_rate": 1.0,
+                  "mean_clear_rate": 0.5833333333333334,
+                  "plate_weapon_materials": 4,
+                  "advancement_multiplier": 0.3,
+                  "mean_practice": 145079.0,
+                  "mean_censored_clear_fraction": 0.7098693101851853,
+                  "cap_damage_per_second": 67.97385620915033,
+                  "mean_damage_per_sp": 1.5921878632876076,
+                  "min_hp_fraction": 0.43636363636363634,
+                  "mean_min_hp_fraction": 0.7873074033910559
+                }
+              },
+              {
+                "id": "f65361aaf353b0a5b595e0c6f7ca923344d56f8958eb01161c1455a1add58260",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 1.0,
+                  "mean_survival_rate": 1.0,
+                  "mean_clear_rate": 0.625,
+                  "plate_weapon_materials": 4,
+                  "advancement_multiplier": 0.3,
+                  "mean_practice": 144091.5,
+                  "mean_censored_clear_fraction": 0.6989997638888888,
+                  "cap_damage_per_second": 67.97385620915033,
+                  "mean_damage_per_sp": 1.684158659768416,
+                  "min_hp_fraction": 0.5818181818181818,
+                  "mean_min_hp_fraction": 0.8195990700577225
+                }
+              },
+              {
+                "id": "11a068eccf0cb0b163669e609fdb68727ca647b8d2391f0b4693a19c9d05fdd6",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 1.0,
+                  "mean_survival_rate": 1.0,
+                  "mean_clear_rate": 0.625,
+                  "plate_weapon_materials": 4,
+                  "advancement_multiplier": 0.3,
+                  "mean_practice": 144091.5,
+                  "mean_censored_clear_fraction": 0.6989997638888888,
+                  "cap_damage_per_second": 67.97385620915033,
+                  "mean_damage_per_sp": 1.684158659768416,
+                  "min_hp_fraction": 0.5818181818181818,
+                  "mean_min_hp_fraction": 0.8195990700577225
+                }
+              }
+            ]
+          },
+          "quality": {
+            "enumerated": 8,
+            "admitted": 4,
+            "exact_winners": [
+              "11a068eccf0cb0b163669e609fdb68727ca647b8d2391f0b4693a19c9d05fdd6",
+              "f65361aaf353b0a5b595e0c6f7ca923344d56f8958eb01161c1455a1add58260"
+            ],
+            "elected": "11a068eccf0cb0b163669e609fdb68727ca647b8d2391f0b4693a19c9d05fdd6",
+            "quality_recovered": true,
+            "tie_break_recovered": true,
+            "first_loss": null,
+            "exhaustive_distinct_pareto_vectors": 1,
+            "pareto_recall": 1.0,
+            "specialist_ceilings": {
+              "cap_damage_per_second": {
+                "reference": 67.97385620915033,
+                "retained": 67.97385620915033,
+                "recovered": true,
+                "absolute_gap": 0.0,
+                "relative_gap": 0.0
+              },
+              "min_hp_fraction": {
+                "reference": 0.5818181818181818,
+                "retained": 0.5818181818181818,
+                "recovered": true,
+                "absolute_gap": 0.0,
+                "relative_gap": 0.0
+              },
+              "mean_damage_per_sp": {
+                "reference": 1.684158659768416,
+                "retained": 1.684158659768416,
+                "recovered": true,
+                "absolute_gap": 0.0,
+                "relative_gap": 0.0
+              }
+            }
+          }
+        }
+      }
+    },
+    "held_out_materials": {
+      "scenario": {
+        "roll_seeds": [
+          97,
+          103
+        ],
+        "combat_seeds": [
+          239,
+          241
+        ],
+        "cases": [
+          "physical",
+          "resistant",
+          "sustained"
+        ],
+        "variants": [
+          "baseline",
+          "owned_only"
+        ]
+      },
+      "domain": "material_domain",
+      "exhaustive_admission": {
+        "seconds": 0.029907590999755485,
+        "proof_scope": {
+          "enumeration_complete": true,
+          "admission_complete": true,
+          "difficulty_values": [
+            -12,
+            -11,
+            -7,
+            -6
+          ],
+          "slices": [
+            {
+              "difficulty": -12,
+              "termination": "exhausted",
+              "screened": 2,
+              "passed": 2,
+              "nodes": 39,
+              "kit_rejections_by_mask": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "work_bytes": 81180
+            },
+            {
+              "difficulty": -11,
+              "termination": "exhausted",
+              "screened": 2,
+              "passed": 2,
+              "nodes": 39,
+              "kit_rejections_by_mask": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "work_bytes": 81180
+            },
+            {
+              "difficulty": -7,
+              "termination": "exhausted",
+              "screened": 2,
+              "passed": 2,
+              "nodes": 39,
+              "kit_rejections_by_mask": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "work_bytes": 81180
+            },
+            {
+              "difficulty": -6,
+              "termination": "exhausted",
+              "screened": 2,
+              "passed": 2,
+              "nodes": 39,
+              "kit_rejections_by_mask": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "work_bytes": 81180
+            }
+          ],
+          "termination": "exhausted",
+          "conflicts": [],
+          "claim": "Within the declared class domain and ordinary birth assumptions only.",
+          "suggested_edits": [],
+          "verified_minimal_edits": [],
+          "kit_rejection_bits": {
+            "1": "no plate",
+            "2": "insufficient carry",
+            "4": "no owned trained melee",
+            "8": "no affordable owned direct-damage spell at birth"
+          },
+          "excluded_traits": {
+            "42": "high_risk_disadvantage",
+            "43": "high_risk_disadvantage",
+            "44": "high_risk_disadvantage",
+            "45": "high_risk_disadvantage",
+            "46": "high_risk_disadvantage",
+            "47": "high_risk_disadvantage",
+            "48": "high_risk_disadvantage",
+            "49": "high_risk_disadvantage",
+            "50": "high_risk_disadvantage",
+            "51": "restricted_casting",
+            "52": "restricted_casting",
+            "55": "plate_forbidden",
+            "76": "uncertain_regeneration_behavior",
+            "77": "restricted_casting",
+            "78": "restricted_casting",
+            "80": "class_save_vulnerability",
+            "81": "class_save_vulnerability",
+            "82": "class_save_vulnerability",
+            "83": "class_save_vulnerability",
+            "84": "class_save_vulnerability",
+            "85": "class_save_vulnerability"
+          },
+          "domain_policy": {
+            "hp": 30,
+            "magicka": 3,
+            "required_masteries": [
+              22,
+              23,
+              24,
+              25,
+              26,
+              27
+            ],
+            "race_ids": [
+              1,
+              5
+            ],
+            "attribute_domains": [
+              [
+                50
+              ],
+              [
+                65
+              ],
+              [
+                55
+              ],
+              [
+                40
+              ],
+              [
+                55
+              ],
+              [
+                35
+              ],
+              [
+                60
+              ],
+              [
+                40
+              ]
+            ],
+            "ordered_skill_domains": [
+              [
+                22
+              ],
+              [
+                23
+              ],
+              [
+                25
+              ],
+              [
+                24
+              ],
+              [
+                27
+              ],
+              [
+                29
+              ],
+              [
+                26
+              ],
+              [
+                20
+              ],
+              [
+                14
+              ],
+              [
+                21
+              ],
+              [
+                0
+              ],
+              [
+                13
+              ]
+            ],
+            "trait_ids": [
+              23,
+              56,
+              58,
+              60,
+              62,
+              64,
+              65,
+              66
+            ],
+            "required_trait_ids": [
+              23,
+              58,
+              60,
+              62,
+              64,
+              65
+            ],
+            "advancement": "Every enumerated cost slice is reported in difficulty_values."
+          },
+          "catalog_scope": {
+            "weapons": 180,
+            "armor": 143,
+            "other": 91
+          },
+          "eligibility_only": "Reviewed mundane template/material combinations do not imply ownership or access."
+        },
+        "counters": {
+          "nodes": 156,
+          "legal": 8,
+          "screened": 8,
+          "leaf_visits": 8,
+          "native_retained": 8,
+          "admitted": 8,
+          "manual": 2,
+          "controlled_comparisons": 0
+        },
+        "ids": [
+          "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4",
+          "c35c28cdc97d6e0738013327b3829f09f93296440f1d6888fe2d9afad9827679",
+          "dd2c85b5cd67b1e6d02c4ba6a752d3c96b4adf61cde2a122c355ae8139209c70",
+          "9acb31b4a1771ab14956c42c82de115f26be8d32669ee05536e15a8b14e3dba2",
+          "ab72cecdc83d4b11fef87ba692c4c1065698859459e621cc1012397e0a70e82f",
+          "24b16a46983d6b01a14d20a729d8ffbeb7cf833da97008aedf6b1cad5ae81f72",
+          "0e21729709cb5132d0706d8d80f90d24348678baa870e4c7a1dda2a9efdb65c4",
+          "ea144dc2358cf39763135becb29df0d94f25e88f0e59efd187aeff13a03e622c"
+        ]
+      },
+      "exhaustive": {
+        "elapsed_seconds": 10.816030346999923,
+        "seconds_per_family": 1.3520037933749904,
+        "cells_per_family": 72,
+        "result_hash": "b9f5349df4d26d84023d6631f64d43c8e59c2c553898ba1fe4b832e9c2107e4d",
+        "peak_process_rss_bytes": 53833728,
+        "diagnostics": {
+          "admission": {},
+          "fully_evaluated": 8,
+          "retained_bytes": 1462273,
+          "progression_nodes": 308156,
+          "checkpoint_cache_hits": 0,
+          "encounter_events": 14008,
+          "encounter_batches": 240,
+          "replayed_trials": 480,
+          "identical_encounter_batches_reused": 48,
+          "checkpoint_forks": 576,
+          "nodes": 322164
+        },
+        "eligible_rows": [
+          {
+            "id": "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.6666666666666666,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 144119.5,
+              "mean_censored_clear_fraction": 0.5484566080246913,
+              "cap_damage_per_second": 91.66666666666667,
+              "mean_damage_per_sp": 2.0820850808867584,
+              "min_hp_fraction": 0.32727272727272727,
+              "mean_min_hp_fraction": 0.7994579748895606
+            }
+          },
+          {
+            "id": "c35c28cdc97d6e0738013327b3829f09f93296440f1d6888fe2d9afad9827679",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.6666666666666666,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3,
+              "mean_practice": 144119.5,
+              "mean_censored_clear_fraction": 0.5484566080246913,
+              "cap_damage_per_second": 91.66666666666667,
+              "mean_damage_per_sp": 2.0820850808867584,
+              "min_hp_fraction": 0.32727272727272727,
+              "mean_min_hp_fraction": 0.7994579748895606
+            }
+          },
+          {
+            "id": "dd2c85b5cd67b1e6d02c4ba6a752d3c96b4adf61cde2a122c355ae8139209c70",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.6666666666666666,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3519230769230769,
+              "mean_practice": 172829.5,
+              "mean_censored_clear_fraction": 0.5484566080246913,
+              "cap_damage_per_second": 91.66666666666667,
+              "mean_damage_per_sp": 2.106060606060606,
+              "min_hp_fraction": 0.32727272727272727,
+              "mean_min_hp_fraction": 0.7994579748895606
+            }
+          },
+          {
+            "id": "9acb31b4a1771ab14956c42c82de115f26be8d32669ee05536e15a8b14e3dba2",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.6666666666666666,
+              "plate_weapon_materials": 4,
+              "advancement_multiplier": 0.3519230769230769,
+              "mean_practice": 172829.5,
+              "mean_censored_clear_fraction": 0.5484566080246913,
+              "cap_damage_per_second": 91.66666666666667,
+              "mean_damage_per_sp": 2.106060606060606,
+              "min_hp_fraction": 0.32727272727272727,
+              "mean_min_hp_fraction": 0.7994579748895606
+            }
+          },
+          {
+            "id": "ab72cecdc83d4b11fef87ba692c4c1065698859459e621cc1012397e0a70e82f",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.6388888888888888,
+              "plate_weapon_materials": 5,
+              "advancement_multiplier": 0.5596153846153846,
+              "mean_practice": 270696.0,
+              "mean_censored_clear_fraction": 0.5598546774691359,
+              "cap_damage_per_second": 91.66666666666667,
+              "mean_damage_per_sp": 1.969954648526077,
+              "min_hp_fraction": 0.32727272727272727,
+              "mean_min_hp_fraction": 0.7988897930713788
+            }
+          },
+          {
+            "id": "24b16a46983d6b01a14d20a729d8ffbeb7cf833da97008aedf6b1cad5ae81f72",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.6388888888888888,
+              "plate_weapon_materials": 5,
+              "advancement_multiplier": 0.5596153846153846,
+              "mean_practice": 270696.0,
+              "mean_censored_clear_fraction": 0.5598546774691359,
+              "cap_damage_per_second": 91.66666666666667,
+              "mean_damage_per_sp": 1.969954648526077,
+              "min_hp_fraction": 0.32727272727272727,
+              "mean_min_hp_fraction": 0.7988897930713788
+            }
+          },
+          {
+            "id": "0e21729709cb5132d0706d8d80f90d24348678baa870e4c7a1dda2a9efdb65c4",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.6388888888888888,
+              "plate_weapon_materials": 5,
+              "advancement_multiplier": 0.6115384615384616,
+              "mean_practice": 291548.5,
+              "mean_censored_clear_fraction": 0.5598546774691359,
+              "cap_damage_per_second": 91.66666666666667,
+              "mean_damage_per_sp": 1.969954648526077,
+              "min_hp_fraction": 0.32727272727272727,
+              "mean_min_hp_fraction": 0.7988897930713788
+            }
+          },
+          {
+            "id": "ea144dc2358cf39763135becb29df0d94f25e88f0e59efd187aeff13a03e622c",
+            "metrics": {
+              "worst_clear_rate": 0.0,
+              "worst_survival_rate": 1.0,
+              "mean_survival_rate": 1.0,
+              "mean_clear_rate": 0.6388888888888888,
+              "plate_weapon_materials": 5,
+              "advancement_multiplier": 0.6115384615384616,
+              "mean_practice": 291548.5,
+              "mean_censored_clear_fraction": 0.5598546774691359,
+              "cap_damage_per_second": 91.66666666666667,
+              "mean_damage_per_sp": 1.969954648526077,
+              "min_hp_fraction": 0.32727272727272727,
+              "mean_min_hp_fraction": 0.7988897930713788
+            }
+          }
+        ]
+      },
+      "bounded": {
+        "2": {
+          "admission": {
+            "seconds": 0.017061172000012448,
+            "proof_scope": {
+              "enumeration_complete": false,
+              "admission_complete": false,
+              "difficulty_values": [
+                -12,
+                -11,
+                -7,
+                -6
+              ],
+              "slices": [
+                {
+                  "difficulty": -12,
+                  "termination": "sample_limit",
+                  "screened": 2,
+                  "passed": 2,
+                  "nodes": 9449,
+                  "kit_rejections_by_mask": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "work_bytes": 94004
+                },
+                {
+                  "difficulty": -11,
+                  "termination": "sample_limit",
+                  "screened": 2,
+                  "passed": 2,
+                  "nodes": 9482,
+                  "kit_rejections_by_mask": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "work_bytes": 94004
+                },
+                {
+                  "difficulty": -7,
+                  "termination": "sample_limit",
+                  "screened": 2,
+                  "passed": 2,
+                  "nodes": 9464,
+                  "kit_rejections_by_mask": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "work_bytes": 94004
+                },
+                {
+                  "difficulty": -6,
+                  "termination": "sample_limit",
+                  "screened": 2,
+                  "passed": 2,
+                  "nodes": 9471,
+                  "kit_rejections_by_mask": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "work_bytes": 94004
+                }
+              ],
+              "termination": "bounded",
+              "conflicts": [],
+              "claim": "Within the declared class domain and ordinary birth assumptions only.",
+              "suggested_edits": [],
+              "verified_minimal_edits": [],
+              "kit_rejection_bits": {
+                "1": "no plate",
+                "2": "insufficient carry",
+                "4": "no owned trained melee",
+                "8": "no affordable owned direct-damage spell at birth"
+              },
+              "excluded_traits": {
+                "42": "high_risk_disadvantage",
+                "43": "high_risk_disadvantage",
+                "44": "high_risk_disadvantage",
+                "45": "high_risk_disadvantage",
+                "46": "high_risk_disadvantage",
+                "47": "high_risk_disadvantage",
+                "48": "high_risk_disadvantage",
+                "49": "high_risk_disadvantage",
+                "50": "high_risk_disadvantage",
+                "51": "restricted_casting",
+                "52": "restricted_casting",
+                "55": "plate_forbidden",
+                "76": "uncertain_regeneration_behavior",
+                "77": "restricted_casting",
+                "78": "restricted_casting",
+                "80": "class_save_vulnerability",
+                "81": "class_save_vulnerability",
+                "82": "class_save_vulnerability",
+                "83": "class_save_vulnerability",
+                "84": "class_save_vulnerability",
+                "85": "class_save_vulnerability"
+              },
+              "domain_policy": {
+                "hp": 30,
+                "magicka": 3,
+                "required_masteries": [
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27
+                ],
+                "race_ids": [
+                  1,
+                  5
+                ],
+                "attribute_domains": [
+                  [
+                    50
+                  ],
+                  [
+                    65
+                  ],
+                  [
+                    55
+                  ],
+                  [
+                    40
+                  ],
+                  [
+                    55
+                  ],
+                  [
+                    35
+                  ],
+                  [
+                    60
+                  ],
+                  [
+                    40
+                  ]
+                ],
+                "ordered_skill_domains": [
+                  [
+                    22
+                  ],
+                  [
+                    23
+                  ],
+                  [
+                    25
+                  ],
+                  [
+                    24
+                  ],
+                  [
+                    27
+                  ],
+                  [
+                    29
+                  ],
+                  [
+                    26
+                  ],
+                  [
+                    20
+                  ],
+                  [
+                    14
+                  ],
+                  [
+                    21
+                  ],
+                  [
+                    0
+                  ],
+                  [
+                    13
+                  ]
+                ],
+                "trait_ids": [
+                  23,
+                  56,
+                  58,
+                  60,
+                  62,
+                  64,
+                  65,
+                  66
+                ],
+                "required_trait_ids": [
+                  23,
+                  58,
+                  60,
+                  62,
+                  64,
+                  65
+                ],
+                "advancement": "Every enumerated cost slice is reported in difficulty_values."
+              },
+              "catalog_scope": {
+                "weapons": 180,
+                "armor": 143,
+                "other": 91
+              },
+              "eligibility_only": "Reviewed mundane template/material combinations do not imply ownership or access."
+            },
+            "counters": {
+              "nodes": 37866,
+              "legal": 8,
+              "screened": 8,
+              "leaf_visits": 1024,
+              "native_retained": 8,
+              "admitted": 2,
+              "manual": 2,
+              "controlled_comparisons": 0
+            },
+            "ids": [
+              "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4",
+              "9acb31b4a1771ab14956c42c82de115f26be8d32669ee05536e15a8b14e3dba2"
+            ]
+          },
+          "downstream": {
+            "elapsed_seconds": 2.1854411240001355,
+            "seconds_per_family": 1.0927205620000677,
+            "cells_per_family": 72,
+            "result_hash": "9fd28b6381e15ab6b02357935d6e3b5ca84caf0e809410dfe0939f773d3239c1",
+            "peak_process_rss_bytes": 53833728,
+            "diagnostics": {
+              "admission": {},
+              "fully_evaluated": 2,
+              "retained_bytes": 365252,
+              "progression_nodes": 55385,
+              "checkpoint_cache_hits": 0,
+              "encounter_events": 3464,
+              "encounter_batches": 60,
+              "replayed_trials": 120,
+              "identical_encounter_batches_reused": 12,
+              "checkpoint_forks": 144,
+              "nodes": 58849
+            },
+            "eligible_rows": [
+              {
+                "id": "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 1.0,
+                  "mean_survival_rate": 1.0,
+                  "mean_clear_rate": 0.6666666666666666,
+                  "plate_weapon_materials": 4,
+                  "advancement_multiplier": 0.3,
+                  "mean_practice": 144119.5,
+                  "mean_censored_clear_fraction": 0.5484566080246913,
+                  "cap_damage_per_second": 91.66666666666667,
+                  "mean_damage_per_sp": 2.0820850808867584,
+                  "min_hp_fraction": 0.32727272727272727,
+                  "mean_min_hp_fraction": 0.7994579748895606
+                }
+              },
+              {
+                "id": "9acb31b4a1771ab14956c42c82de115f26be8d32669ee05536e15a8b14e3dba2",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 1.0,
+                  "mean_survival_rate": 1.0,
+                  "mean_clear_rate": 0.6666666666666666,
+                  "plate_weapon_materials": 4,
+                  "advancement_multiplier": 0.3519230769230769,
+                  "mean_practice": 172829.5,
+                  "mean_censored_clear_fraction": 0.5484566080246913,
+                  "cap_damage_per_second": 91.66666666666667,
+                  "mean_damage_per_sp": 2.106060606060606,
+                  "min_hp_fraction": 0.32727272727272727,
+                  "mean_min_hp_fraction": 0.7994579748895606
+                }
+              }
+            ]
+          },
+          "quality": {
+            "enumerated": 8,
+            "admitted": 2,
+            "exact_winners": [
+              "c35c28cdc97d6e0738013327b3829f09f93296440f1d6888fe2d9afad9827679",
+              "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4"
+            ],
+            "elected": "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4",
+            "quality_recovered": true,
+            "tie_break_recovered": false,
+            "first_loss": null,
+            "exhaustive_distinct_pareto_vectors": 2,
+            "pareto_recall": 0.5,
+            "specialist_ceilings": {
+              "cap_damage_per_second": {
+                "reference": 91.66666666666667,
+                "retained": 91.66666666666667,
+                "recovered": true,
+                "absolute_gap": 0.0,
+                "relative_gap": 0.0
+              },
+              "min_hp_fraction": {
+                "reference": 0.32727272727272727,
+                "retained": 0.32727272727272727,
+                "recovered": true,
+                "absolute_gap": 0.0,
+                "relative_gap": 0.0
+              },
+              "mean_damage_per_sp": {
+                "reference": 2.106060606060606,
+                "retained": 2.106060606060606,
+                "recovered": true,
+                "absolute_gap": 0.0,
+                "relative_gap": 0.0
+              }
+            }
+          }
+        },
+        "4": {
+          "admission": {
+            "seconds": 0.021092807999593788,
+            "proof_scope": {
+              "enumeration_complete": false,
+              "admission_complete": false,
+              "difficulty_values": [
+                -12,
+                -11,
+                -7,
+                -6
+              ],
+              "slices": [
+                {
+                  "difficulty": -12,
+                  "termination": "sample_limit",
+                  "screened": 2,
+                  "passed": 2,
+                  "nodes": 9449,
+                  "kit_rejections_by_mask": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "work_bytes": 95364
+                },
+                {
+                  "difficulty": -11,
+                  "termination": "sample_limit",
+                  "screened": 2,
+                  "passed": 2,
+                  "nodes": 9482,
+                  "kit_rejections_by_mask": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "work_bytes": 95364
+                },
+                {
+                  "difficulty": -7,
+                  "termination": "sample_limit",
+                  "screened": 2,
+                  "passed": 2,
+                  "nodes": 9464,
+                  "kit_rejections_by_mask": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "work_bytes": 95364
+                },
+                {
+                  "difficulty": -6,
+                  "termination": "sample_limit",
+                  "screened": 2,
+                  "passed": 2,
+                  "nodes": 9471,
+                  "kit_rejections_by_mask": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "work_bytes": 95364
+                }
+              ],
+              "termination": "bounded",
+              "conflicts": [],
+              "claim": "Within the declared class domain and ordinary birth assumptions only.",
+              "suggested_edits": [],
+              "verified_minimal_edits": [],
+              "kit_rejection_bits": {
+                "1": "no plate",
+                "2": "insufficient carry",
+                "4": "no owned trained melee",
+                "8": "no affordable owned direct-damage spell at birth"
+              },
+              "excluded_traits": {
+                "42": "high_risk_disadvantage",
+                "43": "high_risk_disadvantage",
+                "44": "high_risk_disadvantage",
+                "45": "high_risk_disadvantage",
+                "46": "high_risk_disadvantage",
+                "47": "high_risk_disadvantage",
+                "48": "high_risk_disadvantage",
+                "49": "high_risk_disadvantage",
+                "50": "high_risk_disadvantage",
+                "51": "restricted_casting",
+                "52": "restricted_casting",
+                "55": "plate_forbidden",
+                "76": "uncertain_regeneration_behavior",
+                "77": "restricted_casting",
+                "78": "restricted_casting",
+                "80": "class_save_vulnerability",
+                "81": "class_save_vulnerability",
+                "82": "class_save_vulnerability",
+                "83": "class_save_vulnerability",
+                "84": "class_save_vulnerability",
+                "85": "class_save_vulnerability"
+              },
+              "domain_policy": {
+                "hp": 30,
+                "magicka": 3,
+                "required_masteries": [
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27
+                ],
+                "race_ids": [
+                  1,
+                  5
+                ],
+                "attribute_domains": [
+                  [
+                    50
+                  ],
+                  [
+                    65
+                  ],
+                  [
+                    55
+                  ],
+                  [
+                    40
+                  ],
+                  [
+                    55
+                  ],
+                  [
+                    35
+                  ],
+                  [
+                    60
+                  ],
+                  [
+                    40
+                  ]
+                ],
+                "ordered_skill_domains": [
+                  [
+                    22
+                  ],
+                  [
+                    23
+                  ],
+                  [
+                    25
+                  ],
+                  [
+                    24
+                  ],
+                  [
+                    27
+                  ],
+                  [
+                    29
+                  ],
+                  [
+                    26
+                  ],
+                  [
+                    20
+                  ],
+                  [
+                    14
+                  ],
+                  [
+                    21
+                  ],
+                  [
+                    0
+                  ],
+                  [
+                    13
+                  ]
+                ],
+                "trait_ids": [
+                  23,
+                  56,
+                  58,
+                  60,
+                  62,
+                  64,
+                  65,
+                  66
+                ],
+                "required_trait_ids": [
+                  23,
+                  58,
+                  60,
+                  62,
+                  64,
+                  65
+                ],
+                "advancement": "Every enumerated cost slice is reported in difficulty_values."
+              },
+              "catalog_scope": {
+                "weapons": 180,
+                "armor": 143,
+                "other": 91
+              },
+              "eligibility_only": "Reviewed mundane template/material combinations do not imply ownership or access."
+            },
+            "counters": {
+              "nodes": 37866,
+              "legal": 8,
+              "screened": 8,
+              "leaf_visits": 1024,
+              "native_retained": 8,
+              "admitted": 4,
+              "manual": 2,
+              "controlled_comparisons": 0
+            },
+            "ids": [
+              "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4",
+              "9acb31b4a1771ab14956c42c82de115f26be8d32669ee05536e15a8b14e3dba2",
+              "0e21729709cb5132d0706d8d80f90d24348678baa870e4c7a1dda2a9efdb65c4",
+              "ab72cecdc83d4b11fef87ba692c4c1065698859459e621cc1012397e0a70e82f"
+            ]
+          },
+          "downstream": {
+            "elapsed_seconds": 5.321838858999854,
+            "seconds_per_family": 1.3304597147499635,
+            "cells_per_family": 72,
+            "result_hash": "1696d9618d5db5da8ca46e6b94fac757b14c40728eb2ba57d5d00916a8404a69",
+            "peak_process_rss_bytes": 54181888,
+            "diagnostics": {
+              "admission": {},
+              "fully_evaluated": 4,
+              "retained_bytes": 731148,
+              "progression_nodes": 154078,
+              "checkpoint_cache_hits": 0,
+              "encounter_events": 7004,
+              "encounter_batches": 120,
+              "replayed_trials": 240,
+              "identical_encounter_batches_reused": 24,
+              "checkpoint_forks": 288,
+              "nodes": 161082
+            },
+            "eligible_rows": [
+              {
+                "id": "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 1.0,
+                  "mean_survival_rate": 1.0,
+                  "mean_clear_rate": 0.6666666666666666,
+                  "plate_weapon_materials": 4,
+                  "advancement_multiplier": 0.3,
+                  "mean_practice": 144119.5,
+                  "mean_censored_clear_fraction": 0.5484566080246913,
+                  "cap_damage_per_second": 91.66666666666667,
+                  "mean_damage_per_sp": 2.0820850808867584,
+                  "min_hp_fraction": 0.32727272727272727,
+                  "mean_min_hp_fraction": 0.7994579748895606
+                }
+              },
+              {
+                "id": "9acb31b4a1771ab14956c42c82de115f26be8d32669ee05536e15a8b14e3dba2",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 1.0,
+                  "mean_survival_rate": 1.0,
+                  "mean_clear_rate": 0.6666666666666666,
+                  "plate_weapon_materials": 4,
+                  "advancement_multiplier": 0.3519230769230769,
+                  "mean_practice": 172829.5,
+                  "mean_censored_clear_fraction": 0.5484566080246913,
+                  "cap_damage_per_second": 91.66666666666667,
+                  "mean_damage_per_sp": 2.106060606060606,
+                  "min_hp_fraction": 0.32727272727272727,
+                  "mean_min_hp_fraction": 0.7994579748895606
+                }
+              },
+              {
+                "id": "0e21729709cb5132d0706d8d80f90d24348678baa870e4c7a1dda2a9efdb65c4",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 1.0,
+                  "mean_survival_rate": 1.0,
+                  "mean_clear_rate": 0.6388888888888888,
+                  "plate_weapon_materials": 5,
+                  "advancement_multiplier": 0.6115384615384616,
+                  "mean_practice": 291548.5,
+                  "mean_censored_clear_fraction": 0.5598546774691359,
+                  "cap_damage_per_second": 91.66666666666667,
+                  "mean_damage_per_sp": 1.969954648526077,
+                  "min_hp_fraction": 0.32727272727272727,
+                  "mean_min_hp_fraction": 0.7988897930713788
+                }
+              },
+              {
+                "id": "ab72cecdc83d4b11fef87ba692c4c1065698859459e621cc1012397e0a70e82f",
+                "metrics": {
+                  "worst_clear_rate": 0.0,
+                  "worst_survival_rate": 1.0,
+                  "mean_survival_rate": 1.0,
+                  "mean_clear_rate": 0.6388888888888888,
+                  "plate_weapon_materials": 5,
+                  "advancement_multiplier": 0.5596153846153846,
+                  "mean_practice": 270696.0,
+                  "mean_censored_clear_fraction": 0.5598546774691359,
+                  "cap_damage_per_second": 91.66666666666667,
+                  "mean_damage_per_sp": 1.969954648526077,
+                  "min_hp_fraction": 0.32727272727272727,
+                  "mean_min_hp_fraction": 0.7988897930713788
+                }
+              }
+            ]
+          },
+          "quality": {
+            "enumerated": 8,
+            "admitted": 4,
+            "exact_winners": [
+              "c35c28cdc97d6e0738013327b3829f09f93296440f1d6888fe2d9afad9827679",
+              "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4"
+            ],
+            "elected": "ed9733fb641efbe32a8cfb1665be3900bec4b1e0109e43ef27c04fc6f35cc3c4",
+            "quality_recovered": true,
+            "tie_break_recovered": false,
+            "first_loss": null,
+            "exhaustive_distinct_pareto_vectors": 2,
+            "pareto_recall": 1.0,
+            "specialist_ceilings": {
+              "cap_damage_per_second": {
+                "reference": 91.66666666666667,
+                "retained": 91.66666666666667,
+                "recovered": true,
+                "absolute_gap": 0.0,
+                "relative_gap": 0.0
+              },
+              "min_hp_fraction": {
+                "reference": 0.32727272727272727,
+                "retained": 0.32727272727272727,
+                "recovered": true,
+                "absolute_gap": 0.0,
+                "relative_gap": 0.0
+              },
+              "mean_damage_per_sp": {
+                "reference": 2.106060606060606,
+                "retained": 2.106060606060606,
+                "recovered": true,
+                "absolute_gap": 0.0,
+                "relative_gap": 0.0
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "held_out": {
+    "2": {
+      "comparisons": 3,
+      "missing_recommendations": 0,
+      "winning_metric_recovery_rate": 1.0,
+      "deterministic_winner_recovery_rate": 0.3333333333333333,
+      "mean_pareto_recall": 0.8333333333333334,
+      "worst_first_loss_by_axis": {}
+    },
+    "4": {
+      "comparisons": 3,
+      "missing_recommendations": 0,
+      "winning_metric_recovery_rate": 1.0,
+      "deterministic_winner_recovery_rate": 0.6666666666666666,
+      "mean_pareto_recall": 1.0,
+      "worst_first_loss_by_axis": {}
+    }
+  }
+}

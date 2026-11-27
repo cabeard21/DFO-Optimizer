@@ -1,0 +1,314 @@
+{
+  "headers": [
+    {
+      "file": "src/dfo_optimizer/beginner_admission.hpp",
+      "source_sha256": "d4db837d03e7e3c087a8d8eb5efb0c1e75470dc34c3d91ed9adf322037a3919f",
+      "executable_lines": 108,
+      "covered_lines": 105,
+      "line_percent": 97.22222222222223,
+      "uncovered_lines": [
+        72,
+        75,
+        126
+      ]
+    },
+    {
+      "file": "src/dfo_optimizer/class_search.hpp",
+      "source_sha256": "f9baee50306dc68ed8275ff1f626e9a3501dec5fc233b7b20a328ee48df04e48",
+      "executable_lines": 166,
+      "covered_lines": 166,
+      "line_percent": 100.0,
+      "uncovered_lines": []
+    },
+    {
+      "file": "src/dfo_optimizer/discovery_frontier.hpp",
+      "source_sha256": "dc3faf07a1b901ba681dd6400662f5e003dfef49e424ec51e140da2ed2c20cc3",
+      "executable_lines": 74,
+      "covered_lines": 74,
+      "line_percent": 100.0,
+      "uncovered_lines": []
+    },
+    {
+      "file": "src/dfo_optimizer/discovery_screen.hpp",
+      "source_sha256": "f727b263efa87fc875ba9d1c27f2e87ff042014cb1e5f580024fc31e3872464e",
+      "executable_lines": 316,
+      "covered_lines": 315,
+      "line_percent": 99.68354430379746,
+      "uncovered_lines": [
+        365
+      ]
+    },
+    {
+      "file": "src/dfo_optimizer/encounter_effects.hpp",
+      "source_sha256": "303657adb7bd6b8c4cf17b5ecd584ced9ba30ed54d1b79550245a78a6f3babb5",
+      "executable_lines": 95,
+      "covered_lines": 81,
+      "line_percent": 85.26315789473684,
+      "uncovered_lines": [
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        91,
+        132,
+        133,
+        134,
+        135,
+        136,
+        142
+      ]
+    },
+    {
+      "file": "src/dfo_optimizer/encounter_frontier.hpp",
+      "source_sha256": "f39b4dea8230e19d6ec07819b83bc4daf433377edf15a6c3b68a6c6984747762",
+      "executable_lines": 44,
+      "covered_lines": 44,
+      "line_percent": 100.0,
+      "uncovered_lines": []
+    },
+    {
+      "file": "src/dfo_optimizer/encounter_kernel.hpp",
+      "source_sha256": "14d011e04c828b18ad2f8770d675863d1f763f1e113fe44c0b1d0adaf05627f6",
+      "executable_lines": 425,
+      "covered_lines": 401,
+      "line_percent": 94.3529411764706,
+      "uncovered_lines": [
+        102,
+        232,
+        233,
+        234,
+        235,
+        236,
+        246,
+        247,
+        248,
+        254,
+        265,
+        266,
+        351,
+        359,
+        360,
+        361,
+        362,
+        363,
+        364,
+        402,
+        403,
+        525,
+        582,
+        592
+      ]
+    },
+    {
+      "file": "src/dfo_optimizer/encounter_powers.hpp",
+      "source_sha256": "e49b6c097cb1429689b901880e416b3e72d06f72709eddc821e739ce715f82e2",
+      "executable_lines": 64,
+      "covered_lines": 53,
+      "line_percent": 82.8125,
+      "uncovered_lines": [
+        20,
+        21,
+        22,
+        23,
+        46,
+        47,
+        48,
+        64,
+        65,
+        74,
+        84
+      ]
+    },
+    {
+      "file": "src/dfo_optimizer/gear_search.hpp",
+      "source_sha256": "a5a7eb4f5b1cf6c0268f70a5d2ec4f8f53bb612531063b54374c5915a63bcbc1",
+      "executable_lines": 225,
+      "covered_lines": 223,
+      "line_percent": 99.11111111111111,
+      "uncovered_lines": [
+        22,
+        350
+      ]
+    },
+    {
+      "file": "src/dfo_optimizer/lifecycle_combat.hpp",
+      "source_sha256": "c3b827af056c46a6b4918baf7e6d25808de31e1f8e740c743359eda84bd7978b",
+      "executable_lines": 164,
+      "covered_lines": 159,
+      "line_percent": 96.95121951219512,
+      "uncovered_lines": [
+        175,
+        176,
+        177,
+        178,
+        179
+      ]
+    },
+    {
+      "file": "src/dfo_optimizer/lifecycle_encounter.hpp",
+      "source_sha256": "87d99383f322b452ade3bc2de2bee2d7472b4404594e6584603d5bb6df06f291",
+      "executable_lines": 9,
+      "covered_lines": 9,
+      "line_percent": 100.0,
+      "uncovered_lines": []
+    },
+    {
+      "file": "src/dfo_optimizer/lifecycle_search.hpp",
+      "source_sha256": "a4f52ee0c012e5e1937c7493828ec12068ada169cd7b5667fa3ab7792a954fb8",
+      "executable_lines": 177,
+      "covered_lines": 176,
+      "line_percent": 99.43502824858757,
+      "uncovered_lines": [
+        271
+      ]
+    },
+    {
+      "file": "src/dfo_optimizer/native_build.hpp",
+      "source_sha256": "dcbada1aabcad3a5105a232e93a9db3f4c0b5a666c3cba8c7cd26abd804c33b8",
+      "executable_lines": 4,
+      "covered_lines": 4,
+      "line_percent": 100.0,
+      "uncovered_lines": []
+    },
+    {
+      "file": "src/dfo_optimizer/physical_combat.hpp",
+      "source_sha256": "1e8a085e8cdd10e1df3fa1029680c093c96d8ce75eec6255b939be4d037b088e",
+      "executable_lines": 74,
+      "covered_lines": 73,
+      "line_percent": 98.64864864864865,
+      "uncovered_lines": [
+        84
+      ]
+    },
+    {
+      "file": "src/dfo_optimizer/progression_mechanics.hpp",
+      "source_sha256": "f05928c9cdbc6fa6b11ceab4cf7beeb010fcf282187c2c0669dab5b3a2c7c673",
+      "executable_lines": 256,
+      "covered_lines": 255,
+      "line_percent": 99.609375,
+      "uncovered_lines": [
+        357
+      ]
+    },
+    {
+      "file": "src/dfo_optimizer/progression_search.hpp",
+      "source_sha256": "61f01f6c0dca61f94c8d1e703e809d266f01586b82fd99019c8d637c4eb17059",
+      "executable_lines": 175,
+      "covered_lines": 173,
+      "line_percent": 98.85714285714286,
+      "uncovered_lines": [
+        14,
+        161
+      ]
+    },
+    {
+      "file": "src/dfo_optimizer/spell_kernel.hpp",
+      "source_sha256": "3ec5051c497deb0568e72bf695c4db0d18d75a2122c6ead0cb1360902e3e0fc5",
+      "executable_lines": 307,
+      "covered_lines": 294,
+      "line_percent": 95.76547231270358,
+      "uncovered_lines": [
+        296,
+        373,
+        374,
+        375,
+        490,
+        491,
+        492,
+        493,
+        494,
+        495,
+        496,
+        498,
+        499
+      ]
+    },
+    {
+      "file": "src/dfo_optimizer/spellbook.hpp",
+      "source_sha256": "c0f5b2daef0f6bc19a5b0782bd66f6159757cdc65fba55eac2f8e66b731b6655",
+      "executable_lines": 128,
+      "covered_lines": 128,
+      "line_percent": 100.0,
+      "uncovered_lines": []
+    },
+    {
+      "file": "src/dfo_optimizer/spellbook_loadouts.hpp",
+      "source_sha256": "8da3fb546a1ec45429ef6e36dda99475ec9408a34d821d234de01877d601800c",
+      "executable_lines": 79,
+      "covered_lines": 77,
+      "line_percent": 97.46835443037975,
+      "uncovered_lines": [
+        93,
+        94
+      ]
+    }
+  ],
+  "modules": [
+    "_native",
+    "_spells",
+    "_gear",
+    "_progression",
+    "_spellbook",
+    "_lifecycle",
+    "_encounter"
+  ],
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "gcov": "gcov (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "flags": [
+    "-std=c++17",
+    "-O0",
+    "-fPIC",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "--coverage",
+    "-fprofile-abs-path"
+  ],
+  "tests": [
+    "tests/test_beginner_benchmark.py",
+    "tests/test_beginner_classes.py",
+    "tests/test_beginner_demonstration.py",
+    "tests/test_beginner_equipment.py",
+    "tests/test_beginner_guide.py",
+    "tests/test_beginner_progression.py",
+    "tests/test_beginner_scenarios.py",
+    "tests/test_beginner_selection.py",
+    "tests/test_beginner_service.py",
+    "tests/test_discovery_admission.py",
+    "tests/test_discovery_classes.py",
+    "tests/test_discovery_native.py",
+    "tests/test_discovery_objectives.py",
+    "tests/test_discovery_presets.py",
+    "tests/test_discovery_progression.py",
+    "tests/test_discovery_quality.py",
+    "tests/test_discovery_sensitivity.py",
+    "tests/test_encounter.py",
+    "tests/test_encounter_native.py",
+    "tests/test_gear.py",
+    "tests/test_gear_native.py",
+    "tests/test_lifecycle.py",
+    "tests/test_lifecycle_encounters.py",
+    "tests/test_lifecycle_native.py",
+    "tests/test_lifecycle_refinement.py",
+    "tests/test_native.py",
+    "tests/test_permanent_progression.py",
+    "tests/test_physical_encounter.py",
+    "tests/test_progression_inputs.py",
+    "tests/test_progression_native.py",
+    "tests/test_progression_service.py",
+    "tests/test_progression_stationary.py",
+    "tests/test_search.py",
+    "tests/test_spell_curve.py",
+    "tests/test_spell_kernel.py",
+    "tests/test_spell_oracle.py",
+    "tests/test_spellbook_gameplan.py",
+    "tests/test_spellbook_motion.py",
+    "tests/test_spells.py"
+  ],
+  "executable_lines": 2890,
+  "covered_lines": 2810,
+  "line_percent": 97.2318339100346,
+  "minimum_percent": 80
+}

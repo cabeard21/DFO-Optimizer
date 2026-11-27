@@ -49,16 +49,21 @@ def summarize(python, suite, directory, env):
     report = command(python, *prefix, "benchmark", "--suite", suite, "--workers", "1",
                      directory=directory, env=env)
     compact = {key: report[key] for key in ("suite", "workload_version", "ruleset_hash",
-                                            "source_sha", "peak_rss_bytes")}
+                                            "source_sha", "peak_rss_bytes") if key in report}
     samples = {}
     for name, row in report["workloads"].items():
+        if suite == "encounter":
+            for field in ("ruleset_hash", "source_sha"):
+                if compact.setdefault(field, row[field]) != row[field]:
+                    raise ValueError(f"{suite} workloads differ on {field}")
         evidence = {k: row[k] for k in ("rows", "checksum", "nodes", "leaves", "pruned", "quality",
                                         "verified", "returned", "status", "termination", "frontier",
-                                        "final_levels", "validation", "eligible_trait_count") if k in row}
+                                        "final_levels", "validation", "eligible_trait_count",
+                                        "policies_checked", "seeds") if k in row}
         evidence["counters"] = {k: v for k, v in row.get("counters", {}).items()
                                 if "seconds" not in k and "bytes" not in k}
         inputs = {k: row[k] for k in ("request", "context", "recipes", "input_patterns", "copies") if k in row}
-        evidence["input_sha256"] = digest(inputs)
+        evidence["input_sha256"] = row.get("input_hash") if suite == "encounter" else digest(inputs)
         if name == "mechanics_batch":
             evidence["batch_sha256"] = row["result_sha256"]
         if name in ("class_exact", "class_bounded"):
@@ -71,7 +76,7 @@ def summarize(python, suite, directory, env):
             evidence["ordered_classes_sha256"] = digest([
                 [candidate["race_id"], candidate["class_doc"]] for candidate in actual["candidates"]])
         samples[name] = {"p50_ms": 1000 * row["warm"]["p50_seconds"], "evidence": evidence,
-                         "result_sha256": row.get("result_sha256")}
+                         "result_sha256": row.get("result_sha256", row.get("result_hash"))}
     return {**compact, "workloads": samples}, report["host"]
 
 
@@ -98,15 +103,31 @@ def compare(runs):
     return result
 
 
+def compact_runs(records):
+    """Store one copy of each work/quality snapshot across all timed repetitions."""
+    catalog = {}
+    compact = []
+    for run in records:
+        workloads = {}
+        for name, sample in run["workloads"].items():
+            key = digest(sample["evidence"])
+            catalog[key] = sample["evidence"]
+            workloads[name] = {k: v for k, v in sample.items() if k != "evidence"}
+            workloads[name]["evidence_sha256"] = key
+        compact.append({**run, "workloads": workloads})
+    return compact, catalog
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for flag in ("--before", "--after", "--output"):
         parser.add_argument(flag, type=Path, required=True)
     parser.add_argument("--repeats", type=int, default=3, help="paired runs per wheel (default 3)")
+    parser.add_argument("--compact", action="store_true", help="store repeated work/quality evidence once by digest")
     parser.add_argument("--work-dir", type=Path,
                         help="create a new directory for the two isolated environments and retain them for replay; "
                              "install offline through the invoking Python's pip")
-    parser.add_argument("--suites", nargs="+", choices=["smoke", "combat", "progression", "lifecycle"],
+    parser.add_argument("--suites", nargs="+", choices=["smoke", "combat", "progression", "lifecycle","encounter"],
                         default=["smoke", "combat"], help="baseline suites supported by both releases")
     args = parser.parse_args()
     if not 1 <= args.repeats <= 50 or args.output.suffix.lower() != ".json":
@@ -128,6 +149,9 @@ def main():
     data = {"schema_version": 1, "workers": 1, "host": host, "repetitions_per_wheel": args.repeats,
             "wheels": {k: {"filename": v.name, "sha256": hashlib.sha256(v.read_bytes()).hexdigest()}
                        for k, v in wheels.items()}, "runs": records, "summary": summaries}
+    if args.compact:
+        data["schema_version"] = 2
+        data["runs"], data["evidence_by_sha256"] = compact_runs(records)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(data, indent=2, allow_nan=False)+"\n", encoding="utf8")
     print(json.dumps(summaries, indent=2))

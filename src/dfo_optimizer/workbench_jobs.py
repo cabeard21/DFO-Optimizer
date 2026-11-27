@@ -8,7 +8,7 @@ from threading import Event, RLock
 from time import perf_counter
 from uuid import uuid4
 
-from .workbench_services import ACTIONS, MODES, execute, inline_only, limited_request, searchable, search_token
+from .workbench_services import ACTIONS, MODES, execute, inline_only, is_discovery, limited_request, searchable, search_token
 
 
 def digest(value):
@@ -141,14 +141,24 @@ class Jobs:
                 if job.stop.is_set():
                     return
                 job.token = search_token(job.action, job.request)
-                job.state, job.phase = "running", "preview" if searchable(job.action) else "evaluate"
-            self._previews(job)
+                discovery = is_discovery(job.action, job.request)
+                job.state, job.phase = "running", "class admission" if discovery else "preview" if searchable(job.action) else "evaluate"
+            if not discovery:
+                self._previews(job)
             with self.lock:
                 job.phase = "final_search"
                 if job.stop.is_set():
                     self._end(job,"cancelled")
                     return
-            result = execute(job.action,job.request,job.token)
+            if discovery:
+                def checked(result):
+                    with self.lock:
+                        job.incumbent = result
+                        job.incumbent_request = job.request
+                        job.phase = "lifecycle refinement"
+                result = execute(job.action, job.request, job.token, on_incumbent=checked)
+            else:
+                result = execute(job.action,job.request,job.token)
             with self.lock:
                 job.result = result
                 cancelled = result.get("status") == "cancelled" or result.get("termination") == "cancelled"

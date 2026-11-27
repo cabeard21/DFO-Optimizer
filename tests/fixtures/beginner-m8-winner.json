@@ -1,0 +1,94 @@
+{
+  "result_hash": "61702c9fc676e449aaad88fd3feab16af22197e6bc0fbcbdccc9b3b864902ab7",
+  "input_hash": "bbfcc3e86ce0eddca71f3087f5c5a9afdb72e00ea43c4d23b689f407e52ecd36",
+  "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483",
+  "ruleset_hash": "d639d137937f8c42e3f26d281785defb44fb5071e9c2da179de4a8320401d5b1",
+  "family": "6d2bb8e6f6f71ff4a23ba98f4413ec4928b3a229e7ac38c04dc256a9b7c955a7",
+  "race_id": 1,
+  "class": {
+    "format": "daggerfall-enhanced/custom-class",
+    "version": 1,
+    "name": "DFO class",
+    "hitPointsPerLevel": 30,
+    "skills": {
+      "primary": [
+        "Destruction",
+        "Mysticism",
+        "Thaumaturgy"
+      ],
+      "major": [
+        "Blunt Weapon",
+        "Alteration",
+        "Restoration"
+      ],
+      "minor": [
+        "Axe",
+        "Pickpocket",
+        "Mercantile",
+        "Climbing",
+        "Medical",
+        "Illusion"
+      ]
+    },
+    "attributes": {
+      "strength": 10,
+      "intelligence": 75,
+      "willpower": 20,
+      "agility": 30,
+      "endurance": 60,
+      "personality": 60,
+      "speed": 75,
+      "luck": 70
+    },
+    "advantages": [
+      {
+        "primary": "acuteHearing"
+      },
+      {
+        "primary": "expertiseIn",
+        "secondary": "axe"
+      },
+      {
+        "primary": "increasedMagery",
+        "secondary": "intInSpellPoints3"
+      }
+    ],
+    "disadvantages": [
+      {
+        "primary": "forbiddenArmorType",
+        "secondary": "plate"
+      },
+      {
+        "primary": "forbiddenMaterial",
+        "secondary": "dwarven"
+      },
+      {
+        "primary": "forbiddenMaterial",
+        "secondary": "elven"
+      },
+      {
+        "primary": "forbiddenMaterial",
+        "secondary": "mithril"
+      },
+      {
+        "primary": "forbiddenMaterial",
+        "secondary": "silver"
+      },
+      {
+        "primary": "forbiddenMaterial",
+        "secondary": "steel"
+      },
+      {
+        "primary": "phobia",
+        "secondary": "animals"
+      }
+    ],
+    "reputations": {
+      "merchants": 0,
+      "peasants": 0,
+      "scholars": 0,
+      "nobility": 0,
+      "underworld": 0
+    }
+  }
+}

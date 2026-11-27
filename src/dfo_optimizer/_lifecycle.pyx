@@ -24,7 +24,7 @@ cdef extern from "lifecycle_search.hpp" namespace "dfo_lifecycle":
         vector[int] end_hp,end_sp
         vector[int] choices
         vector[uint64_t] bought
-        vector[double] scores
+        vector[double] scores,metric_axes
         int64_t spent
     cdef cppclass Report:
         vector[Witness] routes
@@ -134,6 +134,7 @@ cdef extern from "lifecycle_combat.hpp" namespace "dfo_lifecycle":
         vector[Slot] slots
         vector[vector[int]] declared
         vector[int] wellspring
+        vector[Bundle] hostile_book
         cpp_bool automatic
     cdef cppclass CombatStage:
         Context ctx
@@ -150,7 +151,7 @@ cdef extern from "lifecycle_combat.hpp" namespace "dfo_lifecycle":
         vector[vector[int]] policies
         uint64_t evaluations,cache_hits,layout_count,uncertain,preparation_nodes
     JointResult joint(const Physical&,const vector[CombatStage]&,const vector[Bundle]&,
-                      const vector[vector[int]]&,uint64_t,uint64_t,uint64_t,double,Cancel&) except + nogil
+                      const vector[vector[int]]&,uint64_t,uint64_t,uint64_t,double,Cancel&,int) except + nogil
 
 cdef Physical _physical(items,slots,declared):
     cdef Physical g
@@ -187,7 +188,12 @@ cdef Physical _physical(items,slots,declared):
     return g
 
 def optimize_route(stages,items,slots,declared,bundles,policies,owned,*,encounters=None,wellspring=None,max_nodes=0,
-                   memory_bytes=64<<20,wall_seconds=0,CancelToken cancel=None):
+                   memory_bytes=64<<20,wall_seconds=0,CancelToken cancel=None,objective="legacy"):
+    from .lifecycle_objectives import validate_objective
+    validate_objective({"objective":objective, **({"encounter":True} if encounters is not None else {})})
+    cdef int metric={"legacy":0, "overall_pve":0, "endgame_damage":0, "progression_effort":0,
+                     "encounter_damage":1, "clear_performance":2, "damage_per_sp":3,
+                     "resource_sustain":4, "survivability":5, "pareto":6}[objective]
     cdef Physical g=_physical(items,slots,declared)
     cdef vector[CombatStage] frozen
     cdef vector[Bundle] book
@@ -203,9 +209,15 @@ def optimize_route(stages,items,slots,declared,bundles,policies,owned,*,encounte
         g.wellspring=[_integer(v,"Wellspring recovery percentage",0,10) for v in wellspring]
     if count>63 or not stages or len(stages)*(3+count)>1024:
         raise ValueError("lifecycle domain exceeds supported checkpoint/asset dimensions")
+    if encounters:
+        from .spellbook import pack_spell
+        for recipe in encounters[0][0].get("hostile_recipes", []):
+            g.hostile_book.push_back(prepare_bundle(pack_spell(recipe)))
     for row in bundles: book.push_back(prepare_bundle(row))
     for policy in policies:
-        if not 1<=len(policy)<=128: raise ValueError("expected 1..128 supported casts per policy")
+        allow_initial_wait=not policy and encounters is None and len(stages)>1
+        if not allow_initial_wait and not 1<=len(policy)<=128:
+            raise ValueError("expected 1..128 supported casts per policy or a creation checkpoint wait")
         scripts.push_back([_integer(i,"spell id",0,len(bundles)-1) for i in policy])
     for ctx,ceil,prices,intel,quarters,worn,uncertain,sp_ceiling,debt_cap in stages:
         s.ctx=prepare_context(ctx)
@@ -221,6 +233,8 @@ def optimize_route(stages,items,slots,declared,bundles,policies,owned,*,encounte
         if encounters is not None:
             if len(encounters)!=len(stages): raise ValueError("missing checkpoint encounter")
             raw,seed=encounters[frozen.size()]
+            if raw.get("player_defense"):
+                s.ctx=prepare_context(raw["caster"])
             scene=freeze_scene_abi(raw)
             set_encounter(s,scene,_integer(seed,"encounter seed",0,2**32-1))
         frozen.push_back(s)
@@ -231,12 +245,14 @@ def optimize_route(stages,items,slots,declared,bundles,policies,owned,*,encounte
         raise ValueError("invalid lifecycle time limit")
     cdef double wall=wall_seconds
     with nogil:
-        result=joint(g,frozen,book,scripts,base,nodes,mem,wall,token.token)
+        result=joint(g,frozen,book,scripts,base,nodes,mem,wall,token.token,metric)
     routes=[]
     for i in range(result.search.routes.size()):
         w=result.search.routes[i]
         routes.append({"spent":w.spent,"bought":list(w.bought),"scores":list(w.scores),
                        "slots":list(result.slots[i]),"policies":list(result.policies[i])})
+        if objective != "legacy":
+            routes[-1]["metric_axes"]=list(w.metric_axes)
         if encounters is not None:
             routes[-1]["end_hp"]=list(w.end_hp)
             routes[-1]["end_sp"]=list(w.end_sp)

@@ -1,0 +1,166 @@
+[
+  {
+    "race_id": 1,
+    "class": {
+      "format": "daggerfall-enhanced/custom-class",
+      "version": 1,
+      "name": "Breton spellblade",
+      "hitPointsPerLevel": 30,
+      "skills": {
+        "primary": [
+          "Destruction",
+          "Restoration",
+          "Alteration"
+        ],
+        "major": [
+          "Illusion",
+          "Mysticism",
+          "Long Blade"
+        ],
+        "minor": [
+          "Thaumaturgy",
+          "Dodging",
+          "Mercantile",
+          "Running",
+          "Medical",
+          "Lockpicking"
+        ]
+      },
+      "attributes": {
+        "strength": 50,
+        "intelligence": 65,
+        "willpower": 55,
+        "agility": 40,
+        "endurance": 55,
+        "personality": 35,
+        "speed": 60,
+        "luck": 40
+      },
+      "advantages": [
+        {
+          "primary": "increasedMagery",
+          "secondary": "intInSpellPoints3"
+        }
+      ],
+      "disadvantages": [
+        {
+          "primary": "forbiddenMaterial",
+          "secondary": "steel"
+        },
+        {
+          "primary": "forbiddenMaterial",
+          "secondary": "elven"
+        },
+        {
+          "primary": "forbiddenMaterial",
+          "secondary": "dwarven"
+        },
+        {
+          "primary": "forbiddenMaterial",
+          "secondary": "mithril"
+        },
+        {
+          "primary": "forbiddenMaterial",
+          "secondary": "silver"
+        },
+        {
+          "primary": "forbiddenMaterial",
+          "secondary": "adamantium"
+        },
+        {
+          "primary": "forbiddenShieldTypes",
+          "secondary": "buckler"
+        }
+      ],
+      "reputations": {
+        "merchants": 0,
+        "peasants": 0,
+        "scholars": 0,
+        "nobility": 0,
+        "underworld": 0
+      }
+    }
+  },
+  {
+    "race_id": 5,
+    "class": {
+      "format": "daggerfall-enhanced/custom-class",
+      "version": 1,
+      "name": "High Elf spellblade",
+      "hitPointsPerLevel": 30,
+      "skills": {
+        "primary": [
+          "Destruction",
+          "Alteration",
+          "Mysticism"
+        ],
+        "major": [
+          "Restoration",
+          "Thaumaturgy",
+          "Short Blade"
+        ],
+        "minor": [
+          "Illusion",
+          "Dodging",
+          "Mercantile",
+          "Running",
+          "Etiquette",
+          "Lockpicking"
+        ]
+      },
+      "attributes": {
+        "strength": 60,
+        "intelligence": 60,
+        "willpower": 50,
+        "agility": 45,
+        "endurance": 60,
+        "personality": 35,
+        "speed": 50,
+        "luck": 40
+      },
+      "advantages": [
+        {
+          "primary": "increasedMagery",
+          "secondary": "intInSpellPoints3"
+        }
+      ],
+      "disadvantages": [
+        {
+          "primary": "forbiddenMaterial",
+          "secondary": "steel"
+        },
+        {
+          "primary": "forbiddenMaterial",
+          "secondary": "elven"
+        },
+        {
+          "primary": "forbiddenMaterial",
+          "secondary": "dwarven"
+        },
+        {
+          "primary": "forbiddenMaterial",
+          "secondary": "mithril"
+        },
+        {
+          "primary": "forbiddenMaterial",
+          "secondary": "adamantium"
+        },
+        {
+          "primary": "forbiddenMaterial",
+          "secondary": "ebony"
+        },
+        {
+          "primary": "forbiddenWeaponry",
+          "secondary": "axe"
+        }
+      ],
+      "reputations": {
+        "merchants": 0,
+        "peasants": 0,
+        "scholars": 0,
+        "nobility": 0,
+        "underworld": 0
+      }
+    }
+  }
+]

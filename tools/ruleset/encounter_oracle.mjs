@@ -1,7 +1,8 @@
 // Runs in a temporary tree containing only authenticated objects from the pinned game.
 import {applySpell, tickActiveEffects} from "./src/systems/effects.js";
 import {calculateCastCost} from "./src/systems/spellcost.js";
-import {sweepFoes, sphereOverlapsCapsule, EXPLOSION_RADIUS, PLAYER_BODY_RADIUS} from "./src/systems/spellcast.js";
+import {careerAbsorbs} from "./src/systems/absorption.js";
+import {savingChance, sweepFoes, sphereOverlapsCapsule, EXPLOSION_RADIUS, PLAYER_BODY_RADIUS} from "./src/systems/spellcast.js";
 import {PATHS, PATH_NUMBERS, pathCastSchool} from "./src/systems/arcanePaths.js";
 import * as powers from "./src/systems/arcanePowers.js";
 import {setPlayerDoor} from "./src/systems/playerDoor.js";
@@ -228,11 +229,29 @@ function listeners() {
   setPlayerDoor(null);
   return {conflux,kill,signature:results,hurt:threshold,wellspring:refund,wellspring_cap:WELLSPRING_CAP};
 }
+// Player race precedes career tolerance and the pre-Willpower immunity check.
+const flags = [8,16,4,32,2];
+const playerSaves = [];
+for (const raceId of [1,3,5,8]) {
+  for (const career of [{}, {resistanceFlags:2}, {immunityFlags:2,criticalWeaknessFlags:2},
+                         {lowToleranceFlags:16,criticalWeaknessFlags:2}]) {
+    const target = {...player(), raceId, career};
+    playerSaves.push({raceId, career, willpower:target.stats.willpower,
+      chances:flags.map((flag,el)=>savingChance(el,flag,target).chance)});
+  }
+}
+const absorption = [0,1,2,4].map(spellAbsorptionFlags=>({
+  flags:spellAbsorptionFlags,
+  outdoors_day:careerAbsorbs({spellAbsorptionFlags},{day:true,inside:false}),
+  indoors_day:careerAbsorbs({spellAbsorptionFlags},{day:true,inside:true}),
+  outdoors_night:careerAbsorbs({spellAbsorptionFlags},{day:false,inside:false}),
+}));
 const pos=[0,1,0];
 const targets=[[2,0,0],[4.45,0,0],[4.451,0,0],[0,0,0]].map((feet,i)=>({
   id:i,ai:{feet,height:1.8,radius:.45},dead:i===3}));
 const mageTree={start:"mg.start",keys:["mg.s1","mg.s2","mg.g","mg.r1","mg.c2.0","mg.c2.1"]};
 console.log(JSON.stringify({source_sha:"a3eb1605ea1dc391b691fe314377458a7e63e483",
+  prospective_defenses:{saves:playerSaves, absorption},
   effects:[observe(4,0,false,[0,.99,.85]),observe(5,255,false,[.01,.99]),
     observe(10,8,true,[0,.99]),observe(35,255,true,[0,.99]),observe(18,255,true,[0,.99])],
   shield:shieldRenewal(),regen:regenRenewal(),paths,numbers:PATH_NUMBERS,listeners:listeners(),

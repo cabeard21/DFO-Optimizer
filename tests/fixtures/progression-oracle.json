@@ -1317,6 +1317,511 @@
         "pool": 5,
         "ready": false
       }
+    },
+    {
+      "input": {
+        "id": 991,
+        "raw": 1,
+        "school": 22
+      },
+      "kind": "school_release",
+      "output": 40
+    },
+    {
+      "input": {
+        "id": 991,
+        "raw": 35,
+        "school": 22
+      },
+      "kind": "school_release",
+      "output": 27
+    },
+    {
+      "input": {
+        "id": 991,
+        "raw": 100,
+        "school": 22
+      },
+      "kind": "school_release",
+      "output": 5
+    },
+    {
+      "input": {
+        "id": 991,
+        "raw": 150,
+        "school": 22
+      },
+      "kind": "school_release",
+      "output": 5
+    },
+    {
+      "input": {
+        "id": 991,
+        "raw": 200,
+        "school": 22
+      },
+      "kind": "school_release",
+      "output": 5
+    },
+    {
+      "input": {
+        "id": 995,
+        "raw": 1,
+        "school": 23
+      },
+      "kind": "school_release",
+      "output": 21
+    },
+    {
+      "input": {
+        "id": 995,
+        "raw": 35,
+        "school": 23
+      },
+      "kind": "school_release",
+      "output": 15
+    },
+    {
+      "input": {
+        "id": 995,
+        "raw": 100,
+        "school": 23
+      },
+      "kind": "school_release",
+      "output": 5
+    },
+    {
+      "input": {
+        "id": 995,
+        "raw": 150,
+        "school": 23
+      },
+      "kind": "school_release",
+      "output": 5
+    },
+    {
+      "input": {
+        "id": 995,
+        "raw": 200,
+        "school": 23
+      },
+      "kind": "school_release",
+      "output": 5
+    },
+    {
+      "input": {
+        "id": 993,
+        "raw": 1,
+        "school": 24
+      },
+      "kind": "school_release",
+      "output": 52
+    },
+    {
+      "input": {
+        "id": 993,
+        "raw": 35,
+        "school": 24
+      },
+      "kind": "school_release",
+      "output": 36
+    },
+    {
+      "input": {
+        "id": 993,
+        "raw": 100,
+        "school": 24
+      },
+      "kind": "school_release",
+      "output": 5
+    },
+    {
+      "input": {
+        "id": 993,
+        "raw": 150,
+        "school": 24
+      },
+      "kind": "school_release",
+      "output": 5
+    },
+    {
+      "input": {
+        "id": 993,
+        "raw": 200,
+        "school": 24
+      },
+      "kind": "school_release",
+      "output": 5
+    },
+    {
+      "input": {
+        "id": 992,
+        "raw": 1,
+        "school": 25
+      },
+      "kind": "school_release",
+      "output": 10
+    },
+    {
+      "input": {
+        "id": 992,
+        "raw": 35,
+        "school": 25
+      },
+      "kind": "school_release",
+      "output": 7
+    },
+    {
+      "input": {
+        "id": 992,
+        "raw": 100,
+        "school": 25
+      },
+      "kind": "school_release",
+      "output": 5
+    },
+    {
+      "input": {
+        "id": 992,
+        "raw": 150,
+        "school": 25
+      },
+      "kind": "school_release",
+      "output": 5
+    },
+    {
+      "input": {
+        "id": 992,
+        "raw": 200,
+        "school": 25
+      },
+      "kind": "school_release",
+      "output": 5
+    },
+    {
+      "input": {
+        "id": 997,
+        "raw": 1,
+        "school": 26
+      },
+      "kind": "school_release",
+      "output": 16
+    },
+    {
+      "input": {
+        "id": 997,
+        "raw": 35,
+        "school": 26
+      },
+      "kind": "school_release",
+      "output": 11
+    },
+    {
+      "input": {
+        "id": 997,
+        "raw": 100,
+        "school": 26
+      },
+      "kind": "school_release",
+      "output": 5
+    },
+    {
+      "input": {
+        "id": 997,
+        "raw": 150,
+        "school": 26
+      },
+      "kind": "school_release",
+      "output": 5
+    },
+    {
+      "input": {
+        "id": 997,
+        "raw": 200,
+        "school": 26
+      },
+      "kind": "school_release",
+      "output": 5
+    },
+    {
+      "input": {
+        "id": 998,
+        "raw": 1,
+        "school": 27
+      },
+      "kind": "school_release",
+      "output": 43
+    },
+    {
+      "input": {
+        "id": 998,
+        "raw": 35,
+        "school": 27
+      },
+      "kind": "school_release",
+      "output": 30
+    },
+    {
+      "input": {
+        "id": 998,
+        "raw": 100,
+        "school": 27
+      },
+      "kind": "school_release",
+      "output": 5
+    },
+    {
+      "input": {
+        "id": 998,
+        "raw": 150,
+        "school": 27
+      },
+      "kind": "school_release",
+      "output": 5
+    },
+    {
+      "input": {
+        "id": 998,
+        "raw": 200,
+        "school": 27
+      },
+      "kind": "school_release",
+      "output": 5
+    },
+    {
+      "input": {
+        "hp_roll_state": 0,
+        "level": 2,
+        "rollSeed": 0
+      },
+      "kind": "level_vitals",
+      "output": {
+        "hp": 37,
+        "hp_roll_state": 1013904223,
+        "max_hp": 77,
+        "max_sp": 204,
+        "raw_max_hp": 72,
+        "sp": 12
+      }
+    },
+    {
+      "input": {
+        "hp_roll_state": 1013904223,
+        "level": 3,
+        "rollSeed": 0
+      },
+      "kind": "level_vitals",
+      "output": {
+        "hp": 37,
+        "hp_roll_state": 1196435762,
+        "max_hp": 100,
+        "max_sp": 213,
+        "raw_max_hp": 91,
+        "sp": 12
+      }
+    },
+    {
+      "input": {
+        "hp_roll_state": 1196435762,
+        "level": 4,
+        "rollSeed": 0
+      },
+      "kind": "level_vitals",
+      "output": {
+        "hp": 37,
+        "hp_roll_state": 3519870697,
+        "max_hp": 122,
+        "max_sp": 222,
+        "raw_max_hp": 119,
+        "sp": 12
+      }
+    },
+    {
+      "input": {
+        "hp_roll_state": 3519870697,
+        "level": 5,
+        "rollSeed": 0
+      },
+      "kind": "level_vitals",
+      "output": {
+        "hp": 37,
+        "hp_roll_state": 2868466484,
+        "max_hp": 145,
+        "max_sp": 231,
+        "raw_max_hp": 144,
+        "sp": 12
+      }
+    },
+    {
+      "input": {
+        "rollSeed": 0
+      },
+      "kind": "full_bed",
+      "output": {
+        "hp": 145,
+        "sp": 231
+      }
+    },
+    {
+      "input": {
+        "hp_roll_state": 42,
+        "level": 2,
+        "rollSeed": 42
+      },
+      "kind": "level_vitals",
+      "output": {
+        "hp": 37,
+        "hp_roll_state": 1083814273,
+        "max_hp": 77,
+        "max_sp": 204,
+        "raw_max_hp": 73,
+        "sp": 12
+      }
+    },
+    {
+      "input": {
+        "hp_roll_state": 1083814273,
+        "level": 3,
+        "rollSeed": 42
+      },
+      "kind": "level_vitals",
+      "output": {
+        "hp": 37,
+        "hp_roll_state": 378494188,
+        "max_hp": 100,
+        "max_sp": 213,
+        "raw_max_hp": 89,
+        "sp": 12
+      }
+    },
+    {
+      "input": {
+        "hp_roll_state": 378494188,
+        "level": 4,
+        "rollSeed": 42
+      },
+      "kind": "level_vitals",
+      "output": {
+        "hp": 37,
+        "hp_roll_state": 2479403867,
+        "max_hp": 122,
+        "max_sp": 222,
+        "raw_max_hp": 113,
+        "sp": 12
+      }
+    },
+    {
+      "input": {
+        "hp_roll_state": 2479403867,
+        "level": 5,
+        "rollSeed": 42
+      },
+      "kind": "level_vitals",
+      "output": {
+        "hp": 37,
+        "hp_roll_state": 955863294,
+        "max_hp": 145,
+        "max_sp": 231,
+        "raw_max_hp": 131,
+        "sp": 12
+      }
+    },
+    {
+      "input": {
+        "rollSeed": 42
+      },
+      "kind": "full_bed",
+      "output": {
+        "hp": 145,
+        "sp": 231
+      }
+    },
+    {
+      "input": {
+        "hp_roll_state": 4294967295,
+        "level": 2,
+        "rollSeed": 4294967295
+      },
+      "kind": "level_vitals",
+      "output": {
+        "hp": 37,
+        "hp_roll_state": 1012239698,
+        "max_hp": 77,
+        "max_sp": 204,
+        "raw_max_hp": 72,
+        "sp": 12
+      }
+    },
+    {
+      "input": {
+        "hp_roll_state": 1012239698,
+        "level": 3,
+        "rollSeed": 4294967295
+      },
+      "kind": "level_vitals",
+      "output": {
+        "hp": 37,
+        "hp_roll_state": 806866057,
+        "max_hp": 100,
+        "max_sp": 213,
+        "raw_max_hp": 90,
+        "sp": 12
+      }
+    },
+    {
+      "input": {
+        "hp_roll_state": 806866057,
+        "level": 4,
+        "rollSeed": 4294967295
+      },
+      "kind": "level_vitals",
+      "output": {
+        "hp": 37,
+        "hp_roll_state": 579071060,
+        "max_hp": 122,
+        "max_sp": 222,
+        "raw_max_hp": 107,
+        "sp": 12
+      }
+    },
+    {
+      "input": {
+        "hp_roll_state": 579071060,
+        "level": 5,
+        "rollSeed": 4294967295
+      },
+      "kind": "level_vitals",
+      "output": {
+        "hp": 37,
+        "hp_roll_state": 2709482403,
+        "max_hp": 145,
+        "max_sp": 231,
+        "raw_max_hp": 132,
+        "sp": 12
+      }
+    },
+    {
+      "input": {
+        "rollSeed": 4294967295
+      },
+      "kind": "full_bed",
+      "output": {
+        "hp": 145,
+        "sp": 231
+      }
+    },
+    {
+      "input": {
+        "amount": 321,
+        "gold": 18
+      },
+      "kind": "collect_gold",
+      "output": {
+        "gold": 339,
+        "pack_items": 0,
+        "remaining": 0,
+        "repeated": false
+      }
     }
   ],
   "source_sha": "a3eb1605ea1dc391b691fe314377458a7e63e483"

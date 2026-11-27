@@ -64,7 +64,7 @@ def _parser():
         cmd.add_argument("--race", type=int, help="external race ID")
     export = _command(classes, "export", "Write a validated v1 game class document")
     source = export.add_mutually_exclusive_group(required=True)
-    source.add_argument("--result", type=Path, help="class optimize result file")
+    source.add_argument("--result", type=Path, help="class search or beginner recommendation result")
     source.add_argument("--class", "--input", dest="document", type=Path, help="game class document")
     selection = export.add_mutually_exclusive_group()
     selection.add_argument("--class-id", help="stable candidate ID in the result")
@@ -75,7 +75,7 @@ def _parser():
         "to the selected output with status cancelled and exits with code 130."
     )
     optimize.add_argument("--request", type=Path, help="request JSON, or - for stdin")
-    optimize.add_argument("--profile", choices=["dhargo_pve"])
+    optimize.add_argument("--profile", choices=["dhargo_pve", "spellcaster_discovery_v1"])
     optimize.add_argument("--top", type=int, help="override the requested number of results")
     characters = commands.add_parser("character").add_subparsers(dest="action", required=True)
     for action in ("slots", "import"):
@@ -102,6 +102,13 @@ def _parser():
     progression = commands.add_parser("progression").add_subparsers(dest="action", required=True)
     builds = commands.add_parser("build").add_subparsers(dest="action", required=True)
     _command(builds, "baselines", "List verified comparison class inputs and profile exclusions")
+    first = _command(builds, "recommend", "Recommend a beginner spellcaster on paired progression and combat scenarios")
+    beginner_source = first.add_mutually_exclusive_group()
+    beginner_source.add_argument("--request", type=Path, help="optional beginner request JSON")
+    beginner_source.add_argument("--compare-slower", type=Path, metavar="RESULT",
+                                 help="compare slower builds to a 0.30x recommendation result or workbench archive")
+    first.add_argument("--thoroughness", choices=("quick", "standard", "thorough"))
+    first.add_argument("--require-fast-advancement", action="store_true", help="Require the fastest legal advancement (0.30x)")
     books = commands.add_parser("spellbook").add_subparsers(dest="action", required=True)
     fights = commands.add_parser("encounter").add_subparsers(dest="action", required=True)
     enemy = _command(fights, "import-enemy", "Read a local classic enemy career and observed HP", ruleset=False)
@@ -129,7 +136,7 @@ def _parser():
     compare = _command(builds, "compare", "Compare lifecycle results under their frozen assumptions")
     compare.add_argument("--plans", type=Path, nargs="+", required=True)
     bench = _command(commands, "benchmark", "Run the serial native benchmark suite", ruleset=False)
-    bench.add_argument("--suite", choices=["foundation", "smoke", "combat", "progression", "lifecycle", "encounter"], default="smoke")
+    bench.add_argument("--suite", choices=["foundation", "smoke", "combat", "progression", "lifecycle", "encounter", "discovery", "beginner"], default="smoke")
     bench.add_argument("--workers", type=int, choices=[1], default=1)
     return parser
 
@@ -143,6 +150,10 @@ def _export_source(args, bundle):
     if not isinstance(result, dict) or result.get("ruleset_hash") != bundle["content_hash"]:
         raise ValueError("The search result must use the selected ruleset.")
     candidates = result.get("candidates")
+    if result.get("kind") == "beginner_recommendation":
+        rows = [result.get("recommendation"), *result.get("alternatives", [])]
+        candidates = [{"class_id": r.get("id"), "race_id": r.get("race_id"), "class_doc": r.get("class")}
+                      for r in rows if isinstance(r, dict)]
     if not isinstance(candidates, list) or any(not isinstance(c, dict) for c in candidates):
         raise ValueError("Malformed search result candidate list.")
     if args.class_id is not None:
@@ -238,9 +249,42 @@ def _protect_planning_inputs(request, directory, destination):
             stack.extend((child, root) for child in value)
 
 
+def _slower_request(path):
+    result = _input(path)
+    if isinstance(result, dict) and result.get("format") == "dfo-workbench-archive":
+        result = result.get("result")
+    if not isinstance(result, dict) or result.get("kind") != "beginner_recommendation":
+        raise ValueError("Supply a beginner recommendation result or workbench archive")
+    selected = result.get("recommendation")
+    metrics = selected.get("metrics") if isinstance(selected, dict) else None
+    if (not isinstance(metrics, dict) or selected.get("status") != "replayed"
+            or metrics.get("advancement_multiplier") != 0.30 or not isinstance(selected.get("class"), dict)
+            or type(selected.get("race_id")) is not int):
+        raise ValueError("Supply a result with a checked 0.30x recommendation")
+    frozen = result.get("frozen_request")
+    if not isinstance(frozen, dict):
+        raise ValueError("The recommendation needs a frozen request")
+    return {"schema_version": 2,
+            "thoroughness": frozen.get("thoroughness", "standard"),
+            "compare_slower": {"class": selected["class"], "race_id": selected["race_id"]}}
+
+
 def _planning(args, bundle):
     from functools import partial
     from .ruleset import validate_progression_ruleset
+    if args.action == "recommend":
+        from .beginner import CancelToken, recommend_build
+        request = {"schema_version": 2} if args.request is None else _input(args.request)
+        if args.compare_slower is not None:
+            request = _slower_request(args.compare_slower)
+        if not isinstance(request, dict):
+            raise ValueError("Beginner request must be a JSON object")
+        if args.thoroughness:
+            request = {**request, "thoroughness": args.thoroughness}
+        if args.require_fast_advancement and request.get("schema_version", 1) == 1:
+            request = {**request, "require_fast_advancement": True}
+        result = _interruptible_search(recommend_build, CancelToken, request, bundle)
+        return result, 130 if result["termination"] == "cancelled" else 0
     if args.action == "baselines":
         validate_progression_ruleset(bundle)
         from .build_baselines import baseline_catalog
@@ -298,6 +342,13 @@ def _dispatch(args):
     from . import ruleset
 
     if args.command == "benchmark":
+        if args.suite == "beginner":
+            from .beginner_benchmark import run_beginner_benchmark
+            return run_beginner_benchmark(), 0
+        if args.suite == "discovery":
+            from .discovery_benchmark import run_discovery_benchmark
+            report = run_discovery_benchmark()
+            return report, 0 if report["quality"]["passed"] else 1
         if args.suite == "encounter":
             from .encounter_benchmark import run_encounter_benchmark
             return run_encounter_benchmark(), 0
@@ -364,7 +415,7 @@ def _protect_save(args):
     if getattr(args, "output", None) is None or str(args.output) == "-":
         return
     destination = args.output.resolve()
-    input_files = [getattr(args, key, None) for key in ("stock_spells", "request", "plan")]
+    input_files = [getattr(args, key, None) for key in ("stock_spells", "request", "plan", "compare_slower")]
     input_files.extend(getattr(args, "plans", ()))
     if any(p and str(p) != "-" and p.resolve() == destination for p in input_files):
         raise ValueError("Choose an output path distinct from the input files.")

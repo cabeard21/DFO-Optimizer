@@ -1,0 +1,90 @@
+{
+  "race_id": 6,
+  "class": {
+    "format": "daggerfall-enhanced/custom-class",
+    "version": 1,
+    "name": "DFO class",
+    "hitPointsPerLevel": 30,
+    "skills": {
+      "primary": [
+        "Restoration",
+        "Destruction",
+        "Alteration"
+      ],
+      "major": [
+        "Long Blade",
+        "Illusion",
+        "Thaumaturgy"
+      ],
+      "minor": [
+        "Swimming",
+        "Dragonish",
+        "Axe",
+        "Dodging",
+        "Streetwise",
+        "Mysticism"
+      ]
+    },
+    "attributes": {
+      "strength": 75,
+      "intelligence": 75,
+      "willpower": 70,
+      "agility": 40,
+      "endurance": 50,
+      "personality": 10,
+      "speed": 30,
+      "luck": 50
+    },
+    "advantages": [
+      {
+        "primary": "acuteHearing"
+      },
+      {
+        "primary": "bonusToHit",
+        "secondary": "daedra"
+      },
+      {
+        "primary": "increasedMagery",
+        "secondary": "intInSpellPoints3"
+      }
+    ],
+    "disadvantages": [
+      {
+        "primary": "forbiddenMaterial",
+        "secondary": "adamantium"
+      },
+      {
+        "primary": "forbiddenMaterial",
+        "secondary": "dwarven"
+      },
+      {
+        "primary": "forbiddenMaterial",
+        "secondary": "ebony"
+      },
+      {
+        "primary": "forbiddenMaterial",
+        "secondary": "elven"
+      },
+      {
+        "primary": "forbiddenMaterial",
+        "secondary": "mithril"
+      },
+      {
+        "primary": "forbiddenMaterial",
+        "secondary": "silver"
+      },
+      {
+        "primary": "forbiddenMaterial",
+        "secondary": "steel"
+      }
+    ],
+    "reputations": {
+      "merchants": 0,
+      "peasants": 0,
+      "scholars": 0,
+      "nobility": 0,
+      "underworld": 0
+    }
+  },
+  "result_hash": "00f13f2f5cd7e0ca67038a6ab33be828b873a13c84c751b8cfc28ff13f8e870e"
+}
