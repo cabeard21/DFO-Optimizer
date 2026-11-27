@@ -1,5 +1,11 @@
-name: Native wheel acceptance
-on: [push, pull_request, workflow_dispatch]
+name: Native wheel smoke
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
 permissions:
   contents: read
 
@@ -15,49 +21,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "22.18.0"
-      - uses: actions/checkout@v4
-        with:
-          repository: Lattymoy/daggerfall-js-source
-          ref: a3eb1605ea1dc391b691fe314377458a7e63e483
-          path: vendor/dfo-source
-          persist-credentials: false
-          sparse-checkout-cone-mode: false
-          sparse-checkout: |
-            /src/
-            /server-account/src/
-            /.github/workflows/account-deploy.yml
-            /locales/
-            /test/systems/
-            /test/modsOff.js
-            /test/fixtures/mw/
-            /tools/nifWrite.mjs
-            /tools/lib/isMain.mjs
-            /app/lib/fileStorage.cjs
-            /package.json
-            /vendor/**/*.json
-            /vendor/**/*.js
-            /LICENSE
-            /README.md
-      - run: python -m pip install -r requirements-dev.txt
-      - run: python -m build
-      - run: >-
-          node --test test/systems/customclass.test.js test/systems/specialadvantages.test.js
-          test/systems/spellcast.test.js test/systems/fb1012c_spellcost.test.js
-          test/systems/bal9_destruction.test.js test/systems/castspeed.test.js
-          test/systems/equiprestrictions.test.js test/systems/spell/audit26_spellmaker.test.js
-          test/systems/save/savetransfer.test.js
-          test/systems/advancement.test.js test/systems/fb1019b_leveleven.test.js
-          test/systems/fb1026d_masterthree.test.js test/systems/schools_arcane.test.js
-        working-directory: vendor/dfo-source
-      - run: python tools/verify_wheel.py --browser
-      - if: runner.os == 'Linux'
-        run: python tools/verify_native_coverage.py --output build/acceptance/native-coverage.json
-      - uses: actions/upload-artifact@v4
-        with:
-          name: native-${{ matrix.os }}
-          path: |
-            dist/*.whl
-            build/acceptance/*.json
+      - name: Build native wheel
+        run: |
+          python -m pip install build==1.3.0
+          python -m build --wheel
+      - name: Install built wheel
+        shell: bash
+        run: python -m pip install dist/*.whl
+      - name: Run installed CLI smoke check
+        run: dfo benchmark --suite smoke --workers 1

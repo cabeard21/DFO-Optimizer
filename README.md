@@ -165,6 +165,8 @@ python -m build
 python tools/verify_wheel.py --browser
 ```
 
-Wheel acceptance creates a new environment, regenerates the source fixtures, runs the tests against the installed package from outside the checkout, and records five serial benchmark suites. The browser lane adds Chromium workflow tests. Set `DFO_SOURCE` to use another local checkout. The 14 original Dhargo downloads can also be replayed separately. [Fixture verification](tests/fixtures/dhargo/README.md)
+CI builds and installs the native wheel on Windows and Linux and runs `dfo benchmark --suite smoke --workers 1`.
+
+Full wheel acceptance creates a new environment, checks the source fixtures, runs the tests against the installed package from outside the checkout, and records seven serial benchmark suites. The `--browser` option adds Chromium workflow tests. On Linux, run `python tools/verify_native_coverage.py` for compiler-instrumented coverage. Set `DFO_SOURCE` to use another local checkout. The 14 original Dhargo downloads can also be replayed separately. [Fixture verification](tests/fixtures/dhargo/README.md)
 
 [M0–M1 acceptance](docs/M0-M1-ACCEPTANCE.md) · [M2–M3 acceptance](docs/M2-M3-ACCEPTANCE.md) · [M4–M5 acceptance](docs/M4-M5-ACCEPTANCE.md) · [M6–M7 qualification](docs/M6-M7-ACCEPTANCE.md) · [Architecture](docs/ARCHITECTURE.md) · [Mechanics and open questions](docs/MECHANICS.md) · [Search guarantees](docs/OPTIMIZATION.md) · [Performance measurements](docs/PERFORMANCE.md)
